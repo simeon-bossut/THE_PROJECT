@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
  
-int** creatab(int size)
+int** creatab_2d(int size)
 {
     int* tab_c = (int*)malloc(sizeof(int) * size);
     if (tab_c == NULL) {
@@ -19,7 +19,6 @@ int** creatab(int size)
             exit(EXIT_SUCCESS);
         }
     }
-
     return tab;
 }
 
@@ -48,6 +47,17 @@ Grid* initgrid(int dim)//init the grid size at 0 all case = 0
     }
     return grid;
 }
+
+void grid_completion(Grid * grid)
+{
+    for (int i = 0; i < grid->size; i++) {
+        for (int j = 0; j < grid->size; j++) {
+
+            grid->tab[i][j] = 0;
+        }
+    }
+}
+
 
 void printgrid(Grid *grid)
 {
