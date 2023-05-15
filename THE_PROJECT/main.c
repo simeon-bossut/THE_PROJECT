@@ -1,5 +1,3 @@
 #include "game.h"
 
-int main() {
-  
-}
+int main() {}
