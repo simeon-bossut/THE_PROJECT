@@ -6,6 +6,6 @@ typedef struct GhostGrid{
 	int size;
 }GhostGrid;
 
-void fill_ghosts(GhostGrid gridf,Grid gridj);
+void fill_ghost(GhostGrid gridf, Grid gridj, int* around);
 
 #endif // !solver
