@@ -1,4 +1,42 @@
 #include "game.h"
+#include <stdio.h>
+#include <stdlib.h>
+ 
+void creatab(int size)
+{
+    int* tab_c = (int*)malloc(sizeof(int) * size);
+    if (tab_c == NULL) {
+        exit(EXIT_SUCCESS);
+    }
+    int** tab = (int**)malloc(sizeof(int*) * size);
+    if (tab == NULL) {
+        exit(EXIT_SUCCESS);
+    }
+    for (int i = 0; i < size; i++) {
+        tab[i] = tab_c;
+        tab_c = (int*)malloc(sizeof(int) * size);
+        if (tab_c == NULL) {
+            exit(EXIT_SUCCESS);
+        }
+    }
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < 4; j++) {
+            tab[i][j] = i + j;
+        }
+    }
+   
+    return EXIT_SUCCESS;
+}
+
+void affichetab(int size,int **tab)
+{
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            printf("|%d|", tab[i][j]);
+        }
+        printf("\n");
+    }
+}
 
 Case initCase(int value) {
 
@@ -35,3 +73,4 @@ void printgrid(Grid grid)
 
 
 }
+
