@@ -16,7 +16,7 @@ void fill_ghosts(GhostGrid gridf, Grid gridj) {
 
 Pos * find_in_grid(Grid grid,int val)
 {
-	Pos* positions;
+	Pos* positions=malloc(grid.size*sizeof(Pos));
 	int compt = 0;
 	for (int i = 0;i < grid.size;++i)
 	{
