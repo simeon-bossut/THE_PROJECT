@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untitled</title>
+    <meta name="viewport">
+    <meta content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/footer.css">
 </head>
 
@@ -27,6 +27,6 @@
             <p class="copyright">PFD © 2023</p>
         </footer>
     </div>
-    </body>
+</body>
 
 </html>
