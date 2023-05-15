@@ -13,7 +13,7 @@ int** creatab(int size)
         exit(EXIT_SUCCESS);
     }
     for (int i = 0; i < size; i++) {
-        tab[i] = tab_c;
+        *(tab + i) = tab_c;
         tab_c = (int*)malloc(sizeof(int) * size);
         if (tab_c == NULL) {
             exit(EXIT_SUCCESS);
@@ -53,7 +53,7 @@ void printgrid(Grid *grid)
 {
 	for (int i = 0;i < grid->size;++i)
 	{
-        for (int j = 0;j < grid->size ;++i)
+        for (int j = 0;j < grid->size ;++j)
         {
             printf("| %d |", grid->tab[i][j]);
         }
