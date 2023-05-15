@@ -22,23 +22,25 @@ int** creatab_2d(int size)
     return tab;
 }
 
-
-
 Box initBox(int value) {
 
-	Box tmp;
-	tmp.value = value;
-	return tmp;
+  Box tmp;
+  tmp.value = value;
+  return tmp;
 }
 
-Grid* initgrid(int dim)//init the grid size at 0 all case = 0
+Grid* initgrid(int dim) // init the grid size at 0 all case = 0
 {
-	Grid* grid = (Grid*)malloc(sizeof(Grid));
-	if (!grid) { return NULL; }
-	grid->size = dim;
-    int** tmp = creatab(dim);
-	if (tmp == NULL) { return 0; }
-	grid->tab = tmp;
+    Grid* grid = (Grid*)malloc(sizeof(Grid));
+    if (!grid) {
+        return NULL;
+    }
+    grid->size = dim;
+    int** tmp = creatab_2d(dim);
+    if (tmp == NULL) {
+        return 0;
+    }
+    grid->tab = tmp;
 
     for (int i = 0; i < dim; i++) {
         for (int j = 0; j < dim; j++) {
@@ -48,25 +50,54 @@ Grid* initgrid(int dim)//init the grid size at 0 all case = 0
     return grid;
 }
 
+int *initpov(int size) {
+  int *pov = (int *)malloc(sizeof(int) * size * 4);
+  if (!pov) {
+    return NULL;
+  }
+  for (int i = 0; i < size * 4; i++) {
+    pov[i] = i + 1;
+  }
+  return pov;
+}
+
 void grid_completion(Grid * grid)
 {
     for (int i = 0; i < grid->size; i++) {
         for (int j = 0; j < grid->size; j++) {
 
-            grid->tab[i][j] = 0;
+            grid->tab[i][j] = (rand() % grid->size)+1;
         }
     }
+    return grid;
 }
+ 
+  
+void printgrid(Grid *grid, int *pov) {
 
+  printf("     ");
 
-void printgrid(Grid *grid)
-{
-	for (int i = 0;i < grid->size;++i)
-	{
-        for (int j = 0;j < grid->size ;++j)
-        {
-            printf("| %d |", grid->tab[i][j]);
-        }
-        printf("\n");
-	}
+  for (int i = 0; i < grid->size; i++) {
+    printf("| %d |", pov[i]);
+  }
+
+  printf("     \n");
+
+  for (int i = 0; i < grid->size; ++i) {
+
+    printf("| %d |", pov[grid->size * 4 - i - 1]);
+
+    for (int j = 0; j < grid->size; ++j) {
+      printf("| %d |", grid->tab[i][j]);
+    }
+
+    printf("| %d |\n", pov[grid->size + i]);
+  }
+
+  printf("     ");
+
+  for (int i = 0; i < grid->size; i++) {
+    printf("| %d |", pov[grid->size * 3 - i - 1]);
+  }
+  printf("     \n");
 }
