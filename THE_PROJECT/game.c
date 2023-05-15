@@ -75,7 +75,7 @@ void grid_completion(Grid * grid)
   
 void printgrid(Grid *grid, int *pov) {
 
-  printf("     ");
+  printf("      ");
 
   for (int i = 0; i < grid->size; i++) {
     printf("| %d |", pov[i]);
@@ -94,7 +94,7 @@ void printgrid(Grid *grid, int *pov) {
     printf("| %d |\n", pov[grid->size + i]);
   }
 
-  printf("     ");
+  printf("      ");
 
   for (int i = 0; i < grid->size; i++) {
     printf("| %d |", pov[grid->size * 3 - i - 1]);
