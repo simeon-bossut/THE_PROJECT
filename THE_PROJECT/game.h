@@ -12,7 +12,7 @@ typedef struct Case {
 
 typedef struct Grid {
 	int size;
-	Case* tab;
+	Case** tab;
 }Grid;
 
 void printgrid(Grid grid);
