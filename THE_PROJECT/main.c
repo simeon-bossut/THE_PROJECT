@@ -6,6 +6,6 @@ int main() {
 	{
 		return 0;
 	}
-	printgrid(*grid);
+	printgrid(grid);
 	return;
 }

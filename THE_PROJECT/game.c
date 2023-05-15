@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
  
-void creatab(int size)
+int** creatab(int size)
 {
     int* tab_c = (int*)malloc(sizeof(int) * size);
     if (tab_c == NULL) {
@@ -19,57 +19,44 @@ void creatab(int size)
             exit(EXIT_SUCCESS);
         }
     }
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < 4; j++) {
-            tab[i][j] = i + j;
-        }
-    }
-   
-    return EXIT_SUCCESS;
+
+    return tab;
 }
 
-void affichetab(int size,int **tab)
-{
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            printf("|%d|", tab[i][j]);
-        }
-        printf("\n");
-    }
-}
 
-Case initCase(int value) {
 
-	Case tmp;
+Box initBox(int value) {
+
+	Box tmp;
 	tmp.value = value;
 	return tmp;
 }
-Grid* initgrid(int dim)//init the grid size 0 all case = 0
+
+Grid* initgrid(int dim)//init the grid size at 0 all case = 0
 {
 	Grid* grid = (Grid*)malloc(sizeof(Grid));
-	if (!grid) { return 0; }
-	grid->size = dim*dim;
-	grid->tab = (Case*)malloc(sizeof(Case) * dim * dim);
-	if (grid->tab) {
-		for (int i = 0;i < dim*dim;++i)
-		{
-			grid->tab[i] = initCase(i);
-		}
-		return grid;
-	}
-	return NULL;
+	if (!grid) { return NULL; }
+	grid->size = dim;
+    int** tmp = creatab(dim);
+	if (tmp == NULL) { return 0; }
+	grid->tab = tmp;
+
+    for (int i = 0; i < dim; i++) {
+        for (int j = 0; j < dim; j++) {
+            grid->tab[i][j] = 0;
+        }
+    }
+    return grid;
 }
 
-void printgrid(Grid grid)
+void printgrid(Grid *grid)
 {
-	for (int i = 0;i < grid.size*grid.size;++i)
+	for (int i = 0;i < grid->size;++i)
 	{
-		printf("| %d |", grid.tab[i].value);
-		if (!i % grid.size)
-		{
-			printf("\n");
-		}
+        for (int j = 0;j < grid->size ;++i)
+        {
+            printf("| %d |", grid->tab[i][j]);
+        }
+        printf("\n");
 	}
-
-
 }

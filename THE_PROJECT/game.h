@@ -6,19 +6,19 @@
 #include <string.h>
 #include <stdbool.h>
 
-typedef struct Case {
+typedef struct Box {
 	int value;
-}Case;
+}Box;
 
 typedef struct Grid {
 	int size;
-	Case* tab;
+	int** tab;
 }Grid;
 
-void printgrid(Grid grid);
+void printgrid(Grid *grid);
 
 Grid* initgrid(int dim);
 
-Case initCase(int value);
+Box initBox(int value);
 
 #endif // !game
