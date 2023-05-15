@@ -6,6 +6,12 @@
 #include <string.h>
 #include <stdbool.h>
 
+typedef struct Pos {
+
+	int row;
+	int col;
+}Pos;
+
 typedef struct Box {
 	int value;
 }Box;
