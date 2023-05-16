@@ -56,7 +56,7 @@ int *initpov(int size) {
     return NULL;
   }
   for (int i = 0; i < size * 4; i++) {
-    pov[i] = i + 1;
+    *(pov + i) = i + 1;
   }
   return pov;
 }
