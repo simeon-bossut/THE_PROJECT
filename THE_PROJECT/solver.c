@@ -53,3 +53,18 @@ Pos * find_in_grid(Grid grid,int val,int*size)//attention grid.size diff de size
 	return positions;
 }
 
+char* fill_ghost_box(GhostGrid grid,int value, int i, int j) {
+	int tmp;
+	for (int k = 0; k < grid.size; k++)
+	{
+		if (k != value) {
+			grid.tab[i][j][tmp] = k;
+		}
+		else
+		{
+			k++;
+			grid.tab[i][j][tmp] = k;
+		}
+		tmp++;
+	}
+}

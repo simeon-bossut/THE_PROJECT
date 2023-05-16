@@ -15,25 +15,25 @@
         <h1>Sign up portal</h1>
     </header>
     <main>
-        <form class="form" action="newacc.php" method=" post">
+        <form class="form" action="newacc.php" method="post">
             <div class="form_div">
                 <label>Email (login):</label>
-                <input class="field_class" name="login" type="text" placeholder="Your Email" required pattern= "^[A-Za-z ']+$" maxlength="40" required >
+                <input class="field_class" name="email" type="text" placeholder="Your Email"  maxlength="40" required >
 				
 				<label>Votre pseudonyme!:</label>
-                <input class="field_class" name="login" type="text" placeholder="Pseudo" required pattern= "^[A-Za-z ']+$" maxlength="40" required >
+                <input class="field_class" name="pseudo" type="text" placeholder="Pseudo" required pattern= "^[A-Za-z ']+$" maxlength="40" required >
 				
 				<label class="input" >Civilité :</label>
-				<input type="radio" name="civilite" id="male" value="M" required /><label for="male">Monsieur</label>
-				<input  type="radio" name="civilite" id="female" value="Mme" required /><label for="female">Madame</label>
+				<input type="radio" name="civility" id="male" value="M" required /><label for="male">Monsieur</label>
+				<input  type="radio" name="civility" id="female" value="Mme" required /><label for="female">Madame</label>
 				<br> <br>
 				
                 <label>Password:</label>
-                <input id="pass" class="field_class" name="password" type="password" placeholder="Your password" >
+                <input id="pass" class="field_class" name="password" type="password" placeholder="Your password" required >
 				
 				 <label>Confirm your password:</label>
-                <input id="pass" class="field_class" name="password" type="password" placeholder="Your password">
-                <button class="bouton" type="submit" form="newacc">Go!</button>
+                <input id="pass" class="field_class" name="password2" type="password" placeholder="Your password" required>
+                <button class="bouton" type="submit" name="add">Go!</button>
 				<br><br>
             </div>
 			
