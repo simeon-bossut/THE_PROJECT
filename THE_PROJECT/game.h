@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+
 
 typedef struct Pos {
 
@@ -29,11 +31,13 @@ Grid *initgrid(int dim);
 
 Box initBox(int value);
 
-int** creatab_2d(int size);
+void initElt(int *elt, int size);
 
-bool found_in_col(int val, Grid* grid, int col);
+Grid *fillgrid(Grid *grid);
 
 bool found_in_row(int val, Grid* grid, int row);
+
+bool found_in_col(int val, Grid* grid, int col);
 
 void grid_completion(Grid* grid);
 

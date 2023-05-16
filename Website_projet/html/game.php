@@ -6,18 +6,24 @@
 	<title>The Crate Staker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../CSS/global.css">
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
-<body>
+<body style="overflow: hidden">
 		
+  <div class="frontDis">
+    <img src="../Images/complete_logo.png" id="crateStackLogo">
+
+    <div id="pressKeyText">Press any key to continue</div>
+  </div>
+
+  <div class="backDis hidden">
 	<?php include("nav.php"); ?>
 
   <main>
     <h1>Welcome to The Crate Stacker game !</h1>
 		<br> <br> <br>
-		<h2>The CrateStacker is similar to Skyscrapers, which is a puzzle game that involves placing buildings on a square grid with some clues on the sides.</h2>
+		<h2>The Crate Stacker is similar to Skyscrapers, which is a puzzle game that involves placing buildings on a square grid with some clues on the sides.</h2>
     <br>
     <div id="part1">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/Ww3HbHMnJ5g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -35,7 +41,9 @@
   </main>
 
 	<?php include("footer.php"); ?>
+
+</div>
 	
-  <script src="index.js"></script>
+  <script src="script.js"></script>
   </body>
 </html>
