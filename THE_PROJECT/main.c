@@ -13,6 +13,7 @@ int main(int argc, char **argv) {
   pov = initpov(size);
 
   Grid *grid = initgrid(size);
+  GhostGrid* gridf = initGhostGrid(size);
   if (grid == NULL) {
     return 0;
   }
