@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
 
   srand(time(NULL));
 
-  int size = argv[1] ? atoi(argv[1]) : 3;
+  int size = argv[1] ? atoi(argv[1]) : 5;
 
   int *pov;
   pov = initpov(size);
@@ -16,6 +16,9 @@ int main(int argc, char **argv) {
   if (grid == NULL) {
     return 0;
   }
+
+  grid_completion(grid);
+
   printgrid(grid, pov);
   return EXIT_SUCCESS;
 }

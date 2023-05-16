@@ -31,8 +31,10 @@ Box initBox(int value);
 
 int** creatab_2d(int size);
 
-found_in_col(int val, Grid* grid);
+bool found_in_col(int val, Grid* grid, int col);
 
-found_in_row(int val, Grid* grid);
+bool found_in_row(int val, Grid* grid, int row);
+
+void grid_completion(Grid* grid);
 
 #endif // !game
