@@ -1,7 +1,4 @@
-#include "game.h"
 #include "solver.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 GhostGrid* initGhostGrid(int dim) {
 	GhostGrid* grid = (GhostGrid*)malloc(sizeof(GhostGrid));
@@ -52,38 +49,33 @@ void fill_ghost(GhostGrid gridf, Grid gridj, int* around) {
 	{
 		pos = find_in_grid(gridj, i,&size);
 
-		for (int j = 0; j < gridf.size; j++) {
-			for (int k = 0; k < gridf.size; k++) {
-				fill_ghost_box(gridf, i, pos[j].row, k);
-				fill_ghost_box(gridf, i, k, pos[j].col);
-			}
-		}
-	}
-
+    for (int j = 0; j < gridf.size; j++) {
+      for (int k = 0; k < gridf.size; k++) {
+        fill_ghost_box(gridf, i, pos[j].row, k);
+        fill_ghost_box(gridf, i, k, pos[j].col);
+      }
+    }
+  }
 }
 
-Pos * find_in_grid(Grid grid,int val,int*size)//attention grid.size diff de size
+Pos *find_in_grid(Grid grid, int val,
+                  int *size) // attention grid.size diff de size
 {
-	Pos* positions=malloc(grid.size*sizeof(Pos));
-	if (positions == NULL)
-	{
-		exit(EXIT_SUCCESS);
-	}
-	int compt = 0;
-	for (int i = 0;i < grid.size;++i)
-	{
-		for (int  j= 0;j < grid.size;++j)
-		{
-			if (grid.tab[i][j] == val)
-			{
-				positions[compt].row = i;
-				positions[compt].col = j;
-			}
-            
-		}
-	}
-	*size = compt;
-	return positions;
+  Pos *positions = malloc(grid.size * sizeof(Pos));
+  if (positions == NULL) {
+    exit(EXIT_SUCCESS);
+  }
+  int compt = 0;
+  for (int i = 0; i < grid.size; ++i) {
+    for (int j = 0; j < grid.size; ++j) {
+      if (grid.tab[i][j] == val) {
+        positions[compt].row = i;
+        positions[compt].col = j;
+      }
+    }
+  }
+  *size = compt;
+  return positions;
 }
 
 void fill_ghost_box(GhostGrid grid,int value, int i, int j) {
