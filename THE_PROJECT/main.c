@@ -16,8 +16,8 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  //fillgrid(grid);
-  // grid_completion(grid);
+  // fillgrid(grid);
+  //  grid_completion(grid);
 
   printgrid(grid, pov);
   return EXIT_SUCCESS;
