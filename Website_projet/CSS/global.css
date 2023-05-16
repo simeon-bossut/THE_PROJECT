@@ -11,14 +11,55 @@ main {
 h1, h2 {
 	text-align: center;
 }
-h1:hover {
-  transition-duration: 0.4s;
-  text-shadow: 3px 3px red;
+h1 {
+  font-size: 50px;
+  text-shadow: 5px 5px red;
+
+  animation-name:titre;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+@keyframes titre {
+  0%  {text-shadow: 5px 5px red;}
+  25% {text-shadow: 5px 5px blue;}
+  50% {text-shadow: 5px 5px green;}
+  75% {text-shadow: 5px 5px purple;}
+}
+#part1, #part2, #part3 {
+  font-size: large;
+  padding: 30px 100px 30px 100px;
+  margin-left: -50px;
+  margin-right: -50px;
 }
 #part1, #part3 {
-  color: inherit;
+  background-color: #F0C5AD;
+  color: #232323;
 }
-
+#part1, #part2 {
+  display: inline-flex;
+}
+#part1 > p {
+  font-family:"MV Boli";
+  font-size: 30px;
+  width: 50%;
+  margin-left: 50px;
+}
+#part1 > iframe {
+  width: 50%;
+}
+#part2 > p {
+  font-family:"MV Boli";
+  font-size: 30px;
+  width: 50%;
+  margin-right: 50px;
+}
+#part1 > iframe {
+  width: 50%;
+}
+#part3 {
+  font-family:"MV Boli";
+  font-size: 30px;
+}
 
 
 
