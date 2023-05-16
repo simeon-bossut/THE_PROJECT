@@ -34,4 +34,10 @@ void initElt(int *elt, int size);
 
 Grid *fillgrid(Grid *grid);
 
+bool found_in_row(int val, Grid* grid, int row);
+
+bool found_in_col(int val, Grid* grid, int col);
+
+void grid_completion(Grid* grid);
+
 #endif // !game
