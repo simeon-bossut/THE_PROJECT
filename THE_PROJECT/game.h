@@ -7,6 +7,7 @@
 #include <string.h>
 #include <time.h>
 
+
 typedef struct Pos {
 
   int row;

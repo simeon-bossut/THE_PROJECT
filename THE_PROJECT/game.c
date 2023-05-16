@@ -1,6 +1,5 @@
 #include "game.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 
 int **creatab(int size) {
   int *tab_c = (int *)malloc(sizeof(int) * size);
@@ -51,12 +50,12 @@ Grid *initgrid(int dim) // init the grid size at 0 all case = 0
 }
 
 int *initpov(int size) {
-  int *pov = (int *)malloc(sizeof(int) * size * 4);
-  if (!pov) {
+  int *pov = malloc(sizeof(int) * size);
+  if (pov==NULL) {
     return NULL;
   }
-  for (int i = 0; i < size * 4; i++) {
-    pov[i] = i + 1;
+  for(int i = 0; i < size; i++) {
+    *(pov+i) = i+1;
   }
   return pov;
 }
@@ -100,7 +99,10 @@ void initElt(int *elt, int size) {
 Grid *fillgrid(Grid *grid) {
   int size = grid->size;
   int *elt = (int *)malloc(sizeof(int) * size);
-
+  if (elt == NULL)
+  {
+      return NULL;
+  }
   for (int i = 0; i < size; i++) {
     initElt(elt, size);
     for (int j = 0; j < size; j++) {
