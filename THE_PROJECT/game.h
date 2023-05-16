@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 typedef struct Pos {
 
@@ -28,5 +29,7 @@ int *initpov(int size);
 Grid *initgrid(int dim);
 
 Box initBox(int value);
+
+Grid *fillgrid(Grid *grid);
 
 #endif // !game

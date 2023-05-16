@@ -13,6 +13,9 @@ int main(int argc, char **argv) {
   if (grid == NULL) {
     return 0;
   }
+
+  fillgrid(grid);
+  
   printgrid(grid, pov);
   return 1;
 }

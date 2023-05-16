@@ -90,3 +90,43 @@ void printgrid(Grid *grid, int *pov) {
 
   printf("     \n");
 }
+
+void initElt(int *elt, int size) {
+  for (int i = 0; i < size; i++) {
+    elt[i] = i + 1;
+  }
+}
+
+Grid *fillgrid(Grid *grid) {
+  int size = grid->size;
+  int elt[size];
+
+  srand(time(NULL));
+
+  for (int i = 0; i < size; i++) {
+    initElt(elt, size);
+    for (int j = 0; j < size; j++) {
+      if (i == 0) {
+        int r = rand() % (size - j);
+        grid->tab[i][j] = elt[r];
+        elt[r] = elt[size - j - 1];
+      }
+      if (i > 0) {
+        int r = rand() % (size - j);
+        int k = 0;
+        while (k < i) {
+          if (grid->tab[k][j] == elt[r]) {
+            r = rand() % (size - j);
+            k = 0;
+          } else {
+            k++;
+          }
+        }
+        grid->tab[i][j] = elt[r];
+        elt[r] = elt[size - j - 1];
+      }
+    }
+  }
+
+  return grid;
+}
