@@ -15,7 +15,7 @@
         <h1>Sign up portal</h1>
     </header>
     <main>
-        <form class="form" action="" method=" post">
+        <form class="form" action="newacc.php" method=" post">
             <div class="form_div">
                 <label>Email (login):</label>
                 <input class="field_class" name="login" type="text" placeholder="Your Email" required pattern= "^[A-Za-z ']+$" maxlength="40" required >
