@@ -19,6 +19,8 @@
             <div class="form_div">
                 <label>Email (login):</label>
                 <input class="field_class" name="email" type="text" placeholder="Your Email"  maxlength="40" required >
+				<?php if (isset($_COOKIE["email_error"])) {echo " <style= text_align: center;> <p> this email address is already in use </p>";
+				setcookie("email_error", "", time() - 3600);} ?>
 				
 				<label>Votre pseudonyme!:</label>
                 <input class="field_class" name="pseudo" type="text" placeholder="Pseudo" required pattern= "^[A-Za-z ']+$" maxlength="40" required >
@@ -34,6 +36,8 @@
 				 <label>Confirm your password:</label>
                 <input id="pass" class="field_class" name="password2" type="password" placeholder="Your password" required>
                 <button class="bouton" type="submit" name="add">Go!</button>
+				<?php if (isset($_COOKIE["password_error"])) {echo " <style= text_align: center;> <p> please choose the same password </p>";
+				setcookie("password_error", "", time() - 3600);} ?>
 				<br><br>
             </div>
 			
@@ -43,3 +47,4 @@
 		<?php include("footer.php"); ?>
 	
 </body>
+</html>
