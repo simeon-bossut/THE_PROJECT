@@ -4,7 +4,10 @@
 #include <stdlib.h>
 
 int main(int argc, char **argv) {
-  int size = argv[1] ? atoi(argv[1]) : 3;
+
+  srand(time(NULL));
+
+  int size = argv[1] ? atoi(argv[1]) : 5;
 
   int *pov;
   pov = initpov(size);
@@ -14,8 +17,8 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  fillgrid(grid);
-  
+  grid_completion(grid);
+
   printgrid(grid, pov);
-  return 1;
+  return EXIT_SUCCESS;
 }

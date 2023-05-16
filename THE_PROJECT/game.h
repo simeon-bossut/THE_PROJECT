@@ -30,6 +30,12 @@ Grid *initgrid(int dim);
 
 Box initBox(int value);
 
-Grid *fillgrid(Grid *grid);
+int** creatab_2d(int size);
+
+bool found_in_col(int val, Grid* grid, int col);
+
+bool found_in_row(int val, Grid* grid, int row);
+
+void grid_completion(Grid* grid);
 
 #endif // !game
