@@ -4,9 +4,8 @@
 #include <stdlib.h>
 
 void fill_ghost(GhostGrid gridf, Grid gridj, int* around) {
-	int tmp; int l = 0;
-	int* cols; // Pos of searched numbers
-	int* rows;
+	int tmp; 
+
 	Pos* pos = (Pos*)malloc(gridj.size*sizeof(Pos)); // Pos storage
 	if (gridj.tab[0][0] != 0) { // Filling ghost grid with all possibilities if it's empty
 		for (int i = 0; i < gridj.size; i++) {
@@ -19,17 +18,11 @@ void fill_ghost(GhostGrid gridf, Grid gridj, int* around) {
 	for (int i = 0; i < gridf.size; i++)
 	{
 		pos = find_in_grid(gridj, i,&size);
-		cols = (int*)malloc(sizeof(int) * size);
-		rows = (int*)malloc(sizeof(int) * size);
-		for (int j = 0; j < size; j++)
-		{
-			rows[j] = pos[j].row;
-			cols[j] = pos[j].col;
-		}
+
 		for (int j = 0; j < gridf.size; j++) {
 			for (int k = 0; k < gridf.size; k++) {
-				fill_ghost_box(gridf, i, rows[j], k);
-				fill_ghost_box(gridf, i, k, cols[j]);
+				fill_ghost_box(gridf, i, pos[j].row, k);
+				fill_ghost_box(gridf, i, k, pos[j].col);
 			}
 		}
 	}
