@@ -8,6 +8,11 @@ function valider_donnees($donnee)
 	return $donnee;
 }
 
+$sameemail= 0;
+
+
+
+
 if (isset($_POST["add"])) {
 	$pseudo = valider_donnees($_POST["pseudo"]);
 	$civility = valider_donnees($_POST["civility"]);
@@ -20,6 +25,15 @@ if (isset($_POST["add"])) {
 	try {
 	
 	require("connexion.php");
+	$reqPrep1 = "SELECT * FROM acc"; //La requere SQL: SELECT
+    $req = $conn->prepare($reqPrep1); //Préparer la requete
+    $req->execute(); //Executer la requete
+	 $resultat = $req->fetchALl(PDO::FETCH_ASSOC); 
+	foreach ($resultat as $row) {
+		if($row["email"] == $email){ $sameemail=1;}
+	}
+	
+		if($sameemail==0){
 		$reqPrep = "INSERT INTO acc (email,pseudo,civility,password)
 			VALUES(:email,:pseudo,:civility,:password)";
 		$req = $conn->prepare($reqPrep);
@@ -31,13 +45,24 @@ if (isset($_POST["add"])) {
 				':password' => $password2
 			)
 		);
-
+		}
+		else{
+			setcookie("email_error", '1', time() + 60);
+			
+			
+		}
 	$conn = NULL;
-	header("Location:login.php");
+	if($sameemail==0){
+	header("Location:login.php");}
+	else{header("Location:signup.php");}
 	} catch (Exception $e) {
 		die("Erreur : " . $e->getMessage());
 	}
 	
+	}
+	else{
+		setcookie("password_error", '1', time() + 60);
+		header("Location:signup.php");
 	}
 	
 }
