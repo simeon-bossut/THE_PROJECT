@@ -115,7 +115,7 @@ Grid *fillgrid(Grid *grid) {
         int r = rand() % (size - j);
         int k = 0;
         while (k < i) {
-          if (grid->tab[k][j] == elt[r]) {
+          if(grid->tab[k][j] == elt[r]) {
             r = rand() % (size - j);
             k = 0;
           } else {

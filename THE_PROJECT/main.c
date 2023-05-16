@@ -1,5 +1,6 @@
 #include "game.h"
 #include "solver.h"
+#include "seed.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -20,5 +21,16 @@ int main(int argc, char **argv) {
   //  grid_completion(grid);
 
   printgrid(grid, pov);
+
+
+	//test seed
+	/*int val = 15;
+	char id[3] = "7";
+	char *line;
+	line = id_to_line(id);
+
+	printf("%s ", line);*/
+	
+
   return EXIT_SUCCESS;
 }
