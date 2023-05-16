@@ -1,6 +1,7 @@
 #include "game.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
  
 int** creatab_2d(int size)
 {
@@ -61,12 +62,43 @@ int *initpov(int size) {
   return pov;
 }
 
+bool found_in_row(int val, Grid* grid,int row)
+{
+    for (int j = 0;j < grid->size;++j)
+    {
+        if (grid->tab[row][j] == val)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool found_in_col(int val, Grid* grid,int col)
+{
+    for (int i = 0;i < grid->size;++i)
+    {
+        if (grid->tab[i][col] == val)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
 void grid_completion(Grid * grid)
 {
+    int num;
     for (int i = 0; i < grid->size; i++) {
         for (int j = 0; j < grid->size; j++) {
+            do
+            {
+              num = (rand() % grid->size) + 1;//Entre 0 et n 
 
-            grid->tab[i][j] = (rand() % grid->size)+1;
+            } while (found_in_col(num,grid,j)||found_in_row(num,grid,i));
+            grid->tab[i][j] = num;
         }
     }
     return grid;
