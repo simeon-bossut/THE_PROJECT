@@ -27,7 +27,7 @@
                 <button class="bouton" type="submit" form="login_form">Go!</button>
             </div>
             <div class="newacc">
-                <p>you don't have an account yet? <a href="">Sign up!</a></p>
+                <p>you don't have an account yet? <a href="signup.php">Sign up!</a></p>
             </div>
         </form>
     </main>

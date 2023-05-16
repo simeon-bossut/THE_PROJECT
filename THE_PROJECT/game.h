@@ -29,4 +29,6 @@ Grid *initgrid(int dim);
 
 Box initBox(int value);
 
+int** creatab_2d(int size);
+
 #endif // !game
