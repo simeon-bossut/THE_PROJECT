@@ -15,9 +15,9 @@
 	<?php include("nav.php"); ?>
 
   <main>
-    <h1>Welcome to The Crate Staker game !</h1>
+    <h1>Welcome to The Crate Stacker game !</h1>
 		<br> <br> <br>
-		<h2>The CrateStacker is similar to Skyscrapers, which is a puzzle game that involves placing buildings on a square grid with some clues on the sides.</h2>
+		<h2>The Crate Stacker is similar to Skyscrapers, which is a puzzle game that involves placing buildings on a square grid with some clues on the sides.</h2>
     <br>
     <div id="part1">
       <p>The goal of Skyscrapers is to place a skyscraper in each square, with a height between 1 and N, so that no two skyscrapers in the same row or column have the same number of floors.</p>
