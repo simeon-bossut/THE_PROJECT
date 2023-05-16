@@ -101,8 +101,6 @@ Grid *fillgrid(Grid *grid) {
   int size = grid->size;
   int elt[size];
 
-  srand(time(NULL));
-
   for (int i = 0; i < size; i++) {
     initElt(elt, size);
     for (int j = 0; j < size; j++) {
