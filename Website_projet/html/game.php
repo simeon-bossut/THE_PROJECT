@@ -17,8 +17,19 @@
   <main>
     <h1>Welcome to The Crate Staker game !</h1>
 		<br> <br> <br>
-		<h1>Aut nisi tenetur ut exercitationem aperiam. </h1>
-    <p>Lorem ipsum dolor sit amet. Ut soluta omnis id neque rerumEt ipsum ad exercitationem laborum. Cum sunt reiciendis <em>Ea veritatis</em> et odit voluptates. A enim harumEt suscipit qui quibusdam totam cum magni aliquam? </p><h2>Aut quia nihil sit nostrum eaque. </h2><p>Cum sint teneturSit optio ut vero quas quo quaerat dolor est quaerat quibusdam! Ut rerum excepturi et dolores numquam <em>Ut ullam aut dolorem sequi et consequatur laudantium ut quae quisquam</em>! </p><h3>Et distinctio internos id quasi perferendis quo eius labore? </h3><p>Ea laboriosam nostrum vel galisum consequaturnon modi est totam quasi ut esse quia. Eum repellendus ipsam <em>Hic similique est nemo voluptas sed totam impedit</em> id itaque aspernatur. </p><h4>Ex tempore sint non rerum architecto! </h4><p>Et alias rerum <strong>Est facilis</strong> quo necessitatibus incidunt. Id repellendus provident aut quasi quidem <em>Nam quas et labore Quis aut provident velit ut quia animi</em>. </p><h5>At mollitia ipsa non impedit voluptatem et iste veritatis. </h5><p>Ab temporibus voluptas non autem veniamest harum ea laborum itaque. Aut deleniti repudiandaeRem quos et rerum neque eum deserunt quaerat. Cum velit quae <strong>Et dolores</strong> aut quia incidunt? Est ipsum ducimusEt maiores non molestiae omnis qui blanditiis quisquam id excepturi dolorem et quaerat nobis aut dignissimos sint. </p><p>Nam minus ratione et voluptas fugiataut explicabo qui dolorem quia aut officia ducimus. Et beatae consectetur <em>Sit nostrum sed voluptatibus corrupti et molestias magnam</em> quo nostrum odit est blanditiis voluptatum est tenetur autem. </p>
+		<h2>The CrateStacker is similar to Skyscrapers, which is a puzzle game that involves placing buildings on a square grid with some clues on the sides.</h2>
+    <br>
+    <div id="part1">
+      <p>The goal of Skyscrapers is to place a skyscraper in each square, with a height between 1 and N, so that no two skyscrapers in the same row or column have the same number of floors.</p>
+      <br>
+    </div>
+    <div id="part2">
+      <p>Note that the tallest skyscrapers block the view of the lower skyscrapers behind them. The men on the hill must see the number of buildings that are marked in front of them.</p>
+      <br>
+    </div>
+    <div id="part3">
+      <p>In Crate Stacker, we don't stack skyscraper floors but crates stored in a warehouse, the goal remains the same: stack our crates while seeing the number of crates on the sides of our grid.</p>
+    </div>  
   </main>
 
 	<?php include("footer.php"); ?>
