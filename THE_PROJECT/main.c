@@ -12,6 +12,7 @@ int main(int argc, char **argv) {
   pov = initpov(size);
 
   Grid *grid = initgrid(size);
+  GhostGrid* gridf = initGhostGrid(size);
   if (grid == NULL) {
     return 0;
   }
@@ -20,5 +21,8 @@ int main(int argc, char **argv) {
   // grid_completion(grid);
 
   printgrid(grid, pov);
+  printf("\n");
+  printgrid_Ghost(gridf);
+  free(grid); free(gridf);
   return EXIT_SUCCESS;
 }
