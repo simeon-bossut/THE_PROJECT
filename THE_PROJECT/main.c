@@ -14,5 +14,5 @@ int main(int argc, char **argv) {
     return 0;
   }
   printgrid(grid, pov);
-  return 1;
+  return EXIT_SUCCESS;
 }
