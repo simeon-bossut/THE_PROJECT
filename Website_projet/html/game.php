@@ -9,7 +9,7 @@
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
-<body>
+<body style="overflow: hidden">
 		
   <div class="frontDis">
     <img src="../Images/complete_logo.png" id="crateStackLogo">

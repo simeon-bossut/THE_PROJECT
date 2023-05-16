@@ -50,12 +50,12 @@ Grid *initgrid(int dim) // init the grid size at 0 all case = 0
 }
 
 int *initpov(int size) {
-  int *pov = malloc(sizeof(int) * size);
-  if (pov==NULL) {
+  int *pov = (int *)malloc(sizeof(int) * size * 4);
+  if (!pov) {
     return NULL;
   }
-  for(int i = 0; i < size; i++) {
-    *(pov+i) = i+1;
+  for (int i = 0; i < size * 4; i++) {
+    *(pov + i) = i + 1;
   }
   return pov;
 }
@@ -130,44 +130,33 @@ Grid *fillgrid(Grid *grid) {
 
   return grid;
 }
- bool found_in_row(int val, Grid * grid, int row)
-{
-    for (int j = 0;j < grid->size;++j)
-    {
-        if (grid->tab[row][j] == val)
-        {
-            return true;
-        }
+bool found_in_row(int val, Grid *grid, int row) {
+  for (int j = 0; j < grid->size; ++j) {
+    if (grid->tab[row][j] == val) {
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 
-bool found_in_col(int val, Grid* grid, int col)
-{
-    for (int i = 0;i < grid->size;++i)
-    {
-        if (grid->tab[i][col] == val)
-        {
-            return true;
-        }
+bool found_in_col(int val, Grid *grid, int col) {
+  for (int i = 0; i < grid->size; ++i) {
+    if (grid->tab[i][col] == val) {
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 
+void grid_completion(Grid *grid) {
+  int num;
+  for (int i = 0; i < grid->size; i++) {
+    for (int j = 0; j < grid->size; j++) {
+      do {
+        num = (rand() % grid->size) + 1; // Entre 1 et n
 
-
-void grid_completion(Grid* grid)
-{
-    int num;
-    for (int i = 0; i < grid->size; i++) {
-        for (int j = 0; j < grid->size; j++) {
-            do
-            {
-                num = (rand() % grid->size) + 1;//Entre 1 et n 
-
-            } while (found_in_col(num, grid, j) || found_in_row(num, grid, i));
-            grid->tab[i][j] = num;
-        }
+      } while (found_in_col(num, grid, j) || found_in_row(num, grid, i));
+      grid->tab[i][j] = num;
     }
+  }
 }
-
