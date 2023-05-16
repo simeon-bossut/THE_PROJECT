@@ -99,9 +99,7 @@ void initElt(int *elt, int size) {
 
 Grid *fillgrid(Grid *grid) {
   int size = grid->size;
-  int elt[size];
-
-  srand(time(NULL));
+  int *elt = (int *)malloc(sizeof(int) * size);
 
   for (int i = 0; i < size; i++) {
     initElt(elt, size);

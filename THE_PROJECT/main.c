@@ -4,7 +4,9 @@
 #include <stdlib.h>
 
 int main(int argc, char **argv) {
-  int size = argv[1] ? atoi(argv[1]) : 5;
+  srand(time(NULL));
+
+  int size = argv[1] ? atoi(argv[1]) : 3;
 
   int *pov;
   pov = initpov(size);

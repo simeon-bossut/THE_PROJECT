@@ -6,12 +6,18 @@
 	<title>The Crate Staker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../CSS/global.css">
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
 <body>
 		
+  <div class="frontDis">
+    <img src="../Images/complete_logo.png" id="crateStackLogo">
+
+    <div id="pressKeyText">Press any key to continue</div>
+  </div>
+
+  <div class="backDis hidden">
 	<?php include("nav.php"); ?>
 
   <main>
@@ -33,7 +39,9 @@
   </main>
 
 	<?php include("footer.php"); ?>
+
+</div>
 	
-  <script src="index.js"></script>
+  <script src="script.js"></script>
   </body>
 </html>
