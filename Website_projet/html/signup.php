@@ -6,7 +6,7 @@
 	<title>The Crate Stacker Sign Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
-    <link rel="stylesheet" href="../CSS/login.css">
+    <link rel="stylesheet" href="../CSS/signup.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
