@@ -1,4 +1,5 @@
 #include "game.h"
+#include "solver.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -68,10 +69,10 @@ bool found_in_row(int val, Grid* grid,int row)
     {
         if (grid->tab[row][j] == val)
         {
-            return false;
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 bool found_in_col(int val, Grid* grid,int col)
@@ -95,13 +96,12 @@ void grid_completion(Grid * grid)
         for (int j = 0; j < grid->size; j++) {
             do
             {
-              num = (rand() % grid->size) + 1;//Entre 0 et n 
+              num = (rand() % grid->size) + 1;//Entre 1 et n 
 
             } while (found_in_col(num,grid,j)||found_in_row(num,grid,i));
             grid->tab[i][j] = num;
         }
     }
-    return grid;
 }
  
   
@@ -110,26 +110,26 @@ void printgrid(Grid *grid, int *pov) {
   printf("      ");
 
   for (int i = 0; i < grid->size; i++) {
-    printf("| %d |", pov[i]);
+    printf("| %2d |", pov[i]);
   }
 
   printf("     \n");
 
   for (int i = 0; i < grid->size; ++i) {
 
-    printf("| %d |", pov[grid->size * 4 - i - 1]);
+    printf("| %2d |", pov[grid->size * 4 - i - 1]);
 
     for (int j = 0; j < grid->size; ++j) {
-      printf("| %d |", grid->tab[i][j]);
+      printf("| %2d |", grid->tab[i][j]);
     }
 
-    printf("| %d |\n", pov[grid->size + i]);
+    printf("| %2d |\n", pov[grid->size + i]);
   }
 
   printf("      ");
 
   for (int i = 0; i < grid->size; i++) {
-    printf("| %d |", pov[grid->size * 3 - i - 1]);
+    printf("| %2d |", pov[grid->size * 3 - i - 1]);
   }
   printf("     \n");
 }
