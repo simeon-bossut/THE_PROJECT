@@ -24,7 +24,7 @@
                 <label>Email (login):</label>
                 <input class="field_class" name="email" type="text" placeholder="Your Email"  maxlength="40" required >
 
-				<?php if (isset($_COOKIE["email_error"])) {echo " <style= text_align: center;> <p> this email address is already in use </p>";
+				<?php if (isset($_COOKIE["email_error"])) {echo '<div style="font-size:14px;color:red;text-align:center"> <p>this email address is already in use</p> </div>';
 				setcookie("email_error", "", time() - 3600);} ?>
 				
 				<label>Pseudonym :</label>
@@ -40,10 +40,12 @@
 				
 				<label>Confirm your password :</label>
                 <input id="pass" class="field_class" name="password2" type="password" placeholder="Your password" required>
-                <button class="bouton" type="submit" name="add">Sign Up!</button>
+                
 
-				<?php if (isset($_COOKIE["password_error"])) {echo " <style= text_align: center;> <p> please choose the same password </p>";
+				<?php if (isset($_COOKIE["password_error"])) {echo '<div style="font-size:14px;color:red;text-align:center"> <p>please choose the same password</p> </div>';
 				setcookie("password_error", "", time() - 3600);} ?>
+
+                <button class="bouton" type="submit" name="add">Sign Up!</button>
 				
             </div>
         </form>

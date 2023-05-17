@@ -1,4 +1,5 @@
 #include "game.h"
+#include "seed.h"
 #include "solver.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,7 +13,7 @@ int main(int argc, char **argv) {
   pov = initpov(size);
 
   Grid *grid = initgrid(size);
-  GhostGrid* gridf = initGhostGrid(size);
+  GhostGrid *gridf = initGhostGrid(size);
   if (grid == NULL) {
     return 0;
   }
