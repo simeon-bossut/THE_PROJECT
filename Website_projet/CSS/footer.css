@@ -1,8 +1,9 @@
 footer {
   background-color: #232323;
   width: 100%;
+  padding-top:30px;
+  margin-top:auto
 }
-
 .social, .list-inline {
   display: flex;
   justify-content: center;
