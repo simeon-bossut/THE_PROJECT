@@ -36,5 +36,6 @@ int main(int argc, char **argv) {
   fill_ghost(*gridf, *grid, pov);
   printgrid_Ghost(gridf);
   free(grid); free(gridf);
+  printf("\n");
   return EXIT_SUCCESS;
 }
