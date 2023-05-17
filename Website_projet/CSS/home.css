@@ -16,10 +16,10 @@ h2 {
 	text-align: center;
 }
 h1 {
-  font-family: "MV Boli";
+  font-family: 'Londrina Sketch', cursive;
   text-transform: uppercase;
   text-align: center;
-  font-size: 50px;
+  font-size: 60px;
   letter-spacing: 0.5vw;
   text-shadow: 5px 5px 5px #7e6a49;
 
@@ -107,11 +107,8 @@ h1 {
   width: 500px;
   max-width: 85%;
   height: auto;
-  /* margin: 5%; */
-
   position: absolute;
   top: 15%;
-
   opacity: 0;
 }
 
@@ -120,7 +117,6 @@ h1 {
     width: 500px;
     max-width: 85%;
   }
-
   to {
     width: 450px;
     max-width: 80%;
@@ -131,7 +127,6 @@ h1 {
   from {
     opacity: 1;
   }
-
   to {
     opacity: 0;
   }
@@ -151,13 +146,11 @@ h1 {
   color: #ffe6cd;
   font-weight: 400;
   position: absolute;
-
   opacity: 0;
 }
 
 #pressKeyText.show {
   opacity: 1;
-
   transition: all 1s ease-in-out 3s;
 
   animation: 3s cubic-bezier(0.81, 0.06, 0.83, 1.39) 5s animatePressKey;

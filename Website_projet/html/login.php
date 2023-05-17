@@ -19,7 +19,7 @@ try {
 							$_SESSION["email"] = $row["email"];
 							$_SESSION["civility"] = $row["civility"];
 							setcookie("email", $row["email"], time() + 60 * 60 * 24 * 30);
-							header("Location: game.php");
+							header("Location: home.php");
 									}
 			
 			else{

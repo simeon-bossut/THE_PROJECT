@@ -31,7 +31,7 @@
   </div>
 
   <main>
-    <h1>Welcome to<br>The Crate Stacker game !</h1>
+    <h1>The Crate Stacker game !</h1>
 		<h2>The Crate Stacker is similar to Skyscrapers, which is a puzzle game that involves placing buildings on a square grid with some clues on the sides.</h2>
     <br>
     <div id="part1">
@@ -66,18 +66,18 @@
 
 ?>
 
-  <main>
-    <h1>Welcome to<br>The Crate Stacker game !</h1>
-    <h2>The Crate Stacker is similar to Skyscrapers, which is a puzzle game that involves placing buildings on a square grid with some clues on the sides.</h2>
+<main>
+    <h1>The Crate Stacker game !</h1>
+		<h2>The Crate Stacker is similar to Skyscrapers, which is a puzzle game that involves placing buildings on a square grid with some clues on the sides.</h2>
     <br>
     <div id="part1">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/Ww3HbHMnJ5g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/Ww3HbHMnJ5g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>  
       <p>The goal of Skyscrapers is to place a skyscraper in each square, with a height between 1 and N, so that no two skyscrapers in the same row or column have the same number of floors.</p>
       <br>
     </div>
     <div id="part2">
       <p>Note that the tallest skyscrapers block the view of the lower skyscrapers behind them. The men on the hill must see the number of buildings that are marked in front of them.</p>
-      <img width="560" height="315" src="../Images/skyscraper_stage.png">
+      <img width="560" height="315" src="../images/skyscraper_stage.png">
       <br>
     </div>
     <div id="part3">

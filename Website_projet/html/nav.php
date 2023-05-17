@@ -14,7 +14,7 @@
     
 
     <ul id="menu">
-      <a href="game.php"><li>Home</li></a>
+      <a href="home.php"><li>Home</li></a>
 	  <?php if(isset($_SESSION["authentifie"]) &&  $_SESSION["authentifie"] == true) { ?>
 	  <a href="logout.php"><li>Deconnexion</li></a>
 	  <?php } else{ ?>
