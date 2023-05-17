@@ -1,6 +1,6 @@
 #include "game.h"
-#include "solver.h"
 #include "seed.h"
+#include "solver.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
   pov = initpov(size);
 
   Grid *grid = initgrid(size);
-  GhostGrid* gridf = initGhostGrid(size);
+  GhostGrid *gridf = initGhostGrid(size);
   if (grid == NULL) {
     return 0;
   }
@@ -23,15 +23,13 @@ int main(int argc, char **argv) {
 
   printgrid(grid, pov);
 
+  // test seed
+  /*int val = 15;
+  char id[3] = "7";
+  char *line;
+  line = id_to_line(id);
 
-	//test seed
-	/*int val = 15;
-	char id[3] = "7";
-	char *line;
-	line = id_to_line(id);
-
-	printf("%s ", line);*/
-	
+  printf("%s ", line);*/
 
   return EXIT_SUCCESS;
 }
