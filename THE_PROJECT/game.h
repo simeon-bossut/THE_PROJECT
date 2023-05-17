@@ -7,7 +7,6 @@
 #include <string.h>
 #include <time.h>
 
-
 typedef struct Pos {
 
   int row;
@@ -35,10 +34,10 @@ void initElt(int *elt, int size);
 
 Grid *fillgrid(Grid *grid);
 
-bool found_in_row(int val, Grid* grid, int row);
+bool found_in_row(int val, Grid *grid, int row);
 
-bool found_in_col(int val, Grid* grid, int col);
+bool found_in_col(int val, Grid *grid, int col);
 
-void grid_completion(Grid* grid);
+void grid_completion(Grid *grid);
 
 #endif // !game
