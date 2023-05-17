@@ -3,8 +3,9 @@
 
 #include "game.h"
 
-char* id_to_line(char*Id);
+char* id_to_line(int val,int dim);
 
-char* line_to_id(char*line);
+int line_to_id(char*line,int dim);
 
+int factorial(int n);
 #endif // !seed
