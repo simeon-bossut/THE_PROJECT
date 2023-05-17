@@ -10,12 +10,12 @@ int factorial(int n)
 
 int line_to_id(char*line,int dim)
 {
-	//Il faut idÈalement mettre un char ne contenant que des chiffres diffÈrent(ligne d'un carrÈ latin)
-int val = 0;//Ce char va Ítre transformÈ ‡ la fin en char grace to itoa
+	//Il faut id√©alement mettre un char ne contenant que des chiffres diff√©rent(ligne d'un carr√© latin)
+int val = 0;//Ce char va √™tre transform√© √† la fin en char grace to itoa
 
 int factor = factorial(dim - 1);
 
-val += ((line[0] - 48) - 1) * factor + 1; //Le 6 vient du fait de 3! possibilitÈs une fois le char[0] fixÈ
+val += ((line[0] - 48) - 1) * factor + 1; //Le 6 vient du fait de 3! possibilit√©s une fois le char[0] fix√©
 if (dim == 3)
 {
 	if (line[1] > line[2])
@@ -26,7 +26,7 @@ if (dim == 3)
 else if (dim == 4)
 
 {
-	if (line[1] > line[2]) //C des trucs que j'ai trouvÈ, demandez si vous voulez comprendre
+	if (line[1] > line[2]) //C des trucs que j'ai trouv√©, demandez si vous voulez comprendre
 	{
 		val += 2;
 	}
@@ -77,13 +77,13 @@ else if (dim == 5)
 
 
 }
-//C fini ! PlutÙt simple dans ce sens...
+//C fini ! Plut√¥t simple dans ce sens...
 char Id[4] = { 0 };//3 chiffres max + \0
 return val;
 }
 
 char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
-{                       //Parti pour la galËre
+{                       //Parti pour la gal√®re
 	val = val % (factorial(dim));
 	if (val == 0)
 	{
@@ -100,7 +100,7 @@ char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
 		line[i] = 0;
 	}
 
-	line[0] = (val / factorial(dim - 1) + 1) + 48;//N'hÈsitez pas ‡ poser des questions
+	line[0] = (val / factorial(dim - 1) + 1) + 48;//N'h√©sitez pas √† poser des questions
 
 	char* tab = malloc(sizeof(char) * (dim));//tableau contenant tous les chiffres sauf celui dans line[0]
 	if (tab == NULL)
@@ -110,7 +110,7 @@ char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
 
 	tab[dim - 1] = 0;
 
-	int compt = 0;
+  int compt = 0;
 
 	for (int i = 0;i < dim;++i)
 	{
@@ -123,14 +123,14 @@ char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
 
 	if (dim == 4)
 	{
-		line[1] = tab[((val - 1) % 6 / 2)];//Chiant ‡ expliquer en commentaires(Ètude de la ligne de longueur 6)
+		line[1] = tab[((val - 1) % 6 / 2)];//Chiant √† expliquer en commentaires(√©tude de la ligne de longueur 6)
 	}
 
 	if (dim==5)
 	{
 		line[1] = tab[((val - 1) % 24 / 6)];
 
-		for (int i = ((val - 1) % 24 / 6);i < dim - 1;i++)//suppresion de line[1] dans tab et dÈcalage adaptÈ
+		for (int i = ((val - 1) % 24 / 6);i < dim - 1;i++)//suppresion de line[1] dans tab et d√©calage adapt√©
 		{
 			tab[i] = tab[i + 1];
 		}
@@ -143,7 +143,7 @@ char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
 		{
 			if (tab[i] != line[1])//Si le chiffre est encore dispo
 			{
-				if (line[3 - val % 2] == 0)//Si cette case dÈja remplie dÈja remplie
+				if (line[3 - val % 2] == 0)//Si cette case d√©ja remplie d√©ja remplie
 				{
 					line[3 - val % 2] = tab[i];
 				}
@@ -163,7 +163,7 @@ char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
 		{
 			if (tab[i] != line[2])//Si le chiffre est encore dispo
 			{
-				if (line[4 - val % 2] == 0)//Si cette case dÈja remplie dÈja remplie
+				if (line[4 - val % 2] == 0)//Si cette case d√©ja remplie d√©ja remplie
 				{
 					line[4 - val % 2] = tab[i];
 				}

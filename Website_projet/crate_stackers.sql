@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mar. 16 mai 2023 à 09:44
+-- Généré le : mer. 17 mai 2023 à 09:17
 -- Version du serveur : 5.7.24
 -- Version de PHP : 7.4.16
 
@@ -39,8 +39,48 @@ CREATE TABLE `acc` (
 --
 
 INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`) VALUES
-('Celia@gmail.com', 'Celia', 'M', 'Celiaa2002'),
-('Celia@gmail.com', 'Celia', 'M', 'Celiaa2002');
+('azef@ezf', 'azer', 'M', 'azer'),
+('lucas.verportern@gmail.com', 'Yiroes', 'M', 'Zoeomg'),
+('paul.cauche', 'Monkoye', 'M', 'Caps'),
+('simeon.bossut@gmail.com', 'sim', 'M', 'azer');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `score`
+--
+
+CREATE TABLE `score` (
+  `email` varchar(36) NOT NULL,
+  `score` int(11) NOT NULL,
+  `level` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `acc`
+--
+ALTER TABLE `acc`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Index pour la table `score`
+--
+ALTER TABLE `score`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `score`
+--
+ALTER TABLE `score`
+  ADD CONSTRAINT `score_ibfk_1` FOREIGN KEY (`email`) REFERENCES `acc` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

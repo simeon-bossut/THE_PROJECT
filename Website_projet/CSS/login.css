@@ -13,11 +13,23 @@ header {
  
 }
 h1 {
-    letter-spacing: 1.5vw;
-    font-family: 'system-ui';
+    font-family: "MV Boli";
     text-transform: uppercase;
     text-align: center;
-}
+    font-size: 50px;
+    letter-spacing: 0.5vw;
+    text-shadow: 5px 5px 5px #7e6a49;
+  
+    animation-name:titre;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+  }
+  @keyframes titre {
+    0%  {text-shadow: 5px 5px 5px #a6906b;}
+    25% {text-shadow: 5px 5px 5px #c6b68f;}
+    50% {text-shadow: 5px 5px 5px #354a5d;}
+    75% {text-shadow: 5px 5px 5px #7e6a49;}
+  }
 main {
     display: flex;
     align-items: center;
@@ -31,11 +43,12 @@ main {
     padding: 40px;
     border-radius: 8px;
     background-color: white;
-    font-family: 'Verdana';
+    font-family: 'Copperplate';
     box-shadow: 20px 20px #232323;
 }
 .form_div {
     text-transform: uppercase;
+    
 }
 .form_div > label {
     letter-spacing: 3px;
