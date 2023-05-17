@@ -31,11 +31,12 @@ main {
     padding: 40px;
     border-radius: 8px;
     background-color: white;
-    font-family: 'Verdana';
+    font-family: 'Copperplate';
     box-shadow: 20px 20px #232323;
 }
 .form_div {
     text-transform: uppercase;
+    
 }
 .form_div > label {
     letter-spacing: 3px;

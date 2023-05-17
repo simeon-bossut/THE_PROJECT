@@ -59,7 +59,7 @@ die("Erreur : " . $e->getMessage());}
                 <input id="pass" class="field_class" name="password" type="password" placeholder="Your password">
                 <button class="bouton" type="submit" name="con">Go!</button>
 				          <?php if (!$find) {
-            echo '<div style="font-size:14px;color:red;margin-top:20px;text-align:center"> login or password is invalid </div>';
+            echo '<div style="font-size:14px;color:red;margin-top:20px;text-align:center"> <p>login or password is invalid</p> </div>';
           } ?>
             </div>
             <div class="newacc">
