@@ -20,8 +20,20 @@ int main(int argc, char **argv) {
   // fillgrid(grid);
   //  grid_completion(grid);
 
-  printgrid(grid, pov);
+  //fillgrid(grid);
+  grid->tab[0][0] = 1;
+  grid->tab[1][0] = 2;
+  grid->tab[2][0] = 3;
+  grid->tab[0][1] = 0;
+  grid->tab[1][1] = 0;
+  grid->tab[2][1] = 0;
+  grid->tab[0][2] = 0;
+  grid->tab[1][2] = 0;
+  grid->tab[2][2] = 0;
+
+  printgrid(grid,pov);
   printf("\n");
+  fill_ghost(*gridf, *grid, pov);
   printgrid_Ghost(gridf);
   free(grid); free(gridf);
   return EXIT_SUCCESS;
