@@ -189,10 +189,21 @@ char *create_seed(int difficulty, int dim) {
   }
 }
 
-Grid *read_seed_3dim(Grid *grid, int dim) {
-  return grid; }
-Grid *read_seed_4dim(Grid *grid, int dim) { return grid; }
-Grid *read_seed_5dim(Grid *grid, int dim) { return grid; }
+Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
+  for (int i = 1; i < len; i++) {
+    if (i < 4) {
+      for (int j = 0; j < dim; j++) {
+        char *line = id_to_line(Seed[i], dim);
+        grid->tab[i - 1][j] = line[0] - 48;
+      }
+
+    } else {
+    }
+  }
+  return grid;
+}
+Grid *read_seed_4dim(Grid *grid, int dim, char *Seed, int len) { return grid; }
+Grid *read_seed_5dim(Grid *grid, int dim, char *Seed, int len) { return grid; }
 
 Grid *read_seed(char *Seed) {
   int lenSeed = strlen(Seed);
@@ -201,13 +212,13 @@ Grid *read_seed(char *Seed) {
 
   switch (dim) {
   case 3:
-    grid = read_seed_3dim(grid, dim);
+    grid = read_seed_3dim(grid, dim, Seed, lenSeed);
     break;
   case 4:
-    grid = read_seed_4dim(grid, dim);
+    grid = read_seed_4dim(grid, dim, Seed, lenSeed);
     break;
   case 5:
-    grid = read_seed_5dim(grid, dim);
+    grid = read_seed_5dim(grid, dim, Seed, lenSeed);
     break;
   }
 
