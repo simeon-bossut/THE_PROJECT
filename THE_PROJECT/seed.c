@@ -193,7 +193,34 @@ char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
 	return line;
 }
 
-char*create_seed()
+char*create_seed(int difficulty,int dim)
 {
-	;
+	int size;
+	if (dim == 3)
+	{
+		size = 12;
+	}
+	else if(dim==4)
+	{
+		size = 20;
+	}
+	else if(dim==5)
+	{
+		size = 32;
+	}
+	else 
+	{
+		return NULL;
+	}
+	char* SEED = malloc(sizeof(char) * size);
+	if(SEED==NULL)
+	{
+		return NULL;
+	}
+	SEED[0] = dim + 48;
+	for (int i = 0;i < dim;i++)
+	{
+		;
+	}
 }
+
