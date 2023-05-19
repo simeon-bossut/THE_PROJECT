@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
   ////  grid_completion(grid);
 
   //fillgrid(grid);
-  grid->tab[0][0] = 1;
+  /*grid->tab[0][0] = 1;
   grid->tab[1][0] = 2;
   grid->tab[2][0] = 3;
   grid->tab[0][1] = 0;
@@ -30,37 +30,40 @@ int main(int argc, char **argv) {
   grid->tab[2][1] = 0;
   grid->tab[0][2] = 0;
   grid->tab[1][2] = 0;
-  grid->tab[2][2] = 0;
+  grid->tab[2][2] = 0;*/
 
 
 	//test seed
-	int val = 15;
-	char id[3] = "7";
 	//char *line;
 
 	//line = id_to_line(id,5);
-	char line[6] = "43521\0";
+	char line[6] = "312\0";
 
-	int ID = line_to_id(line, 5);
+	int ID;//= line_to_id(line, 3);
 
-	char *line_2;
-		
-	line_2=id_to_line(ID,5);
+	char* line_2;
 
-	printf("la ligne est %s \n", line);
+	int lim = factorial(5);
+	int id;
 
-	printf("l'ID associé est %d\n", ID);
+	for (int i = 0;i<lim ;i++)
+	{
+		line_2 = id_to_line(i+1, 5);
+		printf("la ligne associé à l'id %d est %s    ",i+1, line_2);
+		id = line_to_id(line_2, 5);
+		printf("l'id retrouvé est %d  \n\n", id);
+	}
+	
 
-	printf("la ligne retrouvée est %s", line_2);
 
 
 	
 
-  printgrid(grid,pov);
+ /* printgrid(grid,pov);
   printf("\n");
   fill_ghost(*gridf, *grid, pov);
   printgrid_Ghost(gridf);
   free(grid); free(gridf);
-  printf("\n");
+  printf("\n");*/
   return EXIT_SUCCESS;
 }

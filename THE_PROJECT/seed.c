@@ -100,7 +100,7 @@ char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
 		line[i] = 0;
 	}
 
-	line[0] = (val / factorial(dim - 1) + 1) + 48;//N'hésitez pas à poser des questions
+	line[0] = ((val-1) / factorial(dim - 1)+1) + 48;//N'hésitez pas à poser des questions
 
 	char* tab = malloc(sizeof(char) * (dim));//tableau contenant tous les chiffres sauf celui dans line[0]
 	if (tab == NULL)
@@ -119,6 +119,22 @@ char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
 			tab[compt] = (i + 1) + 48;
 			compt++;
 		}
+	}
+
+	if (dim == 3)
+	{
+		for (int i = 0;i < dim - 1;++i)
+		{
+				if (line[2 - val % 2] == 0)//Si cette case déja remplie déja remplie
+				{
+					line[2 - val % 2] = tab[i];
+				}
+				else if(line[1 + val % 2]==0)
+				{
+					line[1 + val % 2] = tab[i];
+				}
+		}
+		return line;
 	}
 
 	if (dim == 4)
@@ -147,7 +163,7 @@ char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
 				{
 					line[3 - val % 2] = tab[i];
 				}
-				else
+				else if(line[2 + val % 2]==0)
 				{
 					line[2 + val % 2] = tab[i];
 				}
@@ -177,7 +193,34 @@ char* id_to_line(int val, int dim)//Uniquement en 4*4 pour l'instant
 	return line;
 }
 
-char*create_seed()
+char*create_seed(int difficulty,int dim)
 {
-	;
+	int size;
+	if (dim == 3)
+	{
+		size = 12;
+	}
+	else if(dim==4)
+	{
+		size = 20;
+	}
+	else if(dim==5)
+	{
+		size = 32;
+	}
+	else 
+	{
+		return NULL;
+	}
+	char* SEED = malloc(sizeof(char) * size);
+	if(SEED==NULL)
+	{
+		return NULL;
+	}
+	SEED[0] = dim + 48;
+	for (int i = 0;i < dim;i++)
+	{
+		;
+	}
 }
+
