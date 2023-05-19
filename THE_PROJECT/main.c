@@ -49,9 +49,9 @@ int main(int argc, char **argv) {
 	for (int i = 0;i<lim ;i++)
 	{
 		line_2 = id_to_line(i+1, 5);
-		printf("la ligne associé à l'id %d est %s    ",i+1, line_2);
+		printf("la ligne associï¿½ ï¿½ l'id %d est %s    ",i+1, line_2);
 		id = line_to_id(line_2, 5);
-		printf("l'id retrouvé est %d  \n\n", id);
+		printf("l'id retrouvï¿½ est %d  \n\n", id);
 	}
 	
 
