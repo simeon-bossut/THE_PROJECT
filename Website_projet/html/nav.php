@@ -5,7 +5,7 @@
 <nav>
   <div id="menucontenu">
 
-    <input type="checkbox" />
+      <input type="checkbox" />
     
 
     <span></span>
