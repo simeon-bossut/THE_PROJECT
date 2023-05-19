@@ -108,7 +108,7 @@ void fill_ghost_box(Grid gridj,GhostGrid grid,int value, int i, int j) {
 			tmp++;
 		}
 	}
-	grid.tab[i][j][tmp] = '\0';
+	grid.tab[i][j][tmp] = '\0';//Ca sert à koi ?
 	
 }
 
