@@ -5,12 +5,13 @@
 /************************************************************************************/
 
 nav {
-  margin-top:-27px;
+  margin-top:25px;
+  position: sticky;
 }
 #menucontenu { 
     display: block;
-    position: relative;
-    top: 50px;
+    position: fixed;
+    top: 25px;
     margin-left: 20px;
     z-index: 1;
   }
@@ -26,7 +27,7 @@ nav {
     display: block;
     width: 40px;
     height: 32px;
-    position: absolute;
+    position: sticky;
     top: -7px;
     left: -5px;
     cursor: pointer;
@@ -62,10 +63,11 @@ nav {
   
   #menu {	
     position: absolute;
-    width: 200px;
+    width: 150px;
     margin: -100px 0 0 -50px;
     padding: 50px;
     padding-top: 125px;
+    padding-bottom: 31vh;
     background: white;
     list-style-type: none;
     
