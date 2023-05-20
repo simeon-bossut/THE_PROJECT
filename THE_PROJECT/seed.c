@@ -168,6 +168,73 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   return line;
 }
 
+char*create_seed(int difficulty,int dim)
+{
+	int size;
+	if (dim == 3)
+	{
+		size = 12;
+	}
+	else if(dim==4)
+	{
+		size = 20;
+	}
+	else if(dim==5)
+	{
+		size = 32;
+	}
+	else 
+	{
+		return NULL;
+	}
+	char* SEED = malloc(sizeof(char) * size);
+	if(SEED==NULL)
+	{
+		return NULL;
+	}
+	SEED[0] = dim + 48;
+	int* tab;//tableau contenant toutes les lignes déja présentes dans le tableau
+	for (int i = 0;i < dim;i++)//Création du tableau
+	{
+		;
+	}
+
+	int size_cache = dim * (dim + 4);
+	bool* cache = malloc(sizeof(bool) *size_cache);
+	if (cache == NULL)
+	{
+		return NULL;
+	}
+	if (difficulty == 1)
+	{
+		for (int i = 0;i < size_cache;++i)
+		{
+			cache[i] = i/(dim*dim);//Tableau facile , tous les observateurs sont visibles et tout le jeu caché
+		}
+	}
+	else
+	{
+		do {
+
+		} while (solver());//Tant que le solveur marche
+	}
+	int value = 0b0;
+	for (int i = 0;i <dim*dim ;++i)
+	{
+		value += cache[i];
+		value = value << 1;
+	}
+	_itoa_s(value, SEED + 1, dim * dim, 10);//Dans le futur à décaler de quelques cases car le tableau précède
+
+	value = 0b0;
+	for (int i = dim * dim;i <size_cache ;++i)
+	{
+		value += cache[i];
+		value = value << 1;
+	}
+	_itoa_s(value, SEED + dim*dim+1, dim * 4, 10);//DAns le futur à décaler de quelques cases car le tableau précède
+
+}
 char *create_seed(int difficulty, int dim) {
   int size;
   if (dim == 3) {
