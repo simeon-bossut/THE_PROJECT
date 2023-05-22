@@ -1,5 +1,6 @@
 #include "seed.h"
 #include "game.h"
+#include "solver.h"
 
 int factorial(int n) {
   if (n == 0)
@@ -257,21 +258,86 @@ int *get_cache_tab(int dim, char *Seed, int len) {
   return cache_tab;
 }
 
-int *get_cache_obv(int dim, char *Seed, int len) {
-  int *cache_tab = malloc(sizeof(int) * dim * dim * 4);
-  if (cache_tab == NULL) {
-    return NULL;
-  }
-  char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
-  memcpy(tmp_cache_tab, Seed + dim * 2 + 1, dim + 1);
-
-  int int_cache_tab = atoi(tmp_cache_tab);
-
-  cache_tab = Dec2Bin(int_cache_tab, dim * 4);
+	int size_cache = dim * (dim + 4);
+	bool* cache = malloc(sizeof(bool) *size_cache);
+	if (cache == NULL)
+	{
+		return NULL;
+	}
+	if (difficulty == 1)
+	{
+		for (int i = 0;i < size_cache;++i)
+		{
+			cache[i] = i/(dim*dim);//Tableau facile , tous les observateurs sont visibles et tout le jeu caché
+		}
+	}
+	else
+	{
+		do {
+            ;
+		} while (1);//Tant que le solveur marche, encore à coder
+	}
+	int value = 0b0;
+	for (int i = 0;i <dim*dim ;++i)
+	{
+		value += cache[i];
+		value = value << 1;
+	}
+	_itoa_s(value, SEED + 1, dim * dim, 10);//Dans le futur à décaler de quelques cases car le tableau précède
 
   return cache_tab;
 }
 
+}
+
+void getLeftCases(char*tab,int i, int j,Grid*grid,int size)
+{
+    int compt = 0;
+    for (int i = 0;i < size;++i)
+    {
+        if (!found_in_col(i + 1, grid, j) && !found_in_row(i + 1, grid, i))
+        {
+            tab[compt] = i + 1;
+            compt++;
+        }
+    }
+    tab[compt] = '\0';
+}
+
+
+
+void generateGrid(Grid*grid,char* leftCases) {
+
+    int compt = 0;
+    int size = grid->size;
+    for (int i = 0; i < size; i++)
+    {
+        leftCases[i] = i + 1;
+    }
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+
+            getLeftCases(leftCases,i,j,grid,size);
+
+            if (strlen(leftCases) == 0) {
+                compt++;
+                if (compt > 3000) {
+                    compt = 0;
+                    return;//error
+                }
+
+                generateGrid(grid,leftCases);
+            }
+
+            grid->tab[i][j];
+        }
+    }
+
+    compt = 0;
+
+    return;
+}
 Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
   int *cache_tab;
   int *cache_obv;
@@ -293,6 +359,22 @@ Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
     }
   }
 
+
+
+
+
+
+
+
+
+
+Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
+  for (int i = 1; i < len; i++) {
+    if (i < 4) {
+      for (int j = 0; j < dim; j++) {
+        char *line = id_to_line(Seed[i], dim);
+        grid->tab[i - 1][j] = line[0] - 48;
+      }
   cache_obv = get_cache_obv(dim, Seed, len);
 
   for (int i = 0; i < dim * 4; i++) {
