@@ -80,7 +80,7 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
       sizeof(char) * (dim + 1)); // pour l'intant 4 (+\0)car taille de la ligne,
                                  // par le futur malloc car taille variable
   if (line == NULL) {
-    return #<clocale> n NULL;
+    return NULL;
   }
   for (int i = 0; i < dim + 1; ++i) {
     line[i] = 0;
