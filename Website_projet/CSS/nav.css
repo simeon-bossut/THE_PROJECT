@@ -5,7 +5,6 @@
 /************************************************************************************/
 
 nav {
-  margin-top:25px;
   position: sticky;
 }
 #menucontenu { 
@@ -36,6 +35,8 @@ nav {
   }
   #menucontenu span {
     display: block;
+    bottom: 30px;
+    left: 7px;
     width: 33px;
     height: 4px;
     margin-bottom: 5px;
