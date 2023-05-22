@@ -78,9 +78,14 @@ Pos *find_in_grid(Grid grid, int val,int *size) // attention grid.size diff de s
   for (int i = 0; i < grid.size; ++i) {
     for (int j = 0; j < grid.size; ++j) {
       if (grid.tab[i][j] == val) {
+		if (compt>=grid.size)
+		{
+			return NULL;
+		}
         positions[compt].row = i;
         positions[compt].col = j;
 		compt++;
+		
       }
     }
   }
@@ -108,7 +113,6 @@ void fill_ghost_box(Grid gridj,GhostGrid grid,int value, int i, int j) {
 			tmp++;
 		}
 	}
-	grid.tab[i][j][tmp] = '\0';//Ca sert à koi ?
 	
 }
 

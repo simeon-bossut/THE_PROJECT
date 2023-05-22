@@ -33,25 +33,6 @@ int main(int argc, char **argv) {
   grid->tab[1][2] = 0;
   grid->tab[2][2] = 0;*/
 
-  // test seed
-  // char *line;
-
-  // line = id_to_line(id,5);
-  char line[6] = "312\0";
-
-  int ID; //= line_to_id(line, 3);
-
-  char *line_2;
-
-  int lim = factorial(5);
-  int id;
-
-  for (int i = 0; i < lim; i++) {
-    line_2 = id_to_line(i + 1, 5);
-    printf("la ligne associée à l'id %d est %s    ", i + 1, line_2);
-    id = line_to_id(line_2, 5);
-    printf("l'id retrouvée est %d  \n\n", id);
-  }
 
   /* printgrid(grid,pov);
    printf("\n");
@@ -59,5 +40,20 @@ int main(int argc, char **argv) {
    printgrid_Ghost(gridf);
    free(grid); free(gridf);
    printf("\n");*/
+
+  Grid* grid = initgrid(3);
+  if(grid==NULL)
+  {
+	  return NULL;
+  }
+  for (int i = 0;i < grid->size;++i)
+  {
+	  for (int j = 0;j < grid->size;++j)
+	  {
+		  printf("%d -");
+	  }
+	  printf("\n");
+  }
+  
   return EXIT_SUCCESS;
 }

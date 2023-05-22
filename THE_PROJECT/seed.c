@@ -1,5 +1,6 @@
 #include "seed.h"
 #include "game.h"
+#include "solver.h"
 
 int factorial(int n) {
   if (n == 0)
@@ -215,8 +216,8 @@ char*create_seed(int difficulty,int dim)
 	else
 	{
 		do {
-
-		} while (solver());//Tant que le solveur marche
+            ;
+		} while (1);//Tant que le solveur marche, encore à coder
 	}
 	int value = 0b0;
 	for (int i = 0;i <dim*dim ;++i)
@@ -235,26 +236,64 @@ char*create_seed(int difficulty,int dim)
 	_itoa_s(value, SEED + dim*dim+1, dim * 4, 10);//DAns le futur à décaler de quelques cases car le tableau précède
 
 }
-char *create_seed(int difficulty, int dim) {
-  int size;
-  if (dim == 3) {
-    size = 12;
-  } else if (dim == 4) {
-    size = 20;
-  } else if (dim == 5) {
-    size = 32;
-  } else {
-    return NULL;
-  }
-  char *SEED = malloc(sizeof(char) * size);
-  if (SEED == NULL) {
-    return NULL;
-  }
-  SEED[0] = dim + 48;
-  for (int i = 0; i < dim; i++) {
-    ;
-  }
+
+void getLeftCases(char*tab,int i, int j,Grid*grid,int size)
+{
+    int compt = 0;
+    for (int i = 0;i < size;++i)
+    {
+        if (!found_in_col(i + 1, grid, j) && !found_in_row(i + 1, grid, i))
+        {
+            tab[compt] = i + 1;
+            compt++;
+        }
+    }
+    tab[compt] = '\0';
 }
+
+
+
+void generateGrid(Grid*grid,char* leftCases) {
+
+    int compt = 0;
+    int size = grid->size;
+    for (int i = 0; i < size; i++)
+    {
+        leftCases[i] = i + 1;
+    }
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+
+            getLeftCases(leftCases,i,j,grid,size);
+
+            if (strlen(leftCases) == 0) {
+                compt++;
+                if (compt > 3000) {
+                    compt = 0;
+                    return;//error
+                }
+
+                generateGrid(grid,leftCases);
+            }
+
+            grid->tab[i][j];
+        }
+    }
+
+    compt = 0;
+
+    return;
+}
+
+
+
+
+
+
+
+
+
 
 Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
   for (int i = 1; i < len; i++) {
