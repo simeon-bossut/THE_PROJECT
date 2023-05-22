@@ -7,7 +7,7 @@
 int main(int argc, char **argv) {
   srand(time(NULL));
   setlocale(LC_ALL, "fr_FR.UTF-8");
-  
+
   int size = argv[1] ? atoi(argv[1]) : 4;
 
   Grid *grid = initgrid(size);
@@ -19,7 +19,6 @@ int main(int argc, char **argv) {
   // fillgrid(grid);
   //  grid_completion(grid);
 
-  fillgrid(grid);
   grid->tab[0][0] = 3;
   grid->tab[1][0] = 2;
   grid->tab[2][0] = 4;
@@ -40,9 +39,10 @@ int main(int argc, char **argv) {
   printf("\n");
   fill_ghost(*gridf, *grid, grid->obv);
   printgrid_Ghost(gridf);
-  printf("%d\n",gridf->size);
-  Guess* guesses = fill_guess(*gridf);
-  print_guess(guesses,4);
-  free(grid); free(gridf);
+  printf("%d\n", gridf->size);
+  Guess *guesses = fill_guess(*gridf);
+  print_guess(guesses, 4);
+  free(grid);
+  free(gridf);
   return EXIT_SUCCESS;
 }
