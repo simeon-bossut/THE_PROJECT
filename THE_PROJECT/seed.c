@@ -187,7 +187,7 @@ char* create_seed(int difficulty, int dim) {
     else {
         do {
 
-        } while (solver()); // Tant que le solveur marche
+        } while (1); // Tant que le solveur marche
     }
     int value = 0b0;
     for (int i = 0; i < dim * dim; ++i) {
@@ -200,55 +200,61 @@ char* create_seed(int difficulty, int dim) {
 }
 
 
-void getLeftCases(char*tab,int i, int j,Grid*grid,int size)
+void getLeftCases(char*string,int i, int j,int**tab,int size)
 {
     int compt = 0;
-    for (int i = 0;i < size;++i)
+    for (int a = 0;a < size;++a)
     {
-        if (!found_in_col(i + 1, grid, j) && !found_in_row(i + 1, grid, i))
+        
+        if (!found_in_col(tab,size,j, a + 1) && !found_in_row(tab, size, i, a + 1))
         {
-            tab[compt] = (i + 1)+48;
+            string[compt] = (a + 1)+48;
             compt++;
         }
     }
-    tab[compt] = '\0';
+    string[compt] = '\0';
 }
 
-
-
-void generateGrid(Grid*grid,char* leftCases) {
-
-    int compt = 0;
+int generateGrid(Grid* grid)
+{
     int size = grid->size;
-    int random;
-    /*for (int i = 0; i < size; i++)
+    char* leftCases = malloc(sizeof(char) * (size + 1));
+    int** tab = creatab(grid->size);
+    if (leftCases == NULL||tab==NULL||(genGrid_tab(tab, leftCases, size) == -1))
     {
-        leftCases[i] = i + 1;
-    }*/
+        return -1;
+    }
+    free_tab(grid->tab, size);//On libère de la place 
+    grid->tab = tab;
+}
 
-
+int genGrid_tab(int **tab,char* leftCases,int size) //Génère un tableau de dmimension "size".Cette fonction est une sous-fonction appellée par "generateGrid"
+{
+    int compt = 0;
+    
+    int random;
+    
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
 
-            getLeftCases(leftCases,i,j,grid,size);
+            getLeftCases(leftCases,i,j,tab,size);
 
             if (strlen(leftCases) == 0) {
                 compt++;
-                if (compt > 3000) {
+                if (compt > 300) {
                     compt = 0;
-                    return;//error
+                    return -1;//error
                 }
-
-                generateGrid(grid,leftCases);
+                //Si il y a eu un échec, on vide le tableau et on réessaye
+                initab(tab, size);
+                return genGrid_tab(tab,leftCases,size);
             }
             random= rand() % strlen(leftCases);
-            grid->tab[i][j]=leftCases[random]-48;
-            printf("%d |", grid->tab[i][j]);
+            tab[i][j]=leftCases[random]-48;
         }
     }
-    compt = 0;
 
-    return;
+    return 0;
 }
 
 

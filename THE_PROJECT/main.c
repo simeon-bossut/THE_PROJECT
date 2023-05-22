@@ -54,13 +54,12 @@ int main(int argc, char **argv) {
    free(grid); free(gridf);
    printf("\n");*/
 
-  Grid* grid = initgrid(3);
-  char* leftCases = malloc(sizeof(char) * 4);
-  if(grid==NULL||leftCases==NULL)
+  Grid* grid = initgrid(5);
+  if(grid==NULL)
   {
 	  return NULL;
   }
-  generateGrid(grid, leftCases);
+  generateGrid(grid);
   for(int i = 0;i < grid->size;++i)
   {
 	  for (int j = 0;j < grid->size;++j)
