@@ -44,5 +44,17 @@ int main(int argc, char **argv) {
   print_guess(guesses, 4);
   free(grid);
   free(gridf);
+
+  char *Seed3dim = "32635114095";
+  char *Seed4dim = "4012418066553565535";
+  char *Seed5dim = "5001120060112099335544311048575";
+  grid = read_seed(Seed3dim);
+  printgrid(grid);
+
+  grid = read_seed(Seed4dim);
+  printgrid(grid);
+
+  grid = read_seed(Seed5dim);
+  printgrid(grid);
   return EXIT_SUCCESS;
 }

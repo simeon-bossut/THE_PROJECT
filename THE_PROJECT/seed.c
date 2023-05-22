@@ -1,5 +1,9 @@
 #include "seed.h"
 #include "game.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 int factorial(int n) {
   if (n == 0)
     return 1;
@@ -209,6 +213,7 @@ int *Dec2Bin(int n, int dim) {
   }
   return binaryNum;
 }
+
 int *get_cache_tab(int dim, char *Seed, int len) {
   int *cache_tab = malloc(sizeof(int) * dim * dim);
   if (cache_tab == NULL) {
@@ -221,6 +226,7 @@ int *get_cache_tab(int dim, char *Seed, int len) {
   cache_tab = Dec2Bin(int_cache_tab, dim);
   return cache_tab;
 }
+
 int *get_cache_obv(int dim, char *Seed, int len) {
   int *cache_tab = malloc(sizeof(int) * dim * dim * 4);
   if (cache_tab == NULL) {
@@ -233,47 +239,45 @@ int *get_cache_obv(int dim, char *Seed, int len) {
   cache_tab = Dec2Bin(int_cache_tab, dim * 4);
   return cache_tab;
 }
-Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
-  int *cache_tab;
-  int *cache_obv;
-  int k = 1;
+
+Grid *read_seed_v2(Grid *grid, int dim, char *Seed, int len) {
+  int *cache_tab, *cache_obv, id;
+  char *buffer, *line;
+
+  buffer = (char *)malloc(sizeof(char) * (dim - 2));
+
   for (int i = 0; i < dim; i++) {
-    k++;
-    char *line = id_to_line(Seed[k] - 48, dim);
+    strncpy(buffer, Seed + i * (dim - 2) + 1, dim - 2);
+    id = atoi(buffer);
+    line = id_to_line(id, dim);
     for (int j = 0; j < dim; j++) {
       grid->tab[i][j] = line[j] - 48;
     }
   }
+
   cache_tab = get_cache_tab(dim, Seed, len);
+
   for (int i = 0; i < dim; i++) {
     for (int j = 0; j < dim; j++) {
       if (cache_tab[i + j] == 0)
         grid->tab[i][j] = 0;
     }
   }
+
   cache_obv = get_cache_obv(dim, Seed, len);
   for (int i = 0; i < dim * 4; i++) {
     if (cache_obv[i] == 0)
       grid->obv[i] = 0;
   }
+
   return grid;
 }
-Grid *read_seed_4dim(Grid *grid, int dim, char *Seed, int len) { return grid; }
-Grid *read_seed_5dim(Grid *grid, int dim, char *Seed, int len) { return grid; }
+
 Grid *read_seed(char *Seed) {
   int lenSeed = strlen(Seed);
   int dim = Seed[0] - 48;
   Grid *grid = initgrid(dim);
-  switch (dim) {
-  case 3:
-    grid = read_seed_3dim(grid, dim, Seed, lenSeed);
-    break;
-  case 4:
-    grid = read_seed_4dim(grid, dim, Seed, lenSeed);
-    break;
-  case 5:
-    grid = read_seed_5dim(grid, dim, Seed, lenSeed);
-    break;
-  }
+
+  grid = read_seed_v2(grid, dim, Seed, lenSeed);
   return grid;
 }
