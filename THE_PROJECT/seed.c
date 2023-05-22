@@ -247,7 +247,7 @@ int *get_cache_tab(int dim, char *Seed, int len) {
   if (cache_tab == NULL) {
     return NULL;
   }
-  char tmp_cache_tab[dim * dim];
+  char *tmp_cache_tab = malloc(sizeof(char) * dim);
   memcpy(tmp_cache_tab, Seed + dim + 1, dim);
 
   int int_cache_tab = atoi(tmp_cache_tab);
@@ -262,7 +262,7 @@ int *get_cache_obv(int dim, char *Seed, int len) {
   if (cache_tab == NULL) {
     return NULL;
   }
-  char tmp_cache_tab[dim * dim * 4];
+  char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
   memcpy(tmp_cache_tab, Seed + dim * 2 + 1, dim + 1);
 
   int int_cache_tab = atoi(tmp_cache_tab);
