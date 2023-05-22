@@ -138,6 +138,7 @@ Guess* fill_guess(GhostGrid grid) {
 	int sum = 0;
 	int nb = 0;
 	int direction;
+	int size;
 	for (int i = 0; i < grid.size; i++)
 	{
 		for (int j = 0; j < grid.size; j++) {
@@ -172,7 +173,8 @@ Guess* fill_guess(GhostGrid grid) {
 		}
 		sum = 0;
 	}
-	Guess* res = (Guess*)malloc(sizeof(Guess) * nb);
+	size = grid.size - nb;
+	Guess* res = (Guess*)malloc(sizeof(Guess) * size);
 	bool boolean = true;
 	if (res == NULL)
 	{
@@ -184,7 +186,7 @@ Guess* fill_guess(GhostGrid grid) {
 		exit(EXIT_FAILURE);
 	}
 	int pos = 0;
-	if (direction == ROW)
+	if (direction == ROW && size >= 1)
 	{
 		for (int i = 0; i < grid.size; i++)
 		{
@@ -201,6 +203,7 @@ Guess* fill_guess(GhostGrid grid) {
 				res[pos].tab = grid.tab[i];
 				res[pos].id = i;
 				res[pos].direction = ROW;
+				res[pos].size = size;
 				pos++;
 			}
 			sum = 0;
@@ -208,7 +211,7 @@ Guess* fill_guess(GhostGrid grid) {
 		
 	}
 	
-	else if (direction == COLLUMN)
+	else if (direction == COLLUMN && size >= 1)
 	{
 		int j;
 		for (int i = 0; i < grid.size; i++)
@@ -227,6 +230,7 @@ Guess* fill_guess(GhostGrid grid) {
 				res[pos].tab = tmp;
 				res[pos].id = j;
 				res[pos].direction = COLLUMN;
+				res[pos].size = size;
 				pos++;
 			}
 			sum = 0;
@@ -238,7 +242,7 @@ Guess* fill_guess(GhostGrid grid) {
 }
 
 void print_guess(Guess* guesses, int size) {
-	for (int k = 0; k <size-1 ; k++)
+	for (int k = 0; k <guesses->size ; k++)
 	{
 		for (int i = 0; i < size; i++)
 		{
@@ -249,13 +253,13 @@ void print_guess(Guess* guesses, int size) {
 			printf("]");
 			printf("\n");
 		}
-		if (guesses->direction == COLLUMN)
+		if (guesses[k].direction == COLLUMN)
 		{
-			printf("ID : %d; Direction : Collumn", guesses->id);
+			printf("ID : %d; Direction : Collumn", guesses[k].id);
 		}
-		else if (guesses->direction == ROW)
+		else if (guesses[k].direction == ROW)
 		{
-			printf("ID : %d; Direction : Row", guesses->id);
+			printf("ID : %d; Direction : Row", guesses[k].id);
 		}
 		
 		printf("\n\n");
