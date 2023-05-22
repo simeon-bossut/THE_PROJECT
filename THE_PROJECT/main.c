@@ -19,8 +19,8 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  //// fillgrid(grid);
-  ////  grid_completion(grid);
+  // fillgrid(grid);
+  //  grid_completion(grid);
 
   fillgrid(grid);
   grid->tab[0][0] = 3;
@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
   grid->tab[1][3] = 0;
   grid->tab[2][3] = 0;
   grid->tab[3][3] = 0;
-  printgrid(grid,pov);
+  printgrid(grid);
   printf("\n");
   fill_ghost(*gridf, *grid, pov);
   printgrid_Ghost(gridf);
