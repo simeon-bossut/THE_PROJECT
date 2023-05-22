@@ -56,6 +56,16 @@
 
       </div>
 
+      <div id="musicPlayer">
+
+      <audio id="bgMusic"></audio>
+
+        <button id="prevMus" onclick="prevMusic()">PREV</button>
+        <button id="pausePlay" onclick="playPause()">||</button>
+        <button id="nextMus" onclick="nextMusic()">NEXT</button>
+
+      </div>
+
       
       
       <div class="creamBG">
@@ -88,6 +98,8 @@
     <?php if(isset($_SESSION['isOnWebsite']) && $_SESSION['isOnWebsite']) { include("footer.php"); } ?>
 
     </div>
+
+    <script src="music.js"></script>
 
 </body>
 </html>
