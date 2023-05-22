@@ -258,6 +258,33 @@ int *get_cache_tab(int dim, char *Seed, int len) {
   return cache_tab;
 }
 
+
+char* create_seed(int difficulty, int dim)
+{
+
+    int size;
+    if (dim == 3) {
+        size = 12;
+    } else if (dim == 4) {
+        size = 20;
+    } else if (dim == 5) {
+        size = 32;
+    } else {
+        return NULL;
+    }
+    char *SEED = malloc(sizeof(char) * size);
+    if (SEED == NULL) {
+        return NULL;
+    }
+    SEED[0] = dim + 48;
+    int *tab; // tableau contenant toutes les lignes déja présentes dans le
+                // tableau
+    for (int i = 0; i < dim; i++) // Création du tableau
+    {
+        ;
+    }
+
+
 	int size_cache = dim * (dim + 4);
 	bool* cache = malloc(sizeof(bool) *size_cache);
 	if (cache == NULL)
@@ -285,10 +312,9 @@ int *get_cache_tab(int dim, char *Seed, int len) {
 	}
 	_itoa_s(value, SEED + 1, dim * dim, 10);//Dans le futur à décaler de quelques cases car le tableau précède
 
-  return cache_tab;
+    return;//cache_tab;
 }
 
-}
 
 void getLeftCases(char*tab,int i, int j,Grid*grid,int size)
 {
@@ -338,6 +364,7 @@ void generateGrid(Grid*grid,char* leftCases) {
 
     return;
 }
+
 Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
   int *cache_tab;
   int *cache_obv;
@@ -368,7 +395,7 @@ Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
 
 
 
-Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
+Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len){
   for (int i = 1; i < len; i++) {
     if (i < 4) {
       for (int j = 0; j < dim; j++) {
