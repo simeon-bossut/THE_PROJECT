@@ -13,16 +13,16 @@ int main(int argc, char **argv) {
   // int *pov;
   // pov = initpov(size);
 
-  // Grid *grid = initgrid(size);
-  // GhostGrid* gridf = initGhostGrid(size);
-  // if (grid == NULL) {
-  //   return 0;
-  // }
+  Grid *grid = initgrid(size);
+  GhostGrid* gridf = initGhostGrid(size);
+  if (grid == NULL) {
+    return 0;
+  }
 
   //// fillgrid(grid);
   ////  grid_completion(grid);
 
-  //fillgrid(grid);
+  fillgrid(grid);
   grid->tab[0][0] = 3;
   grid->tab[1][0] = 2;
   grid->tab[2][0] = 4;
