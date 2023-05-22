@@ -1,5 +1,5 @@
 #include "solver.h"
-#define NAS 99 // Non available spaces
+
 GhostGrid* initGhostGrid(int dim) {
 	GhostGrid* grid = (GhostGrid*)malloc(sizeof(GhostGrid));
 	int k = 0;
@@ -108,7 +108,6 @@ void fill_ghost_box(Grid gridj,GhostGrid grid,int value, int i, int j) {
 			tmp++;
 		}
 	}
-	grid.tab[i][j][tmp] = '\0';
 	
 }
 
@@ -121,7 +120,7 @@ void printgrid_Ghost(GhostGrid *grid) {
 			printf(" | "); printf("[");
 			while (grid->tab[i][j][k])
 			{
-				printf(" %1d ", grid->tab[i][j][k]);
+				printf(" %2d ", grid->tab[i][j][k]);
 				k++;
 			}
 			printf("]"); 
@@ -130,25 +129,132 @@ void printgrid_Ghost(GhostGrid *grid) {
 	}
 	
 }
-
-char** guess(GhostGrid grid,int * pov) {
-	char* tmp = (char*)malloc(sizeof(char) * grid.size);
-	char** res = (char**)malloc(sizeof(char*) * grid.size);
+Guess* fill_guess(GhostGrid grid) {
 	int sum = 0;
-	int j;
-	for (int i = 0; i < grid.size; i++) {
-		for (j = 0; j < grid.size; j++){
-			for (int k = 0; k < grid.size; k++) {
+	int nb = 0;
+	int direction;
+	for (int i = 0; i < grid.size; i++)
+	{
+		for (int j = 0; j < grid.size; j++) {
+			for (int k = 0; k < grid.size; k++)
+			{
 				if (grid.tab[i][j][k] == NAS) {
 					sum++;
 				}
 			}
 		}
-		if (sum == grid.size)
+		if (sum == grid.size * grid.size)
 		{
-			tmp = grid.tab[i];
-			res[i] = tmp;
+			nb++;
+			direction = ROW;
+		}
+		sum = 0;
+	}
+	for (int i = 0; i < grid.size; i++)
+	{
+		for (int j = 0; j < grid.size; j++) {
+			for (int k = 0; k < grid.size; k++)
+			{
+				if (grid.tab[j][i][k] == NAS) {
+					sum++;
+				}
+			}
+		}
+		if (sum == grid.size * grid.size)
+		{
+			nb++;
+			direction = COLLUMN;
+		}
+		sum = 0;
+	}
+	Guess* res = (Guess*)malloc(sizeof(Guess) * nb);
+	bool boolean = true;
+	if (res == NULL)
+	{
+		exit(EXIT_FAILURE);
+	}
+	char** tmp = (char**)malloc(sizeof(char*) * grid.size);
+	if (tmp == NULL)
+	{
+		exit(EXIT_FAILURE);
+	}
+	int pos = 0;
+	if (direction == ROW)
+	{
+		for (int i = 0; i < grid.size; i++)
+		{
+			for (int j = 0; j < grid.size; j++) {
+				for (int k = 0; k < grid.size; k++)
+				{
+					if (grid.tab[i][j][k] == NAS) {
+						sum++;
+					}
+				}
+			}
+			if (sum == grid.size || sum == grid.size * 2 || sum == grid.size * 3)
+			{
+				res[pos].tab = grid.tab[i];
+				res[pos].id = i;
+				res[pos].direction = ROW;
+				pos++;
+			}
+			sum = 0;
+		}
+		
+	}
+	
+	else if (direction == COLLUMN)
+	{
+		int j;
+		for (int i = 0; i < grid.size; i++)
+		{
+			for (j = 0; j < grid.size; j++) {
+				for (int k = 0; k < grid.size; k++)
+				{
+					if (grid.tab[j][i][k] == NAS) {
+						sum++;
+					}
+				}
+				tmp[j] = grid.tab[j][i];
+			}
+			if (sum == grid.size || sum == grid.size *2 || sum == grid.size * 3)
+			{
+				res[pos].tab = tmp;
+				res[pos].id = j;
+				res[pos].direction = COLLUMN;
+				pos++;
+			}
+			sum = 0;
+			j = 0;
 		}
 	}
-	return tmp;
+
+	return res;
+}
+
+void print_guess(Guess* guesses, int size) {
+	for (int k = 0; k <size-1 ; k++)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			printf("[");
+			for (int j = 0; j < size; j++) {
+				printf(" %1d ", guesses[k].tab[i][j]);
+			}
+			printf("]");
+			printf("\n");
+		}
+		if (guesses->direction == COLLUMN)
+		{
+			printf("ID : %d; Direction : Collumn", guesses->id);
+		}
+		else if (guesses->direction == ROW)
+		{
+			printf("ID : %d; Direction : Row", guesses->id);
+		}
+		
+		printf("\n\n");
+	}
+
+
 }
