@@ -10,11 +10,8 @@ int main(int argc, char **argv) {
 
   int size = argv[1] ? atoi(argv[1]) : 4;
 
-  int *pov;
-  pov = initpov(size);
-
   Grid *grid = initgrid(size);
-  GhostGrid* gridf = initGhostGrid(size);
+  GhostGrid *gridf = initGhostGrid(size);
   if (grid == NULL) {
     return 0;
   }
@@ -41,7 +38,7 @@ int main(int argc, char **argv) {
   grid->tab[3][3] = 0;
   printgrid(grid);
   printf("\n");
-  fill_ghost(*gridf, *grid, pov);
+  fill_ghost(*gridf, *grid, grid->obv);
   printgrid_Ghost(gridf);
   printf("%d\n", gridf->size);
   Guess *guesses = fill_guess(*gridf);
