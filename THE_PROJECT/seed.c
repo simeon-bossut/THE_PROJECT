@@ -168,62 +168,65 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   return line;
 }
 
-char *create_seed(int difficulty, int dim) {
-  int size;
-  if (dim == 3) {
-    size = 12;
-  } else if (dim == 4) {
-    size = 20;
-  } else if (dim == 5) {
-    size = 32;
-  } else {
-    return NULL;
-  }
-  char *SEED = malloc(sizeof(char) * size);
-  if (SEED == NULL) {
-    return NULL;
-  }
-  SEED[0] = dim + 48;
-  int *tab; // tableau contenant toutes les lignes déja présentes dans le
-            // tableau
-  for (int i = 0; i < dim; i++) // Création du tableau
-  {
-    ;
-  }
+// char *create_seed(int difficulty, int dim) {
+//   int size;
+//   if (dim == 3) {
+//     size = 12;
+//   } else if (dim == 4) {
+//     size = 20;
+//   } else if (dim == 5) {
+//     size = 32;
+//   } else {
+//     return NULL;
+//   }
+//   char *SEED = malloc(sizeof(char) * size);
+//   if (SEED == NULL) {
+//     return NULL;
+//   }
+//   SEED[0] = dim + 48;
+//   int *tab; // tableau contenant toutes les lignes déja présentes dans le
+//             // tableau
+//   for (int i = 0; i < dim; i++) // Création du tableau
+//   {
+//     ;
+//   }
 
-  int size_cache = dim * (dim + 4);
-  bool *cache = malloc(sizeof(bool) * size_cache);
-  if (cache == NULL) {
-    return NULL;
-  }
-  if (difficulty == 1) {
-    for (int i = 0; i < size_cache; ++i) {
-      cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs sont
-                                  // visibles et tout le jeu caché
-    }
-  } else {
-    do {
+//   int size_cache = dim * (dim + 4);
+//   bool *cache = malloc(sizeof(bool) * size_cache);
+//   if (cache == NULL) {
+//     return NULL;
+//   }
+//   if (difficulty == 1) {
+//     for (int i = 0; i < size_cache; ++i) {
+//       cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs
+//       sont
+//                                   // visibles et tout le jeu caché
+//     }
+//   } else {
+//     do {
 
-    } while (solver()); // Tant que le solveur marche
-  }
-  int value = 0b0;
-  for (int i = 0; i < dim * dim; ++i) {
-    value += cache[i];
-    value = value << 1;
-  }
-  _itoa_s(
-      value, SEED + 1, dim * dim,
-      10); // Dans le futur à décaler de quelques cases car le tableau précède
+//     } while (solver()); // Tant que le solveur marche
+//   }
+//   int value = 0b0;
+//   for (int i = 0; i < dim * dim; ++i) {
+//     value += cache[i];
+//     value = value << 1;
+//   }
+//   _itoa_s(
+//       value, SEED + 1, dim * dim,
+//       10); // Dans le futur à décaler de quelques cases car le tableau
+//       précède
 
-  value = 0b0;
-  for (int i = dim * dim; i < size_cache; ++i) {
-    value += cache[i];
-    value = value << 1;
-  }
-  _itoa_s(
-      value, SEED + dim * dim + 1, dim * 4,
-      10); // DAns le futur à décaler de quelques cases car le tableau précède
-}
+//   value = 0b0;
+//   for (int i = dim * dim; i < size_cache; ++i) {
+//     value += cache[i];
+//     value = value << 1;
+//   }
+//   _itoa_s(
+//       value, SEED + dim * dim + 1, dim * 4,
+//       10); // DAns le futur à décaler de quelques cases car le tableau
+//       précède
+// }
 
 int *Dec2Bin(int n, int dim) {
   int *binaryNum = malloc(sizeof(int) * dim * dim);
@@ -244,7 +247,7 @@ int *get_cache_tab(int dim, char *Seed, int len) {
   if (cache_tab == NULL) {
     return NULL;
   }
-  char tmp_cache_tab[dim * dim];
+  char *tmp_cache_tab = malloc(sizeof(char) * dim);
   memcpy(tmp_cache_tab, Seed + dim + 1, dim);
 
   int int_cache_tab = atoi(tmp_cache_tab);
@@ -259,7 +262,7 @@ int *get_cache_obv(int dim, char *Seed, int len) {
   if (cache_tab == NULL) {
     return NULL;
   }
-  char tmp_cache_tab[dim * dim * 4];
+  char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
   memcpy(tmp_cache_tab, Seed + dim * 2 + 1, dim + 1);
 
   int int_cache_tab = atoi(tmp_cache_tab);
@@ -273,11 +276,11 @@ Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
   int *cache_tab;
   int *cache_obv;
   int k = 1;
-  while (k < 4) {
+  for (int i = 0; i < dim; i++) {
+    k++;
+    char *line = id_to_line(Seed[k] - 48, dim);
     for (int j = 0; j < dim; j++) {
-      char *line = id_to_line(Seed[k], dim);
-      grid->tab[k - 1][j] = line[0] - 48;
-      k++;
+      grid->tab[i][j] = line[j] - 48;
     }
   }
 
