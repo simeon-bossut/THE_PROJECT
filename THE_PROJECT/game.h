@@ -1,6 +1,7 @@
 #ifndef game
 #define game
 
+#include <locale.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,6 +21,7 @@ typedef struct Box {
 typedef struct Grid {
   int size;
   int **tab;
+  int *obv; 
 } Grid;
 
 void printgrid(Grid *grid, int *pov);

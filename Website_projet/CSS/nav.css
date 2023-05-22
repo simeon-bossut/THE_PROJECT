@@ -1,16 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Sketch&display=swap');
+
 /************************************************************************************/
 /****************************** barre de navigation *********************************/
 /************************************************************************************/
 
 nav {
-  margin-top:-27px;
+  position: sticky;
 }
 #menucontenu { 
     display: block;
-    position: relative;
-    top: 50px;
+    position: fixed;
+    top: 25px;
     margin-left: 20px;
     z-index: 1;
+    height:40px;
+    background-color: #232323;
+    
   }
   #menucontenu a {
     font-family: "MV Boli";
@@ -24,15 +29,15 @@ nav {
     display: block;
     width: 40px;
     height: 32px;
-    position: absolute;
-    top: -7px;
-    left: -5px;
+    position: sticky;
     cursor: pointer;
     opacity: 0; 
     z-index: 2; 
   }
   #menucontenu span {
     display: block;
+    bottom: 30px;
+    left: 7px;
     width: 33px;
     height: 4px;
     margin-bottom: 5px;
@@ -60,10 +65,11 @@ nav {
   
   #menu {	
     position: absolute;
-    width: 200px;
+    width: 150px;
     margin: -100px 0 0 -50px;
     padding: 50px;
     padding-top: 125px;
+    padding-bottom: 31vh;
     background: white;
     list-style-type: none;
     
