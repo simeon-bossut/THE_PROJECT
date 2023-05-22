@@ -226,15 +226,19 @@ char *create_seed(int difficulty, int dim) {
 }
 
 Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
-  for (int i = 1; i < len; i++) {
-    if (i < 4) {
-      for (int j = 0; j < dim; j++) {
-        char *line = id_to_line(Seed[i], dim);
-        grid->tab[i - 1][j] = line[0] - 48;
-      }
-
-    } else {
-      
+  int k = 1;
+  while (k < 4) {
+    for (int j = 0; j < dim; j++) {
+      char *line = id_to_line(Seed[k], dim);
+      grid->tab[k - 1][j] = line[0] - 48;
+      k++;
+    }
+  }
+  for (int i = 0; i < dim; i++) {
+    for (int j = 0; j < dim; j++) {
+      if (Seed[k] == '0')
+        grid->tab[i][j] = 0;
+      k++;
     }
   }
   return grid;
