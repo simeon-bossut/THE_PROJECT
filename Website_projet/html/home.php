@@ -8,7 +8,7 @@
 	<title>The Crate Stacker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <link rel="icon" href="../Images/Crate.png" type="image/x-icon">
   <link rel="stylesheet" href="../CSS/home.css">
 </head>
 
@@ -56,7 +56,7 @@
 
       </div>
 
-      <div id="musicPlayer">
+      <div  style="display: none;" id="musicPlayer">
 
       <audio id="bgMusic"></audio>
 

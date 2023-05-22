@@ -23,6 +23,8 @@ function nextMusic() {
 
 function prevMusic() {
   ind--;
+  if(ind < 0)
+    ind = musicList.length - 1;
   playMusic(ind);
 }
 
