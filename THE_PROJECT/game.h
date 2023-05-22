@@ -19,14 +19,11 @@ typedef struct Box {
 } Box;
 
 typedef struct Grid {
+  int size;
   int **tab;
+  int *obv; 
 } Grid;
 
-typedef struct CrateStacker {
-  int dim;
-  Grid *tab;
-  Grid *obs;
-} CS;
 void printgrid(Grid *grid, int *pov);
 
 int *initpov(int size);

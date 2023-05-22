@@ -80,7 +80,7 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
       sizeof(char) * (dim + 1)); // pour l'intant 4 (+\0)car taille de la ligne,
                                  // par le futur malloc car taille variable
   if (line == NULL) {
-    retur #<clocale> n NULL;
+    return #<clocale> n NULL;
   }
   for (int i = 0; i < dim + 1; ++i) {
     line[i] = 0;
@@ -225,7 +225,53 @@ char *create_seed(int difficulty, int dim) {
       10); // DAns le futur à décaler de quelques cases car le tableau précède
 }
 
+int *Dec2Bin(int n, int dim) {
+  int *binaryNum = malloc(sizeof(int) * dim * dim);
+
+  int i = 0;
+  while (n > 0) {
+
+    binaryNum[i] = n % 2;
+    n = n / 2;
+    i++;
+  }
+
+  return binaryNum;
+}
+
+int *get_cache_tab(int dim, char *Seed, int len) {
+  int *cache_tab = malloc(sizeof(int) * dim * dim);
+  if (cache_tab == NULL) {
+    return NULL;
+  }
+  char tmp_cache_tab[dim * dim];
+  memcpy(tmp_cache_tab, Seed + dim + 1, dim);
+
+  int int_cache_tab = atoi(tmp_cache_tab);
+
+  cache_tab = Dec2Bin(int_cache_tab, dim);
+
+  return cache_tab;
+}
+
+int *get_cache_obv(int dim, char *Seed, int len) {
+  int *cache_tab = malloc(sizeof(int) * dim * dim * 4);
+  if (cache_tab == NULL) {
+    return NULL;
+  }
+  char tmp_cache_tab[dim * dim * 4];
+  memcpy(tmp_cache_tab, Seed + dim * 2 + 1, dim + 1);
+
+  int int_cache_tab = atoi(tmp_cache_tab);
+
+  cache_tab = Dec2Bin(int_cache_tab, dim * 4);
+
+  return cache_tab;
+}
+
 Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
+  int *cache_tab;
+  int *cache_obv;
   int k = 1;
   while (k < 4) {
     for (int j = 0; j < dim; j++) {
@@ -234,13 +280,23 @@ Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
       k++;
     }
   }
+
+  cache_tab = get_cache_tab(dim, Seed, len);
+
   for (int i = 0; i < dim; i++) {
     for (int j = 0; j < dim; j++) {
-      if (Seed[k] == '0')
+      if (cache_tab[i + j] == 0)
         grid->tab[i][j] = 0;
-      k++;
     }
   }
+
+  cache_obv = get_cache_obv(dim, Seed, len);
+
+  for (int i = 0; i < dim * 4; i++) {
+    if (cache_obv[i] == 0)
+      grid->obv[i] = 0;
+  }
+
   return grid;
 }
 Grid *read_seed_4dim(Grid *grid, int dim, char *Seed, int len) { return grid; }
