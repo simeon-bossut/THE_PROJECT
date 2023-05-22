@@ -37,21 +37,21 @@ int main(int argc, char **argv) {
   // char *line;
 
   // line = id_to_line(id,5);
-  char line[6] = "312\0";
+  // char line[6] = "312\0";
 
-  int ID; //= line_to_id(line, 3);
+  // int ID; //= line_to_id(line, 3);
 
-  char *line_2;
+  // char *line_2;
 
-  int lim = factorial(5);
-  int id;
+  // int lim = factorial(5);
+  // int id;
 
-  for (int i = 0; i < lim; i++) {
-    line_2 = id_to_line(i + 1, 5);
-    printf("la ligne associée à l'id %d est %s    ", i + 1, line_2);
-    id = line_to_id(line_2, 5);
-    printf("l'id retrouvée est %d  \n\n", id);
-  }
+  // for (int i = 0; i < lim; i++) {
+  //   line_2 = id_to_line(i + 1, 5);
+  //   printf("la ligne associée à l'id %d est %s    ", i + 1, line_2);
+  //   id = line_to_id(line_2, 5);
+  //   printf("l'id retrouvée est %d  \n\n", id);
+  // }
 
   /* printgrid(grid,pov);
    printf("\n");
@@ -59,5 +59,14 @@ int main(int argc, char **argv) {
    printgrid_Ghost(gridf);
    free(grid); free(gridf);
    printf("\n");*/
+
+  char *Seed = "36235114095";
+  char *Seed2 = "36325114095";
+  Grid *gridE;
+  printf("line 2: %s line 3: %s\n", id_to_line(2, 3), id_to_line(3, 3));
+  gridE = read_seed(Seed);
+  printgrid(gridE);
+  gridE = read_seed(Seed2);
+  printgrid(gridE);
   return EXIT_SUCCESS;
 }
