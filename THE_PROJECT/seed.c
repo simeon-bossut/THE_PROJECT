@@ -323,7 +323,7 @@ void getLeftCases(char*tab,int i, int j,Grid*grid,int size)
     {
         if (!found_in_col(i + 1, grid, j) && !found_in_row(i + 1, grid, i))
         {
-            tab[compt] = i + 1;
+            tab[compt] = (i + 1)+48;
             compt++;
         }
     }
@@ -336,10 +336,12 @@ void generateGrid(Grid*grid,char* leftCases) {
 
     int compt = 0;
     int size = grid->size;
-    for (int i = 0; i < size; i++)
+    int random;
+    /*for (int i = 0; i < size; i++)
     {
         leftCases[i] = i + 1;
-    }
+    }*/
+
 
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
@@ -355,81 +357,74 @@ void generateGrid(Grid*grid,char* leftCases) {
 
                 generateGrid(grid,leftCases);
             }
-
-            grid->tab[i][j];
+            random= rand() % strlen(leftCases);
+            grid->tab[i][j]=leftCases[random]-48;
+            printf("%d |", grid->tab[i][j]);
         }
     }
-
     compt = 0;
 
     return;
 }
 
-Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
-  int *cache_tab;
-  int *cache_obv;
-  int k = 1;
-  for (int i = 0; i < dim; i++) {
-    k++;
-    char *line = id_to_line(Seed[k] - 48, dim);
-    for (int j = 0; j < dim; j++) {
-      grid->tab[i][j] = line[j] - 48;
-    }
-  }
-
-  cache_tab = get_cache_tab(dim, Seed, len);
-
-  for (int i = 0; i < dim; i++) {
-    for (int j = 0; j < dim; j++) {
-      if (cache_tab[i + j] == 0)
-        grid->tab[i][j] = 0;
-    }
-  }
-
-
-
-
-
-
-
-
-
-
-Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len){
-  for (int i = 1; i < len; i++) {
-    if (i < 4) {
-      for (int j = 0; j < dim; j++) {
-        char *line = id_to_line(Seed[i], dim);
-        grid->tab[i - 1][j] = line[0] - 48;
-      }
-  cache_obv = get_cache_obv(dim, Seed, len);
-
-  for (int i = 0; i < dim * 4; i++) {
-    if (cache_obv[i] == 0)
-      grid->obv[i] = 0;
-  }
-
-  return grid;
-}
-Grid *read_seed_4dim(Grid *grid, int dim, char *Seed, int len) { return grid; }
-Grid *read_seed_5dim(Grid *grid, int dim, char *Seed, int len) { return grid; }
-
-Grid *read_seed(char *Seed) {
-  int lenSeed = strlen(Seed);
-  int dim = Seed[0] - 48;
-  Grid *grid = initgrid(dim);
-
-  switch (dim) {
-  case 3:
-    grid = read_seed_3dim(grid, dim, Seed, lenSeed);
-    break;
-  case 4:
-    grid = read_seed_4dim(grid, dim, Seed, lenSeed);
-    break;
-  case 5:
-    grid = read_seed_5dim(grid, dim, Seed, lenSeed);
-    break;
-  }
-
-  return grid;
-}
+//Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
+//  int *cache_tab;
+//  int *cache_obv;
+//  int k = 1;
+//  for (int i = 0; i < dim; i++) {
+//    k++;
+//    char *line = id_to_line(Seed[k] - 48, dim);
+//    for (int j = 0; j < dim; j++) {
+//      grid->tab[i][j] = line[j] - 48;
+//    }
+//  }
+//
+//  cache_tab = get_cache_tab(dim, Seed, len);
+//
+//  for (int i = 0; i < dim; i++) {
+//    for (int j = 0; j < dim; j++) {
+//      if (cache_tab[i + j] == 0)
+//        grid->tab[i][j] = 0;
+//    }
+//  }
+//
+//
+//Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len){
+//  for (int i = 1; i < len; i++) {
+//    if (i < 4) {
+//      for (int j = 0; j < dim; j++) {
+//        char *line = id_to_line(Seed[i], dim);
+//        grid->tab[i - 1][j] = line[0] - 48;
+//      }
+//      cache_obv = get_cache_obv(dim, Seed, len);
+//
+//    for (int i = 0; i < dim * 4; i++) {
+//    if (cache_obv[i] == 0)
+//      grid->obv[i] = 0;
+//  }
+//
+//  return grid;
+//}
+//
+//Grid *read_seed_4dim(Grid *grid, int dim, char *Seed, int len) { return grid; }
+//Grid *read_seed_5dim(Grid *grid, int dim, char *Seed, int len) { return grid; }
+//
+//Grid *read_seed(char *Seed) {
+//  int lenSeed = strlen(Seed);
+//  int dim = Seed[0] - 48;
+//  Grid *grid = initgrid(dim);
+//
+//  switch (dim) {
+//  case 3:
+//    grid = read_seed_3dim(grid, dim, Seed, lenSeed);
+//    break;
+//  case 4:
+//    grid = read_seed_4dim(grid, dim, Seed, lenSeed);
+//    break;
+//  case 5:
+//    grid = read_seed_5dim(grid, dim, Seed, lenSeed);
+//    break;
+//  }
+//
+//  return grid;
+//}

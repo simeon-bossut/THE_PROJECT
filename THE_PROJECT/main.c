@@ -13,16 +13,16 @@ int main(int argc, char **argv) {
   // int *pov;
   // pov = initpov(size);
 
-  Grid *grid = initgrid(size);
+ /* Grid *grid = initgrid(size);
   GhostGrid* gridf = initGhostGrid(size);
   if (grid == NULL) {
     return 0;
-  }
+  }*/
 
   //// fillgrid(grid);
   ////  grid_completion(grid);
 
-  fillgrid(grid);
+  /*fillgrid(grid);
   grid->tab[0][0] = 3;
   grid->tab[1][0] = 2;
   grid->tab[2][0] = 4;
@@ -43,15 +43,17 @@ int main(int argc, char **argv) {
    printf("\n");*/
 
   Grid* grid = initgrid(3);
-  if(grid==NULL)
+  char* leftCases = malloc(sizeof(char) * 4);
+  if(grid==NULL||leftCases==NULL)
   {
 	  return NULL;
   }
-  for (int i = 0;i < grid->size;++i)
+  generateGrid(grid, leftCases);
+  for(int i = 0;i < grid->size;++i)
   {
 	  for (int j = 0;j < grid->size;++j)
 	  {
-		  printf("%d -");
+		  printf("%d |",grid->tab[i][j]);
 	  }
 	  printf("\n");
   }

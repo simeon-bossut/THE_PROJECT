@@ -13,4 +13,7 @@ char *create_seed(int difficulty, int dim);
 
 Grid *read_seed(char *Seed);
 
+void generateGrid(Grid* grid, char* leftCases);
+
+
 #endif // !seed
