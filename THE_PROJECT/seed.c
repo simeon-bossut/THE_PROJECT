@@ -147,71 +147,124 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   }
   return line;
 }
-// char *create_seed(int difficulty, int dim) {
-//   int size;
-//   if (dim == 3) {
-//     size = 12;
-//   } else if (dim == 4) {
-//     size = 20;
-//   } else if (dim == 5) {
-//     size = 32;
-//   } else {
-//     return NULL;
-//   }
-//   char *SEED = malloc(sizeof(char) * size);
-//   if (SEED == NULL) {
-//     return NULL;
-//   }
-//   SEED[0] = dim + 48;
-//   int *tab; // tableau contenant toutes les lignes déja présentes dans le
-//             // tableau
-//   for (int i = 0; i < dim; i++) // Création du tableau
-//   {
-//     ;
-//   }
-//   int size_cache = dim * (dim + 4);
-//   bool *cache = malloc(sizeof(bool) * size_cache);
-//   if (cache == NULL) {
-//     return NULL;
-//   }
-//   if (difficulty == 1) {
-//     for (int i = 0; i < size_cache; ++i) {
-//       cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs
-//       sont
-//                                   // visibles et tout le jeu caché
-//     }
-//   } else {
-//     do {
-//     } while (solver()); // Tant que le solveur marche
-//   }
-//   int value = 0b0;
-//   for (int i = 0; i < dim * dim; ++i) {
-//     value += cache[i];
-//     value = value << 1;
-//   }
-//   _itoa_s(
-//       value, SEED + 1, dim * dim,
-//       10); // Dans le futur à décaler de quelques cases car le tableau
-//       précède
-//   value = 0b0;
-//   for (int i = dim * dim; i < size_cache; ++i) {
-//     value += cache[i];
-//     value = value << 1;
-//   }
-//   _itoa_s(
-//       value, SEED + dim * dim + 1, dim * 4,
-//       10); // DAns le futur à décaler de quelques cases car le tableau
-//       précède
-// }
-int *Dec2Bin(int n, int dim) {
-  int *binaryNum = malloc(sizeof(int) * dim * dim);
-  int i = 0;
-  while (n > 0) {
-    binaryNum[i] = n % 2;
-    n = n / 2;
-    i++;
-  }
-  return binaryNum;
+
+
+
+
+char* create_seed(int difficulty, int dim) {
+    int size;
+    if (dim == 3) {
+        size = 12;
+    }
+    else if (dim == 4) {
+        size = 20;
+    }
+    else if (dim == 5) {
+        size = 32;
+    }
+    else {
+        return NULL;
+    }
+    char* SEED = malloc(sizeof(char) * size);
+    if (SEED == NULL) {
+        return NULL;
+    }
+    SEED[0] = dim + 48;
+    int* tab; // tableau contenant toutes les lignes déja présentes dans le
+    // tableau
+    for (int i = 0; i < dim; i++) // Création du tableau
+    {
+        ;
+    }
+
+    int size_cache = dim * (dim + 4);
+    bool* cache = malloc(sizeof(bool) * size_cache);
+    if (cache == NULL) {
+        return NULL;
+    }
+    if (difficulty == 1) {
+        for (int i = 0; i < size_cache; ++i) {
+            cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs sont
+            // visibles et tout le jeu caché
+        }
+    }
+    else {
+        do {
+
+        } while (solver()); // Tant que le solveur marche
+    }
+    int value = 0b0;
+    for (int i = 0; i < dim * dim; ++i) {
+        value += cache[i];
+        value = value << 1;
+    }
+    _itoa_s(value, SEED + 1, dim * dim,  10); // Dans le futur à décaler de quelques cases car le tableau précède
+	
+    return;//cache_tab;
+}
+
+
+void getLeftCases(char*tab,int i, int j,Grid*grid,int size)
+{
+    int compt = 0;
+    for (int i = 0;i < size;++i)
+    {
+        if (!found_in_col(i + 1, grid, j) && !found_in_row(i + 1, grid, i))
+        {
+            tab[compt] = (i + 1)+48;
+            compt++;
+        }
+    }
+    tab[compt] = '\0';
+}
+
+
+
+void generateGrid(Grid*grid,char* leftCases) {
+
+    int compt = 0;
+    int size = grid->size;
+    int random;
+    /*for (int i = 0; i < size; i++)
+    {
+        leftCases[i] = i + 1;
+    }*/
+
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+
+            getLeftCases(leftCases,i,j,grid,size);
+
+            if (strlen(leftCases) == 0) {
+                compt++;
+                if (compt > 3000) {
+                    compt = 0;
+                    return;//error
+                }
+
+                generateGrid(grid,leftCases);
+            }
+            random= rand() % strlen(leftCases);
+            grid->tab[i][j]=leftCases[random]-48;
+            printf("%d |", grid->tab[i][j]);
+        }
+    }
+    compt = 0;
+
+    return;
+}
+
+
+int* Dec2Bin(int n, int dim) {
+    int* binaryNum = malloc(sizeof(int) * dim * dim);
+    int i = 0;
+    while (n > 0) {
+        binaryNum[i] = n % 2;
+        n = n / 2;
+        i++;
+    }
+    return binaryNum;
 }
 
 int *get_cache_tab(int dim, char *Seed, int len) {
@@ -222,9 +275,9 @@ int *get_cache_tab(int dim, char *Seed, int len) {
   char *tmp_cache_tab = malloc(sizeof(char) * dim);
   memcpy(tmp_cache_tab, Seed + dim + 1, dim);
 
-  int int_cache_tab = atoi(tmp_cache_tab);
-  cache_tab = Dec2Bin(int_cache_tab, dim);
-  return cache_tab;
+    int int_cache_tab = atoi(tmp_cache_tab);
+    cache_tab = Dec2Bin(int_cache_tab, dim);
+    return cache_tab;
 }
 
 int *get_cache_obv(int dim, char *Seed, int len) {
@@ -235,9 +288,9 @@ int *get_cache_obv(int dim, char *Seed, int len) {
   char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
   memcpy(tmp_cache_tab, Seed + dim * 2 + 1, dim + 1);
 
-  int int_cache_tab = atoi(tmp_cache_tab);
-  cache_tab = Dec2Bin(int_cache_tab, dim * 4);
-  return cache_tab;
+    int int_cache_tab = atoi(tmp_cache_tab);
+    cache_tab = Dec2Bin(int_cache_tab, dim * 4);
+    return cache_tab;
 }
 
 Grid *read_seed_v2(Grid *grid, int dim, char *Seed, int len) {
