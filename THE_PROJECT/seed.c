@@ -169,36 +169,94 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   return line;
 }
 
-char*create_seed(int difficulty,int dim)
-{
-	int size;
-	if (dim == 3)
-	{
-		size = 12;
-	}
-	else if(dim==4)
-	{
-		size = 20;
-	}
-	else if(dim==5)
-	{
-		size = 32;
-	}
-	else 
-	{
-		return NULL;
-	}
-	char* SEED = malloc(sizeof(char) * size);
-	if(SEED==NULL)
-	{
-		return NULL;
-	}
-	SEED[0] = dim + 48;
-	int* tab;//tableau contenant toutes les lignes déja présentes dans le tableau
-	for (int i = 0;i < dim;i++)//Création du tableau
-	{
-		;
-	}
+// char *create_seed(int difficulty, int dim) {
+//   int size;
+//   if (dim == 3) {
+//     size = 12;
+//   } else if (dim == 4) {
+//     size = 20;
+//   } else if (dim == 5) {
+//     size = 32;
+//   } else {
+//     return NULL;
+//   }
+//   char *SEED = malloc(sizeof(char) * size);
+//   if (SEED == NULL) {
+//     return NULL;
+//   }
+//   SEED[0] = dim + 48;
+//   int *tab; // tableau contenant toutes les lignes déja présentes dans le
+//             // tableau
+//   for (int i = 0; i < dim; i++) // Création du tableau
+//   {
+//     ;
+//   }
+
+//   int size_cache = dim * (dim + 4);
+//   bool *cache = malloc(sizeof(bool) * size_cache);
+//   if (cache == NULL) {
+//     return NULL;
+//   }
+//   if (difficulty == 1) {
+//     for (int i = 0; i < size_cache; ++i) {
+//       cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs
+//       sont
+//                                   // visibles et tout le jeu caché
+//     }
+//   } else {
+//     do {
+
+//     } while (solver()); // Tant que le solveur marche
+//   }
+//   int value = 0b0;
+//   for (int i = 0; i < dim * dim; ++i) {
+//     value += cache[i];
+//     value = value << 1;
+//   }
+//   _itoa_s(
+//       value, SEED + 1, dim * dim,
+//       10); // Dans le futur à décaler de quelques cases car le tableau
+//       précède
+
+//   value = 0b0;
+//   for (int i = dim * dim; i < size_cache; ++i) {
+//     value += cache[i];
+//     value = value << 1;
+//   }
+//   _itoa_s(
+//       value, SEED + dim * dim + 1, dim * 4,
+//       10); // DAns le futur à décaler de quelques cases car le tableau
+//       précède
+// }
+
+int *Dec2Bin(int n, int dim) {
+  int *binaryNum = malloc(sizeof(int) * dim * dim);
+
+  int i = 0;
+  while (n > 0) {
+
+    binaryNum[i] = n % 2;
+    n = n / 2;
+    i++;
+  }
+
+  return binaryNum;
+}
+
+int *get_cache_tab(int dim, char *Seed, int len) {
+  int *cache_tab = malloc(sizeof(int) * dim * dim);
+  if (cache_tab == NULL) {
+    return NULL;
+  }
+  char *tmp_cache_tab = malloc(sizeof(char) * dim);
+  memcpy(tmp_cache_tab, Seed + dim + 1, dim);
+
+  int int_cache_tab = atoi(tmp_cache_tab);
+
+  cache_tab = Dec2Bin(int_cache_tab, dim);
+
+  return cache_tab;
+}
 
 	int size_cache = dim * (dim + 4);
 	bool* cache = malloc(sizeof(bool) *size_cache);
@@ -227,13 +285,8 @@ char*create_seed(int difficulty,int dim)
 	}
 	_itoa_s(value, SEED + 1, dim * dim, 10);//Dans le futur à décaler de quelques cases car le tableau précède
 
-	value = 0b0;
-	for (int i = dim * dim;i <size_cache ;++i)
-	{
-		value += cache[i];
-		value = value << 1;
-	}
-	_itoa_s(value, SEED + dim*dim+1, dim * 4, 10);//DAns le futur à décaler de quelques cases car le tableau précède
+  return cache_tab;
+}
 
 }
 
@@ -285,6 +338,26 @@ void generateGrid(Grid*grid,char* leftCases) {
 
     return;
 }
+Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
+  int *cache_tab;
+  int *cache_obv;
+  int k = 1;
+  for (int i = 0; i < dim; i++) {
+    k++;
+    char *line = id_to_line(Seed[k] - 48, dim);
+    for (int j = 0; j < dim; j++) {
+      grid->tab[i][j] = line[j] - 48;
+    }
+  }
+
+  cache_tab = get_cache_tab(dim, Seed, len);
+
+  for (int i = 0; i < dim; i++) {
+    for (int j = 0; j < dim; j++) {
+      if (cache_tab[i + j] == 0)
+        grid->tab[i][j] = 0;
+    }
+  }
 
 
 
@@ -302,10 +375,13 @@ Grid *read_seed_3dim(Grid *grid, int dim, char *Seed, int len) {
         char *line = id_to_line(Seed[i], dim);
         grid->tab[i - 1][j] = line[0] - 48;
       }
+  cache_obv = get_cache_obv(dim, Seed, len);
 
-    } else {
-    }
+  for (int i = 0; i < dim * 4; i++) {
+    if (cache_obv[i] == 0)
+      grid->obv[i] = 0;
   }
+
   return grid;
 }
 Grid *read_seed_4dim(Grid *grid, int dim, char *Seed, int len) { return grid; }

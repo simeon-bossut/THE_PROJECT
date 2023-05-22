@@ -21,9 +21,10 @@ typedef struct Box {
 typedef struct Grid {
   int size;
   int **tab;
+  int *obv;
 } Grid;
 
-void printgrid(Grid *grid, int *pov);
+void printgrid(Grid *grid);
 
 int *initpov(int size);
 

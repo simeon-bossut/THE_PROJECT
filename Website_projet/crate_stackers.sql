@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 17 mai 2023 à 09:17
+-- Généré le : lun. 22 mai 2023 à 09:50
 -- Version du serveur : 5.7.24
 -- Version de PHP : 7.4.16
 
@@ -31,18 +31,26 @@ CREATE TABLE `acc` (
   `email` varchar(36) NOT NULL,
   `pseudo` varchar(36) NOT NULL,
   `civility` varchar(12) NOT NULL,
-  `password` varchar(36) NOT NULL
+  `password` varchar(36) NOT NULL,
+  `score` int(11) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `acc`
 --
 
-INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`) VALUES
-('azef@ezf', 'azer', 'M', 'azer'),
-('lucas.verportern@gmail.com', 'Yiroes', 'M', 'Zoeomg'),
-('paul.cauche', 'Monkoye', 'M', 'Caps'),
-('simeon.bossut@gmail.com', 'sim', 'M', 'azer');
+INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`, `score`, `level`) VALUES
+('admin', 'coucpou', 'M', 'coucou', NULL, NULL),
+('anne.cauche@yahoo.fr', 'Annouchka', 'Mme', 'coucou', NULL, NULL),
+('azef@ezf', 'azer', 'M', 'azer', NULL, NULL),
+('lucas.verportern@gmail.com', 'Yiroes', 'M', 'Zoeomg', 5000, NULL),
+('Paul.antoine@gmail.com', 'PA', 'M', 'oui', NULL, NULL),
+('simeon.bossut@gmail.com', 'sim', 'M', 'azer', NULL, NULL),
+('test123@gmail.com', 'ceciestuntest', 'M', 'non', 0, 0),
+('test2222@gmail.co!', 'TEST', 'M', 'azer', NULL, NULL),
+('test@gmail.com', 'test', 'M', 'test', NULL, NULL),
+('yanis.ouchene@gmail.com', 'Youyou', 'M', 'mdp', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -52,9 +60,16 @@ INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`) VALUES
 
 CREATE TABLE `score` (
   `email` varchar(36) NOT NULL,
-  `score` int(11) NOT NULL,
+  `score_player` int(11) NOT NULL,
   `level` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `score`
+--
+
+INSERT INTO `score` (`email`, `score_player`, `level`) VALUES
+('lucas.verportern@gmail.com', 0, 0);
 
 --
 -- Index pour les tables déchargées

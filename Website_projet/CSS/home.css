@@ -89,7 +89,7 @@ h1 {
 }
 
 .frontDis.hidden {
-  top: -100%;
+  top: -200%;
   transition: all 1s ease-in-out;
 }
 

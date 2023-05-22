@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
   srand(time(NULL));
   setlocale(LC_ALL, "fr_FR.UTF-8");
 
-  // int size = argv[1] ? atoi(argv[1]) : 3;
+  int size = argv[1] ? atoi(argv[1]) : 4;
 
   // int *pov;
   // pov = initpov(size);
@@ -22,10 +22,11 @@ int main(int argc, char **argv) {
   //// fillgrid(grid);
   ////  grid_completion(grid);
 
-  // fillgrid(grid);
-  /*grid->tab[0][0] = 1;
+  //fillgrid(grid);
+  grid->tab[0][0] = 3;
   grid->tab[1][0] = 2;
-  grid->tab[2][0] = 3;
+  grid->tab[2][0] = 4;
+  grid->tab[3][0] = 1;
   grid->tab[0][1] = 0;
   grid->tab[1][1] = 0;
   grid->tab[2][1] = 0;

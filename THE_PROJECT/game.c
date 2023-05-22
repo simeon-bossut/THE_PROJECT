@@ -1,4 +1,5 @@
 #include "game.h"
+#include <stdio.h>
 
 int **creatab(int size) {
   int *tab_c = (int *)malloc(sizeof(int) * size);
@@ -45,6 +46,7 @@ Grid *initgrid(int dim) // init the grid size at 0 all case = 0
       grid->tab[i][j] = 0;
     }
   }
+  grid->obv = initpov(dim);
   return grid;
 }
 
@@ -59,34 +61,35 @@ int *initpov(int size) {
   return pov;
 }
 
-void printgrid(Grid *grid, int *pov) {
+void printgrid(Grid *grid) {
 
-  printf("      ");
+  printf("     ");
 
   for (int i = 0; i < grid->size; i++) {
-    printf("| %d |", pov[i]);
+    printf("| %d |", grid->obv[i]);
   }
 
   printf("     \n");
 
   for (int i = 0; i < grid->size; ++i) {
 
-    printf("| %d |", pov[grid->size * 4 - i - 1]);
+    printf("| %d |", grid->obv[grid->size * 4 - i - 1]);
 
     for (int j = 0; j < grid->size; ++j) {
       printf("| %d |", grid->tab[i][j]);
     }
 
-    printf("| %d |\n", pov[grid->size + i]);
+    printf("| %d |\n", grid->obv[grid->size + i]);
   }
 
-  printf("      ");
+  printf("     ");
 
   for (int i = 0; i < grid->size; i++) {
-    printf("| %d |", pov[grid->size * 3 - i - 1]);
+    printf("| %d |", grid->obv[grid->size * 3 - i - 1]);
   }
 
   printf("     \n");
+  printf("\n");
 }
 
 void initElt(int *elt, int size) {
