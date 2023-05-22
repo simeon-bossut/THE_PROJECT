@@ -8,50 +8,44 @@ int main(int argc, char **argv) {
   srand(time(NULL));
   setlocale(LC_ALL, "fr_FR.UTF-8");
 
-  // int size = argv[1] ? atoi(argv[1]) : 3;
+  int size = argv[1] ? atoi(argv[1]) : 4;
 
-  // int *pov;
-  // pov = initpov(size);
-
-  // Grid *grid = initgrid(size);
-  // GhostGrid* gridf = initGhostGrid(size);
-  // if (grid == NULL) {
-  //   return 0;
-  // }
-
-  //// fillgrid(grid);
-  ////  grid_completion(grid);
+  /*Grid* grid = initgrid(size);
+  GhostGrid *gridf = initGhostGrid(size);
+  if (grid == NULL) {
+    return 0;
+  }*/
 
   // fillgrid(grid);
-  /*grid->tab[0][0] = 1;
-  grid->tab[1][0] = 2;
-  grid->tab[2][0] = 3;
-  grid->tab[0][1] = 0;
+  //  grid_completion(grid);
+
+  /*grid->tab[0][0] = 3;
+  grid->tab[1][0] = 0;
+  grid->tab[2][0] = 0;
+  grid->tab[3][0] = 0;
+  grid->tab[0][1] = 2;
   grid->tab[1][1] = 0;
   grid->tab[2][1] = 0;
-  grid->tab[0][2] = 0;
+  grid->tab[3][1] = 0;
+  grid->tab[0][2] = 4;
   grid->tab[1][2] = 0;
+  grid->tab[2][2] = 0;
+  grid->tab[3][2] = 0;
+  grid->tab[0][3] = 1;
+  grid->tab[1][3] = 0;
+  grid->tab[2][3] = 0;
+  grid->tab[3][3] = 0;
+  printgrid(grid);
+  printf("\n");
+  fill_ghost(*gridf, *grid, grid->obv);
+  printgrid_Ghost(gridf);
+  printf("%d\n", gridf->size);
+  Guess *guesses = fill_guess(*gridf);
+  print_guess(guesses, 4);
+  free(grid);
+  free(gridf);
   grid->tab[2][2] = 0;*/
 
-  // test seed
-  // char *line;
-
-  // line = id_to_line(id,5);
-  char line[6] = "312\0";
-
-  int ID; //= line_to_id(line, 3);
-
-  char *line_2;
-
-  int lim = factorial(5);
-  int id;
-
-  for (int i = 0; i < lim; i++) {
-    line_2 = id_to_line(i + 1, 5);
-    printf("la ligne associée à l'id %d est %s    ", i + 1, line_2);
-    id = line_to_id(line_2, 5);
-    printf("l'id retrouvée est %d  \n\n", id);
-  }
 
   /* printgrid(grid,pov);
    printf("\n");
@@ -59,5 +53,22 @@ int main(int argc, char **argv) {
    printgrid_Ghost(gridf);
    free(grid); free(gridf);
    printf("\n");*/
+
+  Grid* grid = initgrid(3);
+  char* leftCases = malloc(sizeof(char) * 4);
+  if(grid==NULL||leftCases==NULL)
+  {
+	  return NULL;
+  }
+  generateGrid(grid, leftCases);
+  for(int i = 0;i < grid->size;++i)
+  {
+	  for (int j = 0;j < grid->size;++j)
+	  {
+		  printf("%d |",grid->tab[i][j]);
+	  }
+	  printf("\n");
+  }
+  
   return EXIT_SUCCESS;
 }

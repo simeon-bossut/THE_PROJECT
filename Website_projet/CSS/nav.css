@@ -13,6 +13,9 @@ nav {
     top: 25px;
     margin-left: 20px;
     z-index: 1;
+    height:40px;
+    background-color: #232323;
+    
   }
   #menucontenu a {
     font-family: "MV Boli";
@@ -27,8 +30,6 @@ nav {
     width: 40px;
     height: 32px;
     position: sticky;
-    top: -7px;
-    left: -5px;
     cursor: pointer;
     opacity: 0; 
     z-index: 2; 
