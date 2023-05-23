@@ -7,17 +7,14 @@
 int main(int argc, char **argv) {
   srand(time(NULL));
   setlocale(LC_ALL, "fr_FR.UTF-8");
-  
+
   int size = argv[1] ? atoi(argv[1]) : 4;
 
-  int *pov;
-  pov = initpov(size);
-
-  Grid *grid = initgrid(size);
-  GhostGrid* gridf = initGhostGrid(size);
+  /*Grid* grid = initgrid(size);
+  GhostGrid *gridf = initGhostGrid(size);
   if (grid == NULL) {
     return 0;
-  }
+  }*/
 
   // fillgrid(grid);
   //  grid_completion(grid);

@@ -14,11 +14,10 @@ nav {
     margin-left: 20px;
     z-index: 1;
     height:40px;
-    background-color: #232323;
     
   }
   #menucontenu a {
-    font-family: "MV Boli";
+    font-family: "Kanit", sans-serif;
     text-decoration: none;
     color: #232323;
   }
