@@ -178,80 +178,82 @@ char *create_seed(int difficulty, int dim) {
   }
   if (difficulty == 1) {
     for (int i = 0; i < size_cache; ++i) {
-      cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs sont
-                                  // visibles et tout le jeu caché
+      cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs
+      // sont
+      //  visibles et tout le jeu caché
     }
   } else {
     do {
 
-        } while (1); // Tant que le solveur marche
-    }
-    int value = 0b0;
-    for (int i = 0; i < dim * dim; ++i) {
-        value += cache[i];
-        value = value << 1;
-    }
-    _itoa_s(value, SEED + 1, dim * dim,  10); // Dans le futur à décaler de quelques cases car le tableau précède
-	
-    return;//cache_tab;
+    } while (1); // Tant que le solveur marche
+  }
+  int value = 0b0;
+  for (int i = 0; i < dim * dim; ++i) {
+    value += cache[i];
+    value = value << 1;
+  }
+  _itoa_s(
+      value, SEED + 1, dim * dim,
+      10); // Dans le futur à décaler de quelques cases car le tableau précède
+
+  return; // cache_tab;
 }
 
+void getLeftCases(char *string, int i, int j, int **tab, int size) {
+  int compt = 0;
+  for (int a = 0; a < size; ++a) {
 
-void getLeftCases(char*string,int i, int j,int**tab,int size)
+    if (!found_in_col(tab, size, j, a + 1) &&
+        !found_in_row(tab, size, i, a + 1)) {
+      string[compt] = (a + 1) + 48;
+      compt++;
+    }
+  }
+  string[compt] = '\0';
+}
+
+int generateGrid(Grid *grid) {
+  int size = grid->size;
+  char *leftCases = malloc(sizeof(char) * (size + 1));
+  int **tab = creatab(grid->size);
+  if (leftCases == NULL || tab == NULL ||
+      (genGrid_tab(tab, leftCases, size) == -1)) {
+    return -1;
+  }
+  free_tab(grid->tab, size); // On libère de la place
+  grid->tab = tab;
+}
+
+int genGrid_tab(
+    int **tab, char *leftCases,
+    int size) // Génère un tableau de dmimension "size".Cette fonction est une
+              // sous-fonction appellée par "generateGrid"
 {
-    int compt = 0;
-    for (int a = 0;a < size;++a)
-    {
-        
-        if (!found_in_col(tab,size,j, a + 1) && !found_in_row(tab, size, i, a + 1))
-        {
-            string[compt] = (a + 1)+48;
-            compt++;
+  int compt = 0;
+
+  int random;
+
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size; j++) {
+
+      getLeftCases(leftCases, i, j, tab, size);
+
+      if (strlen(leftCases) == 0) {
+        compt++;
+        if (compt > 300) {
+          compt = 0;
+          return -1; // error
         }
+        // Si il y a eu un échec, on vide le tableau et on réessaye
+        initab(tab, size);
+        return genGrid_tab(tab, leftCases, size);
+      }
+      random = rand() % strlen(leftCases);
+      tab[i][j] = leftCases[random] - 48;
     }
-    string[compt] = '\0';
-}
+  }
 
-int generateGrid(Grid* grid)
-{
-    int size = grid->size;
-    char* leftCases = malloc(sizeof(char) * (size + 1));
-    int** tab = creatab(grid->size);
-    if (leftCases == NULL||tab==NULL||(genGrid_tab(tab, leftCases, size) == -1))
-    {
-        return -1;
-    }
-    free_tab(grid->tab, size);//On libère de la place 
-    grid->tab = tab;
-}
-
-int genGrid_tab(int **tab,char* leftCases,int size) //Génère un tableau de dmimension "size".Cette fonction est une sous-fonction appellée par "generateGrid"
-{
-    int compt = 0;
-    
-    int random;
-    
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-
-            getLeftCases(leftCases,i,j,tab,size);
-
-            if (strlen(leftCases) == 0) {
-                compt++;
-                if (compt > 300) {
-                    compt = 0;
-                    return -1;//error
-                }
-                //Si il y a eu un échec, on vide le tableau et on réessaye
-                initab(tab, size);
-                return genGrid_tab(tab,leftCases,size);
-            }
-            random= rand() % strlen(leftCases);
-            tab[i][j]=leftCases[random]-48;
-        }
-    }
-
-    return 0;
+  return 0;
 }
 
 int *Dec2Bin(int n, int dim) {
@@ -266,12 +268,25 @@ int *Dec2Bin(int n, int dim) {
 }
 
 int *get_cache_tab(int dim, char *Seed, int len) {
+  int size_cache;
   int *cache_tab = malloc(sizeof(int) * dim * dim);
   if (cache_tab == NULL) {
     return NULL;
   }
   char *tmp_cache_tab = malloc(sizeof(char) * dim);
-  memcpy(tmp_cache_tab, Seed + dim + 1, dim);
+  switch (dim) {
+  case 3:
+    size_cache = 3;
+    break;
+  case 4:
+    size_cache = 5;
+    break;
+  case 5:
+    size_cache = 8;
+    break;
+  }
+  memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + 1, size_cache);
+  printf("%s\n", tmp_cache_tab);
 
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim);
@@ -279,12 +294,29 @@ int *get_cache_tab(int dim, char *Seed, int len) {
 }
 
 int *get_cache_obv(int dim, char *Seed, int len) {
+  int size_cache, size_obv;
   int *cache_tab = malloc(sizeof(int) * dim * dim * 4);
   if (cache_tab == NULL) {
     return NULL;
   }
+
+  switch (dim) {
+  case 3:
+    size_cache = 3;
+    size_obv = 4;
+    break;
+  case 4:
+    size_cache = 5;
+    size_obv = 5;
+    break;
+  case 5:
+    size_cache = 8;
+    size_obv = 7;
+    break;
+  }
   char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
-  memcpy(tmp_cache_tab, Seed + dim * 2 + 1, dim + 1);
+  memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + size_cache + 1, size_obv);
+  printf("%s\n", tmp_cache_tab);
 
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim * 4);
