@@ -148,55 +148,57 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   return line;
 }
 
-char *create_seed(int difficulty, int dim) {
-  int size;
-  if (dim == 3) {
-    size = 12;
-  } else if (dim == 4) {
-    size = 20;
-  } else if (dim == 5) {
-    size = 32;
-  } else {
-    return NULL;
-  }
-  char *SEED = malloc(sizeof(char) * size);
-  if (SEED == NULL) {
-    return NULL;
-  }
-  SEED[0] = dim + 48;
-  int *tab; // tableau contenant toutes les lignes déja présentes dans le
-  // tableau
-  for (int i = 0; i < dim; i++) // Création du tableau
-  {
-    ;
-  }
+// char *create_seed(int difficulty, int dim) {
+//   int size;
+//   if (dim == 3) {
+//     size = 12;
+//   } else if (dim == 4) {
+//     size = 20;
+//   } else if (dim == 5) {
+//     size = 32;
+//   } else {
+//     return NULL;
+//   }
+//   char *SEED = malloc(sizeof(char) * size);
+//   if (SEED == NULL) {
+//     return NULL;
+//   }
+//   SEED[0] = dim + 48;
+//   int *tab; // tableau contenant toutes les lignes déja présentes dans le
+//   // tableau
+//   for (int i = 0; i < dim; i++) // Création du tableau
+//   {
+//     ;
+//   }
 
-  int size_cache = dim * (dim + 4);
-  bool *cache = malloc(sizeof(bool) * size_cache);
-  if (cache == NULL) {
-    return NULL;
-  }
-  if (difficulty == 1) {
-    for (int i = 0; i < size_cache; ++i) {
-      cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs sont
-                                  // visibles et tout le jeu caché
-    }
-  } else {
-    do {
+//   int size_cache = dim * (dim + 4);
+//   bool *cache = malloc(sizeof(bool) * size_cache);
+//   if (cache == NULL) {
+//     return NULL;
+//   }
+//   if (difficulty == 1) {
+//     for (int i = 0; i < size_cache; ++i) {
+//       cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs
+//       sont
+//                                   // visibles et tout le jeu caché
+//     }
+//   } else {
+//     do {
 
-    } while (solver()); // Tant que le solveur marche
-  }
-  int value = 0b0;
-  for (int i = 0; i < dim * dim; ++i) {
-    value += cache[i];
-    value = value << 1;
-  }
-  _itoa_s(
-      value, SEED + 1, dim * dim,
-      10); // Dans le futur à décaler de quelques cases car le tableau précède
+//     } while (solver()); // Tant que le solveur marche
+//   }
+//   int value = 0b0;
+//   for (int i = 0; i < dim * dim; ++i) {
+//     value += cache[i];
+//     value = value << 1;
+//   }
+//   _itoa_s(
+//       value, SEED + 1, dim * dim,
+//       10); // Dans le futur à décaler de quelques cases car le tableau
+//       précède
 
-  return; // cache_tab;
-}
+//   return; // cache_tab;
+// }
 
 void getLeftCases(char *tab, int i, int j, Grid *grid, int size) {
   int compt = 0;
@@ -255,12 +257,25 @@ int *Dec2Bin(int n, int dim) {
 }
 
 int *get_cache_tab(int dim, char *Seed, int len) {
+  int size_cache;
   int *cache_tab = malloc(sizeof(int) * dim * dim);
   if (cache_tab == NULL) {
     return NULL;
   }
   char *tmp_cache_tab = malloc(sizeof(char) * dim);
-  memcpy(tmp_cache_tab, Seed + dim + 1, dim);
+  switch (dim) {
+  case 3:
+    size_cache = 3;
+    break;
+  case 4:
+    size_cache = 5;
+    break;
+  case 5:
+    size_cache = 8;
+    break;
+  }
+  memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + 1, size_cache);
+  printf("%s\n", tmp_cache_tab);
 
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim);
@@ -268,12 +283,29 @@ int *get_cache_tab(int dim, char *Seed, int len) {
 }
 
 int *get_cache_obv(int dim, char *Seed, int len) {
+  int size_cache, size_obv;
   int *cache_tab = malloc(sizeof(int) * dim * dim * 4);
   if (cache_tab == NULL) {
     return NULL;
   }
+
+  switch (dim) {
+  case 3:
+    size_cache = 3;
+    size_obv = 4;
+    break;
+  case 4:
+    size_cache = 5;
+    size_obv = 5;
+    break;
+  case 5:
+    size_cache = 8;
+    size_obv = 7;
+    break;
+  }
   char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
-  memcpy(tmp_cache_tab, Seed + dim * 2 + 1, dim + 1);
+  memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + size_cache + 1, size_obv);
+  printf("%s\n", tmp_cache_tab);
 
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim * 4);
