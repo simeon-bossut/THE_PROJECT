@@ -1,9 +1,7 @@
-<?php 
-session_start();
-if( !isset($_SESSION["authentifie"]) ||  $_SESSION["authentifie"] == false){
-	header("Location:error.php");
-}
-?>
+<?php session_start(); ?>
+
+<?php include("verifLogin.php"); ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

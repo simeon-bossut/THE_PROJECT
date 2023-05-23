@@ -7,7 +7,7 @@
 
 		<?php include("head.php"); ?>
 
-		<title>The Crate Stacker - Customization</title>
+		<title>The Crate Stacker</title>
 
 		<link rel="stylesheet" href="../CSS/home.css">
 

@@ -58,7 +58,8 @@ h1 {
 }
 
 #scroll{
-		overflow:scroll;
+		overflow-y:scroll;
+    overflow-x: hidden;
 	height: 700px;
 
 	
