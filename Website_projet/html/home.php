@@ -3,14 +3,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-	<title>The Crate Stacker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="icon" href="../Images/Crate.png" type="image/x-icon">
-  <link rel="stylesheet" href="../CSS/home.css">
-</head>
+  <head>
+
+		<?php include("head.php"); ?>
+
+		<title>The Crate Stacker</title>
+
+		<link rel="stylesheet" href="../CSS/home.css">
+
+  </head>
 
   <body <?php if(!isset($_SESSION['isOnWebsite']) || !$_SESSION['isOnWebsite']) { echo 'style="overflow: hidden"'; } ?> >
 		
@@ -37,7 +38,7 @@
     <nav>
       <div class="buttonsLogo">
         <a href="conceptor.php"><div class="buttonLogo">Level Creator</div></a>
-        <a href="settings.php"><div class="buttonLogo">Settings</div></a>
+        <a href="setting.php"><div class="buttonLogo">Settings</div></a>
       </div>
       <a href=""><img src="../Images/complete_logo.png" id="logo"></a>
       <div class="buttonsLogo">

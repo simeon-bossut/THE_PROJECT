@@ -46,7 +46,6 @@ int main(int argc, char **argv) {
   free(gridf);
   grid->tab[2][2] = 0;*/
 
-
   /* printgrid(grid,pov);
    printf("\n");
    fill_ghost(*gridf, *grid, pov);
