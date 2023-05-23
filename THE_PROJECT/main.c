@@ -54,13 +54,12 @@ int main(int argc, char **argv) {
    free(grid); free(gridf);
    printf("\n");*/
 
-  Grid* grid = initgrid(3);
-  char* leftCases = malloc(sizeof(char) * 4);
-  if(grid==NULL||leftCases==NULL)
+  Grid* grid = initgrid(5);
+  if(grid==NULL)
   {
 	  return NULL;
   }
-  generateGrid(grid, leftCases);
+  generateGrid(grid);
   for(int i = 0;i < grid->size;++i)
   {
 	  for (int j = 0;j < grid->size;++j)
@@ -70,5 +69,17 @@ int main(int argc, char **argv) {
 	  printf("\n");
   }
   
+
+  char *Seed3dim = "32635114095";
+  char *Seed4dim = "4012418066553565535";
+  char *Seed5dim = "5001120060112099335544311048575";
+  grid = read_seed(Seed3dim);
+  printgrid(grid);
+
+  grid = read_seed(Seed4dim);
+  printgrid(grid);
+
+  grid = read_seed(Seed5dim);
+  printgrid(grid);
   return EXIT_SUCCESS;
 }

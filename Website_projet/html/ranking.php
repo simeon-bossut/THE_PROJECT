@@ -45,7 +45,7 @@
 				
 			}
 
-			echo "</div>";
+			echo "</table> </div>";
 			}catch (Exception $e) {
 				die("Erreur : " . $e->getMessage());}
 	?>

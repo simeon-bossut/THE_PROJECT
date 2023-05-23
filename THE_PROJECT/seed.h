@@ -13,7 +13,11 @@ char *create_seed(int difficulty, int dim);
 
 Grid *read_seed(char *Seed);
 
-void generateGrid(Grid* grid, char* leftCases);
+int generateGrid(Grid* grid);
+
+int genGrid_tab(int** tab, char* leftCases, int size);
+
+
 
 
 #endif // !seed
