@@ -68,7 +68,7 @@ die("Erreur : " . $e->getMessage());}
 
       </div>
       <div class="newacc">
-        <p>you don't have an account yet? <a href="signup.php">Sign up!</a></p>
+        <p>You don't have an account yet? <a href="signup.php">Sign up!</a></p>
       </div>
     </form>
   </main>

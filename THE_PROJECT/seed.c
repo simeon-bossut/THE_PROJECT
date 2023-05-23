@@ -185,64 +185,74 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
 //   } else {
 //     do {
 
-//     } while (solver()); // Tant que le solveur marche
-//   }
-//   int value = 0b0;
-//   for (int i = 0; i < dim * dim; ++i) {
-//     value += cache[i];
-//     value = value << 1;
-//   }
-//   _itoa_s(
-//       value, SEED + 1, dim * dim,
-//       10); // Dans le futur à décaler de quelques cases car le tableau
-//       précède
-
-//   return; // cache_tab;
-// }
-
-void getLeftCases(char *tab, int i, int j, Grid *grid, int size) {
-  int compt = 0;
-  for (int i = 0; i < size; ++i) {
-    if (!found_in_col(i + 1, grid, j) && !found_in_row(i + 1, grid, i)) {
-      tab[compt] = (i + 1) + 48;
-      compt++;
+        } while (1); // Tant que le solveur marche
     }
-  }
-  tab[compt] = '\0';
+    int value = 0b0;
+    for (int i = 0; i < dim * dim; ++i) {
+        value += cache[i];
+        value = value << 1;
+    }
+    _itoa_s(value, SEED + 1, dim * dim,  10); // Dans le futur à décaler de quelques cases car le tableau précède
+	
+    return;//cache_tab;
 }
 
-void generateGrid(Grid *grid, char *leftCases) {
 
-  int compt = 0;
-  int size = grid->size;
-  int random;
-  /*for (int i = 0; i < size; i++)
-  {
-      leftCases[i] = i + 1;
-  }*/
-
-  for (int i = 0; i < size; i++) {
-    for (int j = 0; j < size; j++) {
-
-      getLeftCases(leftCases, i, j, grid, size);
-
-      if (strlen(leftCases) == 0) {
-        compt++;
-        if (compt > 3000) {
-          compt = 0;
-          return; // error
+void getLeftCases(char*string,int i, int j,int**tab,int size)
+{
+    int compt = 0;
+    for (int a = 0;a < size;++a)
+    {
+        
+        if (!found_in_col(tab,size,j, a + 1) && !found_in_row(tab, size, i, a + 1))
+        {
+            string[compt] = (a + 1)+48;
+            compt++;
         }
-
-        generateGrid(grid, leftCases);
-      }
-      random = rand() % strlen(leftCases);
-      grid->tab[i][j] = leftCases[random] - 48;
-      printf("%d |", grid->tab[i][j]);
     }
-  }
-  compt = 0;
+    string[compt] = '\0';
+}
 
-  return;
+int generateGrid(Grid* grid)
+{
+    int size = grid->size;
+    char* leftCases = malloc(sizeof(char) * (size + 1));
+    int** tab = creatab(grid->size);
+    if (leftCases == NULL||tab==NULL||(genGrid_tab(tab, leftCases, size) == -1))
+    {
+        return -1;
+    }
+    free_tab(grid->tab, size);//On libère de la place 
+    grid->tab = tab;
+}
+
+int genGrid_tab(int **tab,char* leftCases,int size) //Génère un tableau de dmimension "size".Cette fonction est une sous-fonction appellée par "generateGrid"
+{
+    int compt = 0;
+    
+    int random;
+    
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+
+            getLeftCases(leftCases,i,j,tab,size);
+
+            if (strlen(leftCases) == 0) {
+                compt++;
+                if (compt > 300) {
+                    compt = 0;
+                    return -1;//error
+                }
+                //Si il y a eu un échec, on vide le tableau et on réessaye
+                initab(tab, size);
+                return genGrid_tab(tab,leftCases,size);
+            }
+            random= rand() % strlen(leftCases);
+            tab[i][j]=leftCases[random]-48;
+        }
+    }
+
+    return 0;
 }
 
 int *Dec2Bin(int n, int dim) {

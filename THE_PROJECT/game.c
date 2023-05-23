@@ -17,15 +17,25 @@ int **creatab(int size) {
       exit(EXIT_SUCCESS);
     }
   }
-
   return tab;
 }
 
-Box initBox(int value) {
+void free_tab(int** tab,int size)
+{
+    for (int i = 0;i < size;++i)
+    {
+        free(tab[i]);
+    }
+    free(tab);
+}
 
-  Box tmp;
-  tmp.value = value;
-  return tmp;
+void initab(int** tab, int size)
+{
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            tab[i][j] = 0;
+        }
+    }
 }
 
 Grid *initgrid(int dim) // init the grid size at 0 all case = 0
@@ -41,11 +51,8 @@ Grid *initgrid(int dim) // init the grid size at 0 all case = 0
   }
   grid->tab = tmp;
 
-  for (int i = 0; i < dim; i++) {
-    for (int j = 0; j < dim; j++) {
-      grid->tab[i][j] = 0;
-    }
-  }
+  initab(grid->tab, grid->size);
+  
   grid->obv = initpov(dim);
   return grid;
 }
@@ -131,33 +138,21 @@ Grid *fillgrid(Grid *grid) {
 
   return grid;
 }
-bool found_in_row(int val, Grid *grid, int row) {
-  for (int j = 0; j < grid->size; ++j) {
-    if (grid->tab[row][j] == val) {
+bool found_in_row(int** tab, int size, int row, int val) {
+  for (int j = 0; j < size; ++j) {
+    if (tab[row][j] == val) {
       return true;
     }
   }
   return false;
 }
 
-bool found_in_col(int val, Grid *grid, int col) {
-  for (int i = 0; i < grid->size; ++i) {
-    if (grid->tab[i][col] == val) {
+bool found_in_col(int** tab, int size, int col, int val) {
+  for (int i = 0; i < size; ++i) {
+    if (tab[i][col] == val) {
       return true;
     }
   }
   return false;
 }
 
-void grid_completion(Grid *grid) {
-  int num;
-  for (int i = 0; i < grid->size; i++) {
-    for (int j = 0; j < grid->size; j++) {
-      do {
-        num = (rand() % grid->size) + 1; // Entre 1 et n
-
-      } while (found_in_col(num, grid, j) || found_in_row(num, grid, i));
-      grid->tab[i][j] = num;
-    }
-  }
-}

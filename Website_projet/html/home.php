@@ -37,7 +37,7 @@
     <nav>
       <div class="buttonsLogo">
         <a href="conceptor.php"><div class="buttonLogo">Level Creator</div></a>
-        <a href="settings.php"><div class="buttonLogo">Settings</div></a>
+        <a href="setting.php"><div class="buttonLogo">Settings</div></a>
       </div>
       <a href=""><img src="../Images/complete_logo.png" id="logo"></a>
       <div class="buttonsLogo">
