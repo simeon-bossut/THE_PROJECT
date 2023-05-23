@@ -1,7 +1,7 @@
 <?php if(!isset($_SESSION)){
     session_start();
 } ?>
-<link rel="stylesheet" href="../CSS/nav.css">
+
 <nav>
   <div id="menucontenu">
 
