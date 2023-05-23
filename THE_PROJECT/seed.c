@@ -339,17 +339,14 @@ int genGrid_tab(
   return 0;
 }
 
-
-
 int *Dec2Bin(int n, int dim) {
-    int size = dim * dim;
-    if (4>dim)
-    {
-        size = dim * 4;
-    }
+  int size = dim * dim;
+  if (4 > dim) {
+    size = dim * 4;
+  }
   int *binaryNum = malloc(sizeof(int) * size);
   if (!binaryNum)
-      return NULL;
+    return NULL;
 
   /*if (n > (pow(2,size) - 1))
   {
@@ -359,7 +356,7 @@ int *Dec2Bin(int n, int dim) {
   int i = 0;
   while (n > 0) {
     binaryNum[i] = n % 2;
-    n = n >>1;
+    n = n >> 1;
     i++;
   }
   return binaryNum;
@@ -423,19 +420,20 @@ int *get_cache_obv(int dim, char *Seed, int len) {
 }
 
 void read_seed_v2(Grid *grid, int dim, char *Seed, int len) {
+  
   int *cache_tab, *cache_obv, id;
   char *buffer, *line;
 
-  buffer = (char *)malloc(sizeof(char) * (dim - 2));
-  if (buffer == NULL)
-  {
-      return NULL;
+  buffer = (char *)malloc(sizeof(char) * (dim - 1));
+  if (buffer == NULL) {
+    return;
   }
 
   for (int i = 0; i < dim; i++) {
-    //strncpy(buffer, Seed + i * (dim - 2) + 1, dim - 2);
-    buffer[dim - 3] = 0;
+    strncpy(buffer, Seed + i * (dim - 2) + 1, dim - 2);
+    buffer[dim - 2] = '\0';
     id = atoi(buffer);
+    printf("%d\n", id);
     line = id_to_line(id, dim);
     for (int j = 0; j < dim; j++) {
       grid->tab[i][j] = line[j] - 48;
@@ -456,8 +454,6 @@ void read_seed_v2(Grid *grid, int dim, char *Seed, int len) {
     if (cache_obv[i] == 0)
       grid->obv[i] = 0;
   }
-
-  return grid;
 }
 
 Grid *read_seed(char *Seed) {

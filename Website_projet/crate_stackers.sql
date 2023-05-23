@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 22 mai 2023 à 09:50
+-- Généré le : mar. 23 mai 2023 à 15:21
 -- Version du serveur : 5.7.24
 -- Version de PHP : 7.4.16
 
@@ -55,21 +55,13 @@ INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`, `score`, `level`) 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `score`
+-- Structure de la table `custom`
 --
 
-CREATE TABLE `score` (
-  `email` varchar(36) NOT NULL,
-  `score_player` int(11) NOT NULL,
-  `level` int(11) NOT NULL
+CREATE TABLE `custom` (
+  `id` int(11) NOT NULL,
+  `url` varchar(36) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `score`
---
-
-INSERT INTO `score` (`email`, `score_player`, `level`) VALUES
-('lucas.verportern@gmail.com', 0, 0);
 
 --
 -- Index pour les tables déchargées
@@ -80,22 +72,6 @@ INSERT INTO `score` (`email`, `score_player`, `level`) VALUES
 --
 ALTER TABLE `acc`
   ADD PRIMARY KEY (`email`);
-
---
--- Index pour la table `score`
---
-ALTER TABLE `score`
-  ADD PRIMARY KEY (`email`);
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `score`
---
-ALTER TABLE `score`
-  ADD CONSTRAINT `score_ibfk_1` FOREIGN KEY (`email`) REFERENCES `acc` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
