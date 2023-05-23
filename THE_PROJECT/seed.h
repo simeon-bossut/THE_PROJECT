@@ -17,6 +17,8 @@ int generateGrid(Grid* grid);
 
 int genGrid_tab(int** tab, char* leftCases, int size);
 
+void intoa(int value, char* buffer, int size);
+
 
 
 

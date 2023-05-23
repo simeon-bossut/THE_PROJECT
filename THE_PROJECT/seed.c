@@ -4,12 +4,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 int factorial(int n) {
   if (n == 0)
     return 1;
   else
     return n * factorial(n - 1);
 }
+ 
+
+
 int line_to_id(char *line, int dim) {
   // Il faut idéalement mettre un char ne contenant que des chiffres
   // différent(ligne d'un carré latin)
@@ -62,6 +66,7 @@ int line_to_id(char *line, int dim) {
   char Id[4] = {0}; // 3 chiffres max + \0
   return val;
 }
+
 char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
 {                                  // Parti pour la galère
   val = val % (factorial(dim));
@@ -148,6 +153,21 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   return line;
 }
 
+void intoa(int value, char* buffer, int size)
+{
+    for (int i = size - 1;i >= 0;--i)
+    {
+        buffer[i] = value % 10 + 48;
+        value /= 10;
+    }
+}
+
+
+
+
+
+
+
 char *create_seed(int difficulty, int dim) {
   int size;
   if (dim == 3) {
@@ -191,6 +211,7 @@ char *create_seed(int difficulty, int dim) {
         value += cache[i];
         value = value << 1;
     }
+
     _itoa_s(value, SEED + 1, dim * dim,  10); // Dans le futur à décaler de quelques cases car le tableau précède
 	
     return;//cache_tab;
@@ -254,12 +275,27 @@ int genGrid_tab(int **tab,char* leftCases,int size) //Génère un tableau de dmi
     return 0;
 }
 
+
+
 int *Dec2Bin(int n, int dim) {
-  int *binaryNum = malloc(sizeof(int) * dim * dim);
+    int size = dim * dim;
+    if (4>dim)
+    {
+        size = dim * 4;
+    }
+  int *binaryNum = malloc(sizeof(int) * size);
+  if (!binaryNum)
+      return NULL;
+
+  /*if (n > (pow(2,size) - 1))
+  {
+      return NULL;
+  }*/
+
   int i = 0;
   while (n > 0) {
     binaryNum[i] = n % 2;
-    n = n / 2;
+    n = n >>1;
     i++;
   }
   return binaryNum;
@@ -271,6 +307,9 @@ int *get_cache_tab(int dim, char *Seed, int len) {
     return NULL;
   }
   char *tmp_cache_tab = malloc(sizeof(char) * dim);
+  if (!tmp_cache_tab)
+      return NULL;
+
   memcpy(tmp_cache_tab, Seed + dim + 1, dim);
 
   int int_cache_tab = atoi(tmp_cache_tab);
@@ -284,6 +323,9 @@ int *get_cache_obv(int dim, char *Seed, int len) {
     return NULL;
   }
   char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
+  if (!tmp_cache_tab)
+      return NULL;
+
   memcpy(tmp_cache_tab, Seed + dim * 2 + 1, dim + 1);
 
   int int_cache_tab = atoi(tmp_cache_tab);
@@ -291,14 +333,19 @@ int *get_cache_obv(int dim, char *Seed, int len) {
   return cache_tab;
 }
 
-Grid *read_seed_v2(Grid *grid, int dim, char *Seed, int len) {
+void read_seed_v2(Grid *grid, int dim, char *Seed, int len) {
   int *cache_tab, *cache_obv, id;
   char *buffer, *line;
 
   buffer = (char *)malloc(sizeof(char) * (dim - 2));
+  if (buffer == NULL)
+  {
+      return NULL;
+  }
 
   for (int i = 0; i < dim; i++) {
     strncpy(buffer, Seed + i * (dim - 2) + 1, dim - 2);
+    buffer[dim - 3] = 0;
     id = atoi(buffer);
     line = id_to_line(id, dim);
     for (int j = 0; j < dim; j++) {
@@ -329,6 +376,6 @@ Grid *read_seed(char *Seed) {
   int dim = Seed[0] - 48;
   Grid *grid = initgrid(dim);
 
-  grid = read_seed_v2(grid, dim, Seed, lenSeed);
+  read_seed_v2(grid, dim, Seed, lenSeed);
   return grid;
 }
