@@ -53,20 +53,12 @@ int main(int argc, char **argv) {
    free(grid); free(gridf);
    printf("\n");*/
 
-  //Grid* grid = initgrid(5);
-  //if(grid==NULL)
-  //{
-	 // return NULL;
-  //}
-  //generateGrid(grid);
-  //for(int i = 0;i < grid->size;++i)
-  //{
-	 // for (int j = 0;j < grid->size;++j)
-	 // {
-		//  printf("%d |",grid->tab[i][j]);
-	 // }
-	 // printf("\n");
-  //}
+  Grid* grid = initgrid(5);
+  if(grid==NULL)
+  {
+	  return NULL;
+  }
+  generateGrid(grid);
   //
 
   //char *Seed3dim = "32635114095";
@@ -79,13 +71,10 @@ int main(int argc, char **argv) {
   //printgrid(grid);
 
   //grid = read_seed(Seed5dim);
-  //printgrid(grid);
-  int value = 34627;
-  char* buffer = malloc(sizeof(char) * 6);
-  if (buffer == NULL)
-  {
-	  return NULL;
-  }
-  intoa(value, buffer, 5);
+  
+  calcul_obs(grid);
+
+  printgrid(grid);
+
   return EXIT_SUCCESS;
 }
