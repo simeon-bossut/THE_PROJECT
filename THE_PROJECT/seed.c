@@ -347,6 +347,7 @@ int *get_cache_obv(int dim, char *Seed, int len) {
 }
 
 void read_seed_v2(Grid *grid, int dim, char *Seed, int len) {
+  
   int *cache_tab, *cache_obv, id;
   char *buffer, *line;
 
