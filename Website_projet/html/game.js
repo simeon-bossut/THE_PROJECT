@@ -14,6 +14,10 @@ function getElemByCoord(x, y) {
   return element;
 }
 
+function initCharacter() {
+
+}
+
 
 function initMainPlate() {
 
@@ -33,7 +37,13 @@ function initMainPlate() {
     for(let x = -1; x < tabDim * 2 + 1 + 3; x++) {
 
       if(x == 0 && y == 0)
-        insertElement(gameSet, `<div class="cornerRoad rotate00" id="pos_${x}_${y}"></div>`);
+        insertElement(gameSet, `<div class="cornerRoad rotate00" id="pos_${x}_${y}">
+          <div id="characterBox">
+            <div id="characterBody"></div>
+            <div id="characterHat"></div>
+            <div id="characterCrate"></div>
+          </div>
+        </div>`);
 
       else if(x == tabDim * 2 && y == 0)
         insertElement(gameSet, `<div class="cornerRoad rotate90" id="pos_${x}_${y}"></div>`);
