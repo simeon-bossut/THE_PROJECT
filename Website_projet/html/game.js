@@ -112,13 +112,13 @@ function initMainPlate() {
 
       switch (i) {
         case 1:
-          getElemByCoord(9, i).classList.add("cornerRoad", "rotate90");
+          getElemByCoord(9, i).classList.add("CCorner", "rotate00");
           break;
         case 2: case 3: case 4:
-          getElemByCoord(9, i).classList.add("TRoad", "rotate180");
+          getElemByCoord(9, i).classList.add("CStraight", "rotate00");
           break;
         case 5:
-          getElemByCoord(9, i).classList.add("cornerRoad", "rotate180");
+          getElemByCoord(9, i).classList.add("CCorner", "rotate90");
           break;
       }
     }
