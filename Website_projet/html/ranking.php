@@ -22,44 +22,55 @@
 
 
 		<header>
-			<h1>Ranking</h1>
+			<h1>Leaderboard</h1>
 		</header>
     
 		
 		<main>
+
+			<div class="container">
+				<img src="../Images/Leader Board.png">
+
+				<div id="containerUL">
+					<div id="containerBox">
+
 			<?php
 			try{
 				require("connexion.php");
+
 				$reqPrep = "SELECT * FROM acc ORDER BY score DESC"; //La requere SQL: SELECT
 				$req = $conn->prepare($reqPrep); //Préparer la requete
 				$req->execute(); //Executer la requete
-				$rank= 1;
+				
 				$resultat = $req->fetchALl(PDO::FETCH_ASSOC); //récupération du résultat 
-				echo "
-				<div id= scroll>
-				<table class=container>
-								<tr class = first>	
-									<th class=header>Rank</th>
-									<th class=header>Pseudo</th>
-									<th class=header>Score</th>
-								</tr>";
+
+				$rank = 1;
+				
 				foreach ($resultat as $row) {
-						echo "
-								<tr>	
-									<td>$rank</td>
-									<td>$row[pseudo]</td>
-									<td>$row[score]</td>
-								</tr>";
+					echo "
+						<div class='boardElem'>
+							<span>$rank</span>
+							<span>$row[pseudo]</span>
+							<span>$row[score]</span>
+						</div>";
 								
-								$rank += 1;
+					$rank += 1;
 					
 				}
 
-				echo "</table> </div>";
-				}catch (Exception $e) {
-					die("Erreur : " . $e->getMessage());}
+			} catch (Exception $e) {
+				die("Erreur : " . $e->getMessage());
+			}
 	?>
+				</div>
+			</div>
+			</div>
+
+
+
     </main>
+
+
 	<?php include("footer.php"); ?>
 
   </body>

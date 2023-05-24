@@ -10,9 +10,72 @@
     return 1;
   else
     return n * factorial(n - 1);
-}*/
-/*
-int line_to_id(char* line, int dim) {
+}
+
+int col_analyze(int**tab,int size,int col,bool way)//way = 0 if up to down 
+{
+    int max = 0;
+    int value = 0;
+    for (int i = 0;i < size;++i)
+    {
+        if ((!way)&&(tab[i][col] > max))
+        {
+            max = tab[i][col];
+            value++;
+        }
+        else if((way)&&(tab[size-1-i][col] > max))
+        {
+            max = tab[size-1-i][col];
+            value++;
+        }
+    }
+    return value;
+}
+
+int row_analyze(int** tab,int size, int row, bool way)//way=0 if left to right
+{
+    int max = 0;
+    int value = 0;
+    for (int i = 0;i < size;++i)
+    {
+        if ((!way) && (tab[row][i] > max))
+        {
+            max = tab[row][i];
+            value++;
+        }
+        else if ((way) && (tab[row][size-1-i] > max))
+        {
+            max = tab[row][size-1-i];
+            value++;
+        }
+    }
+    return value;
+}
+
+
+
+
+
+
+void calcul_obs(Grid* grid)//remplit le tableau d'observateur
+{
+    int dim = grid->size;
+    for (int a = 0;a < 2*dim;++a)
+    {
+        if (a < dim)//travail colonnes
+        {
+            grid->obv[a] = col_analyze(grid->tab, dim, a, 0);
+            grid->obv[3*dim-1-a] = col_analyze(grid->tab, dim,a, 1);
+        }
+        else//travail lignes
+        {
+            grid->obv[a] = row_analyze(grid->tab, dim, a-dim, 1);
+            grid->obv[5 * dim - 1 - a] = row_analyze(grid->tab, dim, a-dim, 0);
+        }
+    }
+}
+
+int line_to_id(char *line, int dim) {
   // Il faut idéalement mettre un char ne contenant que des chiffres
   // différent(ligne d'un carré latin)
   int val = 0; // Ce char va être transformé à la fin en char grace to itoa
@@ -152,64 +215,73 @@ char* id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   return line;
 }*/
 
-/*void intoa(int value, char* buffer, int size) {
-  for (int i = size - 1; i >= 0; --i) {
-    buffer[i] = value % 10 + 48;
-    value /= 10;
+
+void intoa(int value, char* buffer, int size)
+{
+    for (int i = size - 1;i >= 0;--i)
+    {
+        buffer[i] = value % 10 + 48;
+        value /= 10;
+    }
+    buffer[size] = '\0';
+}
+
+
+
+
+
+
+
+char *create_seed(int difficulty, int dim) {
+  int size;
+  if (dim == 3) {
+    size = 12;
+  } else if (dim == 4) {
+    size = 20;
+  } else if (dim == 5) {
+    size = 32;
+  } else {
+    return NULL;
   }
-}*/
+  char *SEED = malloc(sizeof(char) * size);
+  Grid* grid = malloc(sizeof(Grid));
+  if (SEED == NULL||grid==NULL) {
+    return NULL;
+  }
+  SEED[0] = dim + 48;
 
-// char *create_seed(int difficulty, int dim) {
-//   int size;
-//   if (dim == 3) {
-//     size = 12;
-//   } else if (dim == 4) {
-//     size = 20;
-//   } else if (dim == 5) {
-//     size = 32;
-//   } else {
-//     return NULL;
-//   }
-//   char *SEED = malloc(sizeof(char) * size);
-//   if (SEED == NULL) {
-//     return NULL;
-//   }
-//   SEED[0] = dim + 48;
-//   int *tab; // tableau contenant toutes les lignes déja présentes dans le
-//   // tableau
-//   for (int i = 0; i < dim; i++) // Création du tableau
-//   {
-//     ;
-//   }
+  if (generateGrid(grid) == -1)//remplissage aléatoire de grid->tab
+  {
+      return NULL;
+  }
+   
+  calcul_obs(grid);
 
-//   int size_cache = dim * (dim + 4);
-//   bool *cache = malloc(sizeof(bool) * size_cache);
-//   if (cache == NULL) {
-//     return NULL;
-//   }
-//   if (difficulty == 1) {
-//     for (int i = 0; i < size_cache; ++i) {
-//       cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs
-//       // sont
-//       //  visibles et tout le jeu caché
-//     }
-//   } else {
-//     do {
+  int size_cache = dim * (dim + 4);
+  bool *cache = malloc(sizeof(bool) * size_cache);
+  if (cache == NULL) {
+    return NULL;
+  }
+  if (difficulty == 1) {
+    for (int i = 0; i < size_cache; ++i) {
+      cache[i] = i / (dim * dim);// Tableau facile , tous les observateurs sont visibles et tout le jeu caché
+    }
+  }
+  else if(difficulty==2) {
+    do {
 
-//     } while (1); // Tant que le solveur marche
-//   }
-//   int value = 0b0;
-//   for (int i = 0; i < dim * dim; ++i) {
-//     value += cache[i];
-//     value = value << 1;
-//   }
+        } while (1); // Tant que le solveur marche
+    }
+    int value = 0b0;
+    for (int i = 0; i < dim * dim; ++i) {
+        value += cache[i];
+        value = value << 1;
+    }
 
-//   intoa(
-//       value, SEED + 1, dim * dim); // Dans le futur à décaler de quelques
-//       cases car le tableau précède
-
-//   return; // cache_tab;
-// }
+    _itoa_s(value, SEED + 1, dim * dim,  10); // Dans le futur à décaler de quelques cases car le tableau précède
+	
+    return;//cache_tab;
+}
 
 /*void getLeftCases(char* string, int i, int j, int** tab, int size) {
   int compt = 0;
@@ -294,10 +366,11 @@ char* id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
 /*int* get_cache_tab(int dim, char* Seed, int len) {
   int size_cache;
   int *cache_tab = malloc(sizeof(int) * dim * dim);
-  if (cache_tab == NULL) {
-    return NULL;
-  }
+ 
   char *tmp_cache_tab = malloc(sizeof(char) * dim);
+  if (cache_tab == NULL||tmp_cache_tab==NULL) {
+      return NULL;
+  }
   switch (dim) {
   case 3:
     size_cache = 3;
@@ -347,8 +420,8 @@ char* id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   return cache_tab;
 }*/
 
-/*void read_seed_v2(Grid* grid, int dim, char* Seed, int len) {
-  
+void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
+
   int *cache_tab, *cache_obv, id;
   char *buffer, *line;
 
@@ -389,6 +462,6 @@ char* id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   int dim = Seed[0] - 48;
   Grid *grid = initgrid(dim);
 
-  read_seed_v2(grid, dim, Seed, lenSeed);
+  read_seed_sub(grid, dim, Seed, lenSeed);
   return grid;
 }*/
