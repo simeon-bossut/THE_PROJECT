@@ -15,13 +15,15 @@ setTimeout(() => {
 	}
 }, 1500)
 
-document.addEventListener('keydown', e => {
+
+document.addEventListener('click', e => {
 	if(enterInGame) {
 		document.querySelector('.backDis').classList.toggle('hidden');
 		document.querySelector('.frontDis').classList.toggle('hidden');
 
 		enterInGame = false;
 
+		
 		document.querySelector("body").style.overflow = "auto";
 	}
 })
