@@ -72,6 +72,48 @@ function initMainPlate() {
 
   }
 
+  if (tabDim == 3) {
+    getElemByCoord(6, 2).classList.add("crossRoad", "rotate00");
+    getElemByCoord(6, 2).classList.remove("TRoad", "rotate180");
+    getElemByCoord(6, 4).classList.add("crossRoad", "rotate00");
+    getElemByCoord(6, 4).classList.remove("TRoad", "rotate180");
+
+
+    getElemByCoord(7, 2).classList.add("straightRoad", "rotate90");
+    getElemByCoord(7, 4).classList.add("straightRoad", "rotate90");
+    
+    for (let i = 1; i < 6; i++) {
+
+      switch (i) {
+        case 1:
+          getElemByCoord(8, i).classList.add("cornerRoad", "rotate00");
+          break;
+        case 2: case 4:
+          getElemByCoord(8, i).classList.add("crossRoad", "rotate00");
+          break;
+        case 3:
+          getElemByCoord(8, i).classList.add("TRoad", "rotate00");
+          break;
+        case 5:
+          getElemByCoord(8, i).classList.add("cornerRoad", "rotate270");
+          break;
+        
+      }
+
+      switch (i) {
+        case 1:
+          getElemByCoord(9, i).classList.add("cornerRoad", "rotate90");
+          break;
+        case 2: case 3: case 4:
+          getElemByCoord(9, i).classList.add("TRoad", "rotate180");
+          break;
+        case 5:
+          getElemByCoord(9, i).classList.add("cornerRoad", "rotate180");
+          break;
+      }
+    }
+  }
+
 }
  
 initMainPlate();
