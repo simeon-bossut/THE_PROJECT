@@ -53,30 +53,28 @@ int main(int argc, char **argv) {
    free(grid); free(gridf);
    printf("\n");*/
 
-  Grid *grid = initgrid(3);
-  char *leftCases = malloc(sizeof(char) * 4);
-  // if(grid==NULL||leftCases==NULL)
-  // {
-  //   return NULL;
-  // }
-  generateGrid(grid, leftCases);
-  for (int i = 0; i < grid->size; ++i) {
-    for (int j = 0; j < grid->size; ++j) {
-      printf("%d |", grid->tab[i][j]);
-    }
-    printf("\n");
+  Grid* grid = initgrid(5);
+  if(grid==NULL)
+  {
+	  return NULL;
   }
+  generateGrid(grid);
+  //
 
-  char *Seed3dim = "32631704095";
-  char *Seed4dim = "4012418066553565535";
-  char *Seed5dim = "5001120060112099335544311048575";
-  grid = read_seed(Seed3dim);
+  //char *Seed3dim = "32635114095";
+  //char *Seed4dim = "4012418066553565535";
+  //char *Seed5dim = "5001120060112099335544311048575";
+  //grid = read_seed(Seed3dim);
+  //printgrid(grid);
+
+  //grid = read_seed(Seed4dim);
+  //printgrid(grid);
+
+  //grid = read_seed(Seed5dim);
+  
+  calcul_obs(grid);
+
   printgrid(grid);
 
-  grid = read_seed(Seed4dim);
-  printgrid(grid);
-
-  grid = read_seed(Seed5dim);
-  printgrid(grid);
   return EXIT_SUCCESS;
 }

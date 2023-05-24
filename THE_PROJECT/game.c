@@ -20,22 +20,19 @@ int **creatab(int size) {
   return tab;
 }
 
-void free_tab(int** tab,int size)
-{
-    for (int i = 0;i < size;++i)
-    {
-        free(tab[i]);
-    }
-    free(tab);
+void free_tab(int **tab, int size) {
+  for (int i = 0; i < size; ++i) {
+    free(tab[i]);
+  }
+  free(tab);
 }
 
-void initab(int** tab, int size)
-{
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            tab[i][j] = 0;
-        }
+void initab(int **tab, int size) {
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size; j++) {
+      tab[i][j] = 0;
     }
+  }
 }
 
 Grid *initgrid(int dim) // init the grid size at 0 all case = 0
@@ -52,7 +49,7 @@ Grid *initgrid(int dim) // init the grid size at 0 all case = 0
   grid->tab = tmp;
 
   initab(grid->tab, grid->size);
-  
+
   grid->obv = initpov(dim);
   return grid;
 }
@@ -138,7 +135,7 @@ Grid *fillgrid(Grid *grid) {
 
   return grid;
 }
-bool found_in_row(int** tab, int size, int row, int val) {
+bool found_in_row(int **tab, int size, int row, int val) {
   for (int j = 0; j < size; ++j) {
     if (tab[row][j] == val) {
       return true;
@@ -147,7 +144,7 @@ bool found_in_row(int** tab, int size, int row, int val) {
   return false;
 }
 
-bool found_in_col(int** tab, int size, int col, int val) {
+bool found_in_col(int **tab, int size, int col, int val) {
   for (int i = 0; i < size; ++i) {
     if (tab[i][col] == val) {
       return true;
@@ -155,4 +152,3 @@ bool found_in_col(int** tab, int size, int col, int val) {
   }
   return false;
 }
-

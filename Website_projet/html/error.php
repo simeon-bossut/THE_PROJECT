@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-		<?php include("head.php"); ?>
+  <?php include("head.php"); ?>
 
-		<title>The Crate Stacker - Error</title>
+  <title>The Crate Stacker - Error</title>
 
-		<link rel="stylesheet" href="../CSS/error.css">
+  <link rel="stylesheet" href="../CSS/error.css">
 
-  </head>
+</head>
 
 
 <body>
-	<?php include("nav.php"); ?>
+  <?php include("nav.php"); ?>
   <header>
 
   </header>
@@ -21,7 +21,7 @@
   <main>
     <div class="main-wrapper">
       <picture class="img">
-        <img src="../images/barrel4.jpg" alt="background">
+        <img src="../Images/barrel4.JPG" alt="background">
       </picture>
       <div class="error-text">
         <h2>I have bad news for you</h2>

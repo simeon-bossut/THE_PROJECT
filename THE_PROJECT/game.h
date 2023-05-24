@@ -24,7 +24,7 @@ typedef struct Grid {
   int *obv;
 } Grid;
 
-int** creatab(int size);
+int **creatab(int size);
 
 void printgrid(Grid *grid);
 
@@ -36,12 +36,12 @@ void initElt(int *elt, int size);
 
 Grid *fillgrid(Grid *grid);
 
-bool found_in_row(int** tab, int size, int col, int val);
+bool found_in_row(int **tab, int size, int col, int val);
 
-bool found_in_col(int** tab, int size, int col, int val );
+bool found_in_col(int **tab, int size, int col, int val);
 
-void initab(int** tab, int size);
+void initab(int **tab, int size);
 
-void free_tab(int** tab, int size);
+void free_tab(int **tab, int size);
 
 #endif // !game
