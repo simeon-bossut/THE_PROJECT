@@ -346,8 +346,8 @@ int *get_cache_obv(int dim, char *Seed, int len) {
   return cache_tab;
 }
 
-void read_seed_v2(Grid *grid, int dim, char *Seed, int len) {
-  
+void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
+
   int *cache_tab, *cache_obv, id;
   char *buffer, *line;
 
@@ -388,6 +388,6 @@ Grid *read_seed(char *Seed) {
   int dim = Seed[0] - 48;
   Grid *grid = initgrid(dim);
 
-  read_seed_v2(grid, dim, Seed, lenSeed);
+  read_seed_sub(grid, dim, Seed, lenSeed);
   return grid;
 }
