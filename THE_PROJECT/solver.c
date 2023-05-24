@@ -312,6 +312,7 @@ int fill_guess(GhostGrid gridf, Grid gridj) {
 	int** tabj = gridj.tab;
 	int tmp;
 	Guess* guess_list = find_guess(gridf,&res,&guess_size);
+	char*** guess_tab = create_guess_tab(guess_list, gridj);
 	if (res == FOUND) {
 		int* north = (int*)malloc(sizeof(int) * size);
 		int* east = (int*)malloc(sizeof(int) * size);
@@ -333,21 +334,21 @@ int fill_guess(GhostGrid gridf, Grid gridj) {
 		for (int i = 0; i < size*4; i++)
 		{
 			if (i < 1*size) {
-				north[i] = pov[i];
+				*(north + i) = pov[i];
 			}
 			else if (i < 2*size) {
-				east[i] = pov[i];
+				*(east + i) = pov[i];
 			}
 			else if (i < 3*size) {
-				south[i] = pov[i];
+				*(south+ i) = pov[i];
 			}
 			else if (i < 4*size) {
-				west[i] = pov[i];
+				*(west + i) = pov[i];
 			}
 		}
 
 
-		int j = 0;
+		/*int j = 0;
 		if (guess_list[0].direction == COLLUMN)
 		{
 			for (int i = 0; i < guess_size; i++)
@@ -361,7 +362,64 @@ int fill_guess(GhostGrid gridf, Grid gridj) {
 		else if(guess_list[0].direction == ROW)
 		{
 
-		}
+		}*/
 	}
 	return res;
+}
+char*** create_guess_tab(Guess* guess_list,Grid grid) {
+	char*** tab_i = (char***)malloc(sizeof(char**) * guess_list[0].size);
+	char** tab_j = (char**)malloc(sizeof(char*) * grid.size); 
+	if (tab_i == NULL || tab_j==NULL)
+	{
+		exit(EXIT_FAILURE);
+	}
+	if (guess_list[0].direction==COLLUMN)
+	{
+		for (int i = 0; i < guess_list[0].size; i++) {
+			tab_i[i] = guess_list[i].tab;
+		}
+	}
+	else if (guess_list[0].direction == ROW)
+	{
+		for (int i = 0; i < guess_list[0].size; i++)
+		{
+			for (int j = 0; j < grid.size; j++)
+			{
+				tab_j[j] = guess_list[i].tab[j];
+			}
+			tab_i[i] = tab_j;
+		}
+	}
+	//Affichage debug
+	for (int j = 0; j < grid.size; j++)
+	{
+		for (int i = 0; i < guess_list[0].size; i++) {
+			
+			printf("[");
+			for (int k = 0; k < grid.size; k++) {
+				printf(" %2d ", tab_i[i][j][k]);
+			}
+			printf("]");
+		}
+		printf("\n");
+	}
+	// Affichage debug fin */
+	return tab_i;
+}
+
+int find_number_to_guess(char*** tab, int id) {
+	int number = 0;
+	int sum = 0;
+	int k = 0;
+	while (tab[0][0][k] == NAS || sum != id) {
+		if (tab[0][0][k] == NAS)
+		{
+			sum++;
+		}
+		k++;
+	}
+	return k;
+}
+Guess* fill_guess_boxes(char*** tab, int size, int id_number, Grid grid) {
+	int number = tab[0][0][id_number];
 }
