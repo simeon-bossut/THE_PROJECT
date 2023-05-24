@@ -25,6 +25,8 @@ main {
   width: 100%;
 	display: flex;
   justify-content: center;
+
+  z-index: -2;
 }
 
 h1 {
@@ -43,6 +45,8 @@ h1 {
   max-width: 700px;
 
   margin: 40px 0px;
+
+  z-index: -1;
 
   box-sizing: border-box;
 }
