@@ -51,7 +51,7 @@
 
       <div class="gameTemplate">
 
-        <canvas id="mainPlate"></canvas>
+        <div id="mainPlate"></div>
 
         <canvas id="secondPlate"></canvas>
 
@@ -99,8 +99,11 @@
     <?php if(isset($_SESSION['isOnWebsite']) && $_SESSION['isOnWebsite']) { include("footer.php"); } ?>
 
     </div>
-
+    
+    
+    <script src="game.js"></script>
     <script src="music.js"></script>
+    
 
 </body>
 </html>
