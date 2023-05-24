@@ -19,4 +19,9 @@ int genGrid_tab(int **tab, char *leftCases, int size);
 
 void intoa(int value, char *buffer, int size);
 
+void calcul_obs(Grid* grid);
+
+
+
+
 #endif // !seed
