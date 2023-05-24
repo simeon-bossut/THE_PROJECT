@@ -14,10 +14,6 @@ typedef struct Pos {
   int col;
 } Pos;
 
-typedef struct Box {
-  int value;
-} Box;
-
 typedef struct Grid {
   int size;
   int **tab;

@@ -53,12 +53,6 @@ int main(int argc, char **argv) {
    free(grid); free(gridf);
    printf("\n");*/
 
-  Grid* grid = initgrid(5);
-  if(grid==NULL)
-  {
-	  return NULL;
-  }
-  generateGrid(grid);
   //
 
   //char *Seed3dim = "32635114095";
@@ -71,10 +65,22 @@ int main(int argc, char **argv) {
   //printgrid(grid);
 
   //grid = read_seed(Seed5dim);
-  
-  calcul_obs(grid);
+  //int tab[5] = { 5,2,3,4,1 };
+  //int val=line_to_id(tab,5);
+  ////char*buffer=malloc()
+  //printf("%d", val);
+  int** tableau = creatab(3);
+  free_tab(tableau, 3);
 
-  printgrid(grid);
+  Grid* grid;
+
+  
+  grid = generate_level(4, 1); 
+  push_to_php(grid);
+  
+
+
+
 
   return EXIT_SUCCESS;
 }
