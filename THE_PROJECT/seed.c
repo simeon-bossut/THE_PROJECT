@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*int factorial(int n) {
+int factorial(int n) {
   if (n == 0)
     return 1;
   else
@@ -127,8 +127,8 @@ int line_to_id(char *line, int dim) {
   char Id[4] = {0}; // 3 chiffres max + \0
   return val;
 }
-*/
-/*
+
+
 char* id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
 {                                  // Parti pour la galère
   val = val % (factorial(dim));
@@ -213,7 +213,7 @@ char* id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
     }
   }
   return line;
-}*/
+}
 
 
 void intoa(int value, char* buffer, int size)
@@ -283,7 +283,7 @@ char *create_seed(int difficulty, int dim) {
     return;//cache_tab;
 }
 
-/*void getLeftCases(char* string, int i, int j, int** tab, int size) {
+void getLeftCases(char* string, int i, int j, int** tab, int size) {
   int compt = 0;
   for (int a = 0; a < size; ++a) {
 
@@ -294,9 +294,9 @@ char *create_seed(int difficulty, int dim) {
     }
   }
   string[compt] = '\0';
-}*/
+}
 
-/*int generateGrid(Grid* grid) {
+int generateGrid(Grid* grid) {
   int size = grid->size;
   char *leftCases = malloc(sizeof(char) * (size + 1));
   int **tab = creatab(grid->size);
@@ -306,9 +306,9 @@ char *create_seed(int difficulty, int dim) {
   }
   free_tab(grid->tab, size); // On libère de la place
   grid->tab = tab;
-}*/
+}
 
-/*int genGrid_tab(
+int genGrid_tab(
     int **tab, char *leftCases,
     int size) // Génère un tableau de dmimension "size".Cette fonction est une
               // sous-fonction appellée par "generateGrid"
@@ -338,9 +338,9 @@ char *create_seed(int difficulty, int dim) {
   }
 
   return 0;
-}*/
+}
 
-/*int* Dec2Bin(int n, int dim) {
+int* Dec2Bin(int n, int dim) {
   int size = dim * dim;
   if (4 > dim) {
     size = dim * 4;
@@ -353,7 +353,7 @@ char *create_seed(int difficulty, int dim) {
   {
       return NULL;
   }*/
-/*
+
   int i = 0;
   while (n > 0) {
     binaryNum[i] = n % 2;
@@ -361,9 +361,9 @@ char *create_seed(int difficulty, int dim) {
     i++;
   }
   return binaryNum;
-}*/
+}
 
-/*int* get_cache_tab(int dim, char* Seed, int len) {
+int* get_cache_tab(int dim, char* Seed, int len) {
   int size_cache;
   int *cache_tab = malloc(sizeof(int) * dim * dim);
  
@@ -388,9 +388,9 @@ char *create_seed(int difficulty, int dim) {
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim);
   return cache_tab;
-}*/
+}
 
-/*int* get_cache_obv(int dim, char* Seed, int len) {
+int* get_cache_obv(int dim, char* Seed, int len) {
   int size_cache, size_obv;
   int *cache_tab = malloc(sizeof(int) * dim * dim * 4);
   if (cache_tab == NULL) {
@@ -418,7 +418,7 @@ char *create_seed(int difficulty, int dim) {
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim * 4);
   return cache_tab;
-}*/
+}
 
 void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
 
@@ -455,13 +455,13 @@ void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
     if (cache_obv[i] == 0)
       grid->obv[i] = 0;
   }
-}*/
+}
 
-/*Grid* read_seed(char* Seed) {
+Grid* read_seed(char* Seed) {
   int lenSeed = strlen(Seed);
   int dim = Seed[0] - 48;
   Grid *grid = initgrid(dim);
 
   read_seed_sub(grid, dim, Seed, lenSeed);
   return grid;
-}*/
+}
