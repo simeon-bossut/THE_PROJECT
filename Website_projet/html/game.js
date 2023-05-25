@@ -319,6 +319,9 @@ const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'Arrow
     else if (key == "KeyW" || key == "ArrowUp") {
       player.move("N");
     }
+    else if (key == "KeyP") {
+      setView();
+    }
   })
 
   
@@ -334,19 +337,75 @@ else if(tabDim == 4) {
   player = new Character(10, 4);
 }
   
-function initView() {
+function setView() {
 
   viewSet.innerHTML = "";
 
   tabDim = 3;
+  
+  let arr = [];
 
   for (let y = 1; y < tabDim*2; y+=2) {
     for (let x = 1; x < tabDim * 2; x += 2) {
-      getElemByCoord(x, y).innerHTML = x * y;
-      max = parseInt(getElemByCoord(x, y).textContent);
+      getElemByCoord(x, y).innerHTML = x;
     }
   } 
-  
-}
 
-initView();
+
+  if (player.x % 2 == 1 && player.x < 7) {
+
+    if (player.direction == 'N' && player.y > 0) {
+
+      max = getElemByCoord(player.x, player.y - 1).innerHTML;
+      arr = [max];
+      for (let y = player.y - 1; y > 0; y -= 2) {
+
+        if (getElemByCoord(player.x, y).innerHTML > max) {
+          max = getElemByCoord(player.x, y).innerHTML;
+          arr.push(max);
+        }
+      }
+    }
+
+    if (player.direction == 'S'&& player.y < 6) {
+
+      max = getElemByCoord(player.x, player.y + 1).innerHTML;
+      arr = [max];
+      for (let y = player.y + 1; y < tabDim * 2; y += 2) {
+
+        if (getElemByCoord(player.x, y).innerHTML > max) {
+          max = getElemByCoord(player.x, y).innerHTML;
+          arr.push(max);
+        }
+      }
+    }
+  }
+
+  if (player.y % 2 == 1 && player.x < 7) {
+    
+    if (player.direction == 'E' && player.x < 6) {
+      max = getElemByCoord(player.x+1, player.y).innerHTML;
+      arr = [max];
+      for (let x = player.x+1; x < tabDim * 2; x += 2) {
+        
+        if(getElemByCoord(x, player.y).innerHTML > max){
+          max = getElemByCoord(x, player.y).innerHTML;
+          arr.push(max);
+        }
+      }
+    }
+
+    if (player.direction == 'W'&& player.x > 0) {
+      max = getElemByCoord(player.x-1, player.y).innerHTML;
+      arr = [max];
+      for (let x = player.x - 1; x > 0; x -= 2) {
+        
+        if (getElemByCoord(x, player.y).innerHTML > max) {
+          max = getElemByCoord(x, player.y).innerHTML;
+          arr.push(max);
+        }
+      }
+    }
+  }
+  console.log(arr);
+}
