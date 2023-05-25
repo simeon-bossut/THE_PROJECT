@@ -1,5 +1,7 @@
 var gameSet = document.querySelector('#mainPlate');
 var gameTab = [];
+var viewSet = document.querySelector('#view');
+
 
 class Character {
   constructor(xPos, yPos, hatSkin, bodySkin) {
@@ -107,186 +109,188 @@ function insertElement(set, x, y, classList) {
   let type = elem.classList;
   let name;
 
-  if(type.contains("cornerRoad") || type.contains("straightRoad") ||type.contains("TRoad") ||type.contains("crossRoad"))
+  if (type.contains("cornerRoad") || type.contains("straightRoad") || type.contains("TRoad") || type.contains("crossRoad"))
     name = "road";
   
-  else if(type.contains("CStraight") || type.contains("CCorner"))
+  else if (type.contains("CStraight") || type.contains("CCorner"))
     name = "boxPick";
   
-  else if(type.contains("crateArea"))
+  else if (type.contains("crateArea"))
     name = "crateArea";
   
   else name = "empty";
 
   gameTab[x + 1][y + 1] = name;
 
-var viewSet = document.querySelector('#view');
-
-function insertElement(set, element) {
-
-  set.innerHTML += element;
-
 }
+  function insertElement(set, element) {
 
-function getElemByCoord(x, y) {
-
-  var element = document.querySelector(`#pos_${x}_${y}`);
-
-  return element;
-}
-
-
-function initMainPlate() {
-
-  gameTab = [];
-
-  gameSet.innerHTML = "";
-
-  let tabDim = 3;
-
-  gameSet.classList.remove("dim3","dim4","dim5");
-
-  gameSet.classList.add("dim" + tabDim);
-
-  for(let x = 0; x < 11; x++) {
-    gameTab.push([]);
-
-    for(let y = 0; y < 9; y++) {
-      gameTab[x].push("empty");
-    }
-  }
-
-  for(let y = 0; y < 9; y++) {
-
-    for(let x = 0; x < 11; x++) {
-
-      gameSet.innerHTML += `<div id="pos_${x - 1}_${y - 1}"></div>`
-    }
-  }
-
-
-  for(let y = -1; y < tabDim * 2 + 2; y++) {
-
-    for(let x = -1; x < tabDim * 2 + 1 + 3; x++) {
-
-      // Corner Road
-      if(x == 0 && y == 0)
-        insertElement(gameSet, x, y, `cornerRoad rotate00`);
-
-      else if(x == tabDim * 2 && y == 0)
-        insertElement(gameSet, x, y, `cornerRoad rotate90`);
-
-      else if(x == 0 && y == tabDim * 2)
-        insertElement(gameSet, x, y, `cornerRoad rotate270`);
-
-      else if(x == tabDim * 2 && y == tabDim * 2 && y < tabDim * 2 + 1)
-        insertElement(gameSet, x, y, `cornerRoad rotate180`);
-
-      // Straight Road
-      else if(x % 2 == 0 && y % 2 == 1 && x <= tabDim * 2 && y < tabDim * 2 + 1)
-        insertElement(gameSet, x, y, `straightRoad rotate00`);
-
-      else if(x % 2 == 1 && y % 2 == 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `straightRoad rotate90`);
-
-      // Intersection 3
-      else if(x == 0 && y % 2 == 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `TRoad rotate00`);
-
-      else if(x == tabDim * 2 && y % 2 == 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `TRoad rotate180`);
-
-      else if(x % 2 == 0 && y == 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `TRoad rotate90`);
-      
-      else if(x % 2 == 0 && y == tabDim * 2 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `TRoad rotate270`);
-      
-      // Intersection 4
-      else if(x % 2 == 0 && y % 2 == 0 && x > 0 && x < tabDim * 2 && y > 0 && y < tabDim * 2)
-        insertElement(gameSet, x, y, `crossRoad rotate00`);
-      
-      // Observators
-      else if((x == -1 || x == tabDim * 2 + 1) && y % 2 == 1 && y > 0 && y <= tabDim * 2)
-        insertElement(gameSet, x, y, `obs rotate90`);
-
-      else if((y == -1 || y == tabDim * 2 + 1) && x % 2 == 1 && x > 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `obs rotate00`);
-      
-      else
-        insertElement(gameSet, x, y, `empty rotate00`);
-
-    }
+    set.innerHTML += element;
 
   }
 
-  if (tabDim == 3) {
-    insertElement(gameSet, 6, 2, "crossRoad rotate00");
-    insertElement(gameSet, 6, 4, "crossRoad rotate00");
+  function getElemByCoord(x, y) {
 
-    insertElement(gameSet, 7, 2, "straightRoad rotate90");
-    insertElement(gameSet, 7, 4, "straightRoad rotate90");
+    var element = document.querySelector(`#pos_${x}_${y}`);
+
+    return element;
+  }
+
+
+  function initMainPlate() {
+
+    gameTab = [];
+
+    gameSet.innerHTML = "";
+
+    let tabDim = 3;
+
+    gameSet.classList.remove("dim3", "dim4", "dim5");
+
+    gameSet.classList.add("dim" + tabDim);
+
+    for (let x = 0; x < 11; x++) {
+      gameTab.push([]);
+
+      for (let y = 0; y < 9; y++) {
+        gameTab[x].push("empty");
+      }
+    }
+
+    for (let y = 0; y < 9; y++) {
+
+      for (let x = 0; x < 11; x++) {
+
+        gameSet.innerHTML += `<div id="pos_${x - 1}_${y - 1}"></div>`
+      }
+    }
+
+
+    for (let y = -1; y < tabDim * 2 + 2; y++) {
+
+      for (let x = -1; x < tabDim * 2 + 1 + 3; x++) {
+
+        // Corner Road
+        if (x == 0 && y == 0)
+          insertElement(gameSet, x, y, `cornerRoad rotate00`);
+
+        else if (x == tabDim * 2 && y == 0)
+          insertElement(gameSet, x, y, `cornerRoad rotate90`);
+
+        else if (x == 0 && y == tabDim * 2)
+          insertElement(gameSet, x, y, `cornerRoad rotate270`);
+
+        else if (x == tabDim * 2 && y == tabDim * 2 && y < tabDim * 2 + 1)
+          insertElement(gameSet, x, y, `cornerRoad rotate180`);
+
+        // Straight Road
+        else if (x % 2 == 0 && y % 2 == 1 && x <= tabDim * 2 && y < tabDim * 2 + 1)
+          insertElement(gameSet, x, y, `straightRoad rotate00`);
+
+        else if (x % 2 == 1 && y % 2 == 0 && x <= tabDim * 2)
+          insertElement(gameSet, x, y, `straightRoad rotate90`);
+
+        // Intersection 3
+        else if (x == 0 && y % 2 == 0 && x <= tabDim * 2)
+          insertElement(gameSet, x, y, `TRoad rotate00`);
+
+        else if (x == tabDim * 2 && y % 2 == 0 && x <= tabDim * 2)
+          insertElement(gameSet, x, y, `TRoad rotate180`);
+
+        else if (x % 2 == 0 && y == 0 && x <= tabDim * 2)
+          insertElement(gameSet, x, y, `TRoad rotate90`);
+      
+        else if (x % 2 == 0 && y == tabDim * 2 && x <= tabDim * 2)
+          insertElement(gameSet, x, y, `TRoad rotate270`);
+      
+        // Intersection 4
+        else if (x % 2 == 0 && y % 2 == 0 && x > 0 && x < tabDim * 2 && y > 0 && y < tabDim * 2)
+          insertElement(gameSet, x, y, `crossRoad rotate00`);
+      
+        // Observators
+        else if ((x == -1 || x == tabDim * 2 + 1) && y % 2 == 1 && y > 0 && y <= tabDim * 2)
+          insertElement(gameSet, x, y, `obs rotate90`);
+
+        else if ((y == -1 || y == tabDim * 2 + 1) && x % 2 == 1 && x > 0 && x <= tabDim * 2)
+          insertElement(gameSet, x, y, `obs rotate00`);
+      
+        else
+          insertElement(gameSet, x, y, `empty rotate00`);
+
+      }
+
+    }
+
+    if (tabDim == 3) {
+      insertElement(gameSet, 6, 2, "crossRoad rotate00");
+      insertElement(gameSet, 6, 4, "crossRoad rotate00");
+
+      insertElement(gameSet, 7, 2, "straightRoad rotate90");
+      insertElement(gameSet, 7, 4, "straightRoad rotate90");
     
-    for (let i = 1; i < 6; i++) {
-      switch (i) {
-        case 1:
-          insertElement(gameSet, 8, i, "cornerRoad rotate00");
-          break;
-        case 2: case 4:
-          insertElement(gameSet, 8, i, "crossRoad rotate00");
-          break;
-        case 3:
-          insertElement(gameSet, 8, i, "TRoad rotate00");
-          break;
-        case 5:
-          insertElement(gameSet, 8, i, "cornerRoad rotate270");
-          break;
+      for (let i = 1; i < 6; i++) {
+        switch (i) {
+          case 1:
+            insertElement(gameSet, 8, i, "cornerRoad rotate00");
+            break;
+          case 2: case 4:
+            insertElement(gameSet, 8, i, "crossRoad rotate00");
+            break;
+          case 3:
+            insertElement(gameSet, 8, i, "TRoad rotate00");
+            break;
+          case 5:
+            insertElement(gameSet, 8, i, "cornerRoad rotate270");
+            break;
         
-      }
+        }
 
-      switch (i) {
-        case 1:
-          insertElement(gameSet, 9, i, "CCorner rotate00");
-          break;
-        case 2: case 3: case 4:
-          insertElement(gameSet, 9, i, "CStraight rotate00");
-          break;
-        case 5:
-          insertElement(gameSet, 9, i, "CCorner rotate90");
-          break;
+        switch (i) {
+          case 1:
+            insertElement(gameSet, 9, i, "CCorner rotate00");
+            break;
+          case 2: case 3: case 4:
+            insertElement(gameSet, 9, i, "CStraight rotate00");
+            break;
+          case 5:
+            insertElement(gameSet, 9, i, "CCorner rotate90");
+            break;
+        }
       }
     }
+
   }
+  const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Enter'];
 
-}
-const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Enter'];
-
-window.addEventListener('keydown', e => {
-  if(listKeys.includes(e.code))
-    e.preventDefault();
-})
+  window.addEventListener('keydown', e => {
+    if (listKeys.includes(e.code))
+      e.preventDefault();
+  })
 
 
 
-document.addEventListener('keydown', e => {
-  let key = e.code;
+  document.addEventListener('keydown', e => {
+    let key = e.code;
 
-  if(key == "KeyA" || key == "ArrowLeft") {
-    player.move("W");
-  }
-  else if(key == "KeyD" || key == "ArrowRight") {
-    player.move("E");
-  }
-  else if(key == "KeyS" || key == "ArrowDown") {
-    player.move("S");
-  }
-  else if(key == "KeyW" || key == "ArrowUp") {
-    player.move("N");
-  }
-})
+    if (key == "KeyA" || key == "ArrowLeft") {
+      player.move("W");
+    }
+    else if (key == "KeyD" || key == "ArrowRight") {
+      player.move("E");
+    }
+    else if (key == "KeyS" || key == "ArrowDown") {
+      player.move("S");
+    }
+    else if (key == "KeyW" || key == "ArrowUp") {
+      player.move("N");
+    }
+  })
 
- 
+  
+initMainPlate();
 
+var player = new Character(8, 3);
+  
 function initView() {
 
   viewSet.innerHTML = "";
@@ -303,9 +307,5 @@ function initView() {
   insertElement(gameSet, `<div id="box"></div>`);
   
 }
-
-initMainPlate();
-
-var player = new Character(8, 3);
 
 initView();
