@@ -405,6 +405,7 @@ nav {
 
 #secondPlate #box{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 50%;
@@ -416,9 +417,8 @@ nav {
 
 #box #view{
   width: 80%;
-  height: 75%;
+  height: 80%;
   background-color: #ffe6cd;
-  margin-bottom: 50px;
   border-radius: 10%;
 }
 
