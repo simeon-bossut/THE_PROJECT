@@ -264,7 +264,7 @@ Grid* crea_cach(Grid*grid,bool*cache)
     return tmp;
 }
 
-Grid* generate_level(int dim,int difficulty)
+Grid* generate_level(int dim,int* difficulty)//crée un niveau et stocke dans *diff la valeur int du cache
 {
     Grid* grid = initgrid(dim);
     Grid* tmp = initgrid(dim);
@@ -279,7 +279,7 @@ Grid* generate_level(int dim,int difficulty)
     if (cache == NULL) {
         return NULL;
     }
-    if (difficulty == 1) {
+    if (*difficulty == 1) {
         for (int i = 0; i < size_cache; ++i) {
             cache[i] = i / (dim * dim);// Tableau facile , tous les observateurs sont visibles et tout le jeu caché
             if (i < dim * dim)
@@ -310,6 +310,7 @@ Grid* generate_level(int dim,int difficulty)
     //        cache[random] = 1;
     //    }
     //}
+    * difficulty = booltab_to_int(cache,size_cache);
     free(cache);
     free(grid->obv);
     free_tab(grid->tab, grid->size);
@@ -337,19 +338,22 @@ char *create_seed(int difficulty, int dim) {
     return NULL;
   }
   SEED[0] = dim + 48;//premier char désigne la dimension
-  Grid* grid = generate_level(dim,difficulty);//génère un niveau complet
-  
+
+
+  Grid* grid = generate_level(dim,&difficulty);//génère un niveau complet, on modifie diff qui va valoir maintenant le cache
+  int id;
+  int CACHE = difficulty;//contient le cache(en int)
   for (int i = 0;i < dim;++i)
   {
       for (int j = 0;j < dim;++j)
       {
-          line[j] = grid->tab[i][j];
+          line[j] = grid->tab[i][j];//copie d'une ligne
       }
+      id=line_to_id(line, dim);
+      intoa(id, SEED+1+i*(dim-2), dim - 2);
   }
-
+  intoa(CACHE, SEED + dim * dim, size-dim*(dim+4));
   
- 
-	
     return SEED;
 }
 
@@ -417,11 +421,6 @@ int *Dec2Bin(int n, int dim) {
   int *binaryNum = malloc(sizeof(int) * size);
   if (!binaryNum)
     return NULL;
-
-  /*if (n > (pow(2,size) - 1))
-  {
-      return NULL;
-  }*/
 
   int i = 0;
   while (n > 0) {

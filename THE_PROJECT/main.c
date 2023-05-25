@@ -78,9 +78,5 @@ int main(int argc, char **argv) {
   grid = generate_level(4, 1); 
   push_to_php(grid);
   
-
-
-
-
   return EXIT_SUCCESS;
 }
