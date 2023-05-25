@@ -1,6 +1,5 @@
 var gameSet = document.querySelector('#mainPlate');
 
-
 function insertElement(set, element) {
 
   set.innerHTML += element;
@@ -25,9 +24,7 @@ function initMainPlate() {
 
   let tabDim = 3;
 
-  gameSet.classList.remove("dim3");
-  gameSet.classList.remove("dim4");
-  gameSet.classList.remove("dim5");
+  gameSet.classList.remove("dim3","dim4","dim5");
 
   gameSet.classList.add("dim" + tabDim);
 
@@ -125,5 +122,5 @@ function initMainPlate() {
   }
 
 }
- 
+
 initMainPlate();
