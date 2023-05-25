@@ -5,7 +5,7 @@
 
 char *id_to_line(int val, int dim);
 
-int line_to_id(char *line, int dim);
+int line_to_id(int *line, int dim);
 
 int factorial(int n);
 
@@ -20,6 +20,10 @@ int genGrid_tab(int **tab, char *leftCases, int size);
 void intoa(int value, char *buffer, int size);
 
 void calcul_obs(Grid* grid);
+
+Grid* generate_level(int dim, int difficulty);
+
+void push_to_php(Grid* grid);
 
 
 
