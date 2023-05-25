@@ -1,0 +1,10 @@
+<svg width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="path-1-inside-1_145_82" fill="white">
+<path d="M250 250L0 250L0 0L250 0L250 250Z"/>
+</mask>
+<path d="M250 250L0 250L0 0L250 0L250 250Z" fill="#733900"/>
+<path d="M250 250L0 250L250 250ZM0 0L250 0L0 0ZM250 0L250 250L250 0ZM-10 250L-10 0H10L10 250H-10Z" fill="#FFE6CD" mask="url(#path-1-inside-1_145_82)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M120 237.5V250H125H130V237.5L120 237.5ZM120 187.5V212.5H130V187.5H120ZM120 137.5V162.5H130V137.5H120ZM120 87.5V112.5H130V87.5H120ZM120 37.5V62.5H130V37.5H120ZM130 0V12.5H120V0H125H130Z" fill="#FFE6CD"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M250 0L240 0C240 5.52285 244.477 10 250 10V0Z" fill="#FFE6CD"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M250 250V240C244.477 240 240 244.477 240 250H250Z" fill="#FFE6CD"/>
+</svg>

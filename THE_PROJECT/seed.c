@@ -127,7 +127,8 @@ int line_to_id(int *line, int dim) {
   return val;
 }
 
-char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
+
+char* id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
 {                                  // Parti pour la galère
   val = val % (factorial(dim));
   if (val == 0) {
@@ -357,7 +358,7 @@ char *create_seed(int difficulty, int dim) {
     return SEED;
 }
 
-void getLeftCases(char *string, int i, int j, int **tab, int size) {
+void getLeftCases(char* string, int i, int j, int** tab, int size) {
   int compt = 0;
   for (int a = 0; a < size; ++a) {
 
@@ -370,7 +371,7 @@ void getLeftCases(char *string, int i, int j, int **tab, int size) {
   string[compt] = '\0';
 }
 
-int generateGrid(Grid *grid) {
+int generateGrid(Grid* grid) {
   int size = grid->size;
   char *leftCases = malloc(sizeof(char) * (size + 1));
   int **tab = creatab(grid->size);
@@ -413,7 +414,7 @@ int genGrid_tab( int **tab, char *leftCases, int size) // Génère un tableau de
   return 0;
 }
 
-int *Dec2Bin(int n, int dim) {
+int* Dec2Bin(int n, int dim) {
   int size = dim * dim;
   if (4 > dim) {
     size = dim * 4;
@@ -431,7 +432,7 @@ int *Dec2Bin(int n, int dim) {
   return binaryNum;
 }
 
-int *get_cache_tab(int dim, char *Seed, int len) {
+int* get_cache_tab(int dim, char* Seed, int len) {
   int size_cache;
   int *cache_tab = malloc(sizeof(int) * dim * dim);
  
@@ -458,7 +459,7 @@ int *get_cache_tab(int dim, char *Seed, int len) {
   return cache_tab;
 }
 
-int *get_cache_obv(int dim, char *Seed, int len) {
+int* get_cache_obv(int dim, char* Seed, int len) {
   int size_cache, size_obv;
   int *cache_tab = malloc(sizeof(int) * dim * dim * 4);
   if (cache_tab == NULL) {
@@ -488,8 +489,8 @@ int *get_cache_obv(int dim, char *Seed, int len) {
   return cache_tab;
 }
 
-void read_seed_v2(Grid *grid, int dim, char *Seed, int len) {
-  
+void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
+
   int *cache_tab, *cache_obv, id;
   char *buffer, *line;
 
@@ -525,12 +526,12 @@ void read_seed_v2(Grid *grid, int dim, char *Seed, int len) {
   }
 }
 
-Grid *read_seed(char *Seed) {
+Grid* read_seed(char* Seed) {
   int lenSeed = strlen(Seed);
   int dim = Seed[0] - 48;
   Grid *grid = initgrid(dim);
 
-  read_seed_v2(grid, dim, Seed, lenSeed);
+  read_seed_sub(grid, dim, Seed, lenSeed);
   return grid;
 }
 

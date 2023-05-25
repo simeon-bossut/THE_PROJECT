@@ -81,6 +81,8 @@ nav {
 
 .gameTemplate {
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   height: calc(77vh - 15px);
 }
 
@@ -276,3 +278,179 @@ nav {
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
+
+
+
+
+/* ----------------------------------------------------- */
+/* ------------------ GAME STYLE ----------------------- */
+/* ----------------------------------------------------- */
+
+ 
+#mainPlate {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+#mainPlate.dim3 {
+  width: 550px;
+  height: 450px;
+
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+}
+
+#mainPlate.dim4 {
+  width: 650px;
+  height: 550px;
+
+  grid-template-columns: repeat(13, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+}
+
+#mainPlate .cornerRoad {
+  width: 50px;
+  height: 50px;
+
+  background-image: url("../Images/Corner\ Road.svg");
+  background-size: cover;
+}
+
+#mainPlate .straightRoad {
+  width: 50px;
+  height: 50px;
+
+  background-image: url("../Images/Straight\ Road.svg");
+  background-size: cover;
+}
+
+#mainPlate .crossRoad {
+  width: 50px;
+  height: 50px;
+
+  background-image: url("../Images/Cross\ Road.svg");
+  background-size: cover;
+}
+
+#mainPlate .TRoad {
+  width: 50px;
+  height: 50px;
+
+  background-image: url("../Images/T\ Road.svg");
+  background-size: cover;
+}
+
+#mainPlate .CCorner {
+  width: 50px;
+  height: 50px;
+
+  background-image: url("../Images/Crate\ Corner.svg");
+  background-size: cover;
+}
+
+#mainPlate .CStraight {
+  width: 50px;
+  height: 50px;
+
+  background-image: url("../Images/Crate\ Straight.svg");
+  background-size: cover;
+}
+
+#mainPlate .obs {
+  width: 50px;
+  height: 50px;
+
+  background-image: url("../Images/obs.svg");
+  background-size: 75%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#mainPlate .rotate00 {
+  transform: rotate(0deg);
+  transform-origin: 50% 50%;
+}
+
+#mainPlate .rotate90 {
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
+}
+
+#mainPlate .rotate180 {
+  transform: rotate(180deg);
+  transform-origin: 50% 50%;
+}
+
+#mainPlate .rotate270 {
+  transform: rotate(270deg);
+  transform-origin: 50% 50%;
+}
+
+#mainPlate .emptyYet {
+  width: 50px;
+  height: 50px;
+  background-color: black;
+}
+
+#secondPlate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 550px;
+  height: 450px;
+  text-align: center;
+  
+}
+
+#secondPlate #box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 80%;
+  background-color: #733900;
+  border: #0C0404 10px solid;
+  border-radius: 15%;
+}
+
+#box #view{
+  width: 80%;
+  height: 75%;
+  background-color: #ffe6cd;
+  margin-bottom: 50px;
+  border-radius: 10%;
+}
+
+#characterBox {
+  position: relative;
+  
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#characterBody {
+  position: absolute;
+
+  width: 80%;
+  height: 80%;
+
+  background-image: url("../customizations/character_default.svg");
+  background-size: cover;
+}
+
+#characterHat {
+  position: absolute;
+
+  width: 80%;
+  height: 80%;
+
+  background-image: url("../customizations/hat_crown.svg");
+  background-size: cover;
+}
+
+

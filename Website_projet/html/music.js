@@ -1,4 +1,4 @@
-var music = document.querySelector("#bgMusic");
+/*var music = document.querySelector("#bgMusic");
 
 var musicList = [
   "AMBBird_Campagne (ID 0097)_LS.mp3",
@@ -42,4 +42,4 @@ music.addEventListener("ended", event => {
   nextMusic()
 })
 
-playMusic(0);
+playMusic(0);*/
