@@ -185,96 +185,99 @@ function initMainPlate() {
       if(x == 0 && y == 0)
         insertElement(gameSet, x, y, `cornerRoad rotate00`);
 
-        else if (x == tabDim * 2 && y == 0)
-          insertElement(gameSet, x, y, `cornerRoad rotate90`);
+      else if (x == tabDim * 2 && y == 0)
+        insertElement(gameSet, x, y, `cornerRoad rotate90`);
 
-        else if (x == 0 && y == tabDim * 2)
-          insertElement(gameSet, x, y, `cornerRoad rotate270`);
+      else if (x == 0 && y == tabDim * 2)
+        insertElement(gameSet, x, y, `cornerRoad rotate270`);
 
-        else if (x == tabDim * 2 && y == tabDim * 2 && y < tabDim * 2 + 1)
-          insertElement(gameSet, x, y, `cornerRoad rotate180`);
+      else if (x == tabDim * 2 && y == tabDim * 2 && y < tabDim * 2 + 1)
+        insertElement(gameSet, x, y, `cornerRoad rotate180`);
 
-        // Straight Road
-        else if (x % 2 == 0 && y % 2 == 1 && x <= tabDim * 2 && y < tabDim * 2 + 1)
-          insertElement(gameSet, x, y, `straightRoad rotate00`);
+      // Straight Road
+      else if (x % 2 == 0 && y % 2 == 1 && x <= tabDim * 2 && y < tabDim * 2 + 1)
+        insertElement(gameSet, x, y, `straightRoad rotate00`);
 
-        else if (x % 2 == 1 && y % 2 == 0 && x <= tabDim * 2)
-          insertElement(gameSet, x, y, `straightRoad rotate90`);
+      else if (x % 2 == 1 && y % 2 == 0 && x <= tabDim * 2)
+        insertElement(gameSet, x, y, `straightRoad rotate90`);
 
-        // Intersection 3
-        else if (x == 0 && y % 2 == 0 && x <= tabDim * 2)
-          insertElement(gameSet, x, y, `TRoad rotate00`);
+      // Intersection 3
+      else if (x == 0 && y % 2 == 0 && x <= tabDim * 2)
+        insertElement(gameSet, x, y, `TRoad rotate00`);
 
-        else if (x == tabDim * 2 && y % 2 == 0 && x <= tabDim * 2)
-          insertElement(gameSet, x, y, `TRoad rotate180`);
+      else if (x == tabDim * 2 && y % 2 == 0 && x <= tabDim * 2)
+        insertElement(gameSet, x, y, `TRoad rotate180`);
 
-        else if (x % 2 == 0 && y == 0 && x <= tabDim * 2)
-          insertElement(gameSet, x, y, `TRoad rotate90`);
-      
-        else if (x % 2 == 0 && y == tabDim * 2 && x <= tabDim * 2)
-          insertElement(gameSet, x, y, `TRoad rotate270`);
-      
-        // Intersection 4
-        else if (x % 2 == 0 && y % 2 == 0 && x > 0 && x < tabDim * 2 && y > 0 && y < tabDim * 2)
-          insertElement(gameSet, x, y, `crossRoad rotate00`);
-      
-      // Observators
-      else if((x == -1) && y % 2 == 1 && y > 0 && y <= tabDim * 2)
-        insertElement(gameSet, x, y, `obs rotate270`);
-
-      else if(y == -1 && x % 2 == 1 && x > 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `obs rotate00`);
-      
-      else if(x == tabDim * 2 + 1 && y % 2 == 1 && y > 0 && y <= tabDim * 2)
-        insertElement(gameSet, x, y, `obs rotate90`);
-
-      else if(y == tabDim * 2 + 1 && x % 2 == 1 && x > 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `obs rotate180`);
-      
-        else
-          insertElement(gameSet, x, y, `empty rotate00`);
-
-      }
-
-    }
-
-    if (tabDim == 3) {
-      insertElement(gameSet, 6, 2, "crossRoad rotate00");
-      insertElement(gameSet, 6, 4, "crossRoad rotate00");
-
-      insertElement(gameSet, 7, 2, "straightRoad rotate90");
-      insertElement(gameSet, 7, 4, "straightRoad rotate90");
+      else if (x % 2 == 0 && y == 0 && x <= tabDim * 2)
+        insertElement(gameSet, x, y, `TRoad rotate90`);
     
-      for (let i = 1; i < 6; i++) {
-        switch (i) {
-          case 1:
-            insertElement(gameSet, 8, i, "cornerRoad rotate00");
-            break;
-          case 2: case 4:
-            insertElement(gameSet, 8, i, "crossRoad rotate00");
-            break;
-          case 3:
-            insertElement(gameSet, 8, i, "TRoad rotate00");
-            break;
-          case 5:
-            insertElement(gameSet, 8, i, "cornerRoad rotate270");
-            break;
-        
-        }
+      else if (x % 2 == 0 && y == tabDim * 2 && x <= tabDim * 2)
+        insertElement(gameSet, x, y, `TRoad rotate270`);
+    
+      // Intersection 4
+      else if (x % 2 == 0 && y % 2 == 0 && x > 0 && x < tabDim * 2 && y > 0 && y < tabDim * 2)
+        insertElement(gameSet, x, y, `crossRoad rotate00`);
+    
+    // Observators
+    else if((x == -1) && y % 2 == 1 && y > 0 && y <= tabDim * 2)
+      insertElement(gameSet, x, y, `obs rotate270`);
 
-        switch (i) {
-          case 1:
-            insertElement(gameSet, 9, i, "CCorner rotate00");
-            break;
-          case 2: case 3: case 4:
-            insertElement(gameSet, 9, i, "CStraight rotate00");
-            break;
-          case 5:
-            insertElement(gameSet, 9, i, "CCorner rotate90");
-            break;
-        }
+    else if(y == -1 && x % 2 == 1 && x > 0 && x <= tabDim * 2)
+      insertElement(gameSet, x, y, `obs rotate00`);
+    
+    else if(x == tabDim * 2 + 1 && y % 2 == 1 && y > 0 && y <= tabDim * 2)
+      insertElement(gameSet, x, y, `obs rotate90`);
+
+    else if(y == tabDim * 2 + 1 && x % 2 == 1 && x > 0 && x <= tabDim * 2)
+      insertElement(gameSet, x, y, `obs rotate180`);
+    
+      else
+        insertElement(gameSet, x, y, `empty rotate00`);
+
+    }
+
+  }
+
+  insertElement(gameSet, 0, -1, "Trash rotate00");
+  insertElement(gameSet, 0, tabDim * 2 + 1, "Trash rotate00");
+
+  if (tabDim == 3) {
+    insertElement(gameSet, 6, 2, "crossRoad rotate00");
+    insertElement(gameSet, 6, 4, "crossRoad rotate00");
+
+    insertElement(gameSet, 7, 2, "straightRoad rotate90");
+    insertElement(gameSet, 7, 4, "straightRoad rotate90");
+  
+    for (let i = 1; i < 6; i++) {
+      switch (i) {
+        case 1:
+          insertElement(gameSet, 8, i, "cornerRoad rotate00");
+          break;
+        case 2: case 4:
+          insertElement(gameSet, 8, i, "crossRoad rotate00");
+          break;
+        case 3:
+          insertElement(gameSet, 8, i, "TRoad rotate00");
+          break;
+        case 5:
+          insertElement(gameSet, 8, i, "cornerRoad rotate270");
+          break;
+      
+      }
+
+      switch (i) {
+        case 1:
+          insertElement(gameSet, 9, i, "CCorner rotate00");
+          break;
+        case 2: case 3: case 4:
+          insertElement(gameSet, 9, i, "CStraight rotate00");
+          break;
+        case 5:
+          insertElement(gameSet, 9, i, "CCorner rotate90");
+          break;
       }
     }
+  }
 
   else if(tabDim == 4) {
     insertElement(gameSet, 8, 4, "crossRoad rotate00");
