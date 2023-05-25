@@ -1,5 +1,7 @@
 var gameSet = document.querySelector('#mainPlate');
 
+var viewSet = document.querySelector('#view');
+
 function insertElement(set, element) {
 
   set.innerHTML += element;
@@ -123,4 +125,23 @@ function initMainPlate() {
 
 }
 
+function initView() {
+
+  viewSet.innerHTML = "";
+
+  tabDim = 3;
+
+  for (let y = 1; y < tabDim*2; y+=2) {
+    for (let x = 1; x < tabDim * 2; x += 2) {
+      getElemByCoord(x, y).innerHTML = x * y;
+      max = parseInt(getElemByCoord(x, y).textContent);
+    }
+  } 
+
+  insertElement(gameSet, `<div id="box"></div>`);
+  
+}
+
 initMainPlate();
+
+initView();
