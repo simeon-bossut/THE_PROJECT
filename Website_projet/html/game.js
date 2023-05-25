@@ -6,6 +6,13 @@ var viewSet = document.querySelector('#view');
 
 var tabDim = 4;
 
+var obsTab = [];
+var crateTab = [];
+
+for(let i = 0; i < tabDim ** 2; i++) {
+  obsTab.push(i);
+  crateTab.push(i);
+}
 
 
 
@@ -20,6 +27,8 @@ class Character {
     this.body = bodySkin || "default";
 
     this.direction = "W";
+
+    console.log("---", this.x, this.y, "---")
 
     document.querySelector(`#pos_${this.x}_${this.y}`).classList.toggle("hasPlayer");
     document.querySelector(`#pos_${this.x}_${this.y}`).innerHTML = `<div id="characterBox" class="rotate270">
@@ -130,25 +139,20 @@ function insertElement(set, x, y, classList) {
   gameTab[x + 1][y + 1] = name;
 
 }
-  function insertElement(set, element) {
 
-    set.innerHTML += element;
+function getElemByCoord(x, y) {
 
-  }
+  var element = document.querySelector(`#pos_${x}_${y}`);
 
-  function getElemByCoord(x, y) {
-
-    var element = document.querySelector(`#pos_${x}_${y}`);
-
-    return element;
-  }
+  return element;
+}
 
 
-  function initMainPlate() {
+function initMainPlate() {
 
-    gameTab = [];
+  gameTab = [];
 
-    gameSet.innerHTML = "";
+  gameSet.innerHTML = "";
 
   gameSet.classList.remove("dim3","dim4","dim5");
 
