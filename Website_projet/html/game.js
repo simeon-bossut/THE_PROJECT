@@ -4,7 +4,7 @@ var viewSet = document.querySelector('#view');
 
 
 
-var tabDim = 4;
+var tabDim = 3;
 
 var obsTab = [];
 var crateTab = [];
@@ -168,14 +168,14 @@ function initMainPlate() {
 
   for(let y = 0; y < tabDim * 2 + 3; y++) {
 
-    for(let x = 0; x < 11; x++) {
+    for(let x = 0; x < tabDim * 2 + 2 + 3; x++) {
 
-        gameSet.innerHTML += `<div id="pos_${x - 1}_${y - 1}"></div>`
-      }
+      gameSet.innerHTML += `<div id="pos_${x - 1}_${y - 1}"></div>`
     }
+  }
 
 
-    for (let y = -1; y < tabDim * 2 + 2; y++) {
+  for (let y = -1; y < tabDim * 2 + 2; y++) {
 
     for(let x = -1; x < tabDim * 2 + 2 + 1; x++) {
 
@@ -346,8 +346,6 @@ function initView() {
       max = parseInt(getElemByCoord(x, y).textContent);
     }
   } 
-
-  insertElement(gameSet, `<div id="box"></div>`);
   
 }
 
