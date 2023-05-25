@@ -254,9 +254,11 @@ function initMainPlate() {
 
 }
 
+const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Enter'];
 
 window.addEventListener('keydown', e => {
-  e.preventDefault();
+  if(listKeys.includes(e.code))
+    e.preventDefault();
 })
 
 
