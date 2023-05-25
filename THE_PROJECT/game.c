@@ -2,20 +2,18 @@
 #include <stdio.h>
 
 int **creatab(int size) {
-  int *tab_c = (int *)malloc(sizeof(int) * size);
-  if (tab_c == NULL) {
-    exit(EXIT_SUCCESS);
-  }
+    int* tab_c; 
   int **tab = (int **)malloc(sizeof(int *) * size);
   if (tab == NULL) {
     exit(EXIT_SUCCESS);
   }
   for (int i = 0; i < size; i++) {
+      tab_c = (int*)malloc(sizeof(int) * size);
+      if (tab_c == NULL) {
+          exit(EXIT_SUCCESS);
+      }
     *(tab + i) = tab_c;
-    tab_c = (int *)malloc(sizeof(int) * size);
-    if (tab_c == NULL) {
-      exit(EXIT_SUCCESS);
-    }
+    
   }
   return tab;
 }
