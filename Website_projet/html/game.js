@@ -344,7 +344,7 @@ function initMainPlate() {
 }
 
 
-function crateAction() {
+function crateGrab() {
   let xAdd = 0;
   let yAdd = 0;
 
@@ -364,15 +364,9 @@ function crateAction() {
 
 
     // Pick a box
-    if(player.numCrate == 0 && qty > 0) {
+    if(player.numCrate < tabDim && qty > 0) {
       player.numCrate++;
       qty--;
-    }
-
-    // Place a box on stack
-    else if(player.numCrate > 0 && qty < tabDim) {
-      player.numCrate--;
-      qty++;
     }
 
     if(qty == 0) qty = "";
@@ -387,6 +381,47 @@ function crateAction() {
       return;
     
     player.numCrate++;  
+  }
+
+
+  // Draw Player Crate number
+  let num = player.numCrate;
+
+  if(num == 0)
+    num = "";
+    
+  document.querySelector("#characterCrate").innerHTML = num;
+
+}
+
+
+function crateDrop() {
+  let xAdd = 0;
+  let yAdd = 0;
+
+  if(player.direction == "E")
+    xAdd++;
+  else if(player.direction == "W")
+    xAdd--;
+  else if(player.direction == "N")
+    yAdd--;
+  else if(player.direction == "S")
+    yAdd++;
+
+  if(gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "cratePlace") {
+    let crateArea = document.querySelector(`#pos_${player.x + xAdd}_${player.y + yAdd}`);
+
+    let qty =  Number(crateArea.textContent);
+
+    // Place a box on stack
+    if(player.numCrate > 0 && qty < tabDim) {
+      player.numCrate--;
+      qty++;
+    }
+
+    if(qty == 0) qty = "";
+
+    crateArea.textContent = qty;
   }
 
   // Facing a trash
@@ -404,7 +439,6 @@ function crateAction() {
     num = "";
     
   document.querySelector("#characterCrate").innerHTML = num;
-
 }
 
 
@@ -443,9 +477,11 @@ document.addEventListener('keydown', e => {
 
   // Crates actions
   else if(key == "Space") {
-    crateAction();
+    crateGrab();
   }
-  
+  else if(key == "Enter") {
+    crateDrop();
+  }
 })
 
   
