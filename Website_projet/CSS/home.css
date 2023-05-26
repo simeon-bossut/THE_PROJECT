@@ -464,28 +464,29 @@ nav {
 }
 
 [id^="crate"]{
+  position: relative;
   width: 80%;
   height: 80%;
 }
 
 #crate1 {
-  background: url("../Images/Crate1.png");
-  background-size: cover;
+  background: url("../Images/Crate1.png") no-repeat;
+  background-size: 100% 25%;
   filter: hue-rotate(72deg);
 }
 #crate2 {
-  background: url("../Images/Crate2.png");
-  background-size: cover;
+  background: url("../Images/Crate2.png") no-repeat;
+  background-size: 100% 50%;
   filter: hue-rotate(144deg);
 }
 #crate3 {
-  background: url("../Images/Crate3.png");
-  background-size: cover;
+  background: url("../Images/Crate3.png") no-repeat;
+  background-size: 100% 75%;
   filter: hue-rotate(216deg);
 }
 #crate4 {
-  background: url("../Images/Crate4.png");
-  background-size: cover;
+  background: url("../Images/Crate4.png") no-repeat;
+  background-size: 100% 100%;
   filter: hue-rotate(288deg);
 }
 
