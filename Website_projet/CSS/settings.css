@@ -1,127 +1,167 @@
 * {
-    padding: 0px;
-    margin: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 header {
-    background-color:  #341900;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 15vh;
- 
+  background-color: #341900;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15vh;
+
 }
-main{
-	background-image: url("../images/barrel3.jpg");
+
+main {
+  background-image: url("../images/barrel3.jpg");
 }
+
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 50px;
+
+  justify-content: center;
+  align-content: baseline;
+
+  padding: 50px;
+
+  box-sizing: border-box;
+
+  font-family: 'Kanit', sans-serif;
+}
+
+
 h1 {
-    font-family: 'Londrina Sketch', cursive;
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 60px;
-    letter-spacing: 0.5vw;
-    text-shadow: 5px 5px 5px #7e6a49;
-  
-    animation-name:titre;
-    animation-duration: 5s;
-    animation-iteration-count: infinite;
-  }
-	
-	.form{
-		position: relative;
-		left:50%;
-		width : 40%;
-		height: 100vh;
-		border-style: dotted;
-		border-width: thick;
-		border-radius: 10px;
-		background-image: url("../images/Crate.png");
-		background-size: cover;
-		background-position: center;
-		margin-top: 10px;
-		margin-bottom: 10px;
-		
-	}
-	
-	.form_div {
-    text-transform: uppercase;
-    
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 60px;
+  letter-spacing: 0.5vw;
+  text-shadow: 5px 5px 5px #7e6a49;
+
+  font-family: 'Londrina Sketch', sans-serif;
+
+  animation-name: titre;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
 }
-.form_div > label {
-    letter-spacing: 3px;
-    font-size: 1rem;
-    color: #232323;
+
+h2 {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 25px;
+
+  font-family: 'Kanit', sans-serif;
+
+  color: #ffe6cd;
+}
+
+.form {
+  
+  width: 100%;
+  border-style: dotted;
+  border-width: thick;
+  border-radius: 10px;
+  background-image: url("../images/Crate.png");
+  background-size: cover;
+  background-position: center;
+
+  padding: 20px;
+
+  height: fit-content;
+
+  box-sizing: border-box;
+}
+
+.form_div {
+  text-transform: uppercase;
+
+}
+
+.form_div>label {
+  letter-spacing: 3px;
+  font-size: 1rem;
+  color: #232323;
 }
 
 .field_class {
-    width: 100%;
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    padding: 5px 0px;
-    text-indent: 6px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+  width: 100%;
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px 0px;
+  text-indent: 6px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 
-    font-size: 0.9rem;
-    letter-spacing: 2px;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
 }
+
 .field_class:hover {
-    box-shadow: 2px 2px 5px #232323;
+  box-shadow: 2px 2px 5px #232323;
 }
 
 .bouton {
-    border-style: none;
-    border-radius: 5px;
-    background-color: #FFE6D4;
-    padding: 8px 20px;
-    font-family: 'system-ui';
-    text-transform: uppercase;
-    letter-spacing: .8px;
-    display: block;
-    margin: auto;
-    margin-top: 10px;
-    box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
-    cursor: pointer;
-    transition-duration: 0.4s;
-}
-.bouton:hover {    
-    box-shadow: 5px 5px 5px #232323;
-}
-.settingh1{
-	color:  #341900;
-	}
-	
-	
-hr{
-	height: 3px; 
-	background-color: black; 
-	}
-
-
-.choice{
-	position: absolute;
-	left: 1%;
-	width : 40%;
-	top: 14%;
-	border-style: dotted;
-	border-width: thick;
-	border-radius: 10px;
-	margin: 20px;
-	background-image: url("../images/Crate.png");
-	background-size: 150%;
-	background-position: center;
-
+  border-style: none;
+  border-radius: 5px;
+  background-color: #ffe6cd;
+  padding: 8px 20px;
+  font-family: 'system-ui';
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  box-shadow: 2px 2px 5px rgb(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition-duration: 0.4s;
 }
 
-.flag{
-	width: 5vh;
-	height: 3vh;
+.bouton:hover {
+  box-shadow: 5px 5px 5px #232323;
 }
 
-.lablelg{
-	position: relative;
-	left: 30%;
+.settingh1 {
+  color: #341900;
+}
 
+
+.choice {
+  width: 100%;
+  border-style: dotted;
+  border-width: thick;
+  border-radius: 10px;
+  background-image: url("../images/Crate.png");
+  background-size: 150%;
+  background-position: center;
+
+  height: fit-content;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+}
+
+.choice .formInputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.flag {
+  width: 40px;
+  height: 25px;
+  border-radius: 3px;
+  margin: 0px 5px;
+}
+
+.lablelg {
+  display: flex;
+  align-items: center;
+  margin: 0px 10px;
 }
