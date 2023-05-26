@@ -4,66 +4,67 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-		<?php include("head.php"); ?>
+	<?php include("head.php"); ?>
 
-		<title>The Crate Stacker - Leaderboard</title>
+	<title>The Crate Stacker - Leaderboard</title>
 
-		<link rel="stylesheet" href="../CSS/ranking.css">
+	<link rel="stylesheet" href="../CSS/ranking.css">
 
-  </head>
-
-
-
-  <body>
-		
-		<?php include("nav.php"); ?>
+</head>
 
 
-		<header>
-			<h1>Leaderboard</h1>
-		</header>
-    
-		
-		<main>
 
-			<div class="container">
-				<img src="../Images/Leader Board.png">
+<body>
 
-				<div id="containerUL">
-					<div id="containerBox">
+	<?php include("nav.php"); ?>
 
-						<?php
-							try {
-							
-								$resultat = request("SELECT * FROM acc ORDER BY score DESC", false);
 
-								$rank = 1;
-							
-								foreach ($resultat as $row) {
-									echo "<div class='boardElem'>
+	<header>
+		<h1>Leaderboard</h1>
+	</header>
+
+
+	<main>
+
+		<div class="container">
+			<img src="../Images/Leader Board.png">
+
+			<div id="containerUL">
+				<div id="containerBox">
+
+					<?php
+					try {
+
+						$resultat = request("SELECT * FROM acc ORDER BY score DESC", false);
+
+						$rank = 1;
+
+						foreach ($resultat as $row) {
+							echo "<div class='boardElem'>
 													<span>$rank</span>
 													<span>$row[pseudo]</span>
 													<span>$row[score]</span>
 												</div>";
-												
-									$rank += 1;
-								
-								}
 
-							} catch (Exception $e) {
-								die("Erreur : " . $e->getMessage());
-							}
-						?>
+							$rank += 1;
 
-					</div>
+						}
+
+					} catch (Exception $e) {
+						die("Erreur : " . $e->getMessage());
+					}
+					
+					?>
+
 				</div>
-			</div>		
-		</main>
+			</div>
+		</div>
+	</main>
 
-		<?php include("footer.php"); ?>
+	<?php include("footer.php"); ?>
 
-	</body>
-	
+</body>
+
 </html>

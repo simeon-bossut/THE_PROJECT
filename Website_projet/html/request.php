@@ -1,37 +1,32 @@
 <?php
 
-  function request($phpRequest, $isUnique, $params = NULL) {
-    try {
+function request($phpRequest, $isUnique, $params = NULL) {
+  try {
 
-      if(!isset($phpRequest) || !isset($isUnique))
-        throw("Not enough parameters");
+    if (!isset($phpRequest) || !isset($isUnique))
+      return;
 
-      require("connexion.php");
+    require("connexion.php");
 
-      $req = $conn->prepare($phpRequest); //Préparer la requete
+    $req = $conn->prepare($phpRequest); //Préparer la requete
 
-      if(isset($params)){
-        $req->execute($params); //Executer la requete
-      }
-
-      else {
-        $req->execute();
-      }
-      
-      if($isUnique)
-        $resultat = $req->fetch(); //récupération du résultat 
-      
-      else
-        $resultat = $req->fetchAll(PDO::FETCH_ASSOC); //récupération du résultat
-
-      $conn = NULL;
-
-      return $resultat;
+    if (isset($params)) {
+      $req->execute($params); //Executer la requete
+    } else {
+      $req->execute();
     }
 
-    catch (Exception $e) {
-      die("Erreur : " . $e->getMessage());
-    }
+    if ($isUnique)
+      $resultat = $req->fetch(); //récupération du résultat 
+    else
+      $resultat = $req->fetchAll(PDO::FETCH_ASSOC); //récupération du résultat
+
+    $conn = NULL;
+
+    return $resultat;
+  } catch (Exception $e) {
+    die("Erreur : " . $e->getMessage());
   }
+}
 
 ?>

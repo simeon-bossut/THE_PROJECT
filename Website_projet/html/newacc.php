@@ -1,6 +1,7 @@
 <?php
 
-function valider_donnees($donnee) {
+function valider_donnees($donnee)
+{
 	$donnee = trim($donnee);
 	$donnee = stripslashes($donnee);
 	$donnee = htmlspecialchars($donnee);
@@ -21,38 +22,33 @@ if (isset($_POST["add"])) {
 		$password3 = valider_donnees($_POST["password2"]);
 
 
-		if($password2 == $password3){
+		if ($password2 == $password3) {
 			$resultat = request("SELECT * FROM acc WHERE email = :email", false, array(':email' => $email));
-		
+
 			// If the email doesn't exist yet
-			if(count($resultat) == 0) {
+			if (count($resultat) == 0) {
 				request("INSERT INTO acc (email,pseudo,civility,password) VALUES(:email,:pseudo,:civility,:password)", true, array(
 					':email' => $email,
 					':pseudo' => $pseudo,
 					':civility' => $civility,
 					':password' => $password2
-				));
+				)
+				);
 
 				header("Location:login.php");
-			}
-
-			else {
+			} else {
 				setcookie("email_error", '1', time() + 60);
-				
+
 				header("Location:signup.php");
 			}
-		
-		}
 
-		else{
+		} else {
 			setcookie("password_error", '1', time() + 60);
 
 			header("Location:signup.php");
 		}
-		
-	} 
-	
-	catch (Exception $e) {
+
+	} catch (Exception $e) {
 		die("Erreur : " . $e->getMessage());
 	}
 
