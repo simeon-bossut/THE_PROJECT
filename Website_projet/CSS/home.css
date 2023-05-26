@@ -357,6 +357,16 @@ nav {
   background-size: cover;
 }
 
+#mainPlate .Trash {
+  width: 50px;
+  height: 50px;
+
+  background-size: 85%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../Images/trash.svg");
+}
+
 #mainPlate .obs {
   width: 50px;
   height: 50px;
@@ -365,6 +375,19 @@ nav {
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+#mainPlate .obsText {
+  width: 50px;
+  height: 43px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 25px;
+  color: #341900;
+  
 }
 
 #mainPlate .rotate00 {
@@ -387,10 +410,27 @@ nav {
   transform-origin: 50% 50%;
 }
 
-#mainPlate .emptyYet {
+#mainPlate .cratePlace {
   width: 50px;
   height: 50px;
-  background-color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30px;
+  text-shadow: 0 0px 5px black;
+
+  background-image: url("../Images/Crate.png");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  transition: opacity .1s ease-in-out;
+}
+
+#mainPlate .cratePlace:empty {
+  opacity: 0;
 }
 
 #secondPlate {
@@ -405,6 +445,7 @@ nav {
 
 #secondPlate #box{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 50%;
@@ -416,9 +457,8 @@ nav {
 
 #box #view{
   width: 80%;
-  height: 75%;
+  height: 80%;
   background-color: #ffe6cd;
-  margin-bottom: 50px;
   border-radius: 10%;
 }
 
@@ -431,6 +471,10 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.hasPlayer {
+  z-index: 100;
 }
 
 #characterBody {
@@ -454,3 +498,26 @@ nav {
 }
 
 
+#characterCrate {
+  position: absolute;
+
+  width: 70%;
+  height: 70%;
+
+  bottom: 80%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("../Images/crateTop.svg");
+  background-size: cover;
+
+  z-index: 100;
+
+  transition: all .2s ease-in-out;
+}
+
+#characterCrate:empty {
+  opacity: 0;
+}
