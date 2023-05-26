@@ -2,6 +2,18 @@
 
 <?php include("verifLogin.php"); ?>
 
+<?php
+if (isset($_POST['checked'])) {
+	
+	if($_POST['checked'] == 'fr'){
+		setcookie("french", '1', time() + (60*60*24*30*365));}
+		
+		else{
+			setcookie("french", '1', time() -(60*60*24*30*365));
+
+		}
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,6 +88,24 @@
 				</div>
 			</form>
 		</div>
+		
+		
+		<div class="choice"> 
+	<form class="oui" action="" method="post">
+		<h1>Choose your language</h1>
+<label class="lablelg">English
+  <input type="radio" checked="checked" name="checked"  value="uk">
+	<img src="../Images/ukflag.png" class="flag" alt="French flag" > 
+</label>
+<label class="lablelg">French
+
+  <input type="radio"  name="checked" value="fr">
+<img src="../Images/France.png" class="flag" alt="French flag" > 
+</label>
+ 	<button class="bouton" type="submit" name="Modifier">Choose!</button>
+</form>
+</div>	
+
 	</main>
 
 	<?php include("footer.php"); ?>
