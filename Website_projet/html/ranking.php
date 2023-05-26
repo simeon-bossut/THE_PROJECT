@@ -34,44 +34,36 @@
 				<div id="containerUL">
 					<div id="containerBox">
 
-			<?php
-			try{
-				require("connexion.php");
+						<?php
+							try {
+							
+								$resultat = request("SELECT * FROM acc ORDER BY score DESC", false);
 
-				$reqPrep = "SELECT * FROM acc ORDER BY score DESC"; //La requere SQL: SELECT
-				$req = $conn->prepare($reqPrep); //Préparer la requete
-				$req->execute(); //Executer la requete
-				
-				$resultat = $req->fetchALl(PDO::FETCH_ASSOC); //récupération du résultat 
-
-				$rank = 1;
-				
-				foreach ($resultat as $row) {
-					echo "
-						<div class='boardElem'>
-							<span>$rank</span>
-							<span>$row[pseudo]</span>
-							<span>$row[score]</span>
-						</div>";
+								$rank = 1;
+							
+								foreach ($resultat as $row) {
+									echo "<div class='boardElem'>
+													<span>$rank</span>
+													<span>$row[pseudo]</span>
+													<span>$row[score]</span>
+												</div>";
+												
+									$rank += 1;
 								
-					$rank += 1;
-					
-				}
+								}
 
-			} catch (Exception $e) {
-				die("Erreur : " . $e->getMessage());
-			}
-	?>
+							} catch (Exception $e) {
+								die("Erreur : " . $e->getMessage());
+							}
+						?>
+
+					</div>
 				</div>
-			</div>
-			</div>
+			</div>		
+		</main>
 
+		<?php include("footer.php"); ?>
 
-
-    </main>
-
-
-	<?php include("footer.php"); ?>
-
-  </body>
+	</body>
+	
 </html>
