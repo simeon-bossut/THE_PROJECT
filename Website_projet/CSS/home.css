@@ -195,7 +195,7 @@ nav {
 /* ------------------------------------------------------- */
 
 .frontDis {
-  z-index: 100;
+  z-index: 110;
   background-color: #232323;
   background-image: url("../Images/bg_factory.jpg");
   background-size: cover;
