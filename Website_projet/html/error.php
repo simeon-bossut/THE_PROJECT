@@ -14,6 +14,7 @@
 
 <body>
   <?php include("nav.php"); ?>
+  
   <header>
 
   </header>
