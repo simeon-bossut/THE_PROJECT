@@ -410,10 +410,27 @@ nav {
   transform-origin: 50% 50%;
 }
 
-#mainPlate .emptyYet {
+#mainPlate .cratePlace {
   width: 50px;
   height: 50px;
-  background-color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30px;
+  text-shadow: 0 0px 5px black;
+
+  background-image: url("../Images/Crate.png");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  transition: opacity .1s ease-in-out;
+}
+
+#mainPlate .cratePlace:empty {
+  opacity: 0;
 }
 
 #secondPlate {
@@ -456,6 +473,10 @@ nav {
   align-items: center;
 }
 
+.hasPlayer {
+  z-index: 100;
+}
+
 #characterBody {
   position: absolute;
 
@@ -477,3 +498,26 @@ nav {
 }
 
 
+#characterCrate {
+  position: absolute;
+
+  width: 70%;
+  height: 70%;
+
+  bottom: 80%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("../Images/crateTop.svg");
+  background-size: cover;
+
+  z-index: 100;
+
+  transition: all .2s ease-in-out;
+}
+
+#characterCrate:empty {
+  opacity: 0;
+}
