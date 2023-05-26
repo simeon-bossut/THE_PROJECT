@@ -18,6 +18,7 @@ try {
 					        $_SESSION["authentifie"] = true;
 							$_SESSION["email"] = $row["email"];
 							$_SESSION["civility"] = $row["civility"];
+							$_SESSION["pseudo"] = $row["pseudo"];
 							setcookie("email", $row["email"], time() + 60 * 60 * 24 * 30);
 							header("Location: home.php");
 									}
