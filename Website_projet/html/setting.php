@@ -36,6 +36,22 @@ if (isset($_POST['checked'])) {
 			<h1>Custom your game </h1>
 		</header>
 
+		<div class="choice"> 
+			<form class="oui" action="" method="post">
+				<h1>Choose your language</h1>
+		<label class="lablelg">English
+			<input type="radio" checked="checked" name="checked"  value="uk">
+			<img src="../Images/ukflag.png" class="flag" alt="French flag" > 
+		</label>
+		<label class="lablelg">French
+
+			<input type="radio"  name="checked" value="fr">
+		<img src="../Images/France.png" class="flag" alt="French flag" > 
+		</label>
+			<button class="bouton" type="submit" name="Modifier">Choose!</button>
+		</form>
+		</div>	
+
 		<div class="form">
 			<h1 class="settingh1"> Modify your account data </h1>
 
@@ -88,23 +104,6 @@ if (isset($_POST['checked'])) {
 				</div>
 			</form>
 		</div>
-		
-		
-		<div class="choice"> 
-	<form class="oui" action="" method="post">
-		<h1>Choose your language</h1>
-<label class="lablelg">English
-  <input type="radio" checked="checked" name="checked"  value="uk">
-	<img src="../Images/ukflag.png" class="flag" alt="French flag" > 
-</label>
-<label class="lablelg">French
-
-  <input type="radio"  name="checked" value="fr">
-<img src="../Images/France.png" class="flag" alt="French flag" > 
-</label>
- 	<button class="bouton" type="submit" name="Modifier">Choose!</button>
-</form>
-</div>	
 
 	</main>
 
