@@ -9,7 +9,7 @@ var tabDim = 3;
 var obsTab = [];
 var crateTab = [];
 
-for(let i = 0; i < tabDim ** 2; i++) {
+for(let i = 0; i < tabDim * 4; i++) {
   obsTab.push(i);
   crateTab.push(i);
 }
@@ -54,7 +54,7 @@ class Character {
     let rotation;
     
     if(this.direction == "W")
-      rotation = (270 - rotParent) % 360 == 0 ? "00" : String(((720 + (270 - rotParent))) % 360); // 
+      rotation = (270 - rotParent) % 360 == 0 ? "00" : String(((720 + (270 - rotParent))) % 360);
     else if(this.direction == "N")
       rotation = (- rotParent) % 360 == 0 ? "00" : String((720 - rotParent) % 360);
     else if(this.direction == "E")
@@ -296,33 +296,45 @@ function initMainPlate() {
     insertElement(gameSet, 11, 6, "CCorner rotate90");
   }
 
+  document.querySelectorAll(".obs").forEach((element, index) => {
+    let rotParent = Number(element.classList[1].split("tate")[1]);
+    let rotation = (- rotParent) % 360 == 0 ? "00" : String((720 - rotParent) % 360);
+
+    element.innerHTML += `<div class="obsText rotate${rotation}">${obsTab[index]}</div>`;
+
+    if(index % tabDim * 2 + 2 + 2) {
+      //element.innerHTML = obsTab[index];
+      console.log(index);
+    }
+  })
+
 }
 
 const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Enter'];
 
-  window.addEventListener('keydown', e => {
-    if (listKeys.includes(e.code))
-      e.preventDefault();
-  })
+window.addEventListener('keydown', e => {
+  if (listKeys.includes(e.code))
+    e.preventDefault();
+})
 
 
 
-  document.addEventListener('keydown', e => {
-    let key = e.code;
+document.addEventListener('keydown', e => {
+  let key = e.code;
 
-    if (key == "KeyA" || key == "ArrowLeft") {
-      player.move("W");
-    }
-    else if (key == "KeyD" || key == "ArrowRight") {
-      player.move("E");
-    }
-    else if (key == "KeyS" || key == "ArrowDown") {
-      player.move("S");
-    }
-    else if (key == "KeyW" || key == "ArrowUp") {
-      player.move("N");
-    }
-  })
+  if (key == "KeyA" || key == "ArrowLeft") {
+    player.move("W");
+  }
+  else if (key == "KeyD" || key == "ArrowRight") {
+    player.move("E");
+  }
+  else if (key == "KeyS" || key == "ArrowDown") {
+    player.move("S");
+  }
+  else if (key == "KeyW" || key == "ArrowUp") {
+    player.move("N");
+  }
+})
 
   
 initMainPlate();
