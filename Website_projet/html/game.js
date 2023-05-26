@@ -342,18 +342,14 @@ else if(tabDim == 4) {
   
 function setView() {
 
-  viewSet.innerHTML = "";
+  let view = document.querySelectorAll('[id^="crate"]');
 
+  for (let i = 0; i < view.length; i++) 
+    view[i].remove();
+  
   tabDim = 3;
   
   let arr = [];
-
-  for (let y = 1; y < tabDim*2; y+=2) {
-    for (let x = 1; x < tabDim * 2; x += 2) {
-      getElemByCoord(x, y).innerHTML = x;
-    }
-  } 
-
 
   if (player.x % 2 == 1 && player.x < 7) {
 
@@ -410,5 +406,7 @@ function setView() {
       }
     }
   }
-  console.log(arr);
+  for (let i = 0; i < arr.length; i++){
+    viewSet.innerHTML += `<div id = "crate${arr[i]}" style = "position:absolute; z-index:${arr.length - i};"}></div>`;
+  }
 }

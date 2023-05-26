@@ -426,10 +426,37 @@ nav {
 }
 
 #box #view{
+  position: relative;
   width: 80%;
   height: 80%;
   background-color: #ffe6cd;
   border-radius: 10%;
+}
+
+[id^="crate"]{
+  width: 80%;
+  height: 80%;
+}
+
+#crate1 {
+  background: url("../Images/Crate1.png");
+  background-size: cover;
+  filter: hue-rotate(72deg);
+}
+#crate2 {
+  background: url("../Images/Crate2.png");
+  background-size: cover;
+  filter: hue-rotate(144deg);
+}
+#crate3 {
+  background: url("../Images/Crate3.png");
+  background-size: cover;
+  filter: hue-rotate(216deg);
+}
+#crate4 {
+  background: url("../Images/Crate4.png");
+  background-size: cover;
+  filter: hue-rotate(288deg);
 }
 
 #characterBox {
