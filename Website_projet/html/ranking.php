@@ -18,7 +18,7 @@
 
 <body>
 
-	<?php include("nav.php"); ?>
+	<?php include("nav.php"); require("request.php"); ?>
 
 
 	<header>
@@ -55,7 +55,7 @@
 					} catch (Exception $e) {
 						die("Erreur : " . $e->getMessage());
 					}
-					
+
 					?>
 
 				</div>

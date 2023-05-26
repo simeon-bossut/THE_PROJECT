@@ -1,78 +1,81 @@
 <?php session_start(); ?>
-	
+
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-  
-		<?php include("head.php"); ?>
+<head>
 
-		<title>The Crate Stacker - Leaderboard</title>
+	<?php include("head.php"); ?>
 
-		<link rel="stylesheet" href="../CSS/test.css">
+	<title>The Crate Stacker - Customization</title>
 
-  </head>
-  <body>
+	<link rel="stylesheet" href="../CSS/test.css">
 
-			<?php include("nav.php"); ?>
+</head>
+
+<body>
+
+	<?php include("nav.php"); ?>
 	<main>
-	
+
 		<header>
 			<h1>Custom your game </h1>
 		</header>
-	
+
 		<div class="creamBG">
 			<h2 class="titleContainer">Custom your game background</h2>
 
 			<div class="containerContent">
-			  <div id="textContent">
+				<div id="textContent">
 					<select>
-						<option class = "1" src="../Images/test1.jpg">Option 1</option>
-						<option class = "2" src="../Images/test2.jpg">Option 2</option>
-						<option class = "3"  src="../Images/test3.jpg">Option 3</option>
-						<option class = "4" src="../Images/test4.jpg">Option 4</option>
-						<option class = "5" src="../Images/test5.jpg">Option 5</option>
+						<option class="1" src="../Images/test1.jpg">Option 1</option>
+						<option class="2" src="../Images/test2.jpg">Option 2</option>
+						<option class="3" src="../Images/test3.jpg">Option 3</option>
+						<option class="4" src="../Images/test4.jpg">Option 4</option>
+						<option class="5" src="../Images/test5.jpg">Option 5</option>
 					</select>
-					
-					<p class="para">Choose your favorite game screen, don't settle for the basics, demand the best, here's what universe you want to transport yourself to </p>
+
+					<p class="para">Choose your favorite game screen, don't settle for the basics, demand the best, here's what
+						universe you want to transport yourself to </p>
 				</div>
-				
+
 				<img class="img_back">
 			</div>
 		</div>
-		
-				<div class="creamBG">
+
+		<div class="creamBG">
 			<h2 class="titleContainer">Custom your character</h2>
 
 			<div class="containerContent">
-			  <div id="textContent">
+				<div id="textContent">
 					<select>
-						<option class = "1" src="../Images/test1.jpg">Option 1</option>
-						<option class = "2" src="../Images/test2.jpg">Option 2</option>
-						<option class = "3"  src="../Images/test3.jpg">Option 3</option>
-						<option class = "4" src="../Images/test4.jpg">Option 4</option>
-						<option class = "5" src="../Images/test5.jpg">Option 5</option>
+						<option class="1" src="../Images/test1.jpg">Option 1</option>
+						<option class="2" src="../Images/test2.jpg">Option 2</option>
+						<option class="3" src="../Images/test3.jpg">Option 3</option>
+						<option class="4" src="../Images/test4.jpg">Option 4</option>
+						<option class="5" src="../Images/test5.jpg">Option 5</option>
 					</select>
-					
-					<p class="para">Choose your cosmetics to dress up your character! Wide choices are available. Grab a cool hat? A serious one? An impressive? Choose your style and use your imagination </p>
+
+					<p class="para">Choose your cosmetics to dress up your character! Wide choices are available. Grab a cool hat?
+						A serious one? An impressive? Choose your style and use your imagination </p>
 				</div>
-				
+
 				<img class="img_back">
 			</div>
 		</div>
-	
-	<!--
+
+		<!--
 		<div class="creamBG">	
 		<h1>Custom your game background </h1>
 		<div class="box" class="containerContent">
 		
-		  <select>
+			<select>
 			<option class = "1" src="../Images/test1.jpg">Option 1</option>
 			<option class = "2" src="../Images/test2.jpg">Option 2</option>
 			<option class = "3"  src="../Images/test3.jpg">Option 3</option>
 			<option class = "4" src="../Images/test4.jpg">Option 4</option>
 			<option class = "5" src="../Images/test5.jpg">Option 5</option>
-		  </select>
+			</select>
 		</div>
 		
 		<span id="selected"></span>
@@ -85,27 +88,28 @@
 	</main>
 	<?php include("footer.php"); ?>
 
-		
-	</body>
+
+</body>
+
 </html>
 <script>
 
-var optionSelector = document.querySelector("select");
+	var optionSelector = document.querySelector("select");
 
-function changeBgImg() {
-	//document.querySelector("#selected").textContent = optionSelector.options[optionSelector.selectedIndex].getAttribute("src");
-	let id =  optionSelector.options[optionSelector.selectedIndex].getAttribute("class");
-	document.cookie = `background=${id};60*60*24*30`;
-	let src = optionSelector.options[optionSelector.selectedIndex].getAttribute("src");
-	
-	document.querySelector("img").setAttribute('src', src);
-}
+	function changeBgImg() {
+		//document.querySelector("#selected").textContent = optionSelector.options[optionSelector.selectedIndex].getAttribute("src");
+		let id = optionSelector.options[optionSelector.selectedIndex].getAttribute("class");
+		document.cookie = `background=${id};60*60*24*30`;
+		let src = optionSelector.options[optionSelector.selectedIndex].getAttribute("src");
 
-changeBgImg();
+		document.querySelector("img").setAttribute('src', src);
+	}
 
-optionSelector.addEventListener("change", e => {
 	changeBgImg();
-});
+
+	optionSelector.addEventListener("change", e => {
+		changeBgImg();
+	});
 
 
 </script>
