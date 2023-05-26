@@ -67,9 +67,13 @@ int main(int argc, char **argv) {
   grid = generate_level(4, &difficulty); 
   push_to_php(grid);*/
 
-  char*SEED=create_seed(1,4);
-  printf("%s", SEED);
+  char*SEED=create_seed(2,4);
+  printf("SEED: %s\n\n", SEED);
+
   grid =read_seed(SEED);
+  
+  printf("Grille:\n");
+
   printgrid(grid);
 
   
