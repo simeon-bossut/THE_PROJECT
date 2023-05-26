@@ -1,17 +1,17 @@
 var gameSet = document.querySelector('#mainPlate');
 var gameTab = [];
-var viewSet = document.querySelector('#view');
+var viewSet = document.querySelector('#viewBox');
 
 
 
-var tabDim = 3;
+var tabDim = 4;
 
 var obsTab = [];
-var crateTab = [];
+var crateTab = [4, 3,2,1, 1,2,3,4, 4,3,2,1, 1,2,3,4];
 
 for(let i = 0; i < tabDim * 4; i++) {
   obsTab.push(Math.floor(Math.random() * (tabDim + 1)));
-  crateTab.push(Math.floor(Math.random() * (tabDim + 1)));
+  //crateTab.push(Math.floor(Math.random() * (tabDim + 1)));
 }
 
 
@@ -106,6 +106,8 @@ class Character {
     }
 
     this.drawChar();
+
+    setView();
 
     return;
   }
@@ -392,6 +394,8 @@ function crateGrab() {
     
   document.querySelector("#characterCrate").innerHTML = num;
 
+
+  setView();
 }
 
 
@@ -439,6 +443,8 @@ function crateDrop() {
     num = "";
     
   document.querySelector("#characterCrate").innerHTML = num;
+
+  setView();
 }
 
 
@@ -471,9 +477,9 @@ document.addEventListener('keydown', e => {
   }
 
   // POV Player
-  else if (key == "KeyP") {
+  /*else if (key == "KeyP") {
     setView();
-  }
+  }*/
 
   // Crates actions
   else if(key == "Space") {
@@ -504,11 +510,9 @@ function setView() {
   for (let i = 0; i < view.length; i++) 
     view[i].remove();
   
-  tabDim = 3;
-  
   let arr = [];
 
-  if (player.x % 2 == 1 && player.x < 7) {
+  if (player.x % 2 == 1 && player.x < tabDim * 2 + 1) {
 
     if (player.direction == 'N' && player.y > 0) {
 
@@ -523,7 +527,7 @@ function setView() {
       }
     }
 
-    if (player.direction == 'S'&& player.y < 6) {
+    if (player.direction == 'S'&& player.y < tabDim * 2) {
 
       max = getElemByCoord(player.x, player.y + 1).innerHTML;
       arr = [max];
@@ -537,9 +541,9 @@ function setView() {
     }
   }
 
-  if (player.y % 2 == 1 && player.x < 7) {
+  if (player.y % 2 == 1 && player.x < tabDim * 2 + 1) {
     
-    if (player.direction == 'E' && player.x < 6) {
+    if (player.direction == 'E' && player.x < tabDim * 2) {
       max = getElemByCoord(player.x+1, player.y).innerHTML;
       arr = [max];
       for (let x = player.x+1; x < tabDim * 2; x += 2) {
@@ -564,6 +568,6 @@ function setView() {
     }
   }
   for (let i = 0; i < arr.length; i++){
-    viewSet.innerHTML += `<div id = "crate${arr[i]}" style = "position:absolute; z-index:${arr.length - i};"}></div>`;
+    viewSet.innerHTML += `<div id = "crate${arr[i]}"></div>`;
   }
 }

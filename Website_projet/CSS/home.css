@@ -459,34 +459,57 @@ nav {
   position: relative;
   width: 80%;
   height: 80%;
+  padding: 25px 0px 25px 0px;
   background-color: #ffe6cd;
   border-radius: 10%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 [id^="crate"]{
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  position: absolute;
+  background-size: contain;
+  background-position: 50% 0%;
+  background-image: url("../Images/Crate.png");
 }
 
 #crate1 {
-  background: url("../Images/Crate1.png");
-  background-size: cover;
-  filter: hue-rotate(72deg);
+  filter: hue-rotate(12deg);
+  z-index: 4;
+  height: 25%;
+
+  right: -30%;
+  top: -6%
 }
+
 #crate2 {
-  background: url("../Images/Crate2.png");
-  background-size: cover;
   filter: hue-rotate(144deg);
+  z-index: 3;
+  height: 50%;
+  right: -10%;
+  top: -2%;
 }
+
 #crate3 {
-  background: url("../Images/Crate3.png");
-  background-size: cover;
   filter: hue-rotate(216deg);
+  z-index: 2;
+  height: 75%;
+  
+  right: 10%;
+  top: 2%;
 }
+
 #crate4 {
-  background: url("../Images/Crate4.png");
-  background-size: cover;
   filter: hue-rotate(288deg);
+
+  z-index: 1;
+  height: 100%;
+
+  right: 30%;
+  top: 6%;
 }
 
 #characterBox {
@@ -547,4 +570,11 @@ nav {
 
 #characterCrate:empty {
   opacity: 0;
+}
+
+#viewBox {
+  height: 100%;
+  aspect-ratio: 1/4;
+  position: relative;
+  transform: rotate(180deg);
 }

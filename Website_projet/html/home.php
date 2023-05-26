@@ -65,7 +65,7 @@
 
       <div id="secondPlate">
         <div id="box">
-          <div id="view"></div>
+          <div id="view"><div id="viewBox"></div></div>
           <p>Point Of View</p>
 
         </div>
