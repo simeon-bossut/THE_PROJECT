@@ -2,8 +2,7 @@
 session_start();
 $find = false;
 $havemeail = false;
-function valider_donnees($donnee)
-{
+function valider_donnees($donnee) {
     $donnee = trim($donnee);
     $donnee = stripslashes($donnee);
     $donnee = htmlspecialchars($donnee);
@@ -16,85 +15,97 @@ $password2 = valider_donnees($_POST["password2"]);
 $login = valider_donnees($_POST["login"]);
 $pseudo = valider_donnees($_POST["pseudo"]);
 
-if (isset($_POST["Modifier"])){
-	
+require("request.php");
+
+// Email editing
+if(isset($_POST["edit_mail"])) {
 	try {
-		require("connexion.php");
-	
-		    $req_Prep = "SELECT * FROM acc WHERE email = :login";
-        $req = $conn->prepare($req_Prep);
-        $req->execute([":login" => $login]);
-        $info = $req->fetch();
-				if(count($info) !=0){
-				if($info["password"] == $true_password){
-					if($password1 == $password2){
-						$find = true;
-					}
-					else{
-							setcookie("password_edit_error2", '1', time() + 60);
-							header("Location:setting.php");
-					}
-					
-				}
-				else{
-					setcookie("password_edit_error", '1', time() + 60);
-					header("Location:setting.php");
-				}
-				}
+		
+		if(!isset($_SESSION['email'])) {
+			setcookie("email_edit_error", '1', time() + 60);
+			header("Location:setting.php");
+		}
+		
+		$res = request("SELECT * FROM acc WHERE email = :email", false, array(':email' => $_SESSION['email']));
 
-	
-	}catch (Exception $e) {
-	die("Erreur : " . $e->getMessage());}
-	
+		// If account has been found
+		if(count($res) == 1) {
+			request("UPDATE acc SET email = :newEmail WHERE email = :email", false, array(':email' => $_SESSION['email'], 'newEmail' => $_POST['email']));
+		
+			$_SESSION['email'] = $_POST["email"];
+
+			header("Location:setting.php");
+		}
+
+		else {
+			setcookie("email_edit_error", '1', time() + 60);
+			header("Location:setting.php");
+		}
+	}
+
+	catch (Exception $e) {
+		die("Erreur : " . $e->getMessage());
+	}
 }
 
-//--------------------------------------------------------------------------------//
 
-if (isset($_POST["Modifier"])){
-	
+// Pseudo editing
+if(isset($_POST["edit_pseudo"])) {
 	try {
-		require("connexion.php");
-			$reqPrep = "SELECT * FROM acc"; //La requere SQL: SELECT
-			$req = $conn->prepare($reqPrep); //Préparer la requete
-			$req->execute(); //Executer la requete
+		
+		if(!isset($_SESSION['pseudo']))
+			return;
+		
+		$res = request("SELECT * FROM acc WHERE pseudo = :pseudo", false, array(':pseudo' => $_SESSION['pseudo']));
 
-			$resultat = $req->fetchAll(PDO::FETCH_ASSOC); //récupération du résultat 
-			foreach ($resultat as $row) {
-				
-				if($row["email"]== $login && $row["email"]!= $_SESSION["email"]){
-					$havemeail = true;
-				}
-			}
-			if($havemeail==true){
-					setcookie("email_edit_error", '1', time() + 60);
-					header("Location:setting.php");
-			}
+		// If account has been found
+		if(count($res) == 1) {
+			request("UPDATE acc SET pseudo = :pseudo WHERE email = :email", false, array(':email' => $_SESSION['email'], 'pseudo' => $_POST['pseudo']));
+		
+			$_SESSION['pseudo'] = $_POST["pseudo"];
 
+			header("Location:setting.php");
+		}
+	}
 
-	}catch (Exception $e) {
-	die("Erreur : " . $e->getMessage());}
-	
+	catch (Exception $e) {
+		die("Erreur : " . $e->getMessage());
+	}
 }
 
-//------------------------------------------------------------------------------------------//
 
-if($havemeail && !$find){
-	try{
-		require("connexion.php");
-		 $req = "UPDATE acc SET email = :login, pseudo = :pseudo, password = :password1 WHERE email =:email_session ";
-     $query = $conn->prepare($req);
-		 $query->execute([
-            ":login" => $login,
-            ":pseudo" => $pseudo,
-            ":password1" => $password1,
-            ":email_session" => $_SESSION["email"]
-        ]);
+// Pseudo editing
+if(isset($_POST["edit_pass"])) {
+	try {
 		
+		if(!isset($_SESSION['email'])) {
+			setcookie("password_edit_error", '1', time() + 60);
+			header("Location:setting.php");
+		}
 		
+		if($_POST['newPassword1'] != $_POST['newPassword2']) {
+			setcookie("password_edit_error2", '1', time() + 60);
+			header("Location:setting.php");
+		}
+
+		$res = request("SELECT * FROM acc WHERE email = :email AND password = :pass", false, array(':email' => $_SESSION['email'], ':pass' => $_POST['oldPassword']));
+
+		// If account has been found
+		if(count($res) == 1) {
+			request("UPDATE acc SET password = :newPassword WHERE password = :password", false, array(':password' =>  $_POST['oldPassword'], ':newPassword' => $_POST['newPassword1']));
 		
-	}catch (Exception $e) {
-	die("Erreur : " . $e->getMessage());}
-	header("Location:logout.php");
+			$_SESSION['pseudo'] = $_POST["pseudo"];
+
+			header("Location:setting.php");
+		}
+
+		else {
+			setcookie("password_edit_error", '1', time() + 60);
+			header("Location:setting.php");
+		}
+	}
+
+	catch (Exception $e) {
+		die("Erreur : " . $e->getMessage());
+	}
 }
-
-?>
