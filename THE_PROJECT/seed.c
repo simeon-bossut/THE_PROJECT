@@ -228,17 +228,18 @@ void intoa(int value, char* buffer, int size)
     buffer[size] = '\0';
 }
 
-int booltab_to_int(bool* tab, int dim)
+int booltab_to_int(bool* tab, int size_cache)
 {
     int value = 0b0;
-    for (int i = 0; i < dim * dim; ++i) {
-        value += tab[i];
+    for (int i = 0; i < size_cache; ++i) {
         value = value << 1;
+        value += tab[i];
+        
     }
     return value;
 }
 
-Grid* crea_cach(Grid*grid,bool*cache) 
+Grid* add_cach(Grid*grid,bool*cache) //crée et ajoute un cache sur la grille
 {
     int size = grid->size;
     Grid* tmp=initgrid(size);
@@ -264,6 +265,25 @@ Grid* crea_cach(Grid*grid,bool*cache)
     
     return tmp;
 }
+
+void crea_cache(bool*cache,int difficulty,int dimension)//rempli un cache
+{
+    int random;
+    int val = 10;
+    for (int i = 0;i < val;++i)
+    {
+        random = rand() % (dimension * (4 + dimension));
+        cache[random] = 1;//On ajoute un 1 au cache(il se peut qu'il y ait déjà un 1 à cet emplacement mais cela ne pose pas vraiment de problème
+    }
+
+}
+
+
+
+
+
+
+
 
 Grid* generate_level(int dim,int* difficulty)//crée un niveau et stocke dans *diff la valeur int du cache
 {
@@ -301,7 +321,7 @@ Grid* generate_level(int dim,int* difficulty)//crée un niveau et stocke dans *d
     //    for (int i = 0; i < size_cache; ++i) {
     //        cache[i] = 0;// intit du tableau à 0
     //    }
-    //    tmp=crea_cach(grid, cache);
+    //    tmp=add_cach(grid,cache);
     //    if (difficulty == 2)//Pour la difficulté 2, on ajoute une info en plus(pour l'instant), par la suite peut-être dim-2 info en plus
     //    {
     //        do
@@ -311,7 +331,7 @@ Grid* generate_level(int dim,int* difficulty)//crée un niveau et stocke dans *d
     //        cache[random] = 1;
     //    }
     //}
-    * difficulty = booltab_to_int(cache,size_cache);
+    *difficulty = booltab_to_int(cache,size_cache);//C de la merde
     free(cache);
     free(grid->obv);
     free_tab(grid->tab, grid->size);
@@ -323,12 +343,20 @@ Grid* generate_level(int dim,int* difficulty)//crée un niveau et stocke dans *d
 
 char *create_seed(int difficulty, int dim) {
   int size;
+  int length_tab=3;
+  int length_obv=4;
   if (dim == 3) {
     size = 12;
+    length_tab = 3;
+    length_obv = 4;
   } else if (dim == 4) {
     size = 20;
+    length_tab = 5;
+    length_obv = 5;
   } else if (dim == 5) {
     size = 32;
+    length_tab = 8;
+    length_obv = 7;
   } else {
     return NULL;
   }
@@ -340,10 +368,32 @@ char *create_seed(int difficulty, int dim) {
   }
   SEED[0] = dim + 48;//premier char désigne la dimension
 
+  Grid* grid = initgrid(dim);
+  generateGrid(grid);
+  bool* cache = malloc(sizeof(bool) * dim*(dim+4));
+  if (cache == NULL)
+  {
+      return NULL;
 
-  Grid* grid = generate_level(dim,&difficulty);//génère un niveau complet, on modifie diff qui va valoir maintenant le cache
+  }
+
+  if (difficulty==1)
+  {
+      for (int i = 0; i < dim * (dim + 4); ++i) {
+
+          cache[i] = i / (dim * dim);// Tableau facile , tous les observateurs sont visibles et tout le jeu caché//On ajoute un 1 au cache(il se peut qu'il y ait déjà un 1 à cet emplacement mais cela ne pose pas vraiment de problème
+      }
+  }
+  else
+  {
+      for (int i = 0; i < dim * (dim + 4); ++i) {
+
+          cache[i] = false;
+      }
+      crea_cache(cache, difficulty + 1, dim);
+  }
+  
   int id;
-  int CACHE = difficulty;//contient le cache(en int)
   for (int i = 0;i < dim;++i)
   {
       for (int j = 0;j < dim;++j)
@@ -353,9 +403,13 @@ char *create_seed(int difficulty, int dim) {
       id=line_to_id(line, dim);
       intoa(id, SEED+1+i*(dim-2), dim - 2);
   }
-  intoa(CACHE, SEED + dim * dim, size-dim*(dim+4));
+  intoa(booltab_to_int(cache, dim*dim), SEED + dim * (dim-2)+1,length_tab);//copie cache_tableau
+
+  intoa(booltab_to_int(cache+dim*dim, dim*4), SEED + dim * (dim - 2) + 1+length_tab, length_obv);//copie_cache observateurs
   
-    return SEED;
+  free(line);
+  free(cache);
+  return SEED;
 }
 
 void getLeftCases(char* string, int i, int j, int** tab, int size) {
@@ -452,7 +506,7 @@ int* get_cache_tab(int dim, char* Seed, int len) {
     break;
   }
   memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + 1, size_cache);
-  printf("%s\n", tmp_cache_tab);
+  //printf("%s\n", tmp_cache_tab);
 
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim);
@@ -482,11 +536,20 @@ int* get_cache_obv(int dim, char* Seed, int len) {
   }
   char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
   memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + size_cache + 1, size_obv);
-  printf("%s\n", tmp_cache_tab);
+  //printf("%s\n", tmp_cache_tab);
 
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim * 4);
   return cache_tab;
+}
+
+
+void stringcopy(char*destination,char*source,int length)
+{
+    for (int i = 0;i < length;++i)
+    {
+        destination[i] = source[i];
+    }
 }
 
 void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
@@ -501,15 +564,17 @@ void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
 
   for (int i = 0; i < dim; i++) {
     //strncpy(buffer, Seed + i * (dim - 2) + 1, dim - 2);
+     stringcopy(buffer, Seed + i * (dim - 2) + 1, dim - 2);
     buffer[dim - 2] = '\0';
     id = atoi(buffer);
-    printf("%d\n", id);
+    //printf("%d\n", id);
     line = id_to_line(id, dim);
     for (int j = 0; j < dim; j++) {
       grid->tab[i][j] = line[j] - 48;
     }
   }
 
+  calcul_obs(grid);
   cache_tab = get_cache_tab(dim, Seed, len);
 
   for (int i = 0; i < dim; i++) {
@@ -532,6 +597,7 @@ Grid* read_seed(char* Seed) {
   Grid *grid = initgrid(dim);
 
   read_seed_sub(grid, dim, Seed, lenSeed);
+
   return grid;
 }
 
