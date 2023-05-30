@@ -23,7 +23,7 @@
     <div class="frontDis">
       <img src="../Images/complete_logo.png" id="crateStackLogo">
 
-      <div id="pressKeyText">Click or press to continue</div>
+      <div id="pressKeyText">Click to continue</div>
     </div>
 
     <script src="script.js" defer></script>
