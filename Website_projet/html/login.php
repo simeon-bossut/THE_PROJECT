@@ -50,7 +50,7 @@ catch (Exception $e) {
   <?php include("nav.php"); ?>
 
   <header>
-    <h1>login portal</h1>
+    <h1><?php  echo getLanguage("portail de connexion","login portal");  ?></h1>
   </header>
   
   <main>
@@ -58,10 +58,10 @@ catch (Exception $e) {
       <div class="form_div">
 
         <label>Login:</label>
-        <input class="field_class" name="login" type="text" placeholder="Your Email" autofocus>
+        <input class="field_class" name="login" type="text" placeholder=<?php  echo getLanguage("Votre email","Your email");  ?> autofocus>
 
-        <label>Password:</label>
-        <input id="pass" class="field_class" name="password" type="password" placeholder="Your password">
+        <label><?php  echo getLanguage("Mot de passe:","Password:");  ?></label>
+        <input id="pass" class="field_class" name="password" type="password" placeholder=<?php  echo getLanguage("Votre mot de passe","Your password"); ?> required >
 
         <button class="bouton" type="submit" name="con">Go!</button>
 	
@@ -70,7 +70,7 @@ catch (Exception $e) {
       </div>
 
       <div class="newacc">
-        <p>You don't have an account yet? <a href="signup.php">Sign up!</a></p>
+        <p><?php  echo getLanguage("Vous n'avez pas encore un compte?","You don't have an account yet?");  ?><a href="signup.php">Sign up!</a></p>
       </div>
 
     </form>
