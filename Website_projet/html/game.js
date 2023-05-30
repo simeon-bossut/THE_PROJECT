@@ -10,7 +10,7 @@ var obsTab = [];
 var crateTab = [4, 3,2,1, 1,2,3,4, 4,3,2,1, 1,2,3,4];
 
 for(let i = 0; i < tabDim * 4; i++) {
-  obsTab.push(Math.floor(Math.random() * (tabDim + 1)));
+  obsTab.push(Math.floor(Math.random() * (tabDim)) + 1);
   //crateTab.push(Math.floor(Math.random() * (tabDim + 1)));
 }
 
@@ -505,7 +505,7 @@ else if(tabDim == 4) {
   
 function setView() {
 
-  let view = document.querySelectorAll('[id^="crate"]');
+  let view = document.querySelectorAll('div[id^="crate"]');
 
   for (let i = 0; i < view.length; i++) 
     view[i].remove();
