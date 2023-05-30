@@ -6,12 +6,12 @@ var viewSet = document.querySelector('#viewBox');
 
 var tabDim = 4;
 
-var obsTab = [];
-var crateTab = [4, 3,2,1, 1,2,3,4, 4,3,2,1, 1,2,3,4];
+var obsTab = [1,4,2,3,3,2,1,3,2,2,1,2,2,3,3,1];
+var crateTab = [];
 
 for(let i = 0; i < tabDim * 4; i++) {
-  obsTab.push(Math.floor(Math.random() * (tabDim)) + 1);
-  //crateTab.push(Math.floor(Math.random() * (tabDim + 1)));
+  //obsTab.push(Math.floor(Math.random() * (tabDim)) + 1);
+  crateTab.push(0)//Math.floor(Math.random() * (tabDim)));
 }
 
 

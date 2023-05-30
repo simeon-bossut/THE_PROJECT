@@ -71,6 +71,18 @@ include 'language.php';
 
     <div class="gameTemplate">
 
+      <div id="thirdPlate">
+        <div id="box2">
+          <div id="skinBox">
+            <div id="characterBody"></div>
+            <div id="characterHat"></div>
+          </div>
+        </div>
+        <div id="buttonBox">
+          <a href="customization.php" id="skinButton"><?php echo getLanguage("CUSTOM", "PERSONNALISER");  ?></a>
+        </div>
+      </div>
+
       <div id="mainPlate"></div>
 
       <div id="secondPlate">

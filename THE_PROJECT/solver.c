@@ -44,18 +44,28 @@ GhostGrid *initGhostGrid(int dim) {
 
 void fill_ghost(GhostGrid gridf, Grid gridj, int *pov) {
   int k = 0;
+  int size = gridj.size;
   Pos *pos = (Pos *)malloc(gridj.size * sizeof(Pos)); // Pos storage
 
   int size;
-  for (int value = 1; value <= gridf.size; value++) {
+  for (int value = 1; value <= gridf.size; value++) {//Remplissage grossier de la grille fantôme
     pos = find_in_grid(gridj, value, &size);
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < gridf.size; j++) {
         fill_ghost_box(gridj, gridf, value, pos[i].row, j);
         fill_ghost_box(gridj, gridf, value, j, pos[i].col);
+		if (i == 0 || j == 0 || i == gridj.size - 1 || j == gridj.size - 1)
+		{
+			remove_n(i,j,grid)
+		}
       }
     }
   }
+
+
+
+
+
 }
 
 Pos *find_in_grid(Grid grid, int val,

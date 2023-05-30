@@ -23,6 +23,15 @@
     <div class="gameTemplate">
       <div id="mainPlate"></div>
     </div>
+
+
+    <div id="editTool">
+      <div class="number">1</div>
+      <div class="number">2</div>
+      <div class="number">3</div>
+      <div class="number">4</div>
+      <div class="crateInvChoice" title="Show/Hide Crate"></div>
+    </div>
   </main>
 	
 	<?php include("footer.php"); ?>

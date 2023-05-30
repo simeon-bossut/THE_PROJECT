@@ -28,11 +28,10 @@
 			<div class="containerContent">
 				<div id="textContent">
 					<select>
-						<option class="1" src="../Images/test1.jpg">Option 1</option>
-						<option class="2" src="../Images/test2.jpg">Option 2</option>
-						<option class="3" src="../Images/test3.jpg">Option 3</option>
-						<option class="4" src="../Images/test4.jpg">Option 4</option>
-						<option class="5" src="../Images/test5.jpg">Option 5</option>
+						<option class="1" src="../Images/bg_factory.jpg">Classic</option>
+						<option class="2" src="../Images/bg_factory_chemical.jpg">Chemical</option>
+						<option class="3" src="../Images/bg_factory_neon.jpg">Neon</option>
+						<option class="4" src="../Images/bg_factory_panda.jpg">???</option>
 					</select>
 
 					<p class="para">Choose your favorite game screen, don't settle for the basics, demand the best, here's what
