@@ -83,7 +83,7 @@ nav {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  height: calc(77vh - 15px);
+  margin: 30px 0px;
 }
 
 .creamBG {
@@ -195,7 +195,7 @@ nav {
 /* ------------------------------------------------------- */
 
 .frontDis {
-  z-index: 100;
+  z-index: 110;
   background-color: #232323;
   background-image: url("../Images/bg_factory.jpg");
   background-size: cover;
@@ -304,6 +304,7 @@ nav {
 #mainPlate.dim4 {
   width: 650px;
   height: 550px;
+  margin: 10px;
 
   grid-template-columns: repeat(13, 1fr);
   grid-template-rows: repeat(11, 1fr);
@@ -357,6 +358,16 @@ nav {
   background-size: cover;
 }
 
+#mainPlate .Trash {
+  width: 50px;
+  height: 50px;
+
+  background-size: 85%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../Images/trash.svg");
+}
+
 #mainPlate .obs {
   width: 50px;
   height: 50px;
@@ -365,6 +376,19 @@ nav {
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+#mainPlate .obsText {
+  width: 50px;
+  height: 43px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 25px;
+  color: #341900;
+  
 }
 
 #mainPlate .rotate00 {
@@ -387,10 +411,27 @@ nav {
   transform-origin: 50% 50%;
 }
 
-#mainPlate .emptyYet {
+#mainPlate .cratePlace {
   width: 50px;
   height: 50px;
-  background-color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30px;
+  text-shadow: 0 0px 5px black;
+
+  background-image: url("../Images/Crate.png");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  transition: opacity .1s ease-in-out;
+}
+
+#mainPlate .cratePlace:empty {
+  opacity: 0;
 }
 
 #secondPlate {
@@ -416,10 +457,60 @@ nav {
 }
 
 #box #view{
+  position: relative;
   width: 80%;
   height: 80%;
+  padding: 25px 0px 25px 0px;
   background-color: #ffe6cd;
   border-radius: 10%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div[id^="crate"]{
+  width: 100%;
+  position: absolute;
+  background-size: contain;
+  background-position: 50% 0%;
+  background-image: url("../Images/Crate.png");
+}
+
+#crate1 {
+  filter: hue-rotate(12deg);
+  z-index: 4;
+  height: 25%;
+
+  right: -30%;
+  top: -6%
+}
+
+#crate2 {
+  filter: hue-rotate(144deg);
+  z-index: 3;
+  height: 50%;
+  right: -10%;
+  top: -2%;
+}
+
+#crate3 {
+  filter: hue-rotate(216deg);
+  z-index: 2;
+  height: 75%;
+  
+  right: 10%;
+  top: 2%;
+}
+
+#crate4 {
+  filter: hue-rotate(288deg);
+
+  z-index: 1;
+  height: 100%;
+
+  right: 30%;
+  top: 6%;
 }
 
 #characterBox {
@@ -431,6 +522,10 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.hasPlayer {
+  z-index: 100;
 }
 
 #characterBody {
@@ -454,3 +549,33 @@ nav {
 }
 
 
+#characterCrate {
+  position: absolute;
+
+  width: 70%;
+  height: 70%;
+
+  bottom: 80%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("../Images/crateTop.svg");
+  background-size: cover;
+
+  z-index: 100;
+
+  transition: all .2s ease-in-out;
+}
+
+#characterCrate:empty {
+  opacity: 0;
+}
+
+#viewBox {
+  height: 100%;
+  aspect-ratio: 1/4;
+  position: relative;
+  transform: rotate(180deg);
+}

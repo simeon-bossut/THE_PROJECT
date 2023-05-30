@@ -14,6 +14,7 @@
 
 <body>
   <?php include("nav.php"); ?>
+  
   <header>
 
   </header>
@@ -24,10 +25,11 @@
         <img src="../Images/barrel4.JPG" alt="background">
       </picture>
       <div class="error-text">
-        <h2>I have bad news for you</h2>
-        <p>this page can only be displayed if you are logged in.</p>
+        <h2><?php  echo getLanguage("j'ai une mauvaise nouvelle pour toi","I have bad news for you");  ?></h2>
+        <p> <?php  echo getLanguage("Cette page ne peut être affiché que si vous êtes connecté","this page can only be displayed if you are logged in.");  ?></p>
         <span class="input-group-btn">
-          <button class="btn" type="button">Please login</button>
+          <button class="btn" type="button" onclick="window.location.href='login.php';"
+					><?php echo getLanguage("Connectez vous","Please login");  ?></button>
         </span>
       </div>
     </div>
