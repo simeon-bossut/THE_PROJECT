@@ -6,10 +6,10 @@
 if (isset($_POST['checked'])) {
 	
 	if($_POST['checked'] == 'fr'){
-		setcookie("french", '1', time() + (60*60*24*30*365));}
+		setcookie("lang", 'fr', time() + (60*60*24*30*365));}
 		
 		else{
-			setcookie("french", '1', time() -(60*60*24*30*365));
+			setcookie("lang", 'en', time() +(60*60*24*30*365));
 
 		}
 }
