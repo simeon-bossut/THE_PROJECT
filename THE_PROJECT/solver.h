@@ -39,5 +39,6 @@ int fill_loners(Grid *gridj, GhostGrid gridf);
 void fill_in_col(Guess* guess_list, int size, Grid grid);
 char*** create_guess_tab(Guess* guess_list, Grid grid);
 int find_number_to_guess(char*** tab, int id);
-Guess* fill_guess_boxes(char*** tab, int size, int id_number, Grid grid);
+void fill_guess_boxes(char*** tab, int size, int id_number, Grid grid, int i, int j);
+void print_tab_3(char*** tab, int size, Grid grid);
 #endif // !solver
