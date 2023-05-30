@@ -7,11 +7,11 @@
         <a href="#"><img class="icon ion-social-facebook" src="../logo_reseaux/facebook_logo.png"></a>
     </div>
     <div class="list-inline">
-        <a href="#"><?php  echo getLanguage("Accueil","Home");  ?></a>
-        <a href="#"><?php  echo getLanguage("Services","Services");  ?></a>
-        <a href="#"><?php  echo getLanguage("A propos","About");  ?></a>
-        <a href="#"><?php  echo getLanguage("Conditions d'utilisations","Terms");  ?></a>
-        <a href="#"><?php  echo getLanguage("Vie privé","Privacy Policy");  ?></a>
+        <a href="home.php"><?php echo getLanguage("Accueil", "Home");  ?></a>
+        <a href="#"><?php echo getLanguage("Services", "Services");  ?></a>
+        <a href="#"><?php echo getLanguage("A propos", "About");  ?></a>
+        <a href="#"><?php echo getLanguage("Conditions d'utilisations", "Terms");  ?></a>
+        <a href="#"><?php echo getLanguage("Vie privé", "Privacy Policy");  ?></a>
     </div>
     <p class="copyright">PFD © 2023</p>
 </footer>
