@@ -14,7 +14,7 @@ header {
 }
 
 main {
-  background-image: url("../images/barrel3.jpg");
+  background-image: url("../Images/barrel3.jpg");
 }
 
 .container {
@@ -55,7 +55,7 @@ h2 {
 
   font-family: 'Kanit', sans-serif;
 
-  color: #ffe6cd;
+  color: #964b00;
 }
 
 .form {
@@ -64,7 +64,7 @@ h2 {
   border-style: dotted;
   border-width: thick;
   border-radius: 10px;
-  background-image: url("../images/Crate.png");
+  background-color: #ffe6cd;
   background-size: cover;
   background-position: center;
 
@@ -83,7 +83,7 @@ h2 {
 .form_div>label {
   letter-spacing: 3px;
   font-size: 1rem;
-  color: #232323;
+  color: #964b00;
 }
 
 .field_class {
@@ -107,7 +107,7 @@ h2 {
 .bouton {
   border-style: none;
   border-radius: 5px;
-  background-color: #ffe6cd;
+  background-color: #964b00;
   padding: 8px 20px;
   font-family: 'system-ui';
   text-transform: uppercase;
@@ -134,7 +134,7 @@ h2 {
   border-style: dotted;
   border-width: thick;
   border-radius: 10px;
-  background-image: url("../images/Crate.png");
+  background-color: #ffe6cd;
   background-size: 150%;
   background-position: center;
 

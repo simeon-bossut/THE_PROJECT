@@ -22,7 +22,7 @@
         <form class="form" action="newacc.php" method="post">
             <div class="form_div">
                 <label>Email (login):</label>
-                <input class="field_class" name="email" type="text" placeholder="Your Email"  maxlength="40" required >
+                <input class="field_class" name="email" type="text" placeholder="Your Email"  maxlength="40" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" >
 
 				<?php if (isset($_COOKIE["email_error"])) {echo '<div style="font-size:14px;color:red;text-align:center"> <p>this email address is already in use</p> </div>';
 				setcookie("email_error", "", time() - 3600);} ?>

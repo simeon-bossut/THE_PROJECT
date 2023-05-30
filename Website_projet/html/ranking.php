@@ -22,7 +22,7 @@
 
 
 	<header>
-		<h1>Leaderboard</h1>
+		<h1><?php  echo getLanguage("Classement","Leaderboard");  ?></h1>
 	</header>
 
 
