@@ -14,7 +14,7 @@ header {
 }
 
 main {
-  background-image: url("../images/barrel3.jpg");
+  background-image: url("../Images/barrel3.jpg");
 }
 
 .container {
@@ -64,7 +64,7 @@ h2 {
   border-style: dotted;
   border-width: thick;
   border-radius: 10px;
-  background-image: url("../images/Crate.png");
+  background-image: url("../Images/Crate.png");
   background-size: cover;
   background-position: center;
 
@@ -134,7 +134,7 @@ h2 {
   border-style: dotted;
   border-width: thick;
   border-radius: 10px;
-  background-image: url("../images/Crate.png");
+  background-image: url("../Images/Crate.png");
   background-size: 150%;
   background-position: center;
 
