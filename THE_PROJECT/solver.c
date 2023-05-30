@@ -46,20 +46,29 @@ GhostGrid *initGhostGrid(int dim) {
 }
 
 void fill_ghost(GhostGrid gridf, Grid gridj, int *pov) {
-  int tmp;
   int k = 0;
+  int size = gridj.size;
   Pos *pos = (Pos *)malloc(gridj.size * sizeof(Pos)); // Pos storage
 
   int size;
-  for (int value = 1; value <= gridf.size; value++) {
+  for (int value = 1; value <= gridf.size; value++) {//Remplissage grossier de la grille fantôme
     pos = find_in_grid(gridj, value, &size);
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < gridf.size; j++) {
         fill_ghost_box(gridj, gridf, value, pos[i].row, j);
         fill_ghost_box(gridj, gridf, value, j, pos[i].col);
+		if (i == 0 || j == 0 || i == gridj.size - 1 || j == gridj.size - 1)
+		{
+			remove_n(i,j,grid)
+		}
       }
     }
   }
+
+
+
+
+
 }
 
 Pos *find_in_grid(Grid grid, int val,
@@ -124,7 +133,7 @@ void printgrid_Ghost(GhostGrid *grid) {
 Guess* find_guess(GhostGrid grid,int * found, int * guess_size) {
 	int sum = 0;
 	int nb = 0;
-	int direction;
+	int direction = COLLUMN;
 	int size;
 	*guess_size = 0;
 	*found = NOT_FOUND;
@@ -195,7 +204,7 @@ Guess* find_guess(GhostGrid grid,int * found, int * guess_size) {
 				res[pos].size = size;
 				pos++;
 				*found = FOUND;
-				*guess_size++;
+				(*guess_size)++;
 			}
 			sum = 0;
 		}
@@ -224,7 +233,7 @@ Guess* find_guess(GhostGrid grid,int * found, int * guess_size) {
 				res[pos].size = size;
 				pos++;
 				*found = FOUND;
-				*guess_size++;
+				(*guess_size)++;
 			}
 			sum = 0;
 			j = 0;
@@ -234,25 +243,25 @@ Guess* find_guess(GhostGrid grid,int * found, int * guess_size) {
   return res;
 }
 
-void print_guess(Guess *guesses, int size) {
-  for (int k = 0; k < guesses->size; k++) {
-    for (int i = 0; i < size; i++) {
-      printf("[");
-      for (int j = 0; j < size; j++) {
-        printf(" %1d ", guesses[k].tab[i][j]);
-      }
-      printf("]");
-      printf("\n");
-    }
-    if (guesses[k].direction == COLLUMN) {
-      printf("ID : %d; Direction : Collumn", guesses[k].id);
-    } else if (guesses[k].direction == ROW) {
-      printf("ID : %d; Direction : Row", guesses[k].id);
-    }
-
-    printf("\n\n");
-  }
-}
+//void print_guess(Guess *guesses, int size) {
+//  for (int k = 0; k < guesses[0].size; k++) {
+//    for (int i = 0; i < size; i++) {
+//      printf("[");
+//      for (int j = 0; j < size; j++) {
+//        printf(" %1d ", guesses[k].tab[i][j]);
+//      }
+//      printf("]");
+//      printf("\n");
+//    }
+//    if (guesses[k].direction == COLLUMN) {
+//      printf("ID : %d; Direction : Collumn", guesses[k].id);
+//    } else if (guesses[k].direction == ROW) {
+//      printf("ID : %d; Direction : Row", guesses[k].id);
+//    }
+//
+//    printf("\n\n");
+//  }
+//}
 
 int fill_loners(Grid* gridj, GhostGrid gridf) {
 	int size = gridj->size;
@@ -290,7 +299,6 @@ int fill_guess(GhostGrid gridf, Grid gridj) {
 	int size = gridj.size;
 	int guess_size;
 	int** tabj = gridj.tab;
-	int tmp;
 	Guess* guess_list = find_guess(gridf,&res,&guess_size);
 	char*** guess_tab = create_guess_tab(guess_list, gridj);
 	if (res == FOUND) {
@@ -303,13 +311,7 @@ int fill_guess(GhostGrid gridf, Grid gridj) {
 		{
 			exit(EXIT_FAILURE);
 		}
-		for (int i = 0; i < guess_size; i++)
-		{
-			for (int j = 0; j < guess_size; j++)
-			{
-				guess_copies[i][j] = guess_list[j];
-			}
-		}
+ 
 
 		for (int i = 0; i < size*4; i++)
 		{
@@ -347,47 +349,44 @@ int fill_guess(GhostGrid gridf, Grid gridj) {
 	return res;
 }
 char*** create_guess_tab(Guess* guess_list,Grid grid) {
-	char*** tab_i = (char***)malloc(sizeof(char**) * guess_list[0].size);
-	char** tab_j = (char**)malloc(sizeof(char*) * grid.size); 
+	int size = guess_list[0].size;
+	printf("create_guess_tab guess size = %d\n",guess_list->size);
+	char*** tab_i = (char***)malloc(sizeof(char**) * size);
+	char** tab_j = (char**)malloc(sizeof(char*) * grid.size);
+
 	if (tab_i == NULL || tab_j==NULL)
 	{
 		exit(EXIT_FAILURE);
 	}
 	if (guess_list[0].direction==COLLUMN)
 	{
-		for (int i = 0; i < guess_list[0].size; i++) {
+		for (int i = 0; i < size; i++) {
 			tab_i[i] = guess_list[i].tab;
 		}
 	}
 	else if (guess_list[0].direction == ROW)
 	{
-		for (int i = 0; i < guess_list[0].size; i++)
+		for (int i = 0; i < size; i++)
 		{
 			for (int j = 0; j < grid.size; j++)
 			{
 				tab_j[j] = guess_list[i].tab[j];
 			}
 			tab_i[i] = tab_j;
-		}
-	}
-	//Affichage debug
-	for (int j = 0; j < grid.size; j++)
-	{
-		for (int i = 0; i < guess_list[0].size; i++) {
 			
-			printf("[");
-			for (int k = 0; k < grid.size; k++) {
-				printf(" %2d ", tab_i[i][j][k]);
+			tab_j = (char**)malloc(sizeof(char*) * grid.size);
+			if (tab_j == NULL)
+			{
+				exit(EXIT_FAILURE);
 			}
-			printf("]");
 		}
-		printf("\n");
 	}
-	// Affichage debug fin */
+	print_tab_3(tab_i, size, grid);
 	return tab_i;
 }
 
 int find_number_to_guess(char*** tab, int id) {
+	printf("find_number_to_guess");
 	int number = 0;
 	int sum = 0;
 	int k = 0;
@@ -400,6 +399,38 @@ int find_number_to_guess(char*** tab, int id) {
 	}
 	return k;
 }
-Guess* fill_guess_boxes(char*** tab, int size, int id_number, Grid grid) {
-	int number = tab[0][0][id_number];
+
+void fill_guess_boxes(char*** tab, int size, int id_number, Grid grid, int i, int j) {
+	printf("fill_guess_boxes");
+	int number = tab[i][j][id_number];
+	int tmp = i+1;
+	while (tmp < size)
+	{
+		tab[tmp][j][id_number] = NAS;
+		tmp++;
+	}
+	tmp = j + 1;
+	while (tmp < grid.size)
+	{
+		tab[i][tmp][id_number] = NAS;
+		tmp++;
+	}
+	print_tab_3(tab, size, grid);
+	return;
+}
+
+void print_tab_3(char*** tab, int size, Grid grid) {
+	printf("print");
+	for (int j = 0; j < grid.size; j++)
+	{
+		for (int i = 0; i < size; i++) {
+
+			printf("[");
+			for (int k = 0; k < grid.size; k++) {
+				printf(" %2d ", tab[i][j][k]);
+			}
+			printf("]");
+		}
+		printf("\n");
+	}
 }
