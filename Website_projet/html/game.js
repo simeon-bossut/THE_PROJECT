@@ -450,7 +450,7 @@ function crateDrop() {
 
 
 
-const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Enter'];
+const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space'];
 
 window.addEventListener('keydown', e => {
   if (listKeys.includes(e.code))
@@ -482,10 +482,10 @@ document.addEventListener('keydown', e => {
   }*/
 
   // Crates actions
-  else if(key == "Space") {
+  else if(key == "F") {
     crateGrab();
   }
-  else if(key == "Enter") {
+  else if(key == "Space") {
     crateDrop();
   }
 })
