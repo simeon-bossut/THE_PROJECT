@@ -3,7 +3,7 @@
     if($_COOKIE["lang"] == 'fr')
         return $textFr;
 
-    if($_COOKIE["lang"] == 'en')
+    else if($_COOKIE["lang"] == 'en')
         return $textEn;
 }
 
