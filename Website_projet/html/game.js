@@ -482,7 +482,7 @@ document.addEventListener('keydown', e => {
   }*/
 
   // Crates actions
-  else if(key == "F") {
+  else if(key == "KeyF") {
     crateGrab();
   }
   else if(key == "Space") {
