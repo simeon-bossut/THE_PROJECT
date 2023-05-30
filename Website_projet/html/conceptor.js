@@ -9,6 +9,8 @@ var tabDim = 4;
 var obsTab = [];
 var crateTab = [4, 3,2,1, 1,2,3,4, 4,3,2,1, 1,2,3,4];
 
+var lastCrateClicked;
+
 for(let i = 0; i < tabDim * 4; i++) {
   obsTab.push(Math.floor(Math.random() * (tabDim)) + 1);
   //crateTab.push(Math.floor(Math.random() * (tabDim + 1)));
@@ -183,73 +185,32 @@ function initMainPlate() {
 
 
 
-  /*
+
   for (let y = -1; y < tabDim + 1; y++) {
 
     for(let x = -1; x < tabDim + 1; x++) {
-
-      // Corner Road
-      if(x == 0 && y == 0)
-        insertElement(gameSet, x, y, `cornerRoad rotate00`);
-
-      else if (x == tabDim * 2 && y == 0)
-        insertElement(gameSet, x, y, `cornerRoad rotate90`);
-
-      else if (x == 0 && y == tabDim * 2)
-        insertElement(gameSet, x, y, `cornerRoad rotate270`);
-
-      else if (x == tabDim * 2 && y == tabDim * 2 && y < tabDim * 2 + 1)
-        insertElement(gameSet, x, y, `cornerRoad rotate180`);
-
-      // Straight Road
-      else if (x % 2 == 0 && y % 2 == 1 && x <= tabDim * 2 && y < tabDim * 2 + 1)
-        insertElement(gameSet, x, y, `straightRoad rotate00`);
-
-      else if (x % 2 == 1 && y % 2 == 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `straightRoad rotate90`);
-
-      // Intersection 3
-      else if (x == 0 && y % 2 == 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `TRoad rotate00`);
-
-      else if (x == tabDim * 2 && y % 2 == 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `TRoad rotate180`);
-
-      else if (x % 2 == 0 && y == 0 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `TRoad rotate90`);
-    
-      else if (x % 2 == 0 && y == tabDim * 2 && x <= tabDim * 2)
-        insertElement(gameSet, x, y, `TRoad rotate270`);
-    
-      // Intersection 4
-      else if (x % 2 == 0 && y % 2 == 0 && x > 0 && x < tabDim * 2 && y > 0 && y < tabDim * 2)
-        insertElement(gameSet, x, y, `crossRoad rotate00`);
-    
       // Observators
-      else if((x == -1) && y % 2 == 1 && y > 0 && y <= tabDim * 2)
+      if(x == -1 && y >= 0 && y < tabDim)
         insertElement(gameSet, x, y, `obs rotate270`);
 
-      else if(y == -1 && x % 2 == 1 && x > 0 && x <= tabDim * 2)
+      else if(y == -1 && x >= 0 && x < tabDim)
         insertElement(gameSet, x, y, `obs rotate00`);
       
-      else if(x == tabDim * 2 + 1 && y % 2 == 1 && y > 0 && y <= tabDim * 2)
+      else if(x == tabDim && y >= 0 && y < tabDim)
         insertElement(gameSet, x, y, `obs rotate90`);
 
-      else if(y == tabDim * 2 + 1 && x % 2 == 1 && x > 0 && x <= tabDim * 2)
+      else if(y == tabDim && x >= 0 && x < tabDim)
         insertElement(gameSet, x, y, `obs rotate180`);
       
-      else if(x > 0 && x < tabDim * 2 && y > 0 && y < tabDim * 2 && x % 2 == 1 && y % 2 == 1)
+      else if(x >= 0 && y >= 0 && y <= tabDim - 1 && x <= tabDim - 1)
         insertElement(gameSet, x, y, `cratePlace rotate00`);
+
       else
           insertElement(gameSet, x, y, `empty rotate00`);
 
     }
 
   }
-
-  insertElement(gameSet, 0, -1, "Trash rotate00");
-  insertElement(gameSet, 0, tabDim * 2 + 1, "Trash rotate00");
-*/
 
   // OBSERVATORS DISPLAYING
   var count = 0;
@@ -262,21 +223,21 @@ function initMainPlate() {
   }
 
   for(let i = 0; i < tabDim; i++) {
-    let element = document.querySelector(`#pos_${tabDim - 1}_${i - 1}`);
+    let element = document.querySelector(`#pos_${tabDim}_${i}`);
     element.innerHTML += `<div class="obsText rotate270">${obsTab[count]}</div>`;
 
     count++;
   }
 
   for(let i = tabDim - 1; i >= 0; i--) {
-    let element = document.querySelector(`#pos_${i * 2 + 1}_${tabDim * 2 + 1}`);
+    let element = document.querySelector(`#pos_${i}_${tabDim}`);
     element.innerHTML += `<div class="obsText rotate180">${obsTab[count]}</div>`;
 
     count++;
   }
 
   for(let i = tabDim - 1; i >= 0; i--) {
-    let element = document.querySelector(`#pos_-1_${i * 2 + 1}`);
+    let element = document.querySelector(`#pos_-1_${i}`);
     element.innerHTML += `<div class="obsText rotate90">${obsTab[count]}</div>`;
 
     count++;
@@ -285,6 +246,7 @@ function initMainPlate() {
 
 }
 
+initMainPlate();
 
 
 const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Enter'];
@@ -294,5 +256,37 @@ window.addEventListener('keydown', e => {
     e.preventDefault();
 })
 
+
+document.querySelector('.crateInvChoice').addEventListener('click', e => {
+  document.querySelector('.crateInvChoice').classList.toggle('inv');
+})
+
+document.querySelectorAll('.cratePlace').forEach(elem => {
+  elem.addEventListener('click', e => {
+
+    document.querySelector('#editTool').style.left = (elem.offsetLeft - document.querySelector('#editTool').offsetWidth / 2 + elem.offsetWidth / 2) + "px";
+    document.querySelector('#editTool').style.top = (elem.offsetTop - document.querySelector('#editTool').offsetHeight / 2 - elem.offsetHeight + 19) + "px";
   
-initMainPlate();
+    if(lastCrateClicked != e.target || document.querySelector('#editTool').style.opacity == 0) {
+      lastCrateClicked = e.target;
+
+      document.querySelector('#editTool').style.opacity = 1;
+
+      document.querySelector('#editTool').style.zIndex = 0;
+    }
+
+    else {
+      document.querySelector('#editTool').style.opacity = document.querySelector('#editTool').style.opacity = 0;
+
+      document.querySelector('#editTool').style.zIndex = -1;
+    }
+  })
+})
+
+document.addEventListener('click', e => {
+  if(!e.target.classList.contains('cratePlace') && e.target.id != 'editTool' && !e.target.classList.contains('number') && !e.target.classList.contains('crateInvChoice')) {
+    document.querySelector('#editTool').style.opacity = 0;
+
+    document.querySelector('#editTool').style.zIndex = -1;
+  }
+})
