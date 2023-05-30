@@ -11,34 +11,31 @@ GhostGrid *initGhostGrid(int dim) {
   if (tmp1 == NULL) {
     exit(EXIT_FAILURE);
   }
-  char **tmp2 = (char **)malloc(sizeof(char *) * dim);
-  if (tmp2 == NULL) {
-    exit(EXIT_FAILURE);
-  }
-  char *tmp3 = (char *)(malloc(sizeof(char) * dim + 1));
-  if (tmp3 == NULL) {
-    exit(EXIT_FAILURE);
-  }
+  char **tmp2;
+  char* tmp3;
+
 
   for (int i = 0; i < grid->size; i++) {
+	  tmp2 = (char**)malloc(sizeof(char*) * dim);
+	  if (tmp2 == NULL) {
+		  exit(EXIT_FAILURE);
+	  }
     for (int j = 0; j < grid->size; j++) {
+	  tmp3 = (char*)(malloc(sizeof(char) * dim + 1));
+	  if (tmp3 == NULL) {
+		  exit(EXIT_FAILURE);
+	  }
       while (k < dim) {
         *(tmp3 + k) = k + 1;
         k++;
       }
       *(tmp3 + k) = '\0';
+
       tmp2[j] = tmp3;
-      tmp3 = (char *)(malloc(sizeof(char) * dim + 1));
-      if (tmp3 == NULL) {
-        exit(EXIT_FAILURE);
-      }
+
       k = 0;
     }
     tmp1[i] = tmp2;
-    tmp2 = (char **)malloc(sizeof(char *) * dim);
-    if (tmp2 == NULL) {
-      exit(EXIT_FAILURE);
-    }
   }
   grid->tab = tmp1;
   grid->size = dim;
@@ -297,7 +294,7 @@ int fill_guess(GhostGrid gridf, Grid gridj) {
 		int* south = (int*)malloc(sizeof(int) * size);
 		int* west = (int*)malloc(sizeof(int) * size);
 		Guess** guess_copies = (Guess**)malloc(sizeof(Guess*)*guess_size);
-		if (north == NULL || east == NULL || south == NULL || west == NULL || guess_copies == NULL)
+		if (north == NULL || east == NULL || south == NULL || west == NULL /*|| guess_copies == NULL*/)
 		{
 			exit(EXIT_FAILURE);
 		}
@@ -309,17 +306,24 @@ int fill_guess(GhostGrid gridf, Grid gridj) {
 				*(north + i) = pov[i];
 			}
 			else if (i < 2*size) {
-				*(east + i) = pov[i];
+				*(east + i-size) = pov[i];
 			}
 			else if (i < 3*size) {
-				*(south+ i) = pov[i];
+				*(south+ i-2*size) = pov[i];
 			}
 			else if (i < 4*size) {
-				*(west + i) = pov[i];
+				*(west + i-3*size) = pov[i];
 			}
 		}
-
-
+		free(north);
+		free(south);
+		free(west);
+		free(east);
+		for (int id = 0; id < guess_size; id++)
+		{
+			guess_list = guess_copies[id];
+			fill_sub_guess(guess_tab, guess_size,gridj,id);
+		}
 		/*int j = 0;
 		if (guess_list[0].direction == COLLUMN)
 		{
@@ -342,9 +346,9 @@ char*** create_guess_tab(Guess* guess_list,Grid grid) {
 	int size = guess_list[0].size;
 	printf("create_guess_tab guess size = %d\n",guess_list->size);
 	char*** tab_i = (char***)malloc(sizeof(char**) * size);
-	char** tab_j = (char**)malloc(sizeof(char*) * grid.size);
-
-	if (tab_i == NULL || tab_j==NULL)
+	char** tab_j;
+	guess_list[1].tab[1][2] = 77;
+	if (tab_i == NULL)
 	{
 		exit(EXIT_FAILURE);
 	}
@@ -352,19 +356,24 @@ char*** create_guess_tab(Guess* guess_list,Grid grid) {
 	{
 		for (int i = 0; i < size; i++) {
 			tab_i[i] = guess_list[i].tab;
+			
 		}
 	}
 	else if (guess_list[0].direction == ROW)
 	{
 		for (int i = 0; i < size; i++)
 		{
+			tab_j = (char**)malloc(sizeof(char*) * grid.size);
+			if (tab_j == NULL)
+			{
+				exit(EXIT_FAILURE);
+			}
 			for (int j = 0; j < grid.size; j++)
 			{
 				tab_j[j] = guess_list[i].tab[j];
 			}
 			tab_i[i] = tab_j;
 			
-			tab_j = (char**)malloc(sizeof(char*) * grid.size);
 			if (tab_j == NULL)
 			{
 				exit(EXIT_FAILURE);
@@ -380,7 +389,7 @@ int find_number_to_guess(char*** tab, int id) {
 	int number = 0;
 	int sum = 0;
 	int k = 0;
-	while (tab[0][0][k] == NAS || sum != id) {
+	while (!(tab[0][0][k] != NAS && sum != id)) {
 		if (tab[0][0][k] == NAS)
 		{
 			sum++;
@@ -391,26 +400,60 @@ int find_number_to_guess(char*** tab, int id) {
 }
 
 void fill_guess_boxes(char*** tab, int size, int id_number, Grid grid, int i, int j) {
-	printf("fill_guess_boxes");
-	int number = tab[i][j][id_number];
-	int tmp = i+1;
-	while (tmp < size)
+	printf("fill_guess_boxes\n");
+	id_number = find_number_to_guess(tab, id_number);
+	int sum = 0;
+	int number;
+	int tmp;
+	for (int k = 0; k < grid.size; k++)
 	{
-		tab[tmp][j][id_number] = NAS;
-		tmp++;
+		if (tab[i][j][k] != NAS) {
+			sum++;
+		}
 	}
-	tmp = j + 1;
-	while (tmp < grid.size)
+	if (sum != 1)
 	{
-		tab[i][tmp][id_number] = NAS;
-		tmp++;
+		number = tab[i][j][id_number]; //id_number s'obtient avec find_number_to_guess
+		tmp = i + 1;
+		while (tmp < size)
+		{
+			tab[tmp][j][id_number] = NAS;
+			tmp++;
+		}
+		tmp = j + 1;
+		while (tmp < grid.size)
+		{
+			tab[i][tmp][id_number] = NAS;
+			tmp++;
+		}
+	}
+	else {
+		int k = 0;
+		while (tab[i][j][k] == NAS)
+		{
+			k++;
+		}
+		id_number = k;
+		number = tab[i][j][id_number]; //id_number s'obtient avec find_number_to_guess
+		tmp = i + 1;
+		while (tmp < size)
+		{
+			tab[tmp][j][id_number] = NAS;
+			tmp++;
+		}
+		tmp = j + 1;
+		while (tmp < grid.size)
+		{
+			tab[i][tmp][id_number] = NAS;
+			tmp++;
+		}
 	}
 	print_tab_3(tab, size, grid);
 	return;
 }
 
 void print_tab_3(char*** tab, int size, Grid grid) {
-	printf("print");
+	printf("print\n");
 	for (int j = 0; j < grid.size; j++)
 	{
 		for (int i = 0; i < size; i++) {
@@ -423,4 +466,26 @@ void print_tab_3(char*** tab, int size, Grid grid) {
 		}
 		printf("\n");
 	}
+}
+
+void fill_sub_guess(int *** tab,int guess_size, Grid grid,int id) {
+	int grid_size = grid.size;
+
+	for (int i2 = 0; i2 < guess_size; i2++)
+	{
+		for (int j2 = 0; j2 < grid_size; j2++) {
+			fill_guess_boxes(tab, guess_size, id, grid, i2, j2);
+		}
+	}
+}
+
+void free_tab_3(int*** tab, int size) {
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; j++)
+		{
+			free(tab[i][j]);
+		}
+		free(tab[i]);
+	}
+	free(tab);
 }

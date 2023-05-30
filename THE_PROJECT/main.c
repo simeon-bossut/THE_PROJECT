@@ -20,21 +20,25 @@ int main(int argc, char **argv) {
   //  grid_completion(grid);
 
   //fillgrid(grid);
-  grid->tab[0][0] = 3;  grid->tab[0][1] = 2;  grid->tab[0][2] = 4;  grid->tab[0][3] = 1;
-  grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 0;  grid->tab[1][3] = 0;
-  grid->tab[2][0] = 1;  grid->tab[2][1] = 3;  grid->tab[2][2] = 2;  grid->tab[2][3] = 4;
-  grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
+  grid->tab[0][0] = 3;  grid->tab[0][1] = 0;  grid->tab[0][2] = 1;  grid->tab[0][3] = 0;
+  grid->tab[1][0] = 2;  grid->tab[1][1] = 0;  grid->tab[1][2] = 3;  grid->tab[1][3] = 0;
+  grid->tab[2][0] = 4;  grid->tab[2][1] = 0;  grid->tab[2][2] = 2;  grid->tab[2][3] = 0;
+  grid->tab[3][0] = 1;  grid->tab[3][1] = 0;  grid->tab[3][2] = 4;  grid->tab[3][3] = 0;
 
   printgrid(grid);
   printf("\n");
   fill_ghost(*gridf, *grid, grid->obv);
   printgrid_Ghost(gridf);
   //printf("%d\n", gridf->size);
-  printf("%d", 1);
-  Guess *guesses = fill_guess(*gridf,*grid);
-  printf("%d", 2);
-  free(grid);
-  free(gridf);
+  fill_guess(*gridf, *grid);
+
+  //free(grid->obv);
+  //free_tab(grid->tab,grid->size);
+  //free(grid);
+
+  //free_tab_3(gridf->tab, gridf->size);
+  //free(gridf);
+
   //grid->tab[2][2] = 0;
 
   /* printgrid(grid,pov);
@@ -64,7 +68,7 @@ int main(int argc, char **argv) {
 
   //Grid* grid;
 
-  ///*int difficulty = 1;
+  //*int difficulty = 1;
   //grid = generate_level(4, &difficulty); 
   //push_to_php(grid);*/
 
@@ -73,6 +77,5 @@ int main(int argc, char **argv) {
   //grid =read_seed(SEED);
   //printgrid(grid);
 
-  printf("%d", 3);
   return EXIT_SUCCESS;
 }
