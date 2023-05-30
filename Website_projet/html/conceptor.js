@@ -403,6 +403,8 @@ function crateDrop() {
   let xAdd = 0;
   let yAdd = 0;
 
+  console.log('hey')
+
   if(player.direction == "E")
     xAdd++;
   else if(player.direction == "W")
