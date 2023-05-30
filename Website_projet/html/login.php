@@ -58,10 +58,10 @@ catch (Exception $e) {
       <div class="form_div">
 
         <label>Login:</label>
-        <input class="field_class" name="login" type="text" placeholder=<?php  echo getLanguage("Votre email","Your email");  ?> autofocus>
+        <input class="field_class" name="login" type="text" placeholder="<?php  echo getLanguage("Votre email","Your email");  ?>" autofocus>
 
         <label><?php  echo getLanguage("Mot de passe:","Password:");  ?></label>
-        <input id="pass" class="field_class" name="password" type="password" placeholder=<?php  echo getLanguage("Votre mot de passe","Your password"); ?> required >
+        <input id="pass" class="field_class" name="password" type="password" placeholder="<?php  echo getLanguage("Votre mot de passe","Your password"); ?>" required >
 
         <button class="bouton" type="submit" name="con">Go!</button>
 	
