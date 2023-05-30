@@ -61,19 +61,19 @@ main {
 }
 
 #mainPlate.dim3 {
-  width: 550px;
-  height: 450px;
+  width: 250px;
+  height: 250px;
 
-  grid-template-columns: repeat(11, 1fr);
-  grid-template-rows: repeat(9, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
 }
 
 #mainPlate.dim4 {
-  width: 650px;
-  height: 550px;
+  width: 350px;
+  height: 350px;
 
-  grid-template-columns: repeat(13, 1fr);
-  grid-template-rows: repeat(11, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
 }
 
 #mainPlate .cornerRoad {
