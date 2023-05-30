@@ -1,18 +1,20 @@
-<?php session_start(); ?>
+	<?php session_start(); ?>
 
-<?php include("verifLogin.php"); ?>
+	<?php include("verifLogin.php"); ?>
 
-<?php
-if (isset($_POST['checked'])) {
-	
-	if($_POST['checked'] == 'fr'){
-		setcookie("lang", 'fr', time() + (60*60*24*30*365));}
+	<?php
+	if (isset($_POST['checked'])) {
 		
+		if($_POST['checked'] == "fr"){
+			setcookie("lang", 'fr', time() + (60*60*24*30*365),'/');
+			header("Location:setting.php");
+		}
 		else{
-			setcookie("lang", 'en', time() +(60*60*24*30*365));
+			setcookie("lang", 'en', time() +(60*60*24*30*365),'/');
+			header("Location:setting.php");
 
 		}
-}
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
