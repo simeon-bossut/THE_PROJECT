@@ -158,6 +158,8 @@ Guess* find_guess(GhostGrid grid,int * found, int * guess_size) {
 		}
 		sum = 0;
 	}
+
+
 	size = grid.size - nb;
 	Guess* res = (Guess*)malloc(sizeof(Guess) * size);
 	bool boolean = true;
@@ -347,7 +349,6 @@ char*** create_guess_tab(Guess* guess_list,Grid grid) {
 	printf("create_guess_tab guess size = %d\n",guess_list->size);
 	char*** tab_i = (char***)malloc(sizeof(char**) * size);
 	char** tab_j;
-	guess_list[1].tab[1][2] = 77;
 	if (tab_i == NULL)
 	{
 		exit(EXIT_FAILURE);
