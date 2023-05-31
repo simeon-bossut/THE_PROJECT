@@ -71,20 +71,26 @@ try {
     echo '<div class="backDis">';
   } ?>
 
-  <nav>
+    <nav>
     <div class="buttonsLogo">
       <a href="conceptor.php">
         <div class="buttonLogo"><?php echo getLanguage("Créateur de niveau", "Level Creator");  ?></div>
       </a>
+		</div>
+		<div class="buttonsLogo">
       <a href="setting.php">
         <div class="buttonLogo"><?php echo getLanguage("Paramètres", "Settings");  ?></div>
       </a>
     </div>
+		<div class="buttonsLogo">
     <a href=""><img src="../Images/complete_logo.png" id="logo"></a>
+		</div>
     <div class="buttonsLogo">
       <a href="ranking.php">
         <div class="buttonLogo"><?php echo getLanguage("Classement", "Leaderboards");  ?></div>
       </a>
+			</div>
+			<div class="buttonsLogo">
       <?php if (isset($_SESSION["authentifie"]) &&  $_SESSION["authentifie"] == true) { ?>
         <a href="logout.php">
           <div class="buttonLogo"><?php echo getLanguage("Déconnexion", "Logout");  ?></div>
