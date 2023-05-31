@@ -1,5 +1,24 @@
 <?php session_start(); ?>
+<?php include("verifLogin.php"); ?>
+<?php 
+	if(isset($_POST["conf"])){
+		header("customization.php");
+	}
 
+
+	require("connexion.php");
+	if(isset($_COOKIE["background"])){
+		$reqPrep1 = "UPDATE acc SET id_back= :id WHERE email=:email"; //La requere SQL: SELECT
+    $req = $conn->prepare($reqPrep1); //Préparer la requete
+    $req->execute(	array(
+				':id' => $_COOKIE["background"],
+				':email' => $_SESSION["email"]
+			)); //Executer la requete
+
+	}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +42,7 @@
 		</header>
 
 		<div class="creamBG">
-			<h2>Custom your game background</h2>
+			<h2 class="titleContainer">Custom your game background</h2>
 
 			<div class="containerContent">
 				<div id="textContent">
@@ -37,13 +56,16 @@
 					<p class="para">Choose your favorite game screen, don't settle for the basics, demand the best, here's what
 						universe you want to transport yourself to </p>
 				</div>
-
+					
 				<img class="img_back">
 			</div>
+			<form class="form" action="" method="post">
+			<input type="submit" name="conf">Submit</button>
+			</form>
 		</div>
 
 		<div class="creamBG">
-			<h2>Custom your character</h2>
+			<h2 class="titleContainer">Custom your character</h2>
 
 			<div class="containerContent">
 				<div id="textContent">
@@ -102,10 +124,10 @@
 		let src = optionSelector.options[optionSelector.selectedIndex].getAttribute("src");
 
 		document.querySelector("img").setAttribute('src', src);
+		 
 	}
 
 	changeBgImg();
-
 	optionSelector.addEventListener("change", e => {
 		changeBgImg();
 	});
