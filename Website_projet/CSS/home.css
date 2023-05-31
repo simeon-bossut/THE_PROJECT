@@ -84,7 +84,7 @@ nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 30px 0px;
-  background-image: url("../Images/bg_factory.jpg");
+  
   background-size: cover;
 }
 
