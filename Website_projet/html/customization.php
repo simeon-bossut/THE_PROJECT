@@ -58,6 +58,7 @@
 				</div>
 					
 				<img class="img_back">
+
 			</div>
 			<form class="form" action="" method="post">
 			<input type="submit" name="conf">Submit</button>
@@ -70,58 +71,37 @@
 			<div class="containerContent">
 				<div id="textContent">
 					<label>Hat :</label>
-					<select>
-						<option class="1" >None</option>
-						<option class="2" src="../Images/customizations/crown.svg">Crown</option>
-						<option class="3" src="../Images/customizations/aureole.svg">Aureole</option>
-						<option class="4" src="../Images/customizations/bull_horns.svg">Bull Horns</option>
-						<option class="5" src="../Images/customizations/headset.svg">Headset</option>
-						<option class="6" src="../Images/customizations/biker_helmet.svg">Biker Helmet</option>
-						<option class="7" src="../Images/customizations/cap.svg">Cap</option>
-						<option class="8" src="../Images/customizations/cowboy_hat.svg">Cowboy Hat</option>
-						<option class="9" src="../Images/customizations/construction_helmet.svg">Construction Helmet</option>
-						<option class="10" src="../Images/customizations/mining_helmet.svg">Mining Helmet</option>
-						<option class="11" src="../Images/customizations/viking_helmet.svg">Viking Helmet</option>
-						<option class="12" src="../Images/customizations/drink_helmet.svg">Drink Helmet</option>
-						<option class="13" src="../Images/customizations/silver_robot.svg">Silver Robot</option>
-						<option class="14" src="../Images/customizations/gold_robot.svg">Gold Robot</option>
-					</select>
+						<select>
+							<option class="1" >None</option>
+							<option class="2" src="../Images/customizations/crown.svg">Crown</option>
+							<option class="3" src="../Images/customizations/aureole.svg">Aureole</option>
+							<option class="4" src="../Images/customizations/bull_horns.svg">Bull Horns</option>
+							<option class="5" src="../Images/customizations/headset.svg">Headset</option>
+							<option class="6" src="../Images/customizations/biker_helmet.svg">Biker Helmet</option>
+							<option class="7" src="../Images/customizations/cap.svg">Cap</option>
+							<option class="8" src="../Images/customizations/cowboy_hat.svg">Cowboy Hat</option>
+							<option class="9" src="../Images/customizations/construction_helmet.svg">Construction Helmet</option>
+							<option class="10" src="../Images/customizations/mining_helmet.svg">Mining Helmet</option>
+							<option class="11" src="../Images/customizations/viking_helmet.svg">Viking Helmet</option>
+							<option class="12" src="../Images/customizations/drink_helmet.svg">Drink Helmet</option>
+							<option class="13" src="../Images/customizations/silver_robot.svg">Silver Robot</option>
+							<option class="14" src="../Images/customizations/gold_robot.svg">Gold Robot</option>
+						</select>
 					<label>Skin :</label>
-					<select>
-						<option class="1">Red</option>
-						<option class="2">Blue</option>
-						<option class="3">Green</option>
-					</select>
+						<select>
+							<option class="1">Red</option>
+							<option class="2">Blue</option>
+							<option class="3">Green</option>
+						</select>
 
 					<p class="para">Choose your cosmetics to dress up your character! Wide choices are available. Grab a cool hat?
 						A serious one? An impressive? Choose your style and use your imagination </p>
 				</div>
 
 				<img class="img_back">
+
 			</div>
 		</div>
-
-		<!--
-		<div class="creamBG">	
-		<h1>Custom your game background </h1>
-		<div class="box" class="containerContent">
-		
-			<select>
-			<option class = "1" src="../Images/test1.jpg">Option 1</option>
-			<option class = "2" src="../Images/test2.jpg">Option 2</option>
-			<option class = "3"  src="../Images/test3.jpg">Option 3</option>
-			<option class = "4" src="../Images/test4.jpg">Option 4</option>
-			<option class = "5" src="../Images/test5.jpg">Option 5</option>
-			</select>
-		</div>
-		
-		<span id="selected"></span>
-		
-		<div class="containerContent">
-		<p>Choose your favorite game screen, don't settle for the basics, demand the best, here's what universe you want to transport yourself to </p>
-		<img class="img_back">
-		</div>
-		</div>-->
 	</main>
 	<?php include("footer.php"); ?>
 
@@ -148,5 +128,9 @@
 		changeBgImg();
 	});
 
+	function changeHat() {
+
+		let 
+	}
 
 </script>
