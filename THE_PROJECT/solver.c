@@ -261,9 +261,7 @@ int check_paire_col(GhostGrid *gridf, int col, int longueur) {
   }
 }
 
-int hypothesis(
-    GhostGrid *gridf,
-    Grid *gridj) // Fonction qui fait des hypoth�ses et teste chaque possibilit�
+int hypothesis(GhostGrid *gridf,Grid *gridj) // Fonction qui fait des hypoth�ses et teste chaque possibilit�
 {
   int size = gridj->size;
   for (int i = size - 2; i > 0; --i) {

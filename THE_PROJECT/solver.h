@@ -34,36 +34,33 @@ void printgrid_Ghost(GhostGrid* grid);
 //End start
 
 
-
 //SubFunction Start
-
-//SubFunction End
-void fill_ghost(GhostGrid gridf, Grid gridj);
-
-Pos *find_in_grid(Grid grid, int val, int *size);
-
 void fill_ghost_box(Grid gridj, GhostGrid grid, int value, int i, int j);
+Pos* find_in_grid(Grid grid, int val, int* size);
+//SubFunction End
 
 
-Guess *find_guess(GhostGrid grid, int *found, int *guess_size);
+//Solver start
+bool crate_solver(Grid* adgridj);
+void fill_ghost(GhostGrid gridf, Grid gridj);
+void maj_ghost(GhostGrid gridf, Grid gridj);
+int fill_loners(Grid* gridj, GhostGrid gridf);
+int hypothesis(GhostGrid* gridf, Grid* gridj);
+//Solver end
+
+
+//Unused start
+int check_loners(GhostGrid* gridf, Grid* gridj);
+Guess* find_guess(GhostGrid grid, int* found, int* guess_size);
 int fill_guess(GhostGrid grid, Grid gridj);
-
-int fill_loners(Grid *gridj, GhostGrid gridf);
 char*** create_guess_tab(Guess* guess_list, Grid grid);
 int find_number_to_guess(char*** tab, int id);
 void fill_guess_boxes(char*** tab, int size, int id_number, Grid grid, int i, int j);
-
-void free_tab_3(int*** tab, int size);
 void fill_sub_guess(int*** tab, int guess_size, Grid grid, int id);
+//Unused end
 
 
-
-int hypothesis(GhostGrid *gridf,Grid *gridj);//MES FONCTIONS
-int check_loners(GhostGrid* gridf,Grid *gridj);
-
-
-bool crate_solver(Grid* adgridj);
-//Solver
-void maj_ghost(GhostGrid gridf, Grid gridj);
-//Solver
+//Free start
+void free_tab_3(int*** tab, int size);
+//Free end
 #endif // !solver
