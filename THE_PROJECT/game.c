@@ -151,3 +151,17 @@ bool found_in_col(int **tab, int size, int col, int val) {
   }
   return false;
 }
+
+bool is_solved(Grid gridj) {
+    for (int i = 0; i < gridj.size; i++)
+    {
+        for (int j = 0; j < gridj.size; j++)
+        {
+            if (gridj.tab[i][j] == 0)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}

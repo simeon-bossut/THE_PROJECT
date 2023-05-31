@@ -40,4 +40,5 @@ void initab(int **tab, int size);
 
 void free_tab(int **tab, int size);
 
+bool is_solved(Grid gridj);
 #endif // !game
