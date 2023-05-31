@@ -35,7 +35,7 @@
 		<main>
 
 			<header>
-				<h1><?php  echo getLanguage("Customise ton jeu","Custom your game");  ?> </h1>
+				<h1><?php  echo getLanguage("Paramètres","Settings");  ?> </h1>
 			</header>
 
 			<div class="container">
