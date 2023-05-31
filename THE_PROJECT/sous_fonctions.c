@@ -230,3 +230,38 @@ int** pov_separation(Grid grid) {
     tab[3] = west;
     return tab;
 }
+
+int resolve_obv_1(Grid grid, GhostGrid gridf) {
+    int** directions = pov_separation(grid);
+    int* north = directions[0];
+    int* east = directions[1];
+    int* south = directions[2];
+    int* west = directions[3];
+    free(directions);
+    int res = NOT_FOUND;
+    int size = grid.size;
+    for (int i = 0; i < size; i++)
+    {
+        if (north[i] == size)
+        {
+            fill_ghost_box(grid, gridf, size, i, 0);
+            res = FOUND;
+        }
+        if (east[i] == size)
+        {
+            fill_ghost_box(grid, gridf, size, size - 1, i);
+            res = FOUND;
+        }
+        if (south[i] == size)
+        {
+            fill_ghost_box(grid, gridf, size, i, size - 1);
+            res = FOUND;
+        }
+        if (west[i] == size)
+        {
+            fill_ghost_box(grid, gridf, size, 0, i);
+            res = FOUND;
+        }
+    }
+    return res;
+}
