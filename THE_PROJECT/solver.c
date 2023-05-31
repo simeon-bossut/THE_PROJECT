@@ -42,7 +42,8 @@ GhostGrid *initGhostGrid(int dim) {
   return grid;
 }
 
-void fill_ghost(GhostGrid gridf, Grid gridj, int *pov) {
+void fill_ghost(GhostGrid gridf, Grid gridj) {
+  int* pov = gridj.obv;
   int k = 0;
   int size = gridj.size;
   Pos *pos = (Pos *)malloc(gridj.size * sizeof(Pos)); // Pos storage
@@ -503,7 +504,18 @@ void free_tab_3(int*** tab, int size) {
 
 
 
-void crate_solver(Grid gridj, GhostGrid gridf) {
+void crate_solver(Grid * adgridj) {
+	Grid gridj = *adgridj;
+	GhostGrid * adgridf = initGhostGrid(gridj.size);
+	GhostGrid gridf = *adgridf;
+	while (!(is_solved(gridj)))
+	{
+		fill_ghost(gridf,gridj);
 
+
+
+		fill_loners(adgridj,gridf);
+		printgrid(adgridj);
+	}
 	return;
 }

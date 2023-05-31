@@ -24,7 +24,7 @@ typedef struct Guesses {
 
 GhostGrid *initGhostGrid(int dim);
 
-void fill_ghost(GhostGrid gridf, Grid gridj, int *pov);
+void fill_ghost(GhostGrid gridf, Grid gridj);
 
 Pos *find_in_grid(Grid grid, int val, int *size);
 
