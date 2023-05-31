@@ -251,7 +251,7 @@ int** pov_separation(Grid grid) {
     int* south = (int*)malloc(sizeof(int) * size);
     int* west = (int*)malloc(sizeof(int) * size);
     int** tab = (int**)malloc(sizeof(int*) * 4);
-    if (north == NULL || east == NULL || south == NULL || west == NULL) {
+    if (north == NULL || east == NULL || south == NULL || west == NULL || tab == NULL) {
         exit(EXIT_FAILURE);
     }
 
