@@ -201,6 +201,10 @@ main {
   cursor: pointer;
 }
 
+#mainPlate .cratePlace.invCrate {
+  opacity: 0.3;
+}
+
 #mainPlate .cratePlace:empty {
   
 }
@@ -390,6 +394,14 @@ div[id^="crate"]{
   z-index: -1;
 }
 
+#numberEmpty {
+  background-image: url("../Images/trash.svg");
+  background-size: 90%;
+  background-position: center;
+
+  background-repeat: no-repeat;
+}
+
 .number, .crateInvChoice {
   margin: 5px;
   height: 40px;
@@ -416,12 +428,15 @@ div[id^="crate"]{
 }
 
 .crateInvChoice {
-  background-image: url('../Images/crateTop.svg');
-  background-size: cover;
+  background-image: url('../Images/eye.svg');
+  background-position: center;
+  background-size: 80%;
+  background-repeat: no-repeat;
 }
 
 .crateInvChoice.inv {
   opacity: 0.3;
+  background-image: url('../Images/eye_closed.svg');
 }
 
 #mainPlate .cratePlace:hover {

@@ -1,4 +1,5 @@
 #include "solver.h"
+#include "sous_fonctions.h"
 
 GhostGrid *initGhostGrid(int dim) {
   GhostGrid *grid = (GhostGrid *)malloc(sizeof(GhostGrid));
@@ -108,50 +109,55 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
     modif = 1;
   }
 
-  if (gridj.obv[obv_1] == 1) // Cas suite de 1 � n sur toute la colonne
-  {
-    suite_col(i, j, gridf);
-    modif = 1;
-  }
-  if (gridj.obv[obv_2] == 1) // Cas suite de 1 � n sur toute la colonne
-  {
-    suite_row(i, j, gridf);
-    modif = 1;
-  }
-  if (Length(gridf.tab[i][j], gridf.size) == 1 ||
-      (obv_1 == NAS &&
-       obv_2 ==
-           NAS)) // si la case en question a d�j� une r�ponse, on peut s'arr�ter
-                 // l�.On s'arr�te aussi si les observateurs sont inexistants
-  {
-    return modif;
-  }
-  if (gridj.obv[obv_1] == 0) {
-    obv_1 = NAS;
-  }
-  if (gridj.obv[obv_2] == 0) {
-    obv_2 = NAS;
-  }
-  for (int k = 0; k < gridf.size; ++k) {
-    if (obv_1 != NAS) {
-      if (k + 1 > size + 1 - gridj.obv[obv_1]) // condition pour suppression
-      {
-        if (gridf.tab[i][j][k] == k + 1) {
-          gridf.tab[i][j][k] = NAS;
-          modif = 1;
-        }
-      }
-    }
-    if (obv_2 != NAS) {
-      if (k + 1 > size + 1 - gridj.obv[obv_2]) // condition pour suppression
-      {
-        if (gridf.tab[i][j][k] == k + 1) {
-          gridf.tab[i][j][k] = NAS;
-          modif = 1;
-        }
-      }
-    }
-  }
+	if (gridj.obv[obv_1] == 1)//Cas suite de 1 à n sur toute la colonne
+	{
+		suite_col(i, j, gridf);
+		modif = 1;
+	}
+	if (gridj.obv[obv_2] == 1)//Cas suite de 1 à n sur toute la colonne
+	{
+		suite_row(i, j, gridf);
+		modif = 1;
+	}
+	if ((obv_1 == NAS && obv_2 == NAS))//On s'arrête aussi si les observateurs sont inexistants
+	{
+		return modif;
+	}
+	if (gridj.obv[obv_1]==0)
+	{
+		obv_1 = NAS;
+	}
+	if (gridj.obv[obv_2]==0)
+	{
+		obv_2 = NAS;
+	}
+	for (int k = 0;k < gridf.size;++k)
+	{
+		if (obv_1 != NAS)
+		{
+			if (k + 1 > size + 1 - gridj.obv[obv_1])//condition pour suppression
+			{
+				if (gridf.tab[i][j][k] == k + 1)
+				{
+					gridf.tab[i][j][k] = NAS;
+					if()
+					modif = 1;
+				}
+			}
+		}
+		if (obv_2 != NAS)
+		{
+			if (k + 1 > size + 1 - gridj.obv[obv_2])//condition pour suppression
+			{
+				if (gridf.tab[i][j][k] == k + 1)
+				{
+					gridf.tab[i][j][k] = NAS;
+					modif = 1;
+				}
+			}
+		}
+	}
+	return modif;
 }
 
 int complete_ghost(GhostGrid gridf, Grid gridj) {

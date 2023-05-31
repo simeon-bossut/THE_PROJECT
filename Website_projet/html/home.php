@@ -1,6 +1,38 @@
 <?php session_start();
 include 'language.php';
+
+require("connexion.php");
+if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
+	try{
+	$reqPrep2 = "SELECT id_back FROM acc WHERE email= :email";
+	$req = $conn->prepare($reqPrep2);
+	$req->execute(array(
+			':email' => $_SESSION["email"]));
+	$id = $req->fetch()[0];
+	}catch (Exception $e) {
+	die("Erreur : " . $e->getMessage());
+}
+}
+else{
+	$id=1;
+}
+try {
+			$reqPrep = "SELECT url FROM background WHERE id_back= :id";
+			$req = $conn->prepare($reqPrep); //Préparer la requete
+			$req->execute(array(
+			':id' => $id)); //Executer la requete
+
+			$resultat = $req->fetch(); //récupération du résultat 
+
+}catch (Exception $e) {
+	die("Erreur : " . $e->getMessage());
+}
+
+
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,13 +95,13 @@ include 'language.php';
         <a href="login.php">
           <div class="buttonLogo"><?php echo getLanguage("Connexion/incription", "Login/sign up");  ?></div>
         </a>
-      <?php } ?>
+      <?php  } ?>
     </div>
   </nav>
 
   <main>
 
-    <div class="gameTemplate" style="background-image: url('../Images/bg_factory.jpg');">
+    <div class="gameTemplate" style="background-image: url('<?php echo $resultat[0];?>');">
 
       <div id="thirdPlate">
         <div id="box2">

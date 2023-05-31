@@ -26,10 +26,11 @@
 
 
     <div id="editTool">
-      <div class="number">1</div>
-      <div class="number">2</div>
-      <div class="number">3</div>
-      <div class="number">4</div>
+      <div class="number" id="numberEmpty" onclick="changeCrates(this)"></div>
+      <div class="number" onclick="changeCrates(this)">1</div>
+      <div class="number" onclick="changeCrates(this)">2</div>
+      <div class="number" onclick="changeCrates(this)">3</div>
+      <div class="number" onclick="changeCrates(this)">4</div>
       <div class="crateInvChoice" title="Show/Hide Crate"></div>
     </div>
   </main>

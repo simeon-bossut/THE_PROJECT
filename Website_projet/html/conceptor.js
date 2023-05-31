@@ -7,7 +7,7 @@ var viewSet = document.querySelector('#viewBox');
 var tabDim = 4;
 
 var obsTab = [];
-var crateTab = [4, 3,2,1, 1,2,3,4, 4,3,2,1, 1,2,3,4];
+var crateTab = [];
 
 var lastCrateClicked;
 
@@ -16,7 +16,16 @@ for(let i = 0; i < tabDim * 4; i++) {
   //crateTab.push(Math.floor(Math.random() * (tabDim + 1)));
 }
 
-
+for(let i = 0; i < tabDim; i++) {
+  crateTab.push([]);
+  for(let j = 0; j < tabDim; j++) {
+    crateTab[i].push({
+      val: 0,
+      hidden: false
+    });
+  }
+}
+ 
 
 
 
@@ -156,6 +165,15 @@ function getElemByCoord(x, y) {
 }
 
 
+function exportGrid() {
+  var exportTab = []; 
+
+  for(let i = 0; i < tabDim; i++) {
+
+  }
+}
+
+
 function initMainPlate() {
 
   gameTab = [];
@@ -257,12 +275,51 @@ window.addEventListener('keydown', e => {
 })
 
 
+
+function changeCrates(number) {
+  let num = number.textContent;
+
+  let x = lastCrateClicked.id.split('_')[1];
+  let y = lastCrateClicked.id.split('_')[2];
+
+  crateTab[x][y].val = num == "" ? 0 : num;
+  document.getElementById(lastCrateClicked.id).textContent = num;
+
+}
+
+function hideCrate(hideButton) {
+  let x = lastCrateClicked.id.split('_')[1];
+  let y = lastCrateClicked.id.split('_')[2];
+
+  if(hideButton.classList.contains("inv")) {
+    crateTab[x][y].hidden = true;
+    document.querySelector('#pos_' + x + '_' + y).classList.add('invCrate');
+  }
+  
+  else {
+    crateTab[x][y].hidden = false;
+    document.querySelector('#pos_' + x + '_' + y).classList.remove('invCrate');
+  }
+  
+}
+
+
+
 document.querySelector('.crateInvChoice').addEventListener('click', e => {
   document.querySelector('.crateInvChoice').classList.toggle('inv');
+
+  hideCrate(document.querySelector('.crateInvChoice'));
 })
 
 document.querySelectorAll('.cratePlace').forEach(elem => {
   elem.addEventListener('click', e => {
+    let x = elem.id.split('_')[1];
+    let y = elem.id.split('_')[2];
+
+    if(crateTab[x][y].hidden == true)
+      document.querySelector('.crateInvChoice').classList.add("inv"); 
+    else
+      document.querySelector('.crateInvChoice').classList.remove("inv");
 
     document.querySelector('#editTool').style.left = (elem.offsetLeft - document.querySelector('#editTool').offsetWidth / 2 + elem.offsetWidth / 2) + "px";
     document.querySelector('#editTool').style.top = (elem.offsetTop - document.querySelector('#editTool').offsetHeight / 2 - elem.offsetHeight + 19) + "px";
@@ -290,3 +347,8 @@ document.addEventListener('click', e => {
     document.querySelector('#editTool').style.zIndex = -1;
   }
 })
+
+window.onresize = (e) => {
+  document.querySelector('#editTool').style.left = (lastCrateClicked.offsetLeft - document.querySelector('#editTool').offsetWidth / 2 + lastCrateClicked.offsetWidth / 2) + "px";
+  document.querySelector('#editTool').style.top = (lastCrateClicked.offsetTop - document.querySelector('#editTool').offsetHeight / 2 - lastCrateClicked.offsetHeight + 19) + "px";
+}

@@ -1,8 +1,9 @@
 <svg width="450" height="450" viewBox="0 0 450 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M449.999 226.998H0.00292969C16.8284 156.204 111.156 102 225.001 102C338.845 102 433.173 156.204 449.999 226.998Z" fill="black"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M449.999 226.998H0.00292959C16.8284 156.204 111.156 102 225.001 102C338.845 102 433.173 156.204 449.999 226.998Z" fill="black"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M0.000213623 227.002H449.996C433.171 297.796 338.843 352 224.998 352C111.154 352 16.8257 297.796 0.000213623 227.002Z" fill="black"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M436.191 227.369H15.3457C31.0805 162.161 119.298 112.234 225.768 112.234C332.239 112.234 420.456 162.161 436.191 227.369Z" fill="white"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3474 225.369H436.193C420.459 290.576 332.241 340.504 225.77 340.504C119.3 340.504 31.0816 290.576 15.3474 225.369Z" fill="white"/>
 <ellipse cx="225" cy="226.5" rx="62" ry="114.5" fill="black"/>
 <ellipse cx="224.5" cy="230.5" rx="24.5" ry="51.5" fill="white"/>
+<rect x="51.9507" y="42.9319" width="510" height="35" rx="17.5" transform="rotate(43.3342 51.9507 42.9319)" fill="white" stroke="#964B00" stroke-width="10"/>
 </svg>
