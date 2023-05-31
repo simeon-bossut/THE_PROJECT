@@ -32,7 +32,7 @@ void initElt(int *elt, int size);
 
 Grid *fillgrid(Grid *grid);
 
-bool found_in_row(int **tab, int size, int col, int val);
+bool found_in_row(int **tab, int size, int row, int val);
 
 bool found_in_col(int **tab, int size, int col, int val);
 

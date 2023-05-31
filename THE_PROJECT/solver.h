@@ -44,5 +44,9 @@ void fill_guess_boxes(char*** tab, int size, int id_number, Grid grid, int i, in
 void print_tab_3(char*** tab, int size, Grid grid);
 void free_tab_3(int*** tab, int size);
 void fill_sub_guess(int*** tab, int guess_size, Grid grid, int id);
-void crate_solver(Grid gridj, GhostGrid gridf);
+
+
+int hypothesis(GhostGrid *gridf,Grid *gridj);//MES FONCTIONS
+int check_loners(GhostGrid* gridf,Grid *gridj);
+void maj_ghost(GhostGrid gridf, Grid gridj);
 #endif // !solver
