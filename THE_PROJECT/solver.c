@@ -1,4 +1,5 @@
 #include "solver.h"
+#include "sous_fonctions.h"
 
 GhostGrid *initGhostGrid(int dim) {
   GhostGrid *grid = (GhostGrid *)malloc(sizeof(GhostGrid));
@@ -143,7 +144,7 @@ int modif_box(int i, int j,GhostGrid gridf,Grid gridj)
 		suite_row(i, j, gridf);
 		modif = 1;
 	}
-	if (Length(gridf.tab[i][j], gridf.size) == 1 || (obv_1 == NAS && obv_2 == NAS))//si la case en question a déjà une réponse, on peut s'arrêter là.On s'arrête aussi si les observateurs sont inexistants
+	if ((obv_1 == NAS && obv_2 == NAS))//On s'arrête aussi si les observateurs sont inexistants
 	{
 		return modif;
 	}
@@ -164,6 +165,7 @@ int modif_box(int i, int j,GhostGrid gridf,Grid gridj)
 				if (gridf.tab[i][j][k] == k + 1)
 				{
 					gridf.tab[i][j][k] = NAS;
+					if()
 					modif = 1;
 				}
 			}
@@ -180,6 +182,7 @@ int modif_box(int i, int j,GhostGrid gridf,Grid gridj)
 			}
 		}
 	}
+	return modif;
 }
 
 int complete_ghost(GhostGrid gridf, Grid gridj)
