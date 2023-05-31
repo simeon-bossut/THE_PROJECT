@@ -16,7 +16,7 @@ void suite_col(int ligne, int colonne, GhostGrid Gf) {
             put_number(k + 1, ligne + k, colonne, Gf);
         }
     }
-    else if (ligne == Gf.size) {
+    else if (ligne == Gf.size-1) {
         for (int k = 0; k < Gf.size; ++k) {
             put_number(Gf.size - k, ligne - k, colonne, Gf);
         }
@@ -24,13 +24,13 @@ void suite_col(int ligne, int colonne, GhostGrid Gf) {
 }
 
 void suite_row(int ligne, int colonne, GhostGrid Gf) {
-    if (colonne == 0) // Nous indique le sens d'écriture de la colonne
+    if (colonne == 0) // Nous indique le sens d'écriture de la ligne
     {
         for (int k = 0; k < Gf.size; ++k) {
-            put_number(k + 1, ligne, colonne - k, Gf);
+            put_number(k + 1, ligne, colonne + k, Gf);
         }
     }
-    else if (colonne == Gf.size) {
+    else if (colonne == Gf.size-1) {
         for (int k = 0; k < Gf.size; ++k) {
             put_number(Gf.size - k, ligne, colonne - k, Gf);
         }
@@ -48,44 +48,84 @@ int Length(char* string, int size) {
 }
 
 
+void reduce_col(int row, int col, int valmin, GhostGrid grid)
+{
+    int val = valmin;
+    if (row == 0) // Nous indique le sens d'écriture de la colonne
+    {
+        for (int k = 0; k <= grid.size-val; ++k) {//déplacement dans la colonne
+            for (int l = valmin;l <= grid.size;++l)//valeur à enlever dans la case
+            {
+                grid.tab[k][col][l - 1] = NAS;
+            }
+            valmin++;
+        }
+    }
+    else if (row == grid.size-1) {
+        for (int k = 0; k <= grid.size-val; ++k) {
+            for (int l = valmin;l <= grid.size;++l)//valeur à enlever dans la case
+            {
+                grid.tab[grid.size-1-k][col][l - 1] = NAS;
+            }
+            valmin++;
+        }
+    }
+}
+
+void reduce_row(int row, int col, int valmin, GhostGrid grid)
+{
+    int val = valmin;
+    if (col == 0) // Nous indique le sens d'écriture de la ligne
+    {
+        for (int k = 0; k <= grid.size - val; ++k) {
+            for (int l = valmin;l <= grid.size;++l)//valeur à enlever dans la case
+            {
+                grid.tab[row][k][l - 1] = NAS;
+            }
+            valmin++;
+        }
+    }
+    else if ( col == grid.size) {
+        for (int k = 0; k <= grid.size - val; ++k) {
+            for (int l = valmin;l <= grid.size;++l)//valeur à enlever dans la case
+            {
+                grid.tab[row][grid.size-1-k][l - 1] = NAS;
+            }
+            valmin++;
+        }
+    }
+}
+
+
 int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
     int size = gridj.size;
     int modif = 0;
     int obv_1 = NAS;
     int obv_2 = NAS;
+    int val1=0;
+    int val2=0;
+
     if (i == 0) {
         obv_1 = j;
+        val1 = gridj.obv[obv_1];
     }
     else if (i == size - 1) {
         obv_1 = 3 * size - 1 - j;
+        val1 = gridj.obv[obv_1];
     }
     if (j == 0) {
         obv_2 = 4 * size - 1 - i;
+        val2 = gridj.obv[obv_2];
     }
     else if (j == size - 1) {
-        obv_2 = size + i;
-    }
-    if (gridj.obv[obv_1] == 1 ||
-        gridj.obv[obv_2] == 1) // cas le plus simple, on met n (size)
-    {
-        put_number(size, i, j, gridf);
-        modif = 1;
+        val2 = gridj.obv[obv_2];
     }
 
-    if (gridj.obv[obv_1] == 1)//Cas suite de 1 à n sur toute la colonne
-    {
-        suite_col(i, j, gridf);
-        modif = 1;
-    }
-    if (gridj.obv[obv_2] == 1)//Cas suite de 1 à n sur toute la colonne
-    {
-        suite_row(i, j, gridf);
-        modif = 1;
-    }
-    if ((obv_1 == NAS && obv_2 == NAS))//On s'arrête aussi si les observateurs sont inexistants
+    if ((obv_1 == NAS && obv_2 == NAS)|| (val1 == 0 && obv_2 == NAS)|| (obv_1 == NAS && val2 == 0)|| (val1 == 0 && val2 == 0))//On s'arrête aussi si les observateurs sont inexistants ou vides
     {
         return modif;
     }
+
     if (gridj.obv[obv_1] == 0)
     {
         obv_1 = NAS;
@@ -94,32 +134,42 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
     {
         obv_2 = NAS;
     }
-    for (int k = 0;k < gridf.size;++k)
+
+    if (val1 == gridf.size)//Cas suite de 1 à n sur toute la colonne
     {
-        if (obv_1 != NAS)
+        suite_col(i, j, gridf);
+        modif = 1;
+    }
+    else if (val2 == gridj.size)//Cas suite de 1 à n sur toute la colonne
+    {
+        suite_row(i, j, gridf);
+        modif = 1;
+    }
+    else if (val1 == 1 ||  val2 == 1) // cas le plus simple, on met n (size)
+    {
+        put_number(size, i, j, gridf);
+        modif = 1;
+    }
+
+    
+    
+    if (obv_1 != NAS)
+    {
+        int least = size - gridj.obv[obv_1] + 2;//valeur la plus petite a bannir dans la case [i][j]
+        if (least <= gridf.size)
         {
-            if (k + 1 > size + 1 - gridj.obv[obv_1])//condition pour suppression
-            {
-                if (gridf.tab[i][j][k] == k + 1)
-                {
-                    gridf.tab[i][j][k] = NAS;
-                    //if ()
-                        modif = 1;
-                }
-            }
-        }
-        if (obv_2 != NAS)
-        {
-            if (k + 1 > size + 1 - gridj.obv[obv_2])//condition pour suppression
-            {
-                if (gridf.tab[i][j][k] == k + 1)
-                {
-                    gridf.tab[i][j][k] = NAS;
-                    modif = 1;
-                }
-            }
+            reduce_col(i, j, least, gridf);
         }
     }
+    if (obv_2 != NAS)
+    {
+        int least = size - gridj.obv[obv_1] + 2;//valeur la plus petite a bannir dans la case [i][j]
+        if (least <= gridf.size)
+        {
+            reduce_row(i, j, least, gridf);
+        }
+    }
+
     return modif;
 }
 
@@ -134,11 +184,6 @@ int complete_ghost(GhostGrid gridf, Grid gridj) {
     }
     return modif;
 }
-
-
-
-
-
 
 
 

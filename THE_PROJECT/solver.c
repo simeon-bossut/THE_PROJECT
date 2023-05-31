@@ -1,5 +1,6 @@
 #include "solver.h"
 
+
 GhostGrid *initGhostGrid(int dim) {
   GhostGrid *grid = (GhostGrid *)malloc(sizeof(GhostGrid));
   int k = 0;
@@ -69,7 +70,7 @@ void fill_ghost(GhostGrid gridf, Grid gridj) {
 
   //!!!Pas besoin de l'appeler plus d'une fois !!!
 
-  complete_ghost(gridf, gridj); // complete partiellement la grille fantome �
+  complete_ghost(gridf, gridj); // complete partiellement la grille fantome a
                                 // l'aide des observateurs
 }
 

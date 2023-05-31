@@ -28,7 +28,7 @@
 
 	<title>The Crate Stacker - Customization</title>
 
-	<link rel="stylesheet" href="../CSS/test.css">
+	<link rel="stylesheet" href="../CSS/customization.css">
 
 </head>
 
@@ -38,7 +38,7 @@
 	<main>
 
 		<header>
-			<h1>Custom your game </h1>
+			<h1>Custom your game! </h1>
 		</header>
 
 		<div class="creamBG">
