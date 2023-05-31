@@ -666,7 +666,7 @@ void free_tab_3(int*** tab, int size) {
 
 
 
-void crate_solver(Grid * adgridj) {
+bool crate_solver(Grid * adgridj) {
 	Grid gridj = *adgridj;
 	GhostGrid * adgridf = initGhostGrid(gridj.size);
 	GhostGrid gridf = *adgridf;
@@ -682,5 +682,5 @@ void crate_solver(Grid * adgridj) {
         maj_ghost(gridf, gridj);
 		printgrid(adgridj);
 	}
-	return;
+	return true;
 }
