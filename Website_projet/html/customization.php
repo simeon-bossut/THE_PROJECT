@@ -38,11 +38,11 @@
 	<main>
 
 		<header>
-			<h1>Custom your game! </h1>
+			<h1>Custom your game</h1>
 		</header>
 
 		<div class="creamBG">
-			<h2 class="titleContainer">Custom your game background</h2>
+			<h2>Custom your game background</h2>
 
 			<div class="containerContent">
 				<div id="textContent">
@@ -65,7 +65,7 @@
 		</div>
 
 		<div class="creamBG">
-			<h2 class="titleContainer">Custom your character</h2>
+			<h2>Custom your character</h2>
 
 			<div class="containerContent">
 				<div id="textContent">
