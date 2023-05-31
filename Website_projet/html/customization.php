@@ -28,7 +28,7 @@
 
 	<title>The Crate Stacker - Customization</title>
 
-	<link rel="stylesheet" href="../CSS/test.css">
+	<link rel="stylesheet" href="../CSS/customization.css">
 
 </head>
 
