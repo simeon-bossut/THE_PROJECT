@@ -131,13 +131,12 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="seed.c" />
     <ClCompile Include="solver.c" />
-    <ClCompile Include="sous-fonctions.c" />
+    <ClCompile Include="sous_fonctions.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
     <ClInclude Include="seed.h" />
     <ClInclude Include="solver.h" />
-    <ClInclude Include="sous_fonctions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
