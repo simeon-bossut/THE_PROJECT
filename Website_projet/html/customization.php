@@ -46,7 +46,7 @@
 
 			<div class="containerContent">
 				<div id="textContent">
-					<select>
+					<select id="bgSelect">
 						<option class="1" src="../Images/bg_factory.jpg">Classic</option>
 						<option class="2" src="../Images/bg_factory_chemical.jpg">Chemical</option>
 						<option class="3" src="../Images/bg_factory_neon.jpg">Neon</option>
@@ -71,7 +71,7 @@
 			<div class="containerContent">
 				<div id="textContent">
 					<label>Hat :</label>
-						<select>
+						<select id="hatSelect">
 							<option class="1" >None</option>
 							<option class="2" src="../Images/customizations/crown.svg">Crown</option>
 							<option class="3" src="../Images/customizations/aureole.svg">Aureole</option>
@@ -88,7 +88,7 @@
 							<option class="14" src="../Images/customizations/gold_robot.svg">Gold Robot</option>
 						</select>
 					<label>Skin :</label>
-						<select>
+						<select id="bodySelect">
 							<option class="1">Red</option>
 							<option class="2">Blue</option>
 							<option class="3">Green</option>
@@ -98,7 +98,10 @@
 						A serious one? An impressive? Choose your style and use your imagination </p>
 				</div>
 
-				<img class="img_back">
+				<div class="charBox">
+					<div class="body"></div>
+					<div class="hat"></div>
+				</div>
 
 			</div>
 		</div>
@@ -111,7 +114,10 @@
 </html>
 <script>
 
-	var optionSelector = document.querySelector("select");
+	var optionSelector = document.querySelector("select#bgSelect");
+
+	var hatSelector = document.querySelector("select#hatSelect");
+	var bodySelector = document.querySelector("select#bodySelect");
 
 	function changeBgImg() {
 		//document.querySelector("#selected").textContent = optionSelector.options[optionSelector.selectedIndex].getAttribute("src");
@@ -119,18 +125,36 @@
 		document.cookie = `background=${id};60*60*24*30`;
 		let src = optionSelector.options[optionSelector.selectedIndex].getAttribute("src");
 
-		document.querySelector("img").setAttribute('src', src);
+		document.querySelector(".img_back").setAttribute('src', src);
 		 
+	}
+	
+	function changeHat() {
+		let src = hatSelector.options[hatSelector.selectedIndex].getAttribute("src");
+
+		document.querySelector(".hat").style.backgroundImage = `url("${src}")`;
+	}
+
+	function changeBody() {
+		let src = bodySelector.options[bodySelector.selectedIndex].getAttribute("src");
+
+		document.querySelector(".body").style.backgroundImage = `url("${src}")`;
 	}
 
 	changeBgImg();
+	changeHat();
+	changeBody();
+
+
 	optionSelector.addEventListener("change", e => {
 		changeBgImg();
 	});
 
-	function changeHat() {
+	hatSelector.addEventListener("change", e => {
+		changeHat();
+	});
 
-		let 
-	}
-
+	bodySelector.addEventListener("change", e => {
+		changeBody();
+	});
 </script>
