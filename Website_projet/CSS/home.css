@@ -84,6 +84,8 @@ nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 30px 0px;
+  
+  background-size: cover;
 }
 
 .creamBG {
@@ -308,6 +310,10 @@ nav {
 
   grid-template-columns: repeat(13, 1fr);
   grid-template-rows: repeat(11, 1fr);
+
+  background-color: rgba(0,0,0,0.2);
+  padding: 10px;
+  border-radius: 20px;
 }
 
 #mainPlate .cornerRoad {
@@ -428,6 +434,7 @@ nav {
   background-position: center;
 
   transition: opacity .1s ease-in-out;
+  background-color: rgba(0,0,0,0.7);
 }
 
 #mainPlate .cratePlace:empty {

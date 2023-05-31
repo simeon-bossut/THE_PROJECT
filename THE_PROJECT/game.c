@@ -25,6 +25,7 @@ void free_tab(int **tab, int size) {
   free(tab);
 }
 
+
 void initab(int **tab, int size) {
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size; j++) {
@@ -149,4 +150,18 @@ bool found_in_col(int **tab, int size, int col, int val) {
     }
   }
   return false;
+}
+
+bool is_solved(Grid gridj) {
+    for (int i = 0; i < gridj.size; i++)
+    {
+        for (int j = 0; j < gridj.size; j++)
+        {
+            if (gridj.tab[i][j] == 0)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
 }

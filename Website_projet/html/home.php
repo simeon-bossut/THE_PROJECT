@@ -69,7 +69,7 @@ include 'language.php';
 
   <main>
 
-    <div class="gameTemplate">
+    <div class="gameTemplate" style="background-image: url('../Images/bg_factory.jpg');">
 
       <div id="thirdPlate">
         <div id="box2">
