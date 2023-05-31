@@ -140,7 +140,7 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
 				if (gridf.tab[i][j][k] == k + 1)
 				{
 					gridf.tab[i][j][k] = NAS;
-					if()
+					//if()
 					modif = 1;
 				}
 			}
