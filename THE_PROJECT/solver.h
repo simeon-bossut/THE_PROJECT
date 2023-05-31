@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Init start
 typedef struct GhostGrid {
   char ***tab;
   int size;
@@ -23,25 +24,43 @@ typedef struct Guesses {
 } Guess;
 
 GhostGrid *initGhostGrid(int dim);
+// Init end
 
-void fill_ghost(GhostGrid gridf, Grid gridj, int *pov);
 
-Pos *find_in_grid(Grid grid, int val, int *size);
 
+//Debug start
+void print_tab_3(char*** tab, int size, Grid grid);
+void printgrid_Ghost(GhostGrid* grid);
+//End start
+
+
+//SubFunction Start
 void fill_ghost_box(Grid gridj, GhostGrid grid, int value, int i, int j);
+Pos* find_in_grid(Grid grid, int val, int* size);
+//SubFunction End
 
-void printgrid_Ghost(GhostGrid *grid);
-Guess *find_guess(GhostGrid grid, int *found, int *guess_size);
+
+//Solver start
+bool crate_solver(Grid* adgridj);
+void fill_ghost(GhostGrid gridf, Grid gridj);
+void maj_ghost(GhostGrid gridf, Grid gridj);
+int fill_loners(Grid* gridj, GhostGrid gridf);
+int hypothesis(GhostGrid* gridf, Grid* gridj);
+//Solver end
+
+
+//Unused start
+int check_loners(GhostGrid* gridf, Grid* gridj);
+Guess* find_guess(GhostGrid grid, int* found, int* guess_size);
 int fill_guess(GhostGrid grid, Grid gridj);
-void print_guess(Guess *guesses, int size);
-
-char **guess(GhostGrid grid, int *pov);
-int fill_loners(Grid *gridj, GhostGrid gridf);
-void fill_in_col(Guess* guess_list, int size, Grid grid);
 char*** create_guess_tab(Guess* guess_list, Grid grid);
 int find_number_to_guess(char*** tab, int id);
 void fill_guess_boxes(char*** tab, int size, int id_number, Grid grid, int i, int j);
-void print_tab_3(char*** tab, int size, Grid grid);
-void free_tab_3(int*** tab, int size);
 void fill_sub_guess(int*** tab, int guess_size, Grid grid, int id);
+//Unused end
+
+
+//Free start
+void free_tab_3(int*** tab, int size);
+//Free end
 #endif // !solver
