@@ -1,5 +1,4 @@
 #include "solver.h"
-#include "sous_fonctions.h"
 
 GhostGrid *initGhostGrid(int dim) {
   GhostGrid *grid = (GhostGrid *)malloc(sizeof(GhostGrid));
