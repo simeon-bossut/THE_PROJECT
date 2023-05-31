@@ -197,3 +197,36 @@ int check_loners(GhostGrid* gridf, Grid* gridj) {
     }
     return modif;
 }
+
+int** pov_separation(Grid grid) {
+    int size = grid.size;
+    int* pov = grid.obv;
+    int* north = (int*)malloc(sizeof(int) * size);
+    int* east = (int*)malloc(sizeof(int) * size);
+    int* south = (int*)malloc(sizeof(int) * size);
+    int* west = (int*)malloc(sizeof(int) * size);
+    int** tab = (int**)malloc(sizeof(int*) * 4);
+    if (north == NULL || east == NULL || south == NULL || west == NULL) {
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < size * 4; i++) {
+        if (i < 1 * size) {
+            *(north + i) = pov[i];
+        }
+        else if (i < 2 * size) {
+            *(east + i - size) = pov[i];
+        }
+        else if (i < 3 * size) {
+            *(south + i - 2 * size) = pov[i];
+        }
+        else if (i < 4 * size) {
+            *(west + i - 3 * size) = pov[i];
+        }
+    }
+    tab[0] = north;
+    tab[1] = east;
+    tab[2] = south;
+    tab[3] = west;
+    return tab;
+}

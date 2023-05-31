@@ -42,6 +42,7 @@ void suite_col(int ligne, int colonne, GhostGrid Gf);
 void suite_row(int ligne, int colonne, GhostGrid Gf);
 int Length(char* string, int size);
 int modif_box(int i, int j, GhostGrid gridf, Grid gridj);
+int** pov_separation(Grid grid);
 //SubFunction End
 
 

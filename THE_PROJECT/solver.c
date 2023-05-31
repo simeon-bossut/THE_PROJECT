@@ -520,3 +520,4 @@ bool crate_solver(Grid * adgridj) {
     }
 	return false;
 }
+
