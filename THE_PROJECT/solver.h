@@ -37,6 +37,11 @@ void printgrid_Ghost(GhostGrid* grid);
 //SubFunction Start
 void fill_ghost_box(Grid gridj, GhostGrid grid, int value, int i, int j);
 Pos* find_in_grid(Grid grid, int val, int* size);
+void put_number(int val, int ligne, int colonne, GhostGrid Gf);
+void suite_col(int ligne, int colonne, GhostGrid Gf);
+void suite_row(int ligne, int colonne, GhostGrid Gf);
+int Length(char* string, int size);
+int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
 //SubFunction End
 
 
