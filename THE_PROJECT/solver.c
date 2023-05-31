@@ -56,7 +56,7 @@ void fill_ghost(GhostGrid gridf, Grid gridj, int *pov) {
         fill_ghost_box(gridj, gridf, value, j, pos[i].col);
 		if (i == 0 || j == 0 || i == gridj.size - 1 || j == gridj.size - 1)
 		{
-			remove_n(i,j,grid)
+			remove_n(i, j, gridj);
 		}
       }
     }
@@ -499,4 +499,11 @@ void free_tab_3(int*** tab, int size) {
 		free(tab[i]);
 	}
 	free(tab);
+}
+
+
+
+void crate_solver(Grid gridj, GhostGrid gridf) {
+
+	return;
 }
