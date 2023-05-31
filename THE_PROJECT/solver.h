@@ -44,6 +44,7 @@ int Length(char* string, int size);
 int complete_ghost(GhostGrid gridf, Grid gridj);
 int modif_box(int i, int j, GhostGrid gridf, Grid gridj);
 int** pov_separation(Grid grid);
+int resolve_obv_1(Grid grid, GhostGrid gridf);
 //SubFunction End
 
 
