@@ -45,7 +45,7 @@ main {
     padding: 40px;
     border-radius: 8px;
     background-color: white;
-    font-family: 'Copperplate';
+    font-family: "Kanit", sans-serif;
     box-shadow: 20px 20px #232323;
 }
 .form_div {
@@ -84,7 +84,7 @@ main {
     border-radius: 5px;
     background-color: #FFE6D4;
     padding: 8px 20px;
-    font-family: 'system-ui';
+    font-family: "Kanit", sans-serif;
     text-transform: uppercase;
     letter-spacing: .8px;
     display: block;
@@ -98,7 +98,7 @@ main {
     box-shadow: 5px 5px 5px #232323;
 }
 label[for="male"], label[for="female"] {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: "Kanit", sans-serif;
     text-transform: initial;
 }
 footer {
