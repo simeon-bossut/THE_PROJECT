@@ -317,56 +317,56 @@ nav {
 }
 
 #mainPlate .cornerRoad {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 
   background-image: url("../Images/Corner\ Road.svg");
   background-size: cover;
 }
 
 #mainPlate .straightRoad {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 
   background-image: url("../Images/Straight\ Road.svg");
   background-size: cover;
 }
 
 #mainPlate .crossRoad {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 
   background-image: url("../Images/Cross\ Road.svg");
   background-size: cover;
 }
 
 #mainPlate .TRoad {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 
   background-image: url("../Images/T\ Road.svg");
   background-size: cover;
 }
 
 #mainPlate .CCorner {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 
   background-image: url("../Images/Crate\ Corner.svg");
   background-size: cover;
 }
 
 #mainPlate .CStraight {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 
   background-image: url("../Images/Crate\ Straight.svg");
   background-size: cover;
 }
 
 #mainPlate .Trash {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 
   background-size: 85%;
   background-position: center;
@@ -375,8 +375,8 @@ nav {
 }
 
 #mainPlate .obs {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 
   background-image: url("../Images/obs.svg");
   background-size: 80%;
@@ -385,8 +385,8 @@ nav {
 }
 
 #mainPlate .obsText {
-  width: 50px;
-  height: 43px;
+  width: 100%;
+  height: 87%;
 
   display: flex;
   justify-content: center;
@@ -418,8 +418,8 @@ nav {
 }
 
 #mainPlate .cratePlace {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 
   display: flex;
   justify-content: center;
