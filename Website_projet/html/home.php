@@ -112,8 +112,8 @@ try {
       <div id="thirdPlate">
         <div id="box2">
           <div id="skinBox">
-            <div id="characterBody"></div>
-            <div id="characterHat"></div>
+            <div id="characterBodyIcon"></div>
+            <div id="characterHatIcon"></div>
           </div>
         </div>
         <div id="buttonBox">
