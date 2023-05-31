@@ -41,4 +41,9 @@ char*** create_guess_tab(Guess* guess_list, Grid grid);
 int find_number_to_guess(char*** tab, int id);
 void fill_guess_boxes(char*** tab, int size, int id_number, Grid grid, int i, int j);
 void print_tab_3(char*** tab, int size, Grid grid);
+
+
+int hypothesis(GhostGrid *gridf,Grid *gridj);//MES FONCTIONS
+int check_loners(GhostGrid* gridf,Grid *gridj);
+void maj_ghost(GhostGrid gridf, Grid gridj);
 #endif // !solver

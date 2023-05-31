@@ -45,34 +45,286 @@ GhostGrid *initGhostGrid(int dim) {
   return grid;
 }
 
-void fill_ghost(GhostGrid gridf, Grid gridj, int *pov) {
-  int k = 0;
-  int size = gridj.size;
-  Pos *pos = (Pos *)malloc(gridj.size * sizeof(Pos)); // Pos storage
-
-  int size;
-  for (int value = 1; value <= gridf.size; value++) {//Remplissage grossier de la grille fantôme
-    pos = find_in_grid(gridj, value, &size);
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < gridf.size; j++) {
-        fill_ghost_box(gridj, gridf, value, pos[i].row, j);
-        fill_ghost_box(gridj, gridf, value, j, pos[i].col);
-		if (i == 0 || j == 0 || i == gridj.size - 1 || j == gridj.size - 1)
+void put_number(int val, int ligne, int colonne,GhostGrid Gf)
+{
+	for (int k = 0;k < Gf.size;++k)
+	{
+		if (Gf.tab[ligne][colonne][k] != val)
 		{
-			remove_n(i,j,grid)
+			Gf.tab[ligne][colonne][k] = NAS;
 		}
-      }
-    }
-  }
+	}
+}
+
+void suite_col(int ligne, int colonne, GhostGrid Gf)
+{
+	
+		if(ligne==0)//Nous indique le sens d'écriture de la colonne
+		{ 
+			for (int k = 0;k < Gf.size;++k)
+			{
+				put_number(k+1,ligne+k,colonne,Gf);
+			}
+		}
+		else if (ligne == Gf.size)
+		{
+			for (int k = 0;k < Gf.size;++k)
+			{
+				put_number(Gf.size-k, ligne-k, colonne, Gf);
+			}
+		}
+}
+
+void suite_row(int ligne, int colonne, GhostGrid Gf)
+{
+	if (colonne == 0)//Nous indique le sens d'écriture de la colonne
+	{
+		for (int k = 0;k < Gf.size;++k)
+		{
+			put_number(k + 1, ligne , colonne-k, Gf);
+		}
+	}
+	else if (colonne == Gf.size)
+	{
+		for (int k = 0;k < Gf.size;++k)
+		{
+			put_number(Gf.size - k, ligne, colonne-k, Gf);
+		}
+	}
+}
 
 
 
+int Length(char* string, int size)
+{
+	int number = 0;
+	for (int i = 0; i < size; i++) {
+		if (string[i] != NAS)
+		{
+			number++;
+		}
+
+	}
+	return number;
+}
+
+int modif_box(int i, int j,GhostGrid gridf,Grid gridj)
+{
+	int size = gridj.size;
+	int modif = 0;
+	int obv_1 = NAS;
+	int obv_2 = NAS;
+	if (i == 0)
+	{
+		obv_1 = j;
+	}
+	else if (i == size - 1)
+	{
+		obv_1 = 3 * size - 1 - j;
+	}
+	if (j == 0)
+	{
+		obv_2 = 4 * size - 1 - i;
+	}
+	else if (j == size - 1)
+	{
+		obv_2 = size + i;
+	}
+	if (gridj.obv[obv_1] == 1 || gridj.obv[obv_2] == 1)//cas le plus simple, on met n (size)
+	{
+		put_number(size, i, j, gridf);
+		modif = 1;
+	}
+
+	if (gridj.obv[obv_1] == 1)//Cas suite de 1 à n sur toute la colonne
+	{
+		suite_col(i, j, gridf);
+		modif = 1;
+	}
+	if (gridj.obv[obv_2] == 1)//Cas suite de 1 à n sur toute la colonne
+	{
+		suite_row(i, j, gridf);
+		modif = 1;
+	}
+	if (Length(gridf.tab[i][j], gridf.size) == 1 || (obv_1 == NAS && obv_2 == NAS))//si la case en question a déjà une réponse, on peut s'arrêter là.On s'arrête aussi si les observateurs sont inexistants
+	{
+		return modif;
+	}
+	if (gridj.obv[obv_1]==0)
+	{
+		obv_1 = NAS;
+	}
+	if (gridj.obv[obv_2]==0)
+	{
+		obv_2 = NAS;
+	}
+	for (int k = 0;k < gridf.size;++k)
+	{
+		if (obv_1 != NAS)
+		{
+			if (k + 1 > size + 1 - gridj.obv[obv_1])//condition pour suppression
+			{
+				if (gridf.tab[i][j][k] == k + 1)
+				{
+					gridf.tab[i][j][k] = NAS;
+					modif = 1;
+				}
+			}
+		}
+		if (obv_2 != NAS)
+		{
+			if (k + 1 > size + 1 - gridj.obv[obv_2])//condition pour suppression
+			{
+				if (gridf.tab[i][j][k] == k + 1)
+				{
+					gridf.tab[i][j][k] = NAS;
+					modif = 1;
+				}
+			}
+		}
+	}
+}
+
+int complete_ghost(GhostGrid gridf, Grid gridj)
+{
+	int modif = 0;
+	int size = gridj.size;
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size; j++) {
+			
+			modif = modif_box(i, j, gridf, gridj);
+		}
+	}
+	return modif;
+
+}
+
+
+
+void maj_ghost(GhostGrid gridf, Grid gridj)
+{
+	int k = 0;
+	int size = gridj.size;
+	Pos* pos; // Pos storage
+
+	for (int value = 1; value <= gridf.size; value++) {//Remplissage grossier de la grille fantôme à l'aide de la grille de jeu (sans observateurs)
+		pos = find_in_grid(gridj, value, &size);
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < gridf.size; j++) {
+				fill_ghost_box(gridj, gridf, value, pos[i].row, j);
+				fill_ghost_box(gridj, gridf, value, j, pos[i].col);
+			}
+		}
+		free(pos);
+	}
+	
+}
+
+void fill_ghost(GhostGrid gridf, Grid gridj, int* pov) {
+
+
+	maj_ghost(gridf, gridj);
+
+	//!!!Pas besoin de l'appeler plus d'une fois !!!
+
+	complete_ghost(gridf, gridj);//complète partiellement la grille fantome à l'aide des observateurs 
 
 
 }
 
-Pos *find_in_grid(Grid grid, int val,
-                  int *size) // attention grid.size diff de size
+int check_row(int val,GhostGrid *gridf, int row, int* pos)
+{
+	char*** tab = gridf->tab;
+	int compt = 0;
+	for (int i = 0;i < gridf->size;++i)
+	{
+		if ((tab[row][i][val - 1] == val) && (Length(tab[row][i], gridf->size) != 1))
+		{
+			compt++;
+			*pos = i;
+		}
+	}
+	return compt;
+}
+
+int check_col(int val, GhostGrid *gridf, int col, int* pos)
+{
+	char*** tab = gridf->tab;
+	int compt = 0;
+	for(int i=0;i<gridf->size;++i)
+	{
+		if ((tab[i][col][val - 1] == val)&&(Length(tab[i][col], gridf->size)!=1))
+		{
+			compt++;
+			*pos = i;
+			if(compt>1)
+			{
+				return compt;
+			}
+		}
+	}
+	return compt;
+}
+
+
+
+int check_loners(GhostGrid* gridf, Grid* gridj)
+{
+	maj_ghost(*gridf, *gridj);
+	int modif = 0;
+	int size = gridf->size;
+	int pos = NAS;
+	for (int i = 0; i < size; i++) {
+		for (int j = 0;j < size;++j)
+		{
+			if (check_row(j+1,gridf, i, &pos) == 1)
+			{
+				modif = 1;
+				put_number(j + 1, i, pos, *gridf);
+			}
+			if (check_col(j+1,gridf, i, &pos) == 1)
+			{
+				modif = 1;
+				put_number(j + 1, pos, i, *gridf);
+			}
+		}
+	}
+	if (modif)//Si il y a eu modification on recommence tout,pour ne rien rater
+	{
+		check_loners(gridf,gridj);
+	}
+	return modif;
+}
+
+int check_paire_row(GhostGrid* gridf, int row,int longueur)
+{
+	int compt;
+	for(int i = 0; i < gridf->size; ++i) {
+		;
+	}
+}
+
+int check_paire_col(GhostGrid* gridf, int col)
+{
+	int compt;
+	for (int i = 0; i < gridf->size; ++i) {
+
+	}
+}
+
+
+int hypothesis(GhostGrid* gridf, Grid* gridj)//Fonction qui fait des hypothèses et teste chaque possibilité
+{
+	int size = gridj->size;
+	for (int i = size - 2; i > 0; --i) {
+		for (int i = 0; i < size; ++i) {
+			check_paire_col(gridf, i, size - 2);
+			check_paire_row(gridf, i, size - 2);
+		}
+	}
+}
+
+Pos *find_in_grid(Grid grid, int val,int *size) // attention grid.size diff de size
 {
   Pos *positions = malloc(grid.size * sizeof(Pos));
   if (positions == NULL) {

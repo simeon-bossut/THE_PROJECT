@@ -20,18 +20,26 @@ int main(int argc, char **argv) {
   //  grid_completion(grid);
 
   //fillgrid(grid);
-  grid->tab[0][0] = 3;  grid->tab[0][1] = 2;  grid->tab[0][2] = 4;  grid->tab[0][3] = 1;
+  grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
   grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 0;  grid->tab[1][3] = 0;
-  grid->tab[2][0] = 1;  grid->tab[2][1] = 3;  grid->tab[2][2] = 2;  grid->tab[2][3] = 4;
+  grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 0;
   grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
 
+  grid->obv[0] = 0;  grid->obv[1] = 0;  grid->obv[2] = 3;  grid->obv[3] = 3;  
+  grid->obv[4] = 3;  grid->obv[5] = 3;  grid->obv[6] = 0;  grid->obv[7] = 0; 
+  grid->obv[8] = 0;  grid->obv[9] = 0;  grid->obv[10] = 2; grid->obv[11] = 0;
+  grid->obv[12] = 0; grid->obv[13] = 0; grid->obv[14] = 0; grid->obv[15] = 0;
+
   printgrid(grid);
+
   printf("\n");
-  fill_ghost(*gridf, *grid, grid->obv);
+  fill_ghost(*gridf, *grid, grid->obv);//Oublies pas de supprimer le dernier argument (sert à rien)
+  //hypothesis(gridf, grid);
+  check_loners(gridf,grid);
   printgrid_Ghost(gridf);
   //printf("%d\n", gridf->size);
   printf("%d", 1);
-  Guess *guesses = fill_guess(*gridf,*grid);
+  //Guess *guesses = fill_guess(*gridf,*grid);
   printf("%d", 2);
   free(grid);
   free(gridf);
