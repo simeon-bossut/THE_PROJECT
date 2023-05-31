@@ -39,7 +39,7 @@ class Character {
                                                                     </div>`;
   }
 
-  drawChar() {
+  drawChar() { 
 
     var element = document.querySelector(`.hasPlayer`);
 

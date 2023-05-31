@@ -84,7 +84,7 @@ nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 30px 0px;
-  
+
   background-size: cover;
 }
 
@@ -598,7 +598,7 @@ div[id^="crate"]{
   width: 80%;
   height: 80%;
 
-  background-image: url("../customizations/character_default.svg");
+  background-image: url("../Images/customizations/character_default.svg");
   background-size: cover;
 }
 
@@ -608,7 +608,7 @@ div[id^="crate"]{
   width: 80%;
   height: 80%;
 
-  background-image: url("../customizations/hat_crown.svg");
+  background-image: url("../Images/customizations/crown.svg");
   background-size: cover;
 }
 
