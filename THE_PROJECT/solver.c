@@ -177,8 +177,7 @@ void maj_ghost(GhostGrid gridf, Grid gridj) {
   int size = gridj.size;
   Pos *pos; // Pos storage
 
-  for (int value = 1; value <= gridf.size;
-       value++) { // Remplissage grossier de la grille fant�me � l'aide de la
+  for (int value = 1; value <= gridf.size;value++) { // Remplissage grossier de la grille fant�me � l'aide de la
                   // grille de jeu (sans observateurs)
     pos = find_in_grid(gridj, value, &size);
     for (int i = 0; i < size; i++) {
@@ -197,7 +196,7 @@ void fill_ghost(GhostGrid gridf, Grid gridj) {
 
   //!!!Pas besoin de l'appeler plus d'une fois !!!
 
-  complete_ghost(gridf, gridj); // compl�te partiellement la grille fantome �
+  complete_ghost(gridf, gridj); // complete partiellement la grille fantome �
                                 // l'aide des observateurs
 }
 
@@ -675,16 +674,25 @@ bool crate_solver(Grid * adgridj) {
 	GhostGrid * adgridf = initGhostGrid(gridj.size);
 	GhostGrid gridf = *adgridf;
     fill_ghost(gridf, gridj);
-    int modif = 0;
-	while(!(is_solved(gridj)))
+    int modif;
+	do
 	{
-		
+        modif = 0;
 
+        while (hypothesis(adgridf,adgridj) == FOUND)
+        {
+            maj_ghost(gridf, gridj); modif++;
+        }
+        while (fill_loners(adgridj, gridf) == FOUND)
+        {
+            maj_ghost(gridf, gridj); modif++;
+        }
 
-
-		fill_loners(adgridj,gridf);
-        maj_ghost(gridf, gridj);
 		printgrid(adgridj);
-	}
-	return true;
+    } while (modif != 0 && !(is_solved(gridj)));
+    if (is_solved(gridj))
+    {
+        return true;
+    }
+	return false;
 }
