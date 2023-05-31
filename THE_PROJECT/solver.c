@@ -185,8 +185,8 @@ void maj_ghost(GhostGrid gridf, Grid gridj) {
   }
 }
 
-void fill_ghost(GhostGrid gridf, Grid gridj, int *pov) {
-
+void fill_ghost(GhostGrid gridf, Grid gridj) {
+  int* pov = gridj.obv;
   maj_ghost(gridf, gridj);
 
   //!!!Pas besoin de l'appeler plus d'une fois !!!
@@ -578,51 +578,53 @@ int find_number_to_guess(char ***tab, int id) {
   return k;
 }
 
-void fill_guess_boxes(char ***tab, int size, int id_number, Grid grid, int i,
-                      int j) {
-  printf("fill_guess_boxes\n");
-  id_number = find_number_to_guess(tab, id_number);
-  int sum = 0;
-  int number;
-  int tmp;
-  for (int k = 0; k < grid.size; k++) {
-    if (tab[i][j][k] != NAS) {
-      sum++;
+void fill_guess_boxes(char*** tab, int size, int id_number, Grid grid, int i,
+    int j) {
+    printf("fill_guess_boxes\n");
+    id_number = find_number_to_guess(tab, id_number);
+    int sum = 0;
+    int number;
+    int tmp;
+    for (int k = 0; k < grid.size; k++) {
+        if (tab[i][j][k] != NAS) {
+            sum++;
+        }
     }
-  }
-  if (sum != 1) {
-    number =
-        tab[i][j][id_number]; // id_number s'obtient avec find_number_to_guess
-    tmp = i + 1;
-    while (tmp < size) {
-      tab[tmp][j][id_number] = NAS;
-      tmp++;
+    if (sum != 1) {
+        number =
+            tab[i][j][id_number]; // id_number s'obtient avec find_number_to_guess
+        tmp = i + 1;
+        while (tmp < size) {
+            tab[tmp][j][id_number] = NAS;
+            tmp++;
+        }
+        tmp = j + 1;
+        while (tmp < grid.size) {
+            tab[i][tmp][id_number] = NAS;
+            tmp++;
+        }
     }
-    tmp = j + 1;
-    while (tmp < grid.size) {
-      tab[i][tmp][id_number] = NAS;
-      tmp++;
+    else {
+        int k = 0;
+        while (tab[i][j][k] == NAS) {
+            k++;
+        }
+        id_number = k;
+        number =
+            tab[i][j][id_number]; // id_number s'obtient avec find_number_to_guess
+        tmp = i + 1;
+        while (tmp < size) {
+            tab[tmp][j][id_number] = NAS;
+            tmp++;
+        }
+        tmp = j + 1;
+        while (tmp < grid.size) {
+            tab[i][tmp][id_number] = NAS;
+            tmp++;
+        }
     }
-  } else {
-    int k = 0;
-    while (tab[i][j][k] == NAS) {
-      k++;
-    }
-    id_number = k;
-    number =
-        tab[i][j][id_number]; // id_number s'obtient avec find_number_to_guess
-    tmp = i + 1;
-    while (tmp < size) {
-      tab[tmp][j][id_number] = NAS;
-      tmp++;
-    }
-    tmp = j + 1;
-    while (tmp < grid.size) {
-      tab[i][tmp][id_number] = NAS;
-      tmp++;
-    }
-  }
-  print_tab_3(tab, size, grid);
+    print_tab_3(tab, size, grid);
+
   return;
 }
 
@@ -668,13 +670,16 @@ void crate_solver(Grid * adgridj) {
 	Grid gridj = *adgridj;
 	GhostGrid * adgridf = initGhostGrid(gridj.size);
 	GhostGrid gridf = *adgridf;
-	while (!(is_solved(gridj)))
+    fill_ghost(gridf, gridj);
+    int modif = 0;
+	while(!(is_solved(gridj)))
 	{
-		fill_ghost(gridf,gridj);
+		
 
 
 
 		fill_loners(adgridj,gridf);
+        maj_ghost(gridf, gridj);
 		printgrid(adgridj);
 	}
 	return;
