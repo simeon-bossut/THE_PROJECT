@@ -70,7 +70,7 @@ catch (Exception $e) {
       </div>
 
       <div class="newacc">
-        <p><?php  echo getLanguage("Vous n'avez pas encore un compte?","You don't have an account yet? ");  ?><a href="signup.php">Sign up!</a></p>
+        <p><?php  echo getLanguage("Vous n'avez pas encore un compte? ","You don't have an account yet? ");  ?><a href="signup.php">Sign up!</a></p>
       </div>
 
     </form>
