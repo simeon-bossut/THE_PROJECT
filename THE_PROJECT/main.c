@@ -25,9 +25,9 @@ int main(int argc, char **argv) {
   grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 1;
   grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
 
-  grid->obv[0] = 2;  grid->obv[1] = 0;  grid->obv[2] = 2;  grid->obv[3] = 0;  
-  grid->obv[4] = 0;  grid->obv[5] = 0;  grid->obv[6] = 0;  grid->obv[7] = 0; 
-  grid->obv[8] = 0;  grid->obv[9] = 0;  grid->obv[10] = 3; grid->obv[11] = 0;
+  grid->obv[0] = 0;  grid->obv[1] = 0;  grid->obv[2] = 0;  grid->obv[3] = 0;  
+  grid->obv[4] = 1;  grid->obv[5] = 0;  grid->obv[6] = 0;  grid->obv[7] = 0; 
+  grid->obv[8] = 0;  grid->obv[9] = 0;  grid->obv[10] = 0; grid->obv[11] = 0;
   grid->obv[12] = 0; grid->obv[13] = 0; grid->obv[14] = 0; grid->obv[15] = 0;
 
 
