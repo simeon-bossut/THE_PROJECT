@@ -62,18 +62,18 @@ void calcul_obs(Grid *grid) // remplit le tableau d'observateur
 }
 
 int line_to_id(int *line, int dim) {
-  // Il faut idéalement mettre un char ne contenant que des chiffres
-  // différent(ligne d'un carré latin)
-  int val = 0; // Ce char va être transformé à la fin en char grace to itoa
+  // Il faut idealement mettre un char ne contenant que des chiffres
+  // different(ligne d'un carre latin)
+  int val = 0; // Ce char va etre transforme a la fin en char grace to itoa
   int factor = factorial(dim - 1);
   val += ((line[0]) - 1) * factor +
-         1; // Le 6 vient du fait de 3! possibilités une fois le char[0] fixé
+         1; // Le 6 vient du fait de 3! possibilites une fois le char[0] fixe
   if (dim == 3) {
     if (line[1] > line[2]) {
       val += 1;
     }
   } else if (dim == 4) {
-    if (line[1] > line[2]) // C des trucs que j'ai trouvé, demandez si vous
+    if (line[1] > line[2]) // C des trucs que j'ai trouve, demandez si vous
                            // voulez comprendre
     {
       val += 2;
@@ -114,7 +114,7 @@ int line_to_id(int *line, int dim) {
 }
 
 char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
-{                                  // Parti pour la galère
+{                                  // Parti pour la galere
   val = val % (factorial(dim));
   if (val == 0) {
     val = factorial(dim);
@@ -129,7 +129,7 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
     line[i] = 0;
   }
   line[0] = ((val - 1) / factorial(dim - 1) + 1) +
-            48; // N'hésitez pas à poser des questions
+            48; // N'hesitez pas a poser des questions
   char *tab = malloc(
       sizeof(char) *
       (dim)); // tableau contenant tous les chiffres sauf celui dans line[0]
@@ -146,7 +146,7 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   }
   if (dim == 3) {
     for (int i = 0; i < dim - 1; ++i) {
-      if (line[2 - val % 2] == 0) // Si cette case déja remplie déja remplie
+      if (line[2 - val % 2] == 0) // Si cette case deja remplie deja remplie
       {
         line[2 - val % 2] = tab[i];
       } else if (line[1 + val % 2] == 0) {
@@ -157,13 +157,13 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   }
   if (dim == 4) {
     line[1] =
-        tab[((val - 1) % 6 / 2)]; // Chiant à expliquer en commentaires(étude de
+        tab[((val - 1) % 6 / 2)]; // Chiant a expliquer en commentaires(etude de
                                   // la ligne de longueur 6)
   }
   if (dim == 5) {
     line[1] = tab[((val - 1) % 24 / 6)];
     for (int i = ((val - 1) % 24 / 6); i < dim - 1;
-         i++) // suppresion de line[1] dans tab et décalage adapté
+         i++) // suppresion de line[1] dans tab et decalage adapte
     {
       tab[i] = tab[i + 1];
     }
@@ -173,7 +173,7 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
     for (int i = 0; i < dim - 1; ++i) {
       if (tab[i] != line[1]) // Si le chiffre est encore dispo
       {
-        if (line[3 - val % 2] == 0) // Si cette case déja remplie déja remplie
+        if (line[3 - val % 2] == 0) // Si cette case deja remplie deja remplie
         {
           line[3 - val % 2] = tab[i];
         } else if (line[2 + val % 2] == 0) {
@@ -187,7 +187,7 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
     for (int i = 0; i < dim - 1; ++i) {
       if (tab[i] != line[2]) // Si le chiffre est encore dispo
       {
-        if (line[4 - val % 2] == 0) // Si cette case déja remplie déja remplie
+        if (line[4 - val % 2] == 0) // Si cette case deja remplie deja remplie
         {
           line[4 - val % 2] = tab[i];
         } else if (line[3 + val % 2] == 0) {
@@ -216,7 +216,7 @@ int booltab_to_int(bool *tab, int size_cache) {
   return value;
 }
 
-Grid *add_cach(Grid *grid, bool *cache) // crée et ajoute un cache sur la grille
+Grid *add_cach(Grid *grid, bool *cache) // cree et ajoute un cache sur la grille
 {
   int size = grid->size;
   Grid *tmp = initgrid(size);
@@ -228,8 +228,8 @@ Grid *add_cach(Grid *grid, bool *cache) // crée et ajoute un cache sur la grill
   do {
     random = rand() % (size * (4 + size));
     cache[random] =
-        1; // On ajoute un 1 au cache(il se peut qu'il y ait déjà un 1 à cet
-           // emplacement mais cela ne pose pas vraiment de problème
+        1; // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
+           // emplacement mais cela ne pose pas vraiment de probleme
 
     if (random < size * size) // travail sur le cache de la grille(int**)
     {
@@ -254,12 +254,12 @@ void crea_cache(bool *cache, int difficulty, int dimension) // rempli un cache
   for (int i = 0; i < val; ++i) {
     random = rand() % (dimension * (4 + dimension));
     cache[random] =
-        1; // On ajoute un 1 au cache(il se peut qu'il y ait déjà un 1 à cet
-           // emplacement mais cela ne pose pas vraiment de problème
+        1; // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
+           // emplacement mais cela ne pose pas vraiment de probleme
   }
 }
 
-Grid *generate_level(int dim, int *difficulty) // crée un niveau et stocke dans
+Grid *generate_level(int dim, int *difficulty) // cree un niveau et stocke dans
                                                // *diff la valeur int du cache
 {
   Grid *grid = initgrid(dim);
@@ -269,7 +269,7 @@ Grid *generate_level(int dim, int *difficulty) // crée un niveau et stocke dans
   }
 
   if (generateGrid(grid) ==
-      -1) // remplissage aléatoire de grid->tab et de grid->obv
+      -1) // remplissage aleatoire de grid->tab et de grid->obv
   {
     return NULL;
   }
@@ -281,7 +281,7 @@ Grid *generate_level(int dim, int *difficulty) // crée un niveau et stocke dans
   if (*difficulty == 1) {
     for (int i = 0; i < size_cache; ++i) {
       cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs sont
-                                  // visibles et tout le jeu caché
+                                  // visibles et tout le jeu cache
       if (i < dim * dim) {
         tmp->tab[i / (dim)][i % (dim)] =
             grid->tab[i / (dim)][i % (dim)] * cache[i];
@@ -293,11 +293,11 @@ Grid *generate_level(int dim, int *difficulty) // crée un niveau et stocke dans
   // else {
   //     int random = 0;
   //     for (int i = 0; i < size_cache; ++i) {
-  //         cache[i] = 0;// intit du tableau à 0
+  //         cache[i] = 0;// intit du tableau a 0
   //     }
   //     tmp=add_cach(grid,cache);
-  //     if (difficulty == 2)//Pour la difficulté 2, on ajoute une info en
-  //     plus(pour l'instant), par la suite peut-être dim-2 info en plus
+  //     if (difficulty == 2)//Pour la difficulte 2, on ajoute une info en
+  //     plus(pour l'instant), par la suite peut-etre dim-2 info en plus
   //     {
   //         do
   //         {
@@ -341,7 +341,7 @@ char *create_seed(int difficulty, int dim) {
   if (SEED == NULL || line == NULL) {
     return NULL;
   }
-  SEED[0] = dim + 48; // premier char désigne la dimension
+  SEED[0] = dim + 48; // premier char designe la dimension
 
   Grid *grid = initgrid(dim);
   generateGrid(grid);
@@ -356,9 +356,9 @@ char *create_seed(int difficulty, int dim) {
       cache[i] =
           i /
           (dim * dim); // Tableau facile , tous les observateurs sont visibles
-                       // et tout le jeu caché//On ajoute un 1 au cache(il se
-                       // peut qu'il y ait déjà un 1 à cet emplacement mais cela
-                       // ne pose pas vraiment de problème
+                       // et tout le jeu cache//On ajoute un 1 au cache(il se
+                       // peut qu'il y ait deja un 1 a cet emplacement mais cela
+                       // ne pose pas vraiment de probleme
     }
   } else {
     for (int i = 0; i < dim * (dim + 4); ++i) {
@@ -410,7 +410,7 @@ int generateGrid(Grid *grid) {
     return -1;
   }
   free(leftCases);
-  free_tab(grid->tab, size); // On libère de la place
+  free_tab(grid->tab, size); // On libere de la place
   grid->tab = tab;
 
   calcul_obs(grid);
@@ -418,8 +418,8 @@ int generateGrid(Grid *grid) {
 
 int genGrid_tab(
     int **tab, char *leftCases,
-    int size) // Génère un tableau de dimension "size".Cette fonction est un
-              // sous-fonction appellée par "generateGrid"
+    int size) // Genere un tableau de dimension "size".Cette fonction est un
+              // sous-fonction appellee par "generateGrid"
 {
   int compt = 0;
 
@@ -436,7 +436,7 @@ int genGrid_tab(
           compt = 0;
           return -1; // error
         }
-        // Si il y a eu un échec, on vide le tableau et on réessaye
+        // Si il y a eu un echec, on vide le tableau et on reessaye
         initab(tab, size);
         return genGrid_tab(tab, leftCases, size);
       }
