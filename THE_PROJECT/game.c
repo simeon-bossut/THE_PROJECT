@@ -25,6 +25,7 @@ void free_tab(int **tab, int size) {
   free(tab);
 }
 
+
 void initab(int **tab, int size) {
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size; j++) {

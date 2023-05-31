@@ -21,6 +21,7 @@ typedef struct Guesses {
   int direction;
   int size;
 } Guess;
+
 GhostGrid *initGhostGrid(int dim);
 
 void fill_ghost(GhostGrid gridf, Grid gridj, int *pov);
@@ -41,6 +42,8 @@ char*** create_guess_tab(Guess* guess_list, Grid grid);
 int find_number_to_guess(char*** tab, int id);
 void fill_guess_boxes(char*** tab, int size, int id_number, Grid grid, int i, int j);
 void print_tab_3(char*** tab, int size, Grid grid);
+void free_tab_3(int*** tab, int size);
+void fill_sub_guess(int*** tab, int guess_size, Grid grid, int id);
 
 
 int hypothesis(GhostGrid *gridf,Grid *gridj);//MES FONCTIONS

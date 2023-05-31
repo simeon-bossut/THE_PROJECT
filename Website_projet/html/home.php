@@ -69,7 +69,19 @@ include 'language.php';
 
   <main>
 
-    <div class="gameTemplate">
+    <div class="gameTemplate" style="background-image: url('../Images/bg_factory.jpg');">
+
+      <div id="thirdPlate">
+        <div id="box2">
+          <div id="skinBox">
+            <div id="characterBody"></div>
+            <div id="characterHat"></div>
+          </div>
+        </div>
+        <div id="buttonBox">
+          <a href="customization.php" id="skinButton"><?php echo getLanguage("CUSTOM", "PERSONNALISER");  ?></a>
+        </div>
+      </div>
 
       <div id="mainPlate"></div>
 

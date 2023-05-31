@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 
   //Grid* grid;
 
-  ///*int difficulty = 1;
+  //*int difficulty = 1;
   //grid = generate_level(4, &difficulty); 
   //push_to_php(grid);*/
 
@@ -81,6 +81,5 @@ int main(int argc, char **argv) {
   //grid =read_seed(SEED);
   //printgrid(grid);
 
-  printf("%d", 3);
   return EXIT_SUCCESS;
 }

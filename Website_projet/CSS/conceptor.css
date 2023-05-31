@@ -42,6 +42,8 @@ main {
 	background-image: url("../Images/barrel3.jpg");
 
   font-family: 'Kanit';
+
+  position: relative;
 }
 
 
@@ -52,6 +54,8 @@ main {
 
 .gameTemplate {
   height: auto;
+  
+  margin: 30px 0px;
 }
 
 #mainPlate {
@@ -178,28 +182,27 @@ main {
 }
 
 #mainPlate .cratePlace {
-  width: 50px;
-  height: 50px;
-
+  width: 90%;
+  height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  color: #ffe6cd ;
-
+  color: #ffe6cd;
   font-size: 30px;
   text-shadow: 0 0px 5px black;
-
   background-image: url("../Images/Crate.png");
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center;
-
-  transition: opacity .1s ease-in-out;
+  background-color: #341900;
+  border-radius: 3px;
+  box-shadow: inset 0px 0px 0px 2px #ffe6cd;
+  transition: all .1s ease-in-out;
+  cursor: pointer;
 }
 
 #mainPlate .cratePlace:empty {
-  opacity: 0;
+  
 }
 
 #secondPlate {
@@ -346,4 +349,81 @@ div[id^="crate"]{
   aspect-ratio: 1/4;
   position: relative;
   transform: rotate(180deg);
+}
+
+#editTool {
+
+  background-color: #ffe6cd;
+
+  align-items: center;
+  justify-content: center;
+
+  display: flex;
+
+  border-radius: 5px;
+  position: absolute;
+
+  left: 0px;
+  top: 0px;
+
+  opacity: 0;
+
+  box-shadow: 0px 0px 5px 2px black;
+
+  transition: opacity .3s ease-in-out;
+
+  z-index: -1;
+}
+
+#editTool:after {
+  content:'';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  width: 0;
+  height: 0;
+  border-top: solid 10px #ffe6cd;
+  border-left: solid 10px transparent;
+  border-right: solid 10px transparent;
+
+  z-index: -1;
+}
+
+.number, .crateInvChoice {
+  margin: 5px;
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  background-color: #964b00;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30px;
+
+  color: #ffe6cd;
+
+  cursor: pointer;
+
+  transition: all .15s ease-in-out;
+  
+}
+
+.number:hover, .crateInvChoice:hover {
+  transform: scale(1.04);
+}
+
+.crateInvChoice {
+  background-image: url('../Images/crateTop.svg');
+  background-size: cover;
+}
+
+.crateInvChoice.inv {
+  opacity: 0.3;
+}
+
+#mainPlate .cratePlace:hover {
+  transform: scale(1.02);
 }
