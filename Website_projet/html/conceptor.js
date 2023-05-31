@@ -160,7 +160,7 @@ function insertElement(set, x, y, classList) {
 function getElemByCoord(x, y) {
 
   var element = document.querySelector(`#pos_${x}_${y}`);
-
+ 
   return element;
 }
 
