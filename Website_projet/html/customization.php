@@ -131,7 +131,8 @@
 	
 	function changeHat() {
 		let src = hatSelector.options[hatSelector.selectedIndex].getAttribute("src");
-
+		let id =hatSelector.options[hatSelector.selectedIndex].getAttribute("class");
+		document.cookie = `hat=${id};60*60*24*30`;
 		document.querySelector(".hat").style.backgroundImage = `url("${src}")`;
 	}
 

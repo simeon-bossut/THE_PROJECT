@@ -78,18 +78,18 @@ h1 {
   width: 10px;
 }
 
-/* Track */
+
 .container #containerUL::-webkit-scrollbar-track {
   opacity: 0;
 }
 
-/* Handle */
+
 .container #containerUL::-webkit-scrollbar-thumb {
   background: #964b00;
   border-radius: 5px;
 }
 
-/* Handle on hover */
+
 .container #containerUL::-webkit-scrollbar-thumb:hover {
   background: #341900;
 }
