@@ -659,3 +659,23 @@ div[id^="crate"]{
 .box a:hover {
   transform: scale(1.02);
 }
+
+#characterBodyIcon {
+  width: 90%;
+  max-width: 125px;
+  aspect-ratio: 1;
+  position: absolute;
+  
+  background-size: 100%;
+  background-position: center;
+}
+
+#characterHatIcon {
+  width: 90%;
+  max-width: 125px;
+  aspect-ratio: 1;
+  position: absolute;
+
+  background-size: 200%;
+  background-position: center;
+}
