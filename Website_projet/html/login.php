@@ -33,6 +33,30 @@ try {
 }
 
 ?>
+<?php
+if(isset($_POST["con"]) && isset($_SESSION) && isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
+ 
+  $reqPrep2 = "SELECT url FROM hat WHERE id= :id";
+  $req = $conn->prepare($reqPrep2);
+	$req->execute(array(
+			':id' => $id_hat));
+	$url_hat = $req->fetch()[0];
+  $_SESSION["url_hat"]= $url_hat;
+  //echo $url_hat;
+
+}
+
+if(isset($_POST["con"]) && isset($_SESSION) && isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
+  $reqPrep3 = "SELECT url FROM body WHERE id= :id";
+  $req = $conn->prepare($reqPrep3);
+	$req->execute(array(
+			':id' => $id_dude));
+	$url_dude = $req->fetch();
+  $_SESSION["url_dude"]= $url_dude;
+  //echo $url_dude;
+  header("Location: home.php");
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
