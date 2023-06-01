@@ -35,7 +35,7 @@ if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
     $req->execute(array(
 			':email' => $_SESSION["email"])); //Executer la requete
 
-      $id_hat $req->fetch()[0];
+      $id_hat = $req->fetch()[0];
 
 
       $reqdude = "SELECT id_dude FROM acc WHERE email= :email";
@@ -43,22 +43,26 @@ if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
       $req->execute(array(
         ':email' => $_SESSION["email"])); //Executer la requete
   
-        $id_dude $req->fetch()[0];
+        $id_dude = $req->fetch()[0];
 
 
         $requrlhat = "SELECT url FROM hat WHERE id= :id";
         $req = $conn->prepare($requrlhat);
-          $req->execute(array(
-                  ':id' => $id_hat));
-          $url_hat = $req->fetch()[0];
+          $req->execute(array(':id' => $id_hat));
+          $url_hat = $req->fetch();
+          var_dump($url_hat);
         $_SESSION["url_hat"]= $url_hat;
 
         $requrldude = "SELECT url FROM body WHERE id= :id";
         $req = $conn->prepare($requrldude);
-          $req->execute(array(
-                  ':id' => $id_dude));
-          $url_dude = $req->fetch()[0];
+        $req->execute(array(':id' => $id_dude));
+        $url_dude = $req->fetch();
+        var_dump($url_dude);
         $_SESSION["url_dude"]= $url_dude;
+
+      
+        echo var_dump($id_dude);
+        echo var_dump($id_hat);
 }
 
 ?>
