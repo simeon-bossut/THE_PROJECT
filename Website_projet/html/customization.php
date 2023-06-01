@@ -99,8 +99,10 @@
 				</div>
 
 				<div class="charBox">
-					<div class="body"></div>
-					<div class="hat"></div>
+
+					<img class="hat">
+					<img class="body">
+					
 				</div>
 
 			</div>
