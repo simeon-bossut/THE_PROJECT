@@ -25,10 +25,8 @@ class Character {
     this.x = xPos;
     this.y = yPos;
 
-    <?php require("request.php"); ?>
-
-    this.hat  = "<?php if(isset($_SESSION['url_hat'])) { echo $_SESSION['url_hat']; } else { echo 'default'; } ?>";
-    this.body = "<?php if(isset($_SESSION['url_dude'])) { echo $_SESSION['url_dude']; } else { echo 'default'; } ?>";
+    this.hat  = "<?php if(isset($resHat)) { echo $resHat; } else { echo 'default'; } ?>";
+    this.body = "<?php if(isset($resBody)) { echo $resBody; } ?>";
 
     this.direction = "W";
 
