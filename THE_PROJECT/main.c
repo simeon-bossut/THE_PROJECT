@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
   grid->tab[2][3] = 0;
   printgrid(grid);
   printf("%d", is_solved(*grid));
-  //crate_solver(grid);
+  crate_solver(grid);
   printf("\n");
   //hypothesis(gridf, grid);
   //check_loners(gridf,grid);

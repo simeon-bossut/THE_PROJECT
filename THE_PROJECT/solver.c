@@ -267,10 +267,15 @@ void fill_ghost_box(Grid gridj, GhostGrid grid, int value, int i, int j) {
 int analyse2_col(int side, int pos,GhostGrid gridf, Grid gridj)
 {
     int size = gridf.size;
+    int modif = 0;
     if (side == 0)//de haut en bas
     {
 
-        gridf.tab[1][pos][size - 2] = NAS;//si obs=2 , alors n-1 ne peut être en deuxième position
+        if (gridf.tab[1][pos][size - 2] != NAS)//si obs=2 , alors n-1 ne peut être en deuxième position
+        {
+            gridf.tab[1][pos][size - 2] != NAS;
+            modif = 1;
+        }
 
         int val1 = gridj.tab[0][pos];//valeur en première position
         if (val1 == 0)
@@ -281,13 +286,18 @@ int analyse2_col(int side, int pos,GhostGrid gridf, Grid gridj)
         for (int i = 0;i < size - 1 - val1;++i)// si la première case vaut 0, elle est suivie de dim
         {
             gridf.tab[size - 1 - i][pos][size - 1] = NAS;//on interdit n en fin de ligne
+            modif = 1;
         }
-
+        
 
     }
     else// de bas en haut side = 2, dernière ligne
     {
-        gridf.tab[size - 2][size - 1 - pos][size - 2] = NAS;//si obs=2 , alors n-1 ne peut être en deuxième position
+        if (gridf.tab[size - 2][size - 1 - pos][size - 2] != NAS)//si obs=2 , alors n-1 ne peut être en deuxième position
+        {
+            gridf.tab[size - 2][size - 1 - pos][size - 2] == NAS;
+            modif = 1;
+        }
 
 
         int val1 = gridj.tab[size-1][pos];//valeur en première positionc
@@ -299,19 +309,26 @@ int analyse2_col(int side, int pos,GhostGrid gridf, Grid gridj)
         for (int i = 0;i < size - 1 - val1;++i)// si la première case vaut 0, elle est suivie de dim
         {
             gridf.tab[i][size - 1 - pos][size - 1] = NAS;//on interdit n en fin de ligne
+            modif = 1;
         }
 
     }
+    return modif;
 }
 
 
 int analyse2_row(int side, int pos, GhostGrid gridf, Grid gridj)
 {
+    int modif = 0;
     int size = gridf.size;
     if (side == 1)//de droite à gauche
     {
-
-        gridf.tab[pos][size-2][size - 2] = NAS;//si obs=2 , alors n-1 ne peut être en deuxième position
+        if (gridf.tab[pos][size - 2][size - 2] != NAS)
+        {
+            gridf.tab[pos][size - 2][size - 2] == NAS;
+            modif = 1;
+        }
+        //si obs=2 , alors n-1 ne peut être en deuxième position
 
         int val1 = gridj.tab[pos][size-1];//valeur en première position
         if (val1 == 0)
@@ -322,14 +339,18 @@ int analyse2_row(int side, int pos, GhostGrid gridf, Grid gridj)
         for (int i = 0;i < size - 1 - val1;++i)// si la première case vaut 0, elle est suivie de dim
         {
             gridf.tab[pos][i][size - 1] = NAS;//on interdit n en fin de ligne
-            return 1;
+            modif = 1;
         }
 
        
     }
     else// de gauche à droite side = 3, dernière ligne
     {
-        gridf.tab[size-1-pos][1][size - 2] = NAS;//si obs=2 , alors n-1 ne peut être en deuxième position
+        if (gridf.tab[size - 1 - pos][1][size - 2] != NAS)//si obs=2 , alors n-1 ne peut être en deuxième position
+        {
+            gridf.tab[size - 1 - pos][1][size - 2] == NAS;
+            modif = 1;
+        }
 
 
         int val1 = gridj.tab[size-1-pos][0];//valeur en première position
@@ -340,11 +361,11 @@ int analyse2_row(int side, int pos, GhostGrid gridf, Grid gridj)
         for (int i = 0;i < size - 1 - val1;++i)// si la première case vaut 0, elle est suivie de dim
         {
             gridf.tab[size - 1 - pos][size-1-i][size - 1] = NAS;//on interdit n en fin de ligne
-            return 1;
+            modif =1;
         }
        
     }
-    return 0;
+    return modif;
 }
 
 
