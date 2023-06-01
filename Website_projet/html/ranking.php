@@ -44,19 +44,25 @@
 						foreach ($resultat as $row) {
 							echo "<div class='boardElem'>";
 							if($rank==1){
-										echo"<span> <img src='../Images/gold_medal.svg'/> </span>";
+										echo"<span> <img class='medals' src='../Images/gold_medal.svg'/> </span>";
 							}
 							else if($rank==2){
-								echo"<span> <img src='../Images/argent_medal.svg'/> </span>";
+								echo"<span> <img class='medals' src='../Images/silver_medal.svg'/> </span>";
 					}
 							else if($rank==3){
-										echo"<span> <img src='../Images/bronze_medal.svg'/> </span>";
+										echo"<span> <img class='medals' src='../Images/bronze_medal.svg'/> </span>";
 							}
 							else{echo"<span>$rank</span>";}
-													echo"<span>$row[pseudo]</span>
-													<span>$row[score]</span>
-												</div>";
-
+							if($rank<=3){
+											echo"<span class='pseudowinners'>$row[pseudo]</span>
+											<span class='scorewinners'>$row[score]</span>
+											</div>";
+							}
+							else{
+								echo"<span>$row[pseudo]</span>
+								<span>$row[score]</span>
+								</div>";
+							}
 							$rank += 1;
 
 						}
