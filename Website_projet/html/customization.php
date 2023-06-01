@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start(); 
+require("connexion.php");?>
 <?php include("verifLogin.php"); ?>
 <?php 
 	if(isset($_POST["conf"])){
@@ -6,9 +7,9 @@
 	}
 
 
-	require("connexion.php");
+	
 	if(isset($_COOKIE["background"])){
-		$reqPrep1 = "UPDATE acc SET id_back= :id WHERE email=:email"; //La requere SQL: SELECT
+	$reqPrep1 = "UPDATE acc SET id_back= :id WHERE email=:email"; //La requere SQL: SELECT
     $req = $conn->prepare($reqPrep1); //Préparer la requete
     $req->execute(	array(
 				':id' => $_COOKIE["background"],
@@ -17,6 +18,23 @@
 
 	}
 
+
+	if(isset($_POST["conf_body"])){
+		try{
+		$reqPrep2 = "UPDATE acc SET id_hat= :id_hat, id_dude= :id_dude WHERE email=:email"; //La requere SQL: SELECT
+		$req = $conn->prepare($reqPrep2);
+		$req->execute(	array(
+			':id_hat' => $_COOKIE["hat"],
+			':id_dude' => $_COOKIE["dude"],
+			':email' => $_SESSION["email"]
+		)); 
+	}catch (Exception $e) {
+		die("Erreur : " . $e->getMessage());
+	}
+
+}
+	
+	
 
 ?>
 <!DOCTYPE html>
@@ -89,9 +107,10 @@
 						</select>
 					<label>Skin :</label>
 						<select id="bodySelect">
-							<option class="1">Red</option>
-							<option class="2">Blue</option>
-							<option class="3">Green</option>
+                            <option class="1" src="../Images/customizations/character_default.svg">Red</option>
+							<option class="2" src="../Images/customizations/red.svg">Red</option>
+							<option class="3" src="../Images/customizations/blue.svg">Blue</option>
+							<option class="4" src="../Images/customizations/green.svg">Green</option>
 						</select>
 
 					<p class="para">Choose your cosmetics to dress up your character! Wide choices are available. Grab a cool hat?
@@ -144,7 +163,8 @@
 
 	function changeBody() {
 		let src = bodySelector.options[bodySelector.selectedIndex].getAttribute("src");
-
+		let id =bodySelector.options[bodySelector.selectedIndex].getAttribute("class");
+		document.cookie = `dude=${id};60*60*24*30`;
 		document.querySelector(".body").style.backgroundImage = `url("${src}")`;
 	}
 

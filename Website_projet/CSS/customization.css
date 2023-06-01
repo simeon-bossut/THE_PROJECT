@@ -163,7 +163,7 @@ select option {
   margin: 30px 0px;
 }
 
-.containerContent iframe, .containerContent img {
+.containerContent iframe, .containerContent .img_back {
   width: 90%;
   aspect-ratio: 16/9;
   border-radius: 10px;
@@ -186,6 +186,7 @@ select option {
   width: 200px;
   height: 200px;
   position: absolute;
+  
   z-index: 1;
 }
 
@@ -194,4 +195,8 @@ select option {
   height: 200px;
   margin:auto;
   position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
