@@ -20,13 +20,17 @@ require("connexion.php");?>
 
 
 	if(isset($_POST["conf_body"])){
-		$reqPrep2 = "UPDATE acc SET id_hat= :id_hat AND id_dude= :id_dude WHERE email=:email"; //La requere SQL: SELECT
+		try{
+		$reqPrep2 = "UPDATE acc SET id_hat= :id_hat, id_dude= :id_dude WHERE email=:email"; //La requere SQL: SELECT
 		$req = $conn->prepare($reqPrep2);
 		$req->execute(	array(
 			':id_hat' => $_COOKIE["hat"],
 			':id_dude' => $_COOKIE["dude"],
 			':email' => $_SESSION["email"]
 		)); 
+	}catch (Exception $e) {
+		die("Erreur : " . $e->getMessage());
+	}
 
 }
 	
