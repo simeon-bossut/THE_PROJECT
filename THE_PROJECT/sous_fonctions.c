@@ -191,6 +191,7 @@ int complete_ghost(GhostGrid gridf, Grid gridj) {
 
 
 
+
 int check_row(int val, GhostGrid* gridf, int row, int* pos) {
     char*** tab = gridf->tab;
     int compt = 0;
