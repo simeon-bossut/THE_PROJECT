@@ -42,9 +42,18 @@
 						$rank = 1;
 
 						foreach ($resultat as $row) {
-							echo "<div class='boardElem'>
-													<span>$rank</span>
-													<span>$row[pseudo]</span>
+							echo "<div class='boardElem'>";
+							if($rank==1){
+										echo"<span> <img src='../Images/gold_medal.svg'/> </span>";
+							}
+							else if($rank==2){
+								echo"<span> <img src='../Images/argent_medal.svg'/> </span>";
+					}
+							else if($rank==3){
+										echo"<span> <img src='../Images/bronze_medal.svg'/> </span>";
+							}
+							else{echo"<span>$rank</span>";}
+													echo"<span>$row[pseudo]</span>
 													<span>$row[score]</span>
 												</div>";
 
