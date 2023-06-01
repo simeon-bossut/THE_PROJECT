@@ -50,13 +50,9 @@ class Character {
       document.querySelector("#characterHatIcon").style.backgroundImage = 'none';
     }      
 
-    if(this.body != 'default') {
-      document.querySelector("#characterBody").style.backgroundImage = 'url("../Images/customizations/' + this.body + '.svg")';
-      document.querySelector("#characterBodyIcon").style.backgroundImage = 'url("../Images/customizations/' + this.body + '.svg")';
-    } else {
-      document.querySelector("#characterBody").style.backgroundImage = 'url("../Images/customizations/character_default.svg")';
-      document.querySelector("#characterBodyIcon").style.backgroundImage = 'url("../Images/customizations/character_default.svg")';
-    }
+    document.querySelector("#characterBody").style.backgroundImage = 'url("../Images/customizations/' + this.body + '.svg")';
+    document.querySelector("#characterBodyIcon").style.backgroundImage = 'url("../Images/customizations/' + this.body + '.svg")';
+    
   }
 
   drawChar() { 

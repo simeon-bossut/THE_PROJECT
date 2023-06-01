@@ -49,20 +49,15 @@ if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
         $requrlhat = "SELECT url FROM hat WHERE id= :id";
         $req = $conn->prepare($requrlhat);
           $req->execute(array(':id' => $id_hat));
-          $url_hat = $req->fetch();
-          var_dump($url_hat);
+          $url_hat = $req->fetch()[0];
         $_SESSION["url_hat"]= $url_hat;
 
         $requrldude = "SELECT url FROM body WHERE id= :id";
         $req = $conn->prepare($requrldude);
         $req->execute(array(':id' => $id_dude));
-        $url_dude = $req->fetch();
-        var_dump($url_dude);
+        $url_dude = $req->fetch()[0];
         $_SESSION["url_dude"]= $url_dude;
 
-      
-        echo var_dump($id_dude);
-        echo var_dump($id_hat);
 }
 
 ?>
