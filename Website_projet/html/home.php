@@ -139,15 +139,21 @@ if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
       <div class="victoryScreen">
         <div class="victoryBox">
           <div class="victoryTitle">Congratulations</div>
+
+        <div class="victoryBrownBG">
+
           <div class="victoryInfo">
-            <div class="victoryInfoContent" id="timerVictory">18:54</div>
-            <div class="victoryInfoContent" id="moveVictory">24</div>
+            <div class="victoryInfoContent" id="timerVictory">Time : 18:54</div>
+            <div class="victoryInfoContent" id="moveVictory">Moves : 24</div>
           </div>
           <div class="victoryScores">
-            <div class="victoryScoresInfo" id="xpVictory">+ 500</div>
-            <div class="victoryScoresInfo" id="coinsVictory">+ 500</div>
+            <div class="victoryScoresInfo" id="xpVictory">XP : +500</div>
+            <div class="victoryScoresInfo" id="coinsVictory">Coins : +500</div>
           </div>
-          <div class="victoryLevel">24</div>
+
+        </div>
+
+          <div class="victoryLevel">Level : 24</div>
         </div>
       </div>
 
