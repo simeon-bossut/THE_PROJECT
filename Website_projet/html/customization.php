@@ -89,9 +89,9 @@
 						</select>
 					<label>Skin :</label>
 						<select id="bodySelect">
-							<option class="1">Red</option>
-							<option class="2">Blue</option>
-							<option class="3">Green</option>
+							<option class="1" src="../Images/customizations/red.svg">Red</option>
+							<option class="2" src="../Images/customizations/blue.svg">Blue</option>
+							<option class="3" src="../Images/customizations/green.svg">Green</option>
 						</select>
 
 					<p class="para">Choose your cosmetics to dress up your character! Wide choices are available. Grab a cool hat?
