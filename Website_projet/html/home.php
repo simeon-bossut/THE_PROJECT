@@ -191,7 +191,10 @@ catch (Exception $e) {
               <span>670</span>
             </div>
           </div>
-          <div class="victoryLevel">24</div>
+
+        </div>
+
+          <div class="victoryLevel">Level : 24</div>
         </div>
       </div>
 
