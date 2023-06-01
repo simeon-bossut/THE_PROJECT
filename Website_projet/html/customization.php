@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start(); 
+require("connexion.php");?>
 <?php include("verifLogin.php"); ?>
 <?php 
 	if(isset($_POST["conf"])){
@@ -6,9 +7,9 @@
 	}
 
 
-	require("connexion.php");
+	
 	if(isset($_COOKIE["background"])){
-		$reqPrep1 = "UPDATE acc SET id_back= :id WHERE email=:email"; //La requere SQL: SELECT
+	$reqPrep1 = "UPDATE acc SET id_back= :id WHERE email=:email"; //La requere SQL: SELECT
     $req = $conn->prepare($reqPrep1); //Préparer la requete
     $req->execute(	array(
 				':id' => $_COOKIE["background"],
@@ -17,6 +18,23 @@
 
 	}
 
+
+	if(isset($_POST["conf_body"])){
+		try{
+		$reqPrep2 = "UPDATE acc SET id_hat= :id_hat, id_dude= :id_dude WHERE email=:email"; //La requere SQL: SELECT
+		$req = $conn->prepare($reqPrep2);
+		$req->execute(	array(
+			':id_hat' => $_COOKIE["hat"],
+			':id_dude' => $_COOKIE["dude"],
+			':email' => $_SESSION["email"]
+		)); 
+	}catch (Exception $e) {
+		die("Erreur : " . $e->getMessage());
+	}
+
+}
+	
+	
 
 ?>
 <!DOCTYPE html>
@@ -75,13 +93,13 @@
 							<option class="1" >None</option>
 							<option class="2" src="../Images/customizations/crown.svg">Crown</option>
 							<option class="3" src="../Images/customizations/aureole.svg">Aureole</option>
-							<option class="4" src="../Images/customizations/bull_horns.svg">Bull Horns</option>
-							<option class="5" src="../Images/customizations/headset.svg">Headset</option>
+							<option class="4" src="../Images/customizations/corns.svg">Bull Horns</option>
+							<option class="5" src="../Images/customizations/audio_helmet.svg">Headset</option>
 							<option class="6" src="../Images/customizations/biker_helmet.svg">Biker Helmet</option>
 							<option class="7" src="../Images/customizations/cap.svg">Cap</option>
 							<option class="8" src="../Images/customizations/cowboy_hat.svg">Cowboy Hat</option>
-							<option class="9" src="../Images/customizations/construction_helmet.svg">Construction Helmet</option>
-							<option class="10" src="../Images/customizations/mining_helmet.svg">Mining Helmet</option>
+							<option class="9" src="../Images/customizations/work_helmet.svg">Construction Helmet</option>
+							<option class="10" src="../Images/customizations/miner_helmet.svg">Mining Helmet</option>
 							<option class="11" src="../Images/customizations/viking_helmet.svg">Viking Helmet</option>
 							<option class="12" src="../Images/customizations/drink_helmet.svg">Drink Helmet</option>
 							<option class="13" src="../Images/customizations/silver_robot.svg">Silver Robot</option>
@@ -89,18 +107,29 @@
 						</select>
 					<label>Skin :</label>
 						<select id="bodySelect">
-							<option class="1">Red</option>
-							<option class="2">Blue</option>
-							<option class="3">Green</option>
+                            <option class="1" src="../Images/customizations/character_default.svg">Default Character</option>
+							<option class="2" src="../Images/customizations/red.svg">Red</option>
+							<option class="3" src="../Images/customizations/blue.svg">Blue</option>
+							<option class="4" src="../Images/customizations/green.svg">Green</option>
+                            <option class="5" src="../Images/customizations/orange.svg">Orange</option>
+                            <option class="6" src="../Images/customizations/purple.svg">Purple</option>
+                            <option class="7" src="../Images/customizations/yellow.svg">Yellow</option>
+                            <option class="8" src="../Images/customizations/green.svg">Cyan</option>
 						</select>
 
 					<p class="para">Choose your cosmetics to dress up your character! Wide choices are available. Grab a cool hat?
 						A serious one? An impressive? Choose your style and use your imagination </p>
+
+					<form class="form" action="" method="post">
+						<input type="submit" name="conf_body">Submit</button>
+					</form>
 				</div>
 
 				<div class="charBox">
-					<div class="body"></div>
-					<div class="hat"></div>
+
+					<img class="hat">
+					<img class="body">
+					
 				</div>
 
 			</div>
@@ -131,13 +160,15 @@
 	
 	function changeHat() {
 		let src = hatSelector.options[hatSelector.selectedIndex].getAttribute("src");
-
+		let id =hatSelector.options[hatSelector.selectedIndex].getAttribute("class");
+		document.cookie = `hat=${id};60*60*24*30`;
 		document.querySelector(".hat").style.backgroundImage = `url("${src}")`;
 	}
 
 	function changeBody() {
 		let src = bodySelector.options[bodySelector.selectedIndex].getAttribute("src");
-
+		let id =bodySelector.options[bodySelector.selectedIndex].getAttribute("class");
+		document.cookie = `dude=${id};60*60*24*30`;
 		document.querySelector(".body").style.backgroundImage = `url("${src}")`;
 	}
 

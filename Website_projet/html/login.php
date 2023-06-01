@@ -4,6 +4,7 @@ session_start();
 $find = true;
 
 require("request.php");
+require("connexion.php");
 
 try {
 	if(isset($_POST["con"])) {
@@ -13,23 +14,48 @@ try {
 			$_SESSION["authentifie"] = true;
 			$_SESSION["email"] = $resultat[0]["email"];
 			$_SESSION["civility"] = $resultat[0]["civility"];
+      $id_dude = $resultat[0]["id_dude"];
+      $id_hat= $resultat[0]["id_hat"];
+      $id_back = $resultat[0]["id_back"];
 			$_SESSION["pseudo"] = $resultat[0]["pseudo"];
 
-			setcookie("email", $row["email"], time() + 60 * 60 * 24 * 30);
+			
 
-			header("Location: home.php");
+			
 		}
 		
 		else {
 			$find = false;
 		}
 	}
-}
-
-catch (Exception $e) {
+}catch (Exception $e) {
 	die("Erreur : " . $e->getMessage());
 }
 
+?>
+<?php
+if(isset($_POST["con"]) && isset($_SESSION) && isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
+ 
+  $reqPrep2 = "SELECT url FROM hat WHERE id= :id";
+  $req = $conn->prepare($reqPrep2);
+	$req->execute(array(
+			':id' => $id_hat));
+	$url_hat = $req->fetch()[0];
+  $_SESSION["url_hat"]= $url_hat;
+  //echo $url_hat;
+
+}
+
+if(isset($_POST["con"]) && isset($_SESSION) && isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
+  $reqPrep3 = "SELECT url FROM body WHERE id= :id";
+  $req = $conn->prepare($reqPrep3);
+	$req->execute(array(
+			':id' => $id_dude));
+	$url_dude = $req->fetch();
+  $_SESSION["url_dude"]= $url_dude;
+  //echo $url_dude;
+  //header("Location: home.php");
+  }
 ?>
 
 <!DOCTYPE html>

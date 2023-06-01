@@ -163,7 +163,7 @@ select option {
   margin: 30px 0px;
 }
 
-.containerContent iframe, .containerContent img {
+.containerContent iframe, .containerContent .img_back {
   width: 90%;
   aspect-ratio: 16/9;
   border-radius: 10px;
@@ -176,8 +176,27 @@ select option {
 	padding-top: 5%;
 }
 
-.body, .hat {
-  width: 50px;
-  height: 50px;
-  background-size: contain;
+.body {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}
+
+.hat {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+
+  z-index: 1;
+}
+
+.charBox {
+  width: 200px;
+  height: 200px;
+  margin:auto;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

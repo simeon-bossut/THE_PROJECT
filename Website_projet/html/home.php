@@ -105,24 +105,24 @@ try {
 
     <div class="gameTemplate" style="background-image: url('<?php echo $resultat[0];?>');">
 
-      <div id="thirdPlate">
-        <div id="box2">
-          <div id="skinBox">
+    <div class="victoryScreen"></div>
+
+      <div class="secondPlate">
+        <div class="box">
+          <div class="view">
             <div id="characterBodyIcon"></div>
             <div id="characterHatIcon"></div>
           </div>
-        </div>
-        <div id="buttonBox">
-          <a href="customization.php" id="skinButton"><?php echo getLanguage("CUSTOM", "PERSONNALISER");  ?></a>
+          <a href="customization.php" id="skinButton"><?php echo getLanguage("PERSONNALISER", "CUSTOM");  ?></a>
         </div>
       </div>
 
       <div id="mainPlate"></div>
 
-      <div id="secondPlate">
-        <div id="box">
-          <div id="view">
-            <div id="viewBox"></div>
+      <div class="secondPlate">
+        <div class="box">
+          <div class="view" id="povBox">
+            <div class="viewBox" id="povBoxContent"></div>
           </div>
           <p>Point Of View</p>
         </div>
@@ -176,7 +176,7 @@ try {
   </div>
 
 
-  <script src="game.js"></script>
+  <?php include("game.php"); ?>
   <script src="music.js"></script>
 
 

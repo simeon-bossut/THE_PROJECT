@@ -1,6 +1,8 @@
+<script>
+
 var gameSet = document.querySelector('#mainPlate');
 var gameTab = [];
-var viewSet = document.querySelector('#viewBox');
+var viewSet = document.querySelector('#povBoxContent');
 
 
 
@@ -23,8 +25,10 @@ class Character {
     this.x = xPos;
     this.y = yPos;
 
-    this.hat = hatSkin || "default";
-    this.body = bodySkin || "default";
+    <?php require("request.php"); ?>
+
+    this.hat  = "<?php if(isset($_SESSION['url_hat'])) { echo $_SESSION['url_hat']; } else { echo 'default'; } ?>";
+    this.body = "<?php if(isset($_SESSION['url_dude'])) { echo $_SESSION['url_dude']; } else { echo 'default'; } ?>";
 
     this.direction = "W";
 
@@ -37,6 +41,22 @@ class Character {
                                                                       <div id="characterHat"></div>
                                                                       <div id="characterCrate"></div>
                                                                     </div>`;
+    
+    if(this.hat != 'default') {
+      document.querySelector("#characterHat").style.backgroundImage = 'url("../Images/customizations/' + this.hat + '.svg")';
+      document.querySelector("#characterHatIcon").style.backgroundImage = 'url("../Images/customizations/' + this.hat + '.svg")';
+    } else {
+      document.querySelector("#characterHat").style.backgroundImage = 'none';
+      document.querySelector("#characterHatIcon").style.backgroundImage = 'none';
+    }      
+
+    if(this.body != 'default') {
+      document.querySelector("#characterBody").style.backgroundImage = 'url("../Images/customizations/' + this.body + '.svg")';
+      document.querySelector("#characterBodyIcon").style.backgroundImage = 'url("../Images/customizations/' + this.body + '.svg")';
+    } else {
+      document.querySelector("#characterBody").style.backgroundImage = 'url("../Images/customizations/character_default.svg")';
+      document.querySelector("#characterBodyIcon").style.backgroundImage = 'url("../Images/customizations/character_default.svg")';
+    }
   }
 
   drawChar() { 
@@ -450,7 +470,7 @@ function crateDrop() {
 
 
 
-const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space'];
+const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Semicolon', 'KeyL'];
 
 window.addEventListener('keydown', e => {
   if (listKeys.includes(e.code))
@@ -482,10 +502,10 @@ document.addEventListener('keydown', e => {
   }*/
 
   // Crates actions
-  else if(key == "KeyF") {
+  else if(key == "KeyL") {
     crateGrab();
   }
-  else if(key == "Space") {
+  else if(key == "Semicolon") {
     crateDrop();
   }
 })
@@ -571,3 +591,5 @@ function setView() {
     viewSet.innerHTML += `<div id = "crate${arr[i]}"></div>`;
   }
 }
+
+</script>
