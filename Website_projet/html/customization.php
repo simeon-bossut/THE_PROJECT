@@ -115,6 +115,8 @@ require("connexion.php");?>
                             <option class="6" src="../Images/customizations/purple.svg">Purple</option>
                             <option class="7" src="../Images/customizations/yellow.svg">Yellow</option>
                             <option class="8" src="../Images/customizations/green.svg">Cyan</option>
+                            <option class="9" src="../Images/customizations/plus_minus.svg">Plus Minus</option>
+                            <option class="10" src="../Images/customizations/crate_body.svg">Crate</option>
 						</select>
 
 					<p class="para">Choose your cosmetics to dress up your character! Wide choices are available. Grab a cool hat?
