@@ -2,7 +2,10 @@
 include 'language.php';
 
 require("connexion.php");
-if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
+
+require("request.php");
+
+/*if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
 	try{
 	$reqPrep2 = "SELECT id_back FROM acc WHERE email= :email";
 	$req = $conn->prepare($reqPrep2);
@@ -56,8 +59,37 @@ if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
         $req = $conn->prepare($requrldude);
         $req->execute(array(':id' => $id_dude));
         $url_dude = $req->fetch()[0];
-        $_SESSION["url_dude"]= $url_dude;
+        $_SESSION["url_dude"]= $url_dude;*/
 
+$resBack;
+$resBody;
+$resHat;
+
+try {
+
+  if(isset($_SESSION) && isset($_SESSION['email'])) {
+
+    $res = request("SELECT * FROM acc WHERE email = ?", true, array($_SESSION['email']));
+
+    $id_back = $res['id_back'];
+    $id_dude = $res['id_dude'];
+    $id_hat  = $res['id_hat'];
+
+    $resBack = request("SELECT url FROM background WHERE id = ?", true, array($id_back))[0];
+    $resHat  = request("SELECT url FROM hat WHERE id = ?", true, array($id_hat))[0];
+    $resBody = request("SELECT url FROM body WHERE id = ?", true, array($id_dude))[0];
+
+  }
+
+  else {
+    $resBack = 'bg_factory';
+    $resHat = null;
+    $resBody = 'character_default';
+  }
+} 
+
+catch (Exception $e) {
+	die("Erreur : " . $e->getMessage());
 }
 
 ?>
@@ -134,7 +166,7 @@ if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
 
   <main>
 
-    <div class="gameTemplate" style="background-image: url('<?php echo $resultat[0];?>');">
+    <div class="gameTemplate" style="background-image: url('../Images/<?php echo $resBack; ?>.jpg');">
 
       <div class="victoryScreen">
         <div class="victoryBox">
