@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start(); 
+require("connexion.php");?>
 <?php include("verifLogin.php"); ?>
 <?php 
 	if(isset($_POST["conf"])){
@@ -6,9 +7,9 @@
 	}
 
 
-	require("connexion.php");
+	
 	if(isset($_COOKIE["background"])){
-		$reqPrep1 = "UPDATE acc SET id_back= :id WHERE email=:email"; //La requere SQL: SELECT
+	$reqPrep1 = "UPDATE acc SET id_back= :id WHERE email=:email"; //La requere SQL: SELECT
     $req = $conn->prepare($reqPrep1); //Préparer la requete
     $req->execute(	array(
 				':id' => $_COOKIE["background"],
@@ -17,6 +18,19 @@
 
 	}
 
+
+	if(isset($_POST["conf_body"])){
+		$reqPrep2 = "UPDATE acc SET id_hat= :id_hat AND id_dude= :id_dude WHERE email=:email"; //La requere SQL: SELECT
+		$req = $conn->prepare($reqPrep2);
+		$req->execute(	array(
+			':id_hat' => $_COOKIE["hat"],
+			':id_dude' => $_COOKIE["dude"],
+			':email' => $_SESSION["email"]
+		)); 
+
+}
+	
+	
 
 ?>
 <!DOCTYPE html>
@@ -144,7 +158,8 @@
 
 	function changeBody() {
 		let src = bodySelector.options[bodySelector.selectedIndex].getAttribute("src");
-
+		let id =bodySelector.options[bodySelector.selectedIndex].getAttribute("class");
+		document.cookie = `dude=${id};60*60*24*30`;
 		document.querySelector(".body").style.backgroundImage = `url("${src}")`;
 	}
 
