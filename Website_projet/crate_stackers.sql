@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : jeu. 01 juin 2023 à 09:13
+-- Généré le : jeu. 01 juin 2023 à 12:58
 -- Version du serveur : 5.7.24
 -- Version de PHP : 8.0.1
 
@@ -44,7 +44,7 @@ CREATE TABLE `acc` (
 --
 
 INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`, `score`, `level`, `id_back`, `id_dude`, `id_hat`) VALUES
-('admin', 'coucou', 'M', 'azer', NULL, NULL, 1, 1, 5),
+('admin', 'coucou', 'M', 'azer', NULL, NULL, 1, 10, 7),
 ('anne.cauche@yahoo.fr', 'Annouchka', 'Mme', 'coucou', NULL, NULL, 1, 1, 0),
 ('azef@ezf', 'azer', 'M', 'azer', NULL, NULL, 2, 1, 0),
 ('lucas.verportern@gmail.com', 'Yiroes', 'M', 'Zoeomg', 5000, NULL, 1, 1, 0),
@@ -87,6 +87,22 @@ CREATE TABLE `body` (
   `id` int(2) NOT NULL,
   `url` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `body`
+--
+
+INSERT INTO `body` (`id`, `url`) VALUES
+(1, 'character_default'),
+(2, 'red'),
+(3, 'blue'),
+(4, 'green'),
+(5, 'orange'),
+(6, 'purple'),
+(7, 'yellow'),
+(8, 'cyan'),
+(9, 'plus_minus'),
+(10, 'crate_body');
 
 -- --------------------------------------------------------
 
@@ -154,7 +170,7 @@ ALTER TABLE `hat`
 -- AUTO_INCREMENT pour la table `body`
 --
 ALTER TABLE `body`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `hat`
