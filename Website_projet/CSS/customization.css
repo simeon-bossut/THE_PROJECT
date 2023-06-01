@@ -177,8 +177,8 @@ select option {
 }
 
 .body {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   position: absolute;
 }
 
@@ -186,7 +186,7 @@ select option {
   width: 200px;
   height: 200px;
   position: absolute;
-  
+
   z-index: 1;
 }
 
