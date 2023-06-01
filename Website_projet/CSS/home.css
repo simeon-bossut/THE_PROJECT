@@ -576,8 +576,6 @@ div[id^="crate"]{
   background-size: 80% 80%;
   background-repeat: no-repeat;
   background-position: center;
-
-  background-image: url("../Images/customizations/character_default.svg");
   background-size: cover;
 }
 
@@ -587,11 +585,9 @@ div[id^="crate"]{
   width: 200%;
   height: 200%;
 
-  background-size: 75%;
+  background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
-
-  background-image: url("../Images/customizations/crown.svg");
 }
 
 
