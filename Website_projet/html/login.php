@@ -4,6 +4,7 @@ session_start();
 $find = true;
 
 require("request.php");
+require("connexion.php");
 
 try {
 	if(isset($_POST["con"])) {
@@ -13,24 +14,26 @@ try {
 			$_SESSION["authentifie"] = true;
 			$_SESSION["email"] = $resultat[0]["email"];
 			$_SESSION["civility"] = $resultat[0]["civility"];
+      $id_dude = $resultat[0]["id_dude"];
+      $id_hat= $resultat[0]["id_hat"];
+      $id_back = $resultat[0]["id_back"];
 			$_SESSION["pseudo"] = $resultat[0]["pseudo"];
+      header("Location: home.php");
+			
 
-			setcookie("email", $row["email"], time() + 60 * 60 * 24 * 30);
-
-			header("Location: home.php");
+			
 		}
 		
 		else {
 			$find = false;
 		}
 	}
-}
-
-catch (Exception $e) {
+}catch (Exception $e) {
 	die("Erreur : " . $e->getMessage());
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +73,7 @@ catch (Exception $e) {
       </div>
 
       <div class="newacc">
-        <p><?php  echo getLanguage("Vous n'avez pas encore un compte?","You don't have an account yet?");  ?><a href="signup.php">Sign up!</a></p>
+        <p><?php  echo getLanguage("Vous n'avez pas encore un compte? ","You don't have an account yet? ");  ?><a href="signup.php">Sign up!</a></p>
       </div>
 
     </form>

@@ -44,6 +44,7 @@ int Length(char* string, int size);
 int complete_ghost(GhostGrid gridf, Grid gridj);
 int modif_box(int i, int j, GhostGrid gridf, Grid gridj);
 int** pov_separation(Grid grid);
+int resolve_obv_1(Grid grid, GhostGrid gridf);
 //SubFunction End
 
 
@@ -53,6 +54,7 @@ void fill_ghost(GhostGrid gridf, Grid gridj);
 void maj_ghost(GhostGrid gridf, Grid gridj);
 int fill_loners(Grid* gridj, GhostGrid gridf);
 int hypothesis(GhostGrid* gridf, Grid* gridj);
+int resolve_with_obv(Grid grid, GhostGrid gridf);
 int Rule2(GhostGrid gridf, Grid gridj);
 //Solver end
 

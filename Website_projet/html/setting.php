@@ -1,6 +1,6 @@
 	<?php session_start(); ?>
 
-	<?php include("verifLogin.php"); ?>
+
 
 	<?php
 	if (isset($_POST['checked'])) {
@@ -35,7 +35,7 @@
 		<main>
 
 			<header>
-				<h1><?php  echo getLanguage("Paramètres","Settings");  ?> </h1>
+				<h1><?php  echo getLanguage("Paramètres","Settings");  echo $_SESSION['url_hat'];?> </h1>
 			</header>
 
 			<div class="container">
@@ -58,7 +58,7 @@
 						<button class="bouton" type="submit" name="Modifier">Choose!</button>
 					</form>
 				</div>	
-
+			<?php if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){?>
 				<div class="form">
 					<h2><?php  echo getLanguage("Modifie ton compte","Modify your account");  ?></h2>
 
@@ -111,6 +111,9 @@
 						</div>
 					</form>
 				</div>
+				<?php } else{?>
+					<div  class="choice"> <p> <?php  echo getLanguage("Vous devez être connecté pour modifier votre profil","Need to be connected to modify your profil"); ?></div>
+					<?php } ?>
 			</div>
 		</main>
 

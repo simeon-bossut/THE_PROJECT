@@ -27,7 +27,38 @@ try {
 }catch (Exception $e) {
 	die("Erreur : " . $e->getMessage());
 }
+$id_hat =0;
+$id_dude = 0;
+if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
+    $reqhat = "SELECT id_hat FROM acc WHERE email= :email";
+    $req = $conn->prepare($reqhat);
+    $req->execute(array(
+			':email' => $_SESSION["email"])); //Executer la requete
 
+      $id_hat = $req->fetch()[0];
+
+
+      $reqdude = "SELECT id_dude FROM acc WHERE email= :email";
+      $req = $conn->prepare($reqdude);
+      $req->execute(array(
+        ':email' => $_SESSION["email"])); //Executer la requete
+  
+        $id_dude = $req->fetch()[0];
+
+
+        $requrlhat = "SELECT url FROM hat WHERE id= :id";
+        $req = $conn->prepare($requrlhat);
+          $req->execute(array(':id' => $id_hat));
+          $url_hat = $req->fetch()[0];
+        $_SESSION["url_hat"]= $url_hat;
+
+        $requrldude = "SELECT url FROM body WHERE id= :id";
+        $req = $conn->prepare($requrldude);
+        $req->execute(array(':id' => $id_dude));
+        $url_dude = $req->fetch()[0];
+        $_SESSION["url_dude"]= $url_dude;
+
+}
 
 ?>
 
@@ -76,12 +107,10 @@ try {
       <a href="conceptor.php">
         <div class="buttonLogo"><?php echo getLanguage("Créateur de niveau", "Level Creator");  ?></div>
       </a>
-		</div>
-		<div class="buttonsLogo">
       <a href="setting.php">
         <div class="buttonLogo"><?php echo getLanguage("Paramètres", "Settings");  ?></div>
       </a>
-    </div>
+		</div>
 		<div class="buttonsLogo">
     <a href=""><img src="../Images/complete_logo.png" id="logo"></a>
 		</div>
@@ -89,12 +118,10 @@ try {
       <a href="ranking.php">
         <div class="buttonLogo"><?php echo getLanguage("Classement", "Leaderboards");  ?></div>
       </a>
-			</div>
-			<div class="buttonsLogo">
       <?php if (isset($_SESSION["authentifie"]) &&  $_SESSION["authentifie"] == true) { ?>
-        <a href="logout.php">
-          <div class="buttonLogo"><?php echo getLanguage("Déconnexion", "Logout");  ?></div>
-        </a>
+      <a href="logout.php">
+        <div class="buttonLogo"><?php echo getLanguage("Déconnexion", "Logout");  ?></div>
+      </a>
 
       <?php
       } else {  ?>
@@ -109,24 +136,37 @@ try {
 
     <div class="gameTemplate" style="background-image: url('<?php echo $resultat[0];?>');">
 
-      <div id="thirdPlate">
-        <div id="box2">
-          <div id="skinBox">
-            <div id="characterBody"></div>
-            <div id="characterHat"></div>
+      <div class="victoryScreen">
+        <div class="victoryBox">
+          <div class="victoryTitle">Congratulations</div>
+          <div class="victoryInfo">
+            <div class="victoryInfoContent" id="timerVictory">18:54</div>
+            <div class="victoryInfoContent" id="moveVictory">24</div>
           </div>
+          <div class="victoryScores">
+            <div class="victoryScoresInfo" id="xpVictory">+ 500</div>
+            <div class="victoryScoresInfo" id="coinsVictory">+ 500</div>
+          </div>
+          <div class="victoryLevel">24</div>
         </div>
-        <div id="buttonBox">
-          <a href="customization.php" id="skinButton"><?php echo getLanguage("CUSTOM", "PERSONNALISER");  ?></a>
+      </div>
+
+      <div class="secondPlate">
+        <div class="box">
+          <div class="view">
+            <div id="characterBodyIcon"></div>
+            <div id="characterHatIcon"></div>
+          </div>
+          <a href="customization.php" id="skinButton"><?php echo getLanguage("PERSONNALISER", "CUSTOM");  ?></a>
         </div>
       </div>
 
       <div id="mainPlate"></div>
 
-      <div id="secondPlate">
-        <div id="box">
-          <div id="view">
-            <div id="viewBox"></div>
+      <div class="secondPlate">
+        <div class="box">
+          <div class="view" id="povBox">
+            <div class="viewBox" id="povBoxContent"></div>
           </div>
           <p>Point Of View</p>
         </div>
@@ -180,7 +220,7 @@ try {
   </div>
 
 
-  <script src="game.js"></script>
+  <?php include("game.php"); ?>
   <script src="music.js"></script>
 
 

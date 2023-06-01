@@ -99,7 +99,7 @@ void reduce_row(int row, int col, int valmin, GhostGrid grid)
 
 int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
     int size = gridj.size;
-    int modif = 0;
+    int modif = NOT_FOUND;
     int obv_1 = NAS;
     int obv_2 = NAS;
     int val1=0;
@@ -139,24 +139,25 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
     if (val1 == gridf.size)//Cas suite de 1 à n sur toute la colonne
     {
         suite_col(i, j, gridf);
-        modif = 1;
+        modif = FOUND;
     }
     else if (val2 == gridj.size)//Cas suite de 1 à n sur toute la colonne
     {
         suite_row(i, j, gridf);
-        modif = 1;
+        modif = FOUND;
     }
     else if (val1 == 1 ||  val2 == 1) // cas le plus simple, on met n (size)
     {
         put_number(size, i, j, gridf);
-        modif = 1;
+        modif = FOUND;
     }
 
     
-    
     if (obv_1 != NAS)
     {
+
         int least = size - gridj.obv[obv_1] + 2;//valeur la plus petite a bannir dans la case [i][j]
+
         if (least <= gridf.size)
         {
             reduce_col(i, j, least, gridf);
@@ -175,7 +176,7 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
 }
 
 int complete_ghost(GhostGrid gridf, Grid gridj) {
-    int modif = 0;
+    int modif = NOT_FOUND;
     int size = gridj.size;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
@@ -285,4 +286,39 @@ int** pov_separation(Grid grid) {
     tab[2] = south;
     tab[3] = west;
     return tab;
+}
+
+int resolve_obv_1(Grid grid, GhostGrid gridf) {
+    int** directions = pov_separation(grid);
+    int* north = directions[0];
+    int* east = directions[1];
+    int* south = directions[2];
+    int* west = directions[3];
+    free(directions);
+    int res = NOT_FOUND;
+    int size = grid.size;
+    for (int i = 0; i < size; i++)
+    {
+        if (north[i] == size)
+        {
+            fill_ghost_box(grid, gridf, size, i, 0);
+            res = FOUND;
+        }
+        if (east[i] == size)
+        {
+            fill_ghost_box(grid, gridf, size, size - 1, i);
+            res = FOUND;
+        }
+        if (south[i] == size)
+        {
+            fill_ghost_box(grid, gridf, size, i, size - 1);
+            res = FOUND;
+        }
+        if (west[i] == size)
+        {
+            fill_ghost_box(grid, gridf, size, 0, i);
+            res = FOUND;
+        }
+    }
+    return res;
 }

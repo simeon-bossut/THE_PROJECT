@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 31 mai 2023 à 10:12
+-- Généré le : jeu. 01 juin 2023 à 12:58
 -- Version du serveur : 5.7.24
--- Version de PHP : 7.4.16
+-- Version de PHP : 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,25 +35,26 @@ CREATE TABLE `acc` (
   `score` int(11) DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
   `id_back` int(11) DEFAULT '1',
-  `id_dude` int(11) DEFAULT '1'
+  `id_dude` int(11) DEFAULT '1',
+  `id_hat` int(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `acc`
 --
 
-INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`, `score`, `level`, `id_back`, `id_dude`) VALUES
-('admin', 'coucou', 'M', 'azer', NULL, NULL, 1, 1),
-('anne.cauche@yahoo.fr', 'Annouchka', 'Mme', 'coucou', NULL, NULL, 1, 1),
-('azef@ezf', 'azer', 'M', 'azer', NULL, NULL, 2, 1),
-('lucas.verportern@gmail.com', 'Yiroes', 'M', 'Zoeomg', 5000, NULL, 1, 1),
-('monkoye@gmail.com', 'monkoyeee', 'M', 'oui', NULL, NULL, 1, 1),
-('Paul.antoine@gmail.com', 'PA', 'M', 'oui', NULL, NULL, 1, 1),
-('simeon.bossut@gmail.com', 'sim', 'M', 'azer', NULL, NULL, 1, 1),
-('test123@gmail.com', 'ceciestuntest', 'M', 'non', 0, 0, 1, 1),
-('test2222@gmail.co!', 'TEST', 'M', 'azer', NULL, NULL, 1, 1),
-('test@gmail.com', 'test', 'M', 'test', NULL, NULL, 1, 1),
-('yanis.ouchene@gmail.com', 'Youyou', 'M', 'mdp', NULL, NULL, 1, 1);
+INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`, `score`, `level`, `id_back`, `id_dude`, `id_hat`) VALUES
+('admin', 'coucou', 'M', 'azer', NULL, NULL, 1, 10, 7),
+('anne.cauche@yahoo.fr', 'Annouchka', 'Mme', 'coucou', NULL, NULL, 1, 1, 0),
+('azef@ezf', 'azer', 'M', 'azer', NULL, NULL, 2, 1, 0),
+('lucas.verportern@gmail.com', 'Yiroes', 'M', 'Zoeomg', 5000, NULL, 1, 1, 0),
+('monkoye@gmail.com', 'monkoyeee', 'M', 'oui', NULL, NULL, 1, 1, 0),
+('Paul.antoine@gmail.com', 'PA', 'M', 'oui', NULL, NULL, 1, 1, 0),
+('simeon.bossut@gmail.com', 'sim', 'M', 'azer', NULL, NULL, 1, 1, 0),
+('test123@gmail.com', 'ceciestuntest', 'M', 'non', 0, 0, 1, 1, 0),
+('test2222@gmail.co!', 'TEST', 'M', 'azer', NULL, NULL, 1, 1, 0),
+('test@gmail.com', 'test', 'M', 'test', NULL, NULL, 1, 1, 0),
+('yanis.ouchene@gmail.com', 'Youyou', 'M', 'mdp', NULL, NULL, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -79,13 +80,59 @@ INSERT INTO `background` (`id_back`, `url`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `dude`
+-- Structure de la table `body`
 --
 
-CREATE TABLE `dude` (
-  `id_dude` int(11) NOT NULL,
-  `url` varchar(40) NOT NULL
+CREATE TABLE `body` (
+  `id` int(2) NOT NULL,
+  `url` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `body`
+--
+
+INSERT INTO `body` (`id`, `url`) VALUES
+(1, 'character_default'),
+(2, 'red'),
+(3, 'blue'),
+(4, 'green'),
+(5, 'orange'),
+(6, 'purple'),
+(7, 'yellow'),
+(8, 'cyan'),
+(9, 'plus_minus'),
+(10, 'crate_body');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `hat`
+--
+
+CREATE TABLE `hat` (
+  `id` int(2) NOT NULL,
+  `url` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `hat`
+--
+
+INSERT INTO `hat` (`id`, `url`) VALUES
+(1, 'audio_helmet'),
+(2, 'aureole'),
+(3, 'biker_helmet'),
+(4, 'cap'),
+(5, 'corns'),
+(6, 'cowboy_hat'),
+(7, 'crown'),
+(8, 'drink_cap'),
+(9, 'gold_robot'),
+(10, 'miner_helmet'),
+(11, 'silver_robot'),
+(12, 'viking_helmet'),
+(13, 'work_helemt');
 
 --
 -- Index pour les tables déchargées
@@ -104,10 +151,32 @@ ALTER TABLE `background`
   ADD PRIMARY KEY (`id_back`);
 
 --
--- Index pour la table `dude`
+-- Index pour la table `body`
 --
-ALTER TABLE `dude`
-  ADD PRIMARY KEY (`id_dude`);
+ALTER TABLE `body`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `hat`
+--
+ALTER TABLE `hat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `body`
+--
+ALTER TABLE `body`
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT pour la table `hat`
+--
+ALTER TABLE `hat`
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
