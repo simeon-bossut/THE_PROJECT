@@ -54,7 +54,7 @@ if(isset($_POST["con"]) && isset($_SESSION) && isset($_SESSION["authentifie"]) &
 	$url_dude = $req->fetch();
   $_SESSION["url_dude"]= $url_dude;
   //echo $url_dude;
-  header("Location: home.php");
+  //header("Location: home.php");
   }
 ?>
 

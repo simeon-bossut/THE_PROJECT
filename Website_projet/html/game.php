@@ -28,7 +28,7 @@ class Character {
     <?php require("request.php"); ?>
 
     this.hat  = "<?php if(isset($_SESSION['url_hat'])) { echo $_SESSION['url_hat']; } else { echo 'default'; } ?>";
-    this.body = "<?php if(isset($_SESSION['url_body'])) { echo $_SESSION['url_body']; } else { echo 'default'; } ?>";;
+    this.body = "<?php if(isset($_SESSION['url_dude'])) { echo $_SESSION['url_dude']; } else { echo 'default'; } ?>";
 
     this.direction = "W";
 
@@ -51,8 +51,8 @@ class Character {
     }      
 
     if(this.body != 'default') {
-      document.querySelector("#characterBody").style.backgroundImage = 'url("../Images/customizations/' + this.hat + '.svg")';
-      document.querySelector("#characterBodyIcon").style.backgroundImage = 'url("../Images/customizations/' + this.hat + '.svg")';
+      document.querySelector("#characterBody").style.backgroundImage = 'url("../Images/customizations/' + this.body + '.svg")';
+      document.querySelector("#characterBodyIcon").style.backgroundImage = 'url("../Images/customizations/' + this.body + '.svg")';
     } else {
       document.querySelector("#characterBody").style.backgroundImage = 'url("../Images/customizations/character_default.svg")';
       document.querySelector("#characterBodyIcon").style.backgroundImage = 'url("../Images/customizations/character_default.svg")';
