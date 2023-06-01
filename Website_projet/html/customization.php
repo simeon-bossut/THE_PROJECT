@@ -20,6 +20,7 @@ require("connexion.php");?>
 
 
 	if(isset($_POST["conf_body"])){
+		
 		try{
 		$reqPrep2 = "UPDATE acc SET id_hat= :id_hat, id_dude= :id_dude WHERE email=:email"; //La requere SQL: SELECT
 		$req = $conn->prepare($reqPrep2);
@@ -101,7 +102,7 @@ require("connexion.php");?>
 							<option class="9" src="../Images/customizations/work_helmet.svg">Construction Helmet</option>
 							<option class="10" src="../Images/customizations/miner_helmet.svg">Mining Helmet</option>
 							<option class="11" src="../Images/customizations/viking_helmet.svg">Viking Helmet</option>
-							<option class="12" src="../Images/customizations/drink_helmet.svg">Drink Helmet</option>
+							<option class="12" src="../Images/customizations/drink_cap.svg">Drink Helmet</option>
 							<option class="13" src="../Images/customizations/silver_robot.svg">Silver Robot</option>
 							<option class="14" src="../Images/customizations/gold_robot.svg">Gold Robot</option>
 						</select>

@@ -27,7 +27,39 @@ try {
 }catch (Exception $e) {
 	die("Erreur : " . $e->getMessage());
 }
+$id_hat =0;
+$id_dude = 0;
+if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
+    $reqhat = "SELECT id_hat FROM acc WHERE email= :email";
+    $req = $conn->prepare($reqhat);
+    $req->execute(array(
+			':email' => $_SESSION["email"])); //Executer la requete
 
+      $id_hat $req->fetch()[0];
+
+
+      $reqdude = "SELECT id_dude FROM acc WHERE email= :email";
+      $req = $conn->prepare($reqdude);
+      $req->execute(array(
+        ':email' => $_SESSION["email"])); //Executer la requete
+  
+        $id_dude $req->fetch()[0];
+
+
+        $requrlhat = "SELECT url FROM hat WHERE id= :id";
+        $req = $conn->prepare($requrlhat);
+          $req->execute(array(
+                  ':id' => $id_hat));
+          $url_hat = $req->fetch()[0];
+        $_SESSION["url_hat"]= $url_hat;
+
+        $requrldude = "SELECT url FROM body WHERE id= :id";
+        $req = $conn->prepare($requrldude);
+          $req->execute(array(
+                  ':id' => $id_dude));
+          $url_dude = $req->fetch()[0];
+        $_SESSION["url_dude"]= $url_dude;
+}
 
 ?>
 
@@ -105,7 +137,20 @@ try {
 
     <div class="gameTemplate" style="background-image: url('<?php echo $resultat[0];?>');">
 
-    <div class="victoryScreen"></div>
+      <div class="victoryScreen">
+        <div class="victoryBox">
+          <div class="victoryTitle">Congratulations</div>
+          <div class="victoryInfo">
+            <div class="victoryInfoContent" id="timerVictory">18:54</div>
+            <div class="victoryInfoContent" id="moveVictory">24</div>
+          </div>
+          <div class="victoryScores">
+            <div class="victoryScoresInfo" id="xpVictory">+ 500</div>
+            <div class="victoryScoresInfo" id="coinsVictory">+ 500</div>
+          </div>
+          <div class="victoryLevel">24</div>
+        </div>
+      </div>
 
       <div class="secondPlate">
         <div class="box">
