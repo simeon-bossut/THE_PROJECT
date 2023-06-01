@@ -17,28 +17,35 @@ int main(int argc, char **argv) {
   }
 
   // fillgrid(grid);
-  //  grid_completion(grid);
+  //grid_completion(grid);
 
   //fillgrid(grid);
-  grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
-  grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 1;  grid->tab[1][3] = 0;
-  grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 1;
-  grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
+  
+    
+  generateGrid(grid);
 
-  grid->obv[0] = 0;  grid->obv[1] = 0;  grid->obv[2] = 0;  grid->obv[3] = 0;  
-  grid->obv[4] = 1;  grid->obv[5] = 0;  grid->obv[6] = 0;  grid->obv[7] = 0; 
-  grid->obv[8] = 0;  grid->obv[9] = 0;  grid->obv[10] = 0; grid->obv[11] = 0;
-  grid->obv[12] = 0; grid->obv[13] = 0; grid->obv[14] = 0; grid->obv[15] = 0;
+  //grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
+  //grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 1;  grid->tab[1][3] = 0;
+  //grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 1;
+  //grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
 
+  //grid->obv[0] = 0;  grid->obv[1] = 0;  grid->obv[2] = 0;  grid->obv[3] = 0;  
+  //grid->obv[4] = 4;  grid->obv[5] = 0;  grid->obv[6] = 0;  grid->obv[7] = 0; 
+  //grid->obv[8] = 0;  grid->obv[9] = 0;  grid->obv[10] = 0; grid->obv[11] = 0;
+  //grid->obv[12] = 0; grid->obv[13] = 0; grid->obv[14] = 0; grid->obv[15] = 0;
 
+  fill_ghost(*gridf, *grid);
+  grid->tab[2][3] = 0;
   printgrid(grid);
+  printf("%d", is_solved(*grid));
   //crate_solver(grid);
   printf("\n");
-  fill_ghost(*gridf, *grid);//Oublies pas de supprimer le dernier argument (sert rien)
   //hypothesis(gridf, grid);
   //check_loners(gridf,grid);
   //maj_ghost(*gridf, *grid);
+ 
   printgrid_Ghost(gridf);
+  printgrid(grid);
   //printf("%d\n", gridf->size);
   //Guess *guesses = fill_guess(*gridf,*grid);
   free(grid);

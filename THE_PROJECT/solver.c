@@ -69,7 +69,9 @@ void fill_ghost(GhostGrid gridf, Grid gridj) {
   maj_ghost(gridf, gridj);
 
   //!!!Pas besoin de l'appeler plus d'une fois !!!
+  
 
+  //printf
   complete_ghost(gridf, gridj); // complete partiellement la grille fantome a
                                 // l'aide des observateurs
 }
@@ -494,7 +496,7 @@ void free_tab_3(int*** tab, int size) {
 
 int resolve_with_obv(Grid grid, GhostGrid gridf){
     int res = NOT_FOUND;
-    res = resolve_obv_1(grid, gridf);
+    //res = resolve_obv_1(grid, gridf);
     return res;
 }
 
@@ -504,14 +506,15 @@ bool crate_solver(Grid * adgridj) {
 	GhostGrid * adgridf = initGhostGrid(gridj.size);
 	GhostGrid gridf = *adgridf;
     fill_ghost(gridf, gridj);
+
     int modif;
 	do
 	{
         modif = 0;
-     /*   while (resolve_with_obv(gridj, gridf) == FOUND)
+        while (resolve_with_obv(gridj, gridf) == FOUND)
         {
             maj_ghost(gridf, gridj); modif++;
-        }*/
+        }
         while (hypothesis(adgridf,adgridj) == FOUND)
         {
             maj_ghost(gridf, gridj); modif++;
@@ -522,7 +525,7 @@ bool crate_solver(Grid * adgridj) {
         }
 
 		printgrid(adgridj);
-    } while (modif != 0 && !(is_solved(gridj)));
+    } while (modif != 0);
     if (is_solved(gridj))
     {
         return true;

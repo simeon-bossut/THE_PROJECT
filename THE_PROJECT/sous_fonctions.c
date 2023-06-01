@@ -152,10 +152,11 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
     }
 
     
-    
     if (obv_1 != NAS)
     {
+
         int least = size - gridj.obv[obv_1] + 2;//valeur la plus petite a bannir dans la case [i][j]
+
         if (least <= gridf.size)
         {
             reduce_col(i, j, least, gridf);
@@ -163,7 +164,8 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
     }
     if (obv_2 != NAS)
     {
-        int least = size - gridj.obv[obv_1] + 2;//valeur la plus petite a bannir dans la case [i][j]
+
+        int least = size - gridj.obv[obv_2] + 2;//valeur la plus petite a bannir dans la case [i][j]
         if (least <= gridf.size)
         {
             reduce_row(i, j, least, gridf);
