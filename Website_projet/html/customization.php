@@ -96,6 +96,10 @@
 
 					<p class="para">Choose your cosmetics to dress up your character! Wide choices are available. Grab a cool hat?
 						A serious one? An impressive? Choose your style and use your imagination </p>
+
+					<form class="form" action="" method="post">
+						<input type="submit" name="conf_body">Submit</button>
+					</form>
 				</div>
 
 				<div class="charBox">
