@@ -55,6 +55,7 @@ void maj_ghost(GhostGrid gridf, Grid gridj);
 int fill_loners(Grid* gridj, GhostGrid gridf);
 int hypothesis(GhostGrid* gridf, Grid* gridj);
 int resolve_with_obv(Grid grid, GhostGrid gridf);
+int Rule2(GhostGrid gridf, Grid gridj);
 //Solver end
 
 
