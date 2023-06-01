@@ -170,14 +170,26 @@ catch (Exception $e) {
 
       <div class="victoryScreen">
         <div class="victoryBox">
-          <div class="victoryTitle">Congratulations</div>
+          <div class="victoryTitle">Victory</div>
           <div class="victoryInfo">
-            <div class="victoryInfoContent" id="timerVictory">18:54</div>
-            <div class="victoryInfoContent" id="moveVictory">24</div>
+            <div class="victoryInfoContent" id="timerVictory">
+              <img src="../Images/timerIcon.svg">
+              <span>18:54</span>
+            </div>
+            <div class="victoryInfoContent" id="moveVictory">
+              <img src="../Images/movesIcon.svg">
+              <span>23</span>
+            </div>
           </div>
           <div class="victoryScores">
-            <div class="victoryScoresInfo" id="xpVictory">+ 500</div>
-            <div class="victoryScoresInfo" id="coinsVictory">+ 500</div>
+            <div class="victoryScoresInfo" id="xpVictory">
+              <img src="../Images/xpIcon.svg">
+              <span>500</span>
+            </div>
+            <div class="victoryScoresInfo" id="coinsVictory">
+              <img src="../Images/coinsIcon.svg">
+              <span>670</span>
+            </div>
           </div>
           <div class="victoryLevel">24</div>
         </div>
