@@ -18,7 +18,7 @@ void suite_col(int ligne, int colonne, GhostGrid Gf) {
     }
     else if (ligne == Gf.size-1) {
         for (int k = 0; k < Gf.size; ++k) {
-            put_number(Gf.size - k, ligne - k, colonne, Gf);
+            put_number(k+1, ligne - k, colonne, Gf);
         }
     }
 }
@@ -32,7 +32,7 @@ void suite_row(int ligne, int colonne, GhostGrid Gf) {
     }
     else if (colonne == Gf.size-1) {
         for (int k = 0; k < Gf.size; ++k) {
-            put_number(Gf.size - k, ligne, colonne - k, Gf);
+            put_number(k+1, ligne, colonne - k, Gf);
         }
     }
 }
@@ -85,7 +85,7 @@ void reduce_row(int row, int col, int valmin, GhostGrid grid)
             valmin++;
         }
     }
-    else if ( col == grid.size) {
+    else if ( col == grid.size-1) {
         for (int k = 0; k <= grid.size - val; ++k) {
             for (int l = valmin;l <= grid.size;++l)//valeur à enlever dans la case
             {
@@ -118,6 +118,7 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
         val2 = gridj.obv[obv_2];
     }
     else if (j == size - 1) {
+        obv_2 = size + i;
         val2 = gridj.obv[obv_2];
     }
 
@@ -163,7 +164,7 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
     }
     if (obv_2 != NAS)
     {
-        int least = size - gridj.obv[obv_1] + 2;//valeur la plus petite a bannir dans la case [i][j]
+        int least = size - gridj.obv[obv_2] + 2;//valeur la plus petite a bannir dans la case [i][j]
         if (least <= gridf.size)
         {
             reduce_row(i, j, least, gridf);
@@ -189,28 +190,20 @@ int complete_ghost(GhostGrid gridf, Grid gridj) {
 
 
 
-int check_row(int val, GhostGrid* gridf, int row, int* pos) {
+int check_row(int val, GhostGrid* gridf,Grid*gridj, int row, int* pos) {
     char*** tab = gridf->tab;
+    char*** tabj = gridj->tab;
     int compt = 0;
     for (int i = 0; i < gridf->size; ++i) {
-        if ((tab[row][i][val - 1] == val) &&
-            (Length(tab[row][i], gridf->size) != 1)) {
+        if ((tab[row][i][val - 1] == val))
+             {
             compt++;
             *pos = i;
-        }
-    }
-    return compt;
-}
-
-int check_col(int val, GhostGrid* gridf, int col, int* pos) {
-    char*** tab = gridf->tab;
-    int compt = 0;
-    for (int i = 0; i < gridf->size; ++i) {
-        if ((tab[i][col][val - 1] == val) &&
-            (Length(tab[i][col], gridf->size) != 1)) {
-            compt++;
-            *pos = i;
-            if (compt > 1) {
+            if (Length(tab[row][i], gridj->size) == 1)//si la case a déjà été isolée, pas besoin de le refaire
+            {
+                return 0;
+            }
+            else if (compt > 1) {
                 return compt;
             }
         }
@@ -218,27 +211,45 @@ int check_col(int val, GhostGrid* gridf, int col, int* pos) {
     return compt;
 }
 
+int check_col(int val, GhostGrid* gridf,Grid*gridj, int col, int* pos) {
+    char*** tab = gridf->tab;
+    char*** tabj = gridj->tab;
+    int compt = 0;
+    for (int i = 0; i < gridf->size; ++i) {
+        if ((tab[i][col][val - 1] == val)) {
+            compt++;
+            *pos = i;
+            if (Length(tab[i][col], gridj->size) == 1)//si la case a déjà été isolée, pas besoin de le refaire
+            {
+                return 0;
+            }
+            else if (compt > 1) {
+            return compt;
+            }
+
+        }
+    }
+    return compt;
+}
+
 
 int check_loners(GhostGrid* gridf, Grid* gridj) {
+
     maj_ghost(*gridf, *gridj);
     int modif = 0;
     int size = gridf->size;
     int pos = NAS;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; ++j) {
-            if (check_row(j + 1, gridf, i, &pos) == 1) {
+            if (check_row(j + 1, gridf,gridj, i, &pos) == 1) {
                 modif = 1;
                 put_number(j + 1, i, pos, *gridf);
             }
-            if (check_col(j + 1, gridf, i, &pos) == 1) {
+            if (check_col(j + 1, gridf,gridj, i, &pos) == 1) {
                 modif = 1;
                 put_number(j + 1, pos, i, *gridf);
             }
         }
-    }
-    if (modif) // Si il y a eu modification on recommence tout,pour ne rien rater
-    {
-        check_loners(gridf, gridj);
     }
     return modif;
 }
