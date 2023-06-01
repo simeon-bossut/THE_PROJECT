@@ -105,7 +105,20 @@ try {
 
     <div class="gameTemplate" style="background-image: url('<?php echo $resultat[0];?>');">
 
-    <div class="victoryScreen"></div>
+      <div class="victoryScreen">
+        <div class="victoryBox">
+          <div class="victoryTitle">Congratulations</div>
+          <div class="victoryInfo">
+            <div class="victoryInfoContent" id="timerVictory">18:54</div>
+            <div class="victoryInfoContent" id="moveVictory">24</div>
+          </div>
+          <div class="victoryScores">
+            <div class="victoryScoresInfo" id="xpVictory">+ 500</div>
+            <div class="victoryScoresInfo" id="coinsVictory">+ 500</div>
+          </div>
+          <div class="victoryLevel">24</div>
+        </div>
+      </div>
 
       <div class="secondPlate">
         <div class="box">
