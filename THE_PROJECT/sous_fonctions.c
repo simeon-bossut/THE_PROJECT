@@ -99,7 +99,7 @@ void reduce_row(int row, int col, int valmin, GhostGrid grid)
 
 int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
     int size = gridj.size;
-    int modif = 0;
+    int modif = NOT_FOUND;
     int obv_1 = NAS;
     int obv_2 = NAS;
     int val1=0;
@@ -138,17 +138,17 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
     if (val1 == gridf.size)//Cas suite de 1 à n sur toute la colonne
     {
         suite_col(i, j, gridf);
-        modif = 1;
+        modif = FOUND;
     }
     else if (val2 == gridj.size)//Cas suite de 1 à n sur toute la colonne
     {
         suite_row(i, j, gridf);
-        modif = 1;
+        modif = FOUND;
     }
     else if (val1 == 1 ||  val2 == 1) // cas le plus simple, on met n (size)
     {
         put_number(size, i, j, gridf);
-        modif = 1;
+        modif = FOUND;
     }
 
     
@@ -176,7 +176,7 @@ int modif_box(int i, int j, GhostGrid gridf, Grid gridj) {
 }
 
 int complete_ghost(GhostGrid gridf, Grid gridj) {
-    int modif = 0;
+    int modif = NOT_FOUND;
     int size = gridj.size;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
