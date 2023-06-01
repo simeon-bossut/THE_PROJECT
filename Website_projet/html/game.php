@@ -1,6 +1,8 @@
+<script>
+
 var gameSet = document.querySelector('#mainPlate');
 var gameTab = [];
-var viewSet = document.querySelector('#viewBox');
+var viewSet = document.querySelector('#povBoxContent');
 
 
 
@@ -23,7 +25,16 @@ class Character {
     this.x = xPos;
     this.y = yPos;
 
-    this.hat = hatSkin || "default";
+    <?php require("request.php"); ?>
+
+    this.hat = <?php 
+                  if(isset($_SESSION['mail'])) {
+                    echo request("SELECT hat FROM acc WHERE email = ?", true, array($_SESSION['mail'])); 
+                  }
+                  else {
+                    echo '"default"';
+                  }
+                ?>;
     this.body = bodySkin || "default";
 
     this.direction = "W";
@@ -450,7 +461,7 @@ function crateDrop() {
 
 
 
-const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space'];
+const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Semicolon', 'KeyL'];
 
 window.addEventListener('keydown', e => {
   if (listKeys.includes(e.code))
@@ -482,10 +493,10 @@ document.addEventListener('keydown', e => {
   }*/
 
   // Crates actions
-  else if(key == "KeyF") {
+  else if(key == "KeyL") {
     crateGrab();
   }
-  else if(key == "Space") {
+  else if(key == "Semicolon") {
     crateDrop();
   }
 })
@@ -571,3 +582,5 @@ function setView() {
     viewSet.innerHTML += `<div id = "crate${arr[i]}"></div>`;
   }
 }
+
+</script>
