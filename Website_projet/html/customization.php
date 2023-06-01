@@ -20,6 +20,7 @@ require("connexion.php");?>
 
 
 	if(isset($_POST["conf_body"])){
+		
 		try{
 		$reqPrep2 = "UPDATE acc SET id_hat= :id_hat, id_dude= :id_dude WHERE email=:email"; //La requere SQL: SELECT
 		$req = $conn->prepare($reqPrep2);
