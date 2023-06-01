@@ -105,6 +105,8 @@ try {
 
     <div class="gameTemplate" style="background-image: url('<?php echo $resultat[0];?>');">
 
+    <div class="victoryScreen"></div>
+
       <div class="secondPlate">
         <div class="box">
           <div class="view">
