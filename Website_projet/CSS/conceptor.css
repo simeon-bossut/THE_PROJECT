@@ -205,10 +205,6 @@ main {
   opacity: 0.3;
 }
 
-#mainPlate .cratePlace:empty {
-  
-}
-
 #secondPlate {
   display: flex;
   justify-content: center;
