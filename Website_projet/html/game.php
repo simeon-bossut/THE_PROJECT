@@ -30,7 +30,7 @@ class Character {
     this.hat = "<?php
       if(isset($_SESSION['email'])) {
         $skinId = request("SELECT id_hat FROM acc WHERE email = ?", true, array($_SESSION['email']));
-        if($skinId != 0)
+        if($skinId[0] != 0)
           echo request("SELECT url FROM hat WHERE id = ?", true, array($skinId[0]))[0];
         else
           echo 'default';
