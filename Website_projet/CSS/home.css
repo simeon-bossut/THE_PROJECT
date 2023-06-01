@@ -98,6 +98,14 @@ nav {
   background-size: cover;
 }
 
+.victoryScreen {
+  width: 100%;
+  height: 100%;
+  z-index: 101;
+  position: absolute;
+  background-color: rgba(0,0,0, 0.3);
+}
+
 .creamBG {
   background-color: #ffe6cd;
   color: #964b00;
@@ -662,20 +670,20 @@ div[id^="crate"]{
 
 #characterBodyIcon {
   width: 90%;
-  max-width: 125px;
+  max-width: 200px;
   aspect-ratio: 1;
   position: absolute;
-  
-  background-size: 100%;
+  background-size: 50%;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 #characterHatIcon {
   width: 90%;
-  max-width: 125px;
+  max-width: 200px;
   aspect-ratio: 1;
   position: absolute;
-
-  background-size: 200%;
+  background-size: 100%;
   background-position: center;
+  background-repeat: no-repeat;
 }

@@ -27,19 +27,8 @@ class Character {
 
     <?php require("request.php"); ?>
 
-    this.hat = "<?php
-      if(isset($_SESSION['email'])) {
-        $skinId = request("SELECT id_hat FROM acc WHERE email = ?", true, array($_SESSION['email']));
-        if($skinId[0] != 0)
-          echo request("SELECT url FROM hat WHERE id = ?", true, array($skinId[0]))[0];
-        else
-          echo 'default';
-      }
-      else {
-        echo 'default';
-      }
-    ?>" ;
-    this.body = bodySkin || "default";
+    this.hat  = "<?php if(isset($_SESSION['url_hat'])) { echo $_SESSION['url_hat']; } else { echo 'default'; } ?>";
+    this.body = "<?php if(isset($_SESSION['url_body'])) { echo $_SESSION['url_body']; } else { echo 'default'; } ?>";;
 
     this.direction = "W";
 
