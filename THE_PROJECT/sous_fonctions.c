@@ -192,15 +192,15 @@ int complete_ghost(GhostGrid gridf, Grid gridj) {
 
 
 int check_row(int val, GhostGrid* gridf,Grid*gridj, int row, int* pos) {
-    char*** tab = gridf->tab;
-    char*** tabj = gridj->tab;
+    char*** tabf = gridf->tab;
+    int** tabj = gridj->tab;
     int compt = 0;
     for (int i = 0; i < gridf->size; ++i) {
-        if ((tab[row][i][val - 1] == val))
+        if ((tabf[row][i][val - 1] == val))
              {
             compt++;
             *pos = i;
-            if (Length(tab[row][i], gridj->size) == 1)//si la case a déjà été isolée, pas besoin de le refaire
+            if (Length(tabf[row][i], gridj->size) == 1)//si la case a déjà été isolée, pas besoin de le refaire
             {
                 return 0;
             }
@@ -213,14 +213,14 @@ int check_row(int val, GhostGrid* gridf,Grid*gridj, int row, int* pos) {
 }
 
 int check_col(int val, GhostGrid* gridf,Grid*gridj, int col, int* pos) {
-    char*** tab = gridf->tab;
-    char*** tabj = gridj->tab;
+    char*** tabf = gridf->tab;
+    int** tabj = gridj->tab;
     int compt = 0;
     for (int i = 0; i < gridf->size; ++i) {
-        if ((tab[i][col][val - 1] == val)) {
+        if ((tabf[i][col][val - 1] == val)) {
             compt++;
             *pos = i;
-            if (Length(tab[i][col], gridj->size) == 1)//si la case a déjà été isolée, pas besoin de le refaire
+            if (Length(tabf[i][col], gridj->size) == 1)//si la case a déjà été isolée, pas besoin de le refaire
             {
                 return 0;
             }

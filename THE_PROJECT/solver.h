@@ -53,14 +53,14 @@ bool crate_solver(Grid* adgridj);
 void fill_ghost(GhostGrid gridf, Grid gridj);
 void maj_ghost(GhostGrid gridf, Grid gridj);
 int fill_loners(Grid* gridj, GhostGrid gridf);
-int hypothesis(GhostGrid* gridf, Grid* gridj);
+bool hypothesis(GhostGrid* gridf, Grid* gridj,int chosen);
 int resolve_with_obv(Grid grid, GhostGrid gridf);
 int Rule2(GhostGrid gridf, Grid gridj);
+int check_loners(GhostGrid* gridf, Grid* gridj);
 //Solver end
 
 
 //Unused start
-int check_loners(GhostGrid* gridf, Grid* gridj);
 Guess* find_guess(GhostGrid grid, int* found, int* guess_size);
 int fill_guess(GhostGrid grid, Grid gridj);
 char*** create_guess_tab(Guess* guess_list, Grid grid);
@@ -71,6 +71,6 @@ void fill_sub_guess(int*** tab, int guess_size, Grid grid, int id);
 
 
 //Free start
-void free_tab_3(int*** tab, int size);
+void free_tab_3(char*** tab, int size);
 //Free end
 #endif // !solver
