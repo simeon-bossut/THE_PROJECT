@@ -161,7 +161,7 @@ catch (Exception $e) {
 
       <div class="secondPlate">
         <div class="box">
-          <div class="view">
+          <div class="view" id="boxCustom">
             <div id="characterBodyIcon"></div>
             <div id="characterHatIcon"></div>
           </div>
