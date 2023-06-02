@@ -185,7 +185,7 @@ catch (Exception $e) {
           </div>
         </div>
         
-        <a href="customization.php" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></a>
+        <button onclick="initMainGrid()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
       
       
         

@@ -638,9 +638,8 @@ div[id^="crate"]{
 }
 
 
-.box a {
+.skinButton {
   height: 90px;
-  display: relative;
   width: 90%;
   background-color: #ffe6cd;
   border-radius: 5px;
@@ -649,6 +648,11 @@ div[id^="crate"]{
   display: flex;
 
   box-shadow: 4px 4px 0px 0px black;
+
+  border: 0px;
+  font-family: 'Kanit';
+
+  cursor: pointer;
 
   text-decoration: none;
 
@@ -731,7 +735,7 @@ select {
   position: absolute;
   background-color: rgba(0,0,0, 0.3);
 
-  display: none;  /*flex*/
+  display: flex; 
   justify-content: center;
   align-items: center;
 
