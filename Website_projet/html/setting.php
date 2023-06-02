@@ -27,7 +27,7 @@
 
 		<link rel="stylesheet" href="../CSS/settings.css">
 
-	</head>
+	</head>	
 
 	<body>
 		<?php include("nav.php"); ?>
@@ -35,7 +35,7 @@
 		<main>
 
 			<header>
-				<h1><?php  echo getLanguage("Paramètres","Settings");  echo $_SESSION['url_hat'];?> </h1>
+				<h1><?php  echo getLanguage("Paramètres","Settings"); ?> </h1>
 			</header>
 
 			<div class="container">
