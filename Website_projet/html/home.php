@@ -179,7 +179,8 @@ catch (Exception $e) {
 
     </div>
 
-    <div style="display: none;" id="musicPlayer">
+    <!--
+    <div id="musicPlayer">
 
       <audio id="bgMusic"></audio>
 
@@ -188,6 +189,7 @@ catch (Exception $e) {
       <button id="nextMus" onclick="nextMusic()">NEXT</button>
 
     </div>
+    -->
 
 
 
