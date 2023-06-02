@@ -5,62 +5,6 @@ require("connexion.php");
 
 require("request.php");
 
-/*if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
-	try{
-	$reqPrep2 = "SELECT id_back FROM acc WHERE email= :email";
-	$req = $conn->prepare($reqPrep2);
-	$req->execute(array(
-			':email' => $_SESSION["email"]));
-	$id = $req->fetch()[0];
-	}catch (Exception $e) {
-	die("Erreur : " . $e->getMessage());
-}
-}
-else{
-	$id=1;
-}
-try {
-			$reqPrep = "SELECT url FROM background WHERE id_back= :id";
-			$req = $conn->prepare($reqPrep); //Préparer la requete
-			$req->execute(array(
-			':id' => $id)); //Executer la requete
-
-			$resultat = $req->fetch(); //récupération du résultat 
-
-}catch (Exception $e) {
-	die("Erreur : " . $e->getMessage());
-}
-$id_hat =0;
-$id_dude = 0;
-if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
-    $reqhat = "SELECT id_hat FROM acc WHERE email= :email";
-    $req = $conn->prepare($reqhat);
-    $req->execute(array(
-			':email' => $_SESSION["email"])); //Executer la requete
-
-      $id_hat = $req->fetch()[0];
-
-
-      $reqdude = "SELECT id_dude FROM acc WHERE email= :email";
-      $req = $conn->prepare($reqdude);
-      $req->execute(array(
-        ':email' => $_SESSION["email"])); //Executer la requete
-  
-        $id_dude = $req->fetch()[0];
-
-
-        $requrlhat = "SELECT url FROM hat WHERE id= :id";
-        $req = $conn->prepare($requrlhat);
-          $req->execute(array(':id' => $id_hat));
-          $url_hat = $req->fetch()[0];
-        $_SESSION["url_hat"]= $url_hat;
-
-        $requrldude = "SELECT url FROM body WHERE id= :id";
-        $req = $conn->prepare($requrldude);
-        $req->execute(array(':id' => $id_dude));
-        $url_dude = $req->fetch()[0];
-        $_SESSION["url_dude"]= $url_dude;*/
-
 $resBack;
 $resBody;
 $resHat;
@@ -181,19 +125,16 @@ catch (Exception $e) {
               <span>23</span>
             </div>
           </div>
-          <div class="victoryScores">
-            <div class="victoryScoresInfo" id="xpVictory">
+          <div class="victoryInfo">
+            <div class="victoryInfoContent" id="xpVictory">
               <img src="../Images/xpIcon.svg">
               <span>500</span>
             </div>
-            <div class="victoryScoresInfo" id="coinsVictory">
+            <div class="victoryInfoContent" id="coinsVictory">
               <img src="../Images/coinsIcon.svg">
               <span>670</span>
             </div>
           </div>
-
-        </div>
-
           <div class="victoryLevel">Level : 24</div>
         </div>
       </div>
