@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 02 juin 2023 à 07:19
+-- Généré le : ven. 02 juin 2023 à 08:58
 -- Version du serveur : 5.7.24
--- Version de PHP : 8.0.1
+-- Version de PHP : 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,7 +31,7 @@ CREATE TABLE `acc` (
   `email` varchar(36) NOT NULL,
   `pseudo` varchar(36) NOT NULL,
   `civility` varchar(12) NOT NULL,
-  `password` varchar(36) NOT NULL,
+  `password` varchar(64) NOT NULL,
   `score` int(11) DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
   `id_back` int(11) DEFAULT '1',
@@ -44,11 +44,12 @@ CREATE TABLE `acc` (
 --
 
 INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`, `score`, `level`, `id_back`, `id_dude`, `id_hat`) VALUES
-('admin', 'coucou', 'M', 'azer', NULL, NULL, 2, 9, 1),
+('admin', 'coucou', 'M', 'azer', NULL, NULL, 1, 10, 13),
 ('anne.cauche@yahoo.fr', 'Annouchka', 'Mme', 'coucou', NULL, NULL, 0, 1, 0),
 ('azef@ezf', 'azer', 'M', 'azer', NULL, NULL, 0, 1, 0),
 ('lucas.verportern@gmail.com', 'Yiroes', 'M', 'Zoeomg', 5000, NULL, 0, 1, 0),
 ('monkoye@gmail.com', 'monkoyeee', 'M', 'oui', NULL, NULL, 0, 1, 0),
+('nouveau_compte@gmail.compte', 'XxdestructorxX', 'M', 'f5c984202b3b0eb868a39a0287e9e2aee6920018', NULL, NULL, 1, 1, 0),
 ('Paul.antoine@gmail.com', 'PA', 'M', 'oui', NULL, NULL, 0, 1, 0),
 ('simeon.bossut@gmail.com', 'sim', 'M', 'azer', NULL, NULL, 0, 1, 0),
 ('test123@gmail.com', 'ceciestuntest', 'M', 'non', 0, 0, 0, 1, 0),
