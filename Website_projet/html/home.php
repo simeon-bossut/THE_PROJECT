@@ -155,7 +155,7 @@ catch (Exception $e) {
               <span>670</span>
             </div>
           </div>
-          <button class="victoryRefreshButton">Restart</button>
+          <button class="victoryRefreshButton" onclick="initMainPlate()">Restart</button>
         </div>
       </div>
 
@@ -185,7 +185,7 @@ catch (Exception $e) {
           </div>
         </div>
         
-        <button onclick="initMainGrid()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
+        <button onclick="initMainPlate()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
       
       
         

@@ -790,10 +790,13 @@ select {
 
   top: 20px;
   right: 20px;
+
+  cursor: pointer;
 }
 
 .victoryRefreshButton {
   width: 50%;
+  cursor: pointer;
   max-width: 225px;
   display: flex;
   height: 50px;
