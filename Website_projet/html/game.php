@@ -8,12 +8,12 @@ var viewSet = document.querySelector('#povBoxContent');
 
 var tabDim = 4;
 
-var obsTab = [1,4,2,3,3,2,1,3,2,2,1,2,2,3,3,1];
-var crateTab = [];
+var obsTab   = [1, 4, 2, 3, 3, 2, 1, 3, 2, 2, 1, 2, 2, 3, 3, 1];
+var crateTab = [4, 1, 3, 2, 1, 2, 4, 3, 2, 3, 1, 4, 3, 4, 2, 0];
 
 for(let i = 0; i < tabDim * 4; i++) {
   //obsTab.push(Math.floor(Math.random() * (tabDim)) + 1);
-  crateTab.push(0)//Math.floor(Math.random() * (tabDim)));
+  //crateTab.push(0)//Math.floor(Math.random() * (tabDim)));
 }
 
 
@@ -129,9 +129,117 @@ class Character {
 
 
 function checkVictory() {
+
+  if(crateTab.includes(0))
+    return false;
+
+  for(let i = 0; i < tabDim; i++) {
+
+    let lastVal1 = [];
+    let lastVal2 = [];
+
+    for(let j = 0; j < tabDim; j++) {
+      if(!lastVal1.includes(crateTab[i * tabDim + j])) {
+        lastVal1.push(crateTab[i * tabDim + j]);
+      }
+      else {
+        return false;
+      }
+      
+      if(!lastVal2.includes(crateTab[j * tabDim + i])) {
+        lastVal2.push(crateTab[j * tabDim + i]);
+      }
+      else {
+        return false;
+      }
+
+    }
+
+    let maxVal1 = -1;
+    let nbStack1 = 0;
+
+    let maxVal2 = -1;
+    let nbStack2 = 0;
+
+    for(let k = 0; k < tabDim; k++) {
+      if(lastVal1[k] > maxVal1) {
+        nbStack1++;
+        maxVal1 = lastVal1[k];
+      }
+
+      if(lastVal2[k] > maxVal2) {
+        nbStack2++;
+        maxVal2 = lastVal2[k];
+      }
+    }
+
+    if(obsTab[i] != nbStack2) {
+      return false;
+    }
+
+    if(obsTab[tabDim*4 - 1 - i] != nbStack1) {
+      return false;
+    }
+  }
+
+  for(let i = 0; i < tabDim; i++) {
+
+    let lastVal1 = [];
+    let lastVal2 = [];
+
+    for(let j = 0; j < tabDim; j++) {
+      if(!lastVal1.includes(crateTab[i * tabDim + j])) {
+        lastVal1.push(crateTab[i * tabDim + j]);
+      }
+      else {
+        return false;
+      }
+      
+      if(!lastVal2.includes(crateTab[j * tabDim + i])) {
+        lastVal2.push(crateTab[j * tabDim + i]);
+      }
+      else {
+        return false;
+      }
+    }
+
+    let maxVal1 = -1;
+    let nbStack1 = 0;
+
+    let maxVal2 = -1;
+    let nbStack2 = 0;
+
+    lastVal1.reverse();
+    lastVal2.reverse();
+
+    for(let k = 0; k < tabDim; k++) {
+      if(lastVal1[k] > maxVal1) {
+        nbStack1++;
+        maxVal1 = lastVal1[k];
+      }
+
+      if(lastVal2[k] > maxVal2) {
+        nbStack2++;
+        maxVal2 = lastVal2[k];
+      }
+    }
+
+    if(obsTab[i + tabDim] != nbStack1) {
+      return false;
+    }
+
+    if(obsTab[tabDim*4 - 1 - tabDim - i] != nbStack2) {
+      return false;
+    }
+  }
+
   
+  // All conditions passed
+
+  document.querySelector(".victoryScreen").classList.add('opened');
 
 
+  return true;
 }
 
 
@@ -419,6 +527,8 @@ function crateGrab() {
     
   document.querySelector("#characterCrate").innerHTML = num;
 
+  checkVictory();
+
 
   setView();
 }
@@ -470,6 +580,8 @@ function crateDrop() {
     num = "";
     
   document.querySelector("#characterCrate").innerHTML = num;
+
+  checkVictory();
 
   setView();
 }
