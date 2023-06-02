@@ -735,7 +735,7 @@ select {
   position: absolute;
   background-color: rgba(0,0,0, 0.3);
 
-  display: flex; 
+  display: felx;
   justify-content: center;
   align-items: center;
 
