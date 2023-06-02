@@ -148,7 +148,7 @@ catch (Exception $e) {
               <span>500</span>
             </div>
             <div class="victoryInfoContent" id="coinsVictory">
-              <img src="../Images/coinsIcon.svg">
+              <img src="../Images/coinsIcon.png">
               <span>670</span>
             </div>
           </div>
