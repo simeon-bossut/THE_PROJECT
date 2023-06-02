@@ -24,10 +24,10 @@ int main(int argc, char **argv) {
     
   generateGrid(grid);
 
-  //grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
-  //grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 1;  grid->tab[1][3] = 0;
-  //grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 1;
-  //grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
+  grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
+  grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 0;  grid->tab[1][3] = 0;
+  grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 1;
+  grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
 
   //grid->obv[0] = 0;  grid->obv[1] = 0;  grid->obv[2] = 0;  grid->obv[3] = 0;  
   //grid->obv[4] = 4;  grid->obv[5] = 0;  grid->obv[6] = 0;  grid->obv[7] = 0; 
