@@ -131,6 +131,9 @@ catch (Exception $e) {
 
       <div class="victoryScreen">
         <div class="victoryBox">
+
+          <img src="../Images/crossIcon.svg" class="crossVictory">
+
           <div class="victoryTitle">Victory</div>
           <div class="victoryInfo">
             <div class="victoryInfoContent" id="timerVictory">
@@ -152,7 +155,7 @@ catch (Exception $e) {
               <span>670</span>
             </div>
           </div>
-          <div class="victoryLevel">Level : 24</div>
+          <button class="victoryRefreshButton">Restart</button>
         </div>
       </div>
 

@@ -713,6 +713,8 @@ div[id^="crate"]{
   height: auto;
   max-height: 100%;
 
+  position: relative;
+
   padding: 20px;
 
   background-color: #ffe6cd;
@@ -722,7 +724,7 @@ div[id^="crate"]{
 
   display: flex;
   flex-direction: column;
-  align-items: space-around;
+  align-items: center;
   justify-content: center;
 }
 
@@ -736,6 +738,33 @@ div[id^="crate"]{
   font-weight: 600;
 
   color: #964b00;
+}
+
+.crossVictory {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+}
+
+.victoryRefreshButton {
+  width: 50%;
+  max-width: 225px;
+  display: flex;
+  height: 50px;
+  margin: 10px 0px;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+  border: 0px;
+  color: #ffe6cd;
+  font-size: 30px;
+  font-family: 'kanit';
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px 0px black;
+  background-color: #964b00;
 }
 
 .victoryInfoContent {
