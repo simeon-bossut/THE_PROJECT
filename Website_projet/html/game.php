@@ -128,6 +128,13 @@ class Character {
 }
 
 
+function checkVictory() {
+  
+
+
+}
+
+
 function insertElement(set, x, y, classList) {
 
   let elem = document.querySelector(`#pos_${x}_${y}`);
@@ -383,6 +390,10 @@ function crateGrab() {
     if(player.numCrate < tabDim && qty > 0) {
       player.numCrate++;
       qty--;
+
+      crateTab[Math.floor((player.x + xAdd) / 2) + (Math.floor((player.y + yAdd) / 2) * tabDim)] = qty;
+
+      //console.log(Math.floor((player.x + xAdd) / 2) + (Math.floor((player.y + yAdd) / 2) * tabDim), Math.floor((player.x + xAdd) / 2), Math.floor((player.y + yAdd) / 2));
     }
 
     if(qty == 0) qty = "";
@@ -435,6 +446,8 @@ function crateDrop() {
     if(player.numCrate > 0 && qty < tabDim) {
       player.numCrate--;
       qty++;
+
+      crateTab[Math.floor((player.x + xAdd) / 2) + (Math.floor((player.y + yAdd) / 2) * tabDim)] = qty;
     }
 
     if(qty == 0) qty = "";
