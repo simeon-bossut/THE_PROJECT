@@ -168,8 +168,8 @@ catch (Exception $e) {
             <div class="selectBox">
               <h2  class="titleselect"><?php echo getLanguage("Taille", "Size");  ?></h2>
               <select name="size" >
-                <option value="1">3*3</option>
-                <option value="2">4*4</option>
+                <option value="3">3*3</option>
+                <option value="4">4*4</option>
               </select>
             </div>
           <div class="selectBox">
@@ -177,7 +177,7 @@ catch (Exception $e) {
             <select name="difficulty" >
               <option value="1"><?php echo getLanguage("Facile", "Easy");  ?></option>
               <option value="2"><?php echo getLanguage("Moyen", "Medium");  ?></option>
-              <option value="2"><?php echo getLanguage("Difficile", "Hard");  ?></option>
+              <option value="3"><?php echo getLanguage("Difficile", "Hard");  ?></option>
             </select>
           </div>
         </div>
