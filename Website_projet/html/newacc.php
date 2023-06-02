@@ -20,6 +20,7 @@ if (isset($_POST["add"])) {
 		$email = valider_donnees($_POST["email"]);
 		$password2 = valider_donnees($_POST["password"]);
 		$password3 = valider_donnees($_POST["password2"]);
+		$password_hash = hash('ripemd160', $password2);
 
 
 		if ($password2 == $password3) {
@@ -31,7 +32,7 @@ if (isset($_POST["add"])) {
 					':email' => $email,
 					':pseudo' => $pseudo,
 					':civility' => $civility,
-					':password' => $password2
+					':password' => $password_hash
 				)
 				);
 

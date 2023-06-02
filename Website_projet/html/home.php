@@ -19,10 +19,27 @@ try {
     $id_dude = $res['id_dude'];
     $id_hat  = $res['id_hat'];
 
-    $resBack = request("SELECT url FROM background WHERE id = ?", true, array($id_back))[0];
-    $resHat  = request("SELECT url FROM hat WHERE id = ?", true, array($id_hat))[0];
-    $resBody = request("SELECT url FROM body WHERE id = ?", true, array($id_dude))[0];
+    $resBack = request("SELECT url FROM background WHERE id = ?", true, array($id_back));
+    if($resBack!=false)
+      $resBack= $resBack[0];
+    else{
+      $resBack = 'bg_factory';
+    }
 
+    
+    $resHat  = request("SELECT url FROM hat WHERE id = ?", true, array($id_hat));
+    if($resHat!=false)
+      $resHat= $resHat[0];
+    else{
+      $resHat = null;
+    }
+
+    $resBody = request("SELECT url FROM body WHERE id = ?", true, array($id_dude));
+    if($resBody!=false)
+      $resBody= $resBody[0];
+    else{
+      $resBody = 'character_default';
+  }
   }
 
   else {
@@ -131,7 +148,7 @@ catch (Exception $e) {
               <span>500</span>
             </div>
             <div class="victoryInfoContent" id="coinsVictory">
-              <img src="../Images/coinsIcon.svg">
+              <img src="../Images/coinsIcon.png">
               <span>670</span>
             </div>
           </div>

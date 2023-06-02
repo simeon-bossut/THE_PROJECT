@@ -27,7 +27,7 @@
 
 		<link rel="stylesheet" href="../CSS/settings.css">
 
-	</head>
+	</head>	
 
 	<body>
 		<?php include("nav.php"); ?>
@@ -35,12 +35,12 @@
 		<main>
 
 			<header>
-				<h1><?php  echo getLanguage("Paramètres","Settings");  echo $_SESSION['url_hat'];?> </h1>
+				<h1><?php  echo getLanguage("Paramètres","Settings"); ?> </h1>
 			</header>
 
 			<div class="container">
 				<div class="choice"> 
-				<h2>Choose your language</h2>
+				<h2><?php  echo getLanguage("Selectionner votre langue","Choose your language");  ?></h2>
 					<form action="" method="post">
 						<div class="formInputs">
 							<div class="lablelg">
