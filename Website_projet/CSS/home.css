@@ -692,7 +692,7 @@ div[id^="crate"]{
   position: absolute;
   background-color: rgba(0,0,0, 0.3);
 
-  display: none;  /*flex*/
+  display: felx;
   justify-content: center;
   align-items: center;
 
