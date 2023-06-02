@@ -131,6 +131,9 @@ catch (Exception $e) {
 
       <div class="victoryScreen">
         <div class="victoryBox">
+
+          <img src="../Images/crossIcon.svg" class="crossVictory">
+
           <div class="victoryTitle">Victory</div>
           <div class="victoryInfo">
             <div class="victoryInfoContent" id="timerVictory">
@@ -152,7 +155,7 @@ catch (Exception $e) {
               <span>670</span>
             </div>
           </div>
-          <div class="victoryLevel">Level : 24</div>
+          <button class="victoryRefreshButton">Restart</button>
         </div>
       </div>
 
@@ -162,7 +165,30 @@ catch (Exception $e) {
             <div id="characterBodyIcon"></div>
             <div id="characterHatIcon"></div>
           </div>
-          <a href="customization.php" id="skinButton"><?php echo getLanguage("PERSONNALISER", "CUSTOM");  ?></a>
+
+          <a href="customization.php" class="skinButton"><?php echo getLanguage("PERSONNALISER", "CUSTOM");  ?></a>
+          <div class="select"> 
+            <div class="selectBox">
+              <h2  class="titleselect"><?php echo getLanguage("Taille", "Size");  ?></h2>
+              <select name="size" >
+                <option value="3">3*3</option>
+                <option value="4">4*4</option>
+              </select>
+            </div>
+          <div class="selectBox">
+            <h2  class="titleselect"><?php echo getLanguage("Level", "Level");  ?></h2>
+            <select name="difficulty" >
+              <option value="1"><?php echo getLanguage("Facile", "Easy");  ?></option>
+              <option value="2"><?php echo getLanguage("Moyen", "Medium");  ?></option>
+              <option value="3"><?php echo getLanguage("Difficile", "Hard");  ?></option>
+            </select>
+          </div>
+        </div>
+        
+        <button onclick="initMainGrid()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
+      
+      
+        
         </div>
       </div>
 

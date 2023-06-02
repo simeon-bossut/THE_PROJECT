@@ -6,15 +6,10 @@ var viewSet = document.querySelector('#povBoxContent');
 
 
 
-var tabDim = 4;
+var tabDim = document.querySelector('select[name="size"]').value;
 
-var obsTab   = [1, 4, 2, 3, 3, 2, 1, 3, 2, 2, 1, 2, 2, 3, 3, 1];
-var crateTab = [4, 1, 3, 2, 1, 2, 4, 3, 2, 3, 1, 4, 3, 4, 2, 0];
-
-for(let i = 0; i < tabDim * 4; i++) {
-  //obsTab.push(Math.floor(Math.random() * (tabDim)) + 1);
-  //crateTab.push(0)//Math.floor(Math.random() * (tabDim)));
-}
+var obsTab;
+var crateTab; // = [4, 1, 3, 2, 1, 2, 4, 3, 2, 3, 1, 4, 3, 4, 2, 0];
 
 
 
@@ -153,7 +148,7 @@ function checkVictory() {
         return false;
       }
 
-    }
+    }  
 
     let maxVal1 = -1;
     let nbStack1 = 0;
@@ -224,6 +219,8 @@ function checkVictory() {
       }
     }
 
+    console.log('ok', obsTab[i + tabDim], (i + tabDim), obsTab);
+
     if(obsTab[i + tabDim] != nbStack1) {
       return false;
     }
@@ -284,6 +281,25 @@ function getElemByCoord(x, y) {
 
 
 function initMainPlate() {
+
+  crateTab = [];
+
+  for(let i = 0; i < tabDim ** 2; i++) {
+    crateTab.push(0);
+  }
+
+  tabDim = Number(document.querySelector('select[name="size"]').value)
+
+  // A CHANGER
+  if(tabDim == 3) {
+    obsTab = [2, 2, 1, 1, 2, 2, 3, 1, 2, 2, 1, 3];
+    crateTab = [1, 2, 3, 3, 1, 2, 2, 3, 0];
+  }
+
+  if(tabDim == 4) {
+    obsTab = [1, 4, 2, 3, 3, 2, 1, 3, 2, 2, 1, 2, 2, 3, 3, 1]
+  }
+
 
   gameTab = [];
 
