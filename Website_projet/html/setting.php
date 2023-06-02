@@ -40,7 +40,7 @@
 
 			<div class="container">
 				<div class="choice"> 
-				<h2>Choose your language</h2>
+				<h2><?php  echo getLanguage("Selectionner votre langue","Choose your language");  ?></h2>
 					<form action="" method="post">
 						<div class="formInputs">
 							<div class="lablelg">
