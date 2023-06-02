@@ -2,62 +2,38 @@
 include 'language.php';
 
 require("connexion.php");
-if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
-	try{
-	$reqPrep2 = "SELECT id_back FROM acc WHERE email= :email";
-	$req = $conn->prepare($reqPrep2);
-	$req->execute(array(
-			':email' => $_SESSION["email"]));
-	$id = $req->fetch()[0];
-	}catch (Exception $e) {
-	die("Erreur : " . $e->getMessage());
-}
-}
-else{
-	$id=1;
-}
+
+require("request.php");
+
+$resBack;
+$resBody;
+$resHat;
+
 try {
-			$reqPrep = "SELECT url FROM background WHERE id_back= :id";
-			$req = $conn->prepare($reqPrep); //Préparer la requete
-			$req->execute(array(
-			':id' => $id)); //Executer la requete
 
-			$resultat = $req->fetch(); //récupération du résultat 
+  if(isset($_SESSION) && isset($_SESSION['email'])) {
 
-}catch (Exception $e) {
+    $res = request("SELECT * FROM acc WHERE email = ?", true, array($_SESSION['email']));
+
+    $id_back = $res['id_back'];
+    $id_dude = $res['id_dude'];
+    $id_hat  = $res['id_hat'];
+
+    $resBack = request("SELECT url FROM background WHERE id = ?", true, array($id_back))[0];
+    $resHat  = request("SELECT url FROM hat WHERE id = ?", true, array($id_hat))[0];
+    $resBody = request("SELECT url FROM body WHERE id = ?", true, array($id_dude))[0];
+
+  }
+
+  else {
+    $resBack = 'bg_factory';
+    $resHat = null;
+    $resBody = 'character_default';
+  }
+} 
+
+catch (Exception $e) {
 	die("Erreur : " . $e->getMessage());
-}
-$id_hat =0;
-$id_dude = 0;
-if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
-    $reqhat = "SELECT id_hat FROM acc WHERE email= :email";
-    $req = $conn->prepare($reqhat);
-    $req->execute(array(
-			':email' => $_SESSION["email"])); //Executer la requete
-
-      $id_hat = $req->fetch()[0];
-
-
-      $reqdude = "SELECT id_dude FROM acc WHERE email= :email";
-      $req = $conn->prepare($reqdude);
-      $req->execute(array(
-        ':email' => $_SESSION["email"])); //Executer la requete
-  
-        $id_dude = $req->fetch()[0];
-
-
-        $requrlhat = "SELECT url FROM hat WHERE id= :id";
-        $req = $conn->prepare($requrlhat);
-          $req->execute(array(':id' => $id_hat));
-          $url_hat = $req->fetch()[0];
-        $_SESSION["url_hat"]= $url_hat;
-
-        $requrldude = "SELECT url FROM body WHERE id= :id";
-        $req = $conn->prepare($requrldude);
-        $req->execute(array(':id' => $id_dude));
-        $url_dude = $req->fetch()[0];
-        $_SESSION["url_dude"]= $url_dude;
-
 }
 
 ?>
@@ -134,20 +110,32 @@ if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){
 
   <main>
 
-    <div class="gameTemplate" style="background-image: url('<?php echo $resultat[0];?>');">
+    <div class="gameTemplate" style="background-image: url('../Images/<?php echo $resBack; ?>.jpg');">
 
       <div class="victoryScreen">
         <div class="victoryBox">
-          <div class="victoryTitle">Congratulations</div>
+          <div class="victoryTitle">Victory</div>
           <div class="victoryInfo">
-            <div class="victoryInfoContent" id="timerVictory">18:54</div>
-            <div class="victoryInfoContent" id="moveVictory">24</div>
+            <div class="victoryInfoContent" id="timerVictory">
+              <img src="../Images/timerIcon.svg">
+              <span>18:54</span>
+            </div>
+            <div class="victoryInfoContent" id="moveVictory">
+              <img src="../Images/movesIcon.svg">
+              <span>23</span>
+            </div>
           </div>
-          <div class="victoryScores">
-            <div class="victoryScoresInfo" id="xpVictory">+ 500</div>
-            <div class="victoryScoresInfo" id="coinsVictory">+ 500</div>
+          <div class="victoryInfo">
+            <div class="victoryInfoContent" id="xpVictory">
+              <img src="../Images/xpIcon.svg">
+              <span>500</span>
+            </div>
+            <div class="victoryInfoContent" id="coinsVictory">
+              <img src="../Images/coinsIcon.svg">
+              <span>670</span>
+            </div>
           </div>
-          <div class="victoryLevel">24</div>
+          <div class="victoryLevel">Level : 24</div>
         </div>
       </div>
 

@@ -1,7 +1,19 @@
 <?php session_start(); 
 require("connexion.php");?>
 <?php include("verifLogin.php"); ?>
+
+<?php require("request.php"); ?>
+
 <?php 
+
+try {
+
+	if(isset($_POST['submitChanges'])) {
+
+		request("UPDATE acc SET id_back = ?, id_dude = ?, id_hat = ? WHERE email = ?", false, array($_POST['bgSelect'], $_POST['bodySelect'], $_POST['hatSelect'], $_SESSION['email']));
+
+	}
+	/*
 	if(isset($_POST["conf"])){
 		header("customization.php");
 	}
@@ -28,14 +40,10 @@ require("connexion.php");?>
 			':id_hat' => $_COOKIE["hat"],
 			':id_dude' => $_COOKIE["dude"],
 			':email' => $_SESSION["email"]
-		)); 
-	}catch (Exception $e) {
-		die("Erreur : " . $e->getMessage());
-	}
-
+		)); */
+}catch (Exception $e) {
+	die("Erreur : " . $e->getMessage());
 }
-	
-	
 
 ?>
 <!DOCTYPE html>
@@ -60,16 +68,30 @@ require("connexion.php");?>
 			<h1>Custom your game</h1>
 		</header>
 
+		<form action="" method="POST">
+
 		<div class="creamBG">
 			<h2>Custom your game background</h2>
 
 			<div class="containerContent">
 				<div id="textContent">
-					<select id="bgSelect">
-						<option class="1" src="../Images/bg_factory.jpg">Classic</option>
-						<option class="2" src="../Images/bg_factory_chemical.jpg">Chemical</option>
-						<option class="3" src="../Images/bg_factory_neon.jpg">Neon</option>
-						<option class="4" src="../Images/bg_factory_panda.jpg">???</option>
+					<select id="bgSelect" name="bgSelect">
+
+						<?php
+						$acc;
+						if(isset($_SESSION['email'])) {
+							$acc = request("SELECT * FROM acc WHERE email = ?", true, array($_SESSION['email']));
+						}
+
+						$res = request("SELECT * FROM background", false, null);
+
+						foreach($res as $ind=>$val) {
+							if(isset($acc) && $acc['id_back'] == $val['id']) 
+								echo "<option value='$val[id]' id='$val[url]' selected>$val[name]</option>";
+							else
+								echo "<option value='$val[id]' id='$val[url]'>$val[name]</option>";
+						}
+						?>
 					</select>
 
 					<p class="para">Choose your favorite game screen, don't settle for the basics, demand the best, here's what
@@ -79,9 +101,6 @@ require("connexion.php");?>
 				<img class="img_back">
 
 			</div>
-			<form class="form" action="" method="post">
-			<input type="submit" name="conf">Submit</button>
-			</form>
 		</div>
 
 		<div class="creamBG">
@@ -89,43 +108,42 @@ require("connexion.php");?>
 
 			<div class="containerContent">
 				<div id="textContent">
-					<label>Hat :</label>
-						<select id="hatSelect">
+					<div class="formSelect">
+						<label>Hat :</label>
+						<select id="hatSelect" name="hatSelect">
 							<option class="0" >None</option>
-							<option class="7" src="../Images/customizations/crown.svg">Crown</option>
-							<option class="2" src="../Images/customizations/aureole.svg">Aureole</option>
-							<option class="5" src="../Images/customizations/corns.svg">Bull Horns</option>
-							<option class="1" src="../Images/customizations/audio_helmet.svg">Headset</option>
-							<option class="3" src="../Images/customizations/biker_helmet.svg">Biker Helmet</option>
-							<option class="4" src="../Images/customizations/cap.svg">Cap</option>
-							<option class="6" src="../Images/customizations/cowboy_hat.svg">Cowboy Hat</option>
-							<option class="13" src="../Images/customizations/work_helmet.svg">Construction Helmet</option>
-							<option class="10" src="../Images/customizations/miner_helmet.svg">Mining Helmet</option>
-							<option class="12" src="../Images/customizations/viking_helmet.svg">Viking Helmet</option>
-							<option class="8" src="../Images/customizations/drink_cap.svg">Drink Helmet</option>
-							<option class="11" src="../Images/customizations/silver_robot.svg">Silver Robot</option>
-							<option class="9" src="../Images/customizations/gold_robot.svg">Gold Robot</option>
+
+							<?php
+							$res = request("SELECT * FROM hat", false, null);
+
+							foreach($res as $ind=>$val) {
+								if(isset($acc) && $acc['id_hat'] == $val['id']) 
+									echo "<option value='$val[id]' id='$val[url]' selected>$val[name]</option>";
+								else
+									echo "<option value='$val[id]' id='$val[url]'>$val[name]</option>";
+							}
+							?>
 						</select>
-					<label>Skin :</label>
-						<select id="bodySelect">
-                            <option class="1" src="../Images/customizations/character_default.svg">Default Character</option>
-							<option class="2" src="../Images/customizations/red.svg">Red</option>
-							<option class="3" src="../Images/customizations/blue.svg">Blue</option>
-							<option class="4" src="../Images/customizations/green.svg">Green</option>
-                            <option class="5" src="../Images/customizations/orange.svg">Orange</option>
-                            <option class="6" src="../Images/customizations/purple.svg">Purple</option>
-                            <option class="7" src="../Images/customizations/yellow.svg">Yellow</option>
-                            <option class="8" src="../Images/customizations/green.svg">Cyan</option>
-                            <option class="9" src="../Images/customizations/plus_minus.svg">Plus Minus</option>
-                            <option class="10" src="../Images/customizations/crate_body.svg">Crate</option>
+					</div>
+
+					<div class="formSelect">
+						<label>Skin :</label>
+						<select id="bodySelect" name="bodySelect">
+							<?php
+								$res = request("SELECT * FROM body", false, null);
+
+								foreach($res as $ind=>$val) {
+									if(isset($acc) && $acc['id_dude'] == $val['id']) 
+										echo "<option value='$val[id]' id='$val[url]' selected>$val[name]</option>";
+									else
+										echo "<option value='$val[id]' id='$val[url]'>$val[name]</option>";
+								}
+								?>
 						</select>
+					</div>
 
 					<p class="para">Choose your cosmetics to dress up your character! Wide choices are available. Grab a cool hat?
 						A serious one? An impressive? Choose your style and use your imagination </p>
-
-					<form class="form" action="" method="post">
-						<input type="submit" name="conf_body">Submit</button>
-					</form>
 				</div>
 
 				<div class="charBox">
@@ -137,6 +155,9 @@ require("connexion.php");?>
 
 			</div>
 		</div>
+			<input type="submit" name="submitChanges" value="Save Changes">
+
+						</form>
 	</main>
 	<?php include("footer.php"); ?>
 
@@ -152,27 +173,19 @@ require("connexion.php");?>
 	var bodySelector = document.querySelector("select#bodySelect");
 
 	function changeBgImg() {
-		//document.querySelector("#selected").textContent = optionSelector.options[optionSelector.selectedIndex].getAttribute("src");
-		let id = optionSelector.options[optionSelector.selectedIndex].getAttribute("class");
-		document.cookie = `background=${id};60*60*24*30`;
-		let src = optionSelector.options[optionSelector.selectedIndex].getAttribute("src");
-
-		document.querySelector(".img_back").setAttribute('src', src);
+		let id = optionSelector.options[optionSelector.selectedIndex].getAttribute("id");
+		document.querySelector(".img_back").setAttribute('src', `../Images/${id}.jpg`);
 		 
 	}
 	
 	function changeHat() {
-		let src = hatSelector.options[hatSelector.selectedIndex].getAttribute("src");
-		let id =hatSelector.options[hatSelector.selectedIndex].getAttribute("class");
-		document.cookie = `hat=${id};60*60*24*30`;
-		document.querySelector(".hat").style.backgroundImage = `url("${src}")`;
+		let id = hatSelector.options[hatSelector.selectedIndex].getAttribute("id");
+		document.querySelector(".hat").style.backgroundImage = `url("../Images/customizations/${id}.svg")`;
 	}
 
 	function changeBody() {
-		let src = bodySelector.options[bodySelector.selectedIndex].getAttribute("src");
-		let id =bodySelector.options[bodySelector.selectedIndex].getAttribute("class");
-		document.cookie = `dude=${id};60*60*24*30`;
-		document.querySelector(".body").style.backgroundImage = `url("${src}")`;
+		let id = bodySelector.options[bodySelector.selectedIndex].getAttribute("id");
+		document.querySelector(".body").style.backgroundImage = `url("../Images/customizations/${id}.svg")`;
 	}
 
 	changeBgImg();

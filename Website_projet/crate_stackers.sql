@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : jeu. 01 juin 2023 à 12:58
+-- Généré le : ven. 02 juin 2023 à 07:19
 -- Version du serveur : 5.7.24
 -- Version de PHP : 8.0.1
 
@@ -44,17 +44,17 @@ CREATE TABLE `acc` (
 --
 
 INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`, `score`, `level`, `id_back`, `id_dude`, `id_hat`) VALUES
-('admin', 'coucou', 'M', 'azer', NULL, NULL, 1, 10, 7),
-('anne.cauche@yahoo.fr', 'Annouchka', 'Mme', 'coucou', NULL, NULL, 1, 1, 0),
-('azef@ezf', 'azer', 'M', 'azer', NULL, NULL, 2, 1, 0),
-('lucas.verportern@gmail.com', 'Yiroes', 'M', 'Zoeomg', 5000, NULL, 1, 1, 0),
-('monkoye@gmail.com', 'monkoyeee', 'M', 'oui', NULL, NULL, 1, 1, 0),
-('Paul.antoine@gmail.com', 'PA', 'M', 'oui', NULL, NULL, 1, 1, 0),
-('simeon.bossut@gmail.com', 'sim', 'M', 'azer', NULL, NULL, 1, 1, 0),
-('test123@gmail.com', 'ceciestuntest', 'M', 'non', 0, 0, 1, 1, 0),
-('test2222@gmail.co!', 'TEST', 'M', 'azer', NULL, NULL, 1, 1, 0),
-('test@gmail.com', 'test', 'M', 'test', NULL, NULL, 1, 1, 0),
-('yanis.ouchene@gmail.com', 'Youyou', 'M', 'mdp', NULL, NULL, 1, 1, 0);
+('admin', 'coucou', 'M', 'azer', NULL, NULL, 2, 9, 1),
+('anne.cauche@yahoo.fr', 'Annouchka', 'Mme', 'coucou', NULL, NULL, 0, 1, 0),
+('azef@ezf', 'azer', 'M', 'azer', NULL, NULL, 0, 1, 0),
+('lucas.verportern@gmail.com', 'Yiroes', 'M', 'Zoeomg', 5000, NULL, 0, 1, 0),
+('monkoye@gmail.com', 'monkoyeee', 'M', 'oui', NULL, NULL, 0, 1, 0),
+('Paul.antoine@gmail.com', 'PA', 'M', 'oui', NULL, NULL, 0, 1, 0),
+('simeon.bossut@gmail.com', 'sim', 'M', 'azer', NULL, NULL, 0, 1, 0),
+('test123@gmail.com', 'ceciestuntest', 'M', 'non', 0, 0, 0, 1, 0),
+('test2222@gmail.co!', 'TEST', 'M', 'azer', NULL, NULL, 0, 1, 0),
+('test@gmail.com', 'test', 'M', 'test', NULL, NULL, 0, 1, 0),
+('yanis.ouchene@gmail.com', 'Youyou', 'M', 'mdp', NULL, NULL, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -63,19 +63,20 @@ INSERT INTO `acc` (`email`, `pseudo`, `civility`, `password`, `score`, `level`, 
 --
 
 CREATE TABLE `background` (
-  `id_back` int(11) NOT NULL,
-  `url` varchar(40) NOT NULL
+  `id` int(11) NOT NULL,
+  `url` varchar(40) NOT NULL,
+  `name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `background`
 --
 
-INSERT INTO `background` (`id_back`, `url`) VALUES
-(1, '../Images/bg_factory.jpg'),
-(2, '../Images/bg_factory_chemical.jpg'),
-(3, '../Images/bg_factory_neon.jpg'),
-(4, '../Images/bg_factory_panda.jpg');
+INSERT INTO `background` (`id`, `url`, `name`) VALUES
+(1, 'bg_factory', 'Classic'),
+(2, 'bg_factory_chemical', 'Chemical'),
+(3, 'bg_factory_neon', 'Neon'),
+(4, 'bg_factory_panda', '???');
 
 -- --------------------------------------------------------
 
@@ -85,24 +86,25 @@ INSERT INTO `background` (`id_back`, `url`) VALUES
 
 CREATE TABLE `body` (
   `id` int(2) NOT NULL,
-  `url` varchar(64) NOT NULL
+  `url` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `body`
 --
 
-INSERT INTO `body` (`id`, `url`) VALUES
-(1, 'character_default'),
-(2, 'red'),
-(3, 'blue'),
-(4, 'green'),
-(5, 'orange'),
-(6, 'purple'),
-(7, 'yellow'),
-(8, 'cyan'),
-(9, 'plus_minus'),
-(10, 'crate_body');
+INSERT INTO `body` (`id`, `url`, `name`) VALUES
+(1, 'character_default', 'Default'),
+(2, 'red', 'Red'),
+(3, 'blue', 'Blue'),
+(4, 'green', 'Green'),
+(5, 'orange', 'Orange'),
+(6, 'purple', 'Purple'),
+(7, 'yellow', 'Yellow'),
+(8, 'cyan', 'Aqua'),
+(9, 'plus_minus', 'Plus Minus'),
+(10, 'crate_body', 'Crate Camo');
 
 -- --------------------------------------------------------
 
@@ -112,27 +114,28 @@ INSERT INTO `body` (`id`, `url`) VALUES
 
 CREATE TABLE `hat` (
   `id` int(2) NOT NULL,
-  `url` varchar(64) NOT NULL
+  `url` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `hat`
 --
 
-INSERT INTO `hat` (`id`, `url`) VALUES
-(1, 'audio_helmet'),
-(2, 'aureole'),
-(3, 'biker_helmet'),
-(4, 'cap'),
-(5, 'corns'),
-(6, 'cowboy_hat'),
-(7, 'crown'),
-(8, 'drink_cap'),
-(9, 'gold_robot'),
-(10, 'miner_helmet'),
-(11, 'silver_robot'),
-(12, 'viking_helmet'),
-(13, 'work_helemt');
+INSERT INTO `hat` (`id`, `url`, `name`) VALUES
+(1, 'audio_helmet', 'Headset'),
+(2, 'aureole', 'Aureole'),
+(3, 'biker_helmet', 'Biker Helmet'),
+(4, 'cap', 'Cap'),
+(5, 'corns', 'Bull Horns'),
+(6, 'cowboy_hat', 'Cowboy Hat'),
+(7, 'crown', 'Crown'),
+(8, 'drink_cap', 'Drink Helmet'),
+(9, 'gold_robot', 'Gold Robot'),
+(10, 'miner_helmet', 'Mining Helmet'),
+(11, 'silver_robot', 'Silver Robot'),
+(12, 'viking_helmet', 'Viking Helmet'),
+(13, 'work_helmet', 'Construction Helmet');
 
 --
 -- Index pour les tables déchargées
@@ -148,7 +151,7 @@ ALTER TABLE `acc`
 -- Index pour la table `background`
 --
 ALTER TABLE `background`
-  ADD PRIMARY KEY (`id_back`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `body`
