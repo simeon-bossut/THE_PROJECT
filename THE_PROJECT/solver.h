@@ -60,7 +60,7 @@ void print_Stock(StockSoluce*Stock);
 
 
 //Solver start
-bool crate_solver(Grid* adgridj);
+int crate_solver(Grid* adgridj);//renvoie le nombre de solutions
 void fill_ghost(GhostGrid gridf, Grid gridj);
 int maj_ghost(GhostGrid gridf, Grid gridj);
 int fill_loners(Grid* gridj, GhostGrid gridf);

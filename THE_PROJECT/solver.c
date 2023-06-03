@@ -1106,7 +1106,7 @@ void print_Stock(StockSoluce* Stock)
     }
 }
 
-bool crate_solver(Grid * gridj) {
+int crate_solver(Grid * gridj) {//renvoie le snombre de solutions
 
 	GhostGrid * gridf = initGhostGrid(gridj->size);
     fill_ghost(*gridf, *gridj);
