@@ -27,7 +27,7 @@
 
 		<link rel="stylesheet" href="../CSS/settings.css">
 
-	</head>
+	</head>	
 
 	<body>
 		<?php include("nav.php"); ?>
@@ -35,12 +35,15 @@
 		<main>
 
 			<header>
-				<h1><?php  echo getLanguage("Paramètres","Settings");  echo $_SESSION['url_hat'];?> </h1>
+				<h1><?php  echo getLanguage("Paramètres","Settings"); ?> </h1>
 			</header>
 
 			<div class="container">
+
+<div class="left_box">
+
 				<div class="choice"> 
-				<h2>Choose your language</h2>
+				<h2><?php  echo getLanguage("Selectionner votre langue","Choose your language");  ?></h2>
 					<form action="" method="post">
 						<div class="formInputs">
 							<div class="lablelg">
@@ -57,7 +60,37 @@
 						
 						<button class="bouton" type="submit" name="Modifier">Choose!</button>
 					</form>
-				</div>	
+				</div>
+
+				<div class="report">
+					<h2> <?php  echo getLanguage("Signaler un problème ou proposer une idée","Report bug or propose an idea");  ?></h2>
+					<form action="" method="post">
+
+						<div class="reportBox">
+						
+							<div class="label">
+								<div class="labelReport">
+									<input type="radio" name="checked"  value="bug">
+									<?php  echo getLanguage("Problème","Bug");  ?>
+								</div>
+								<div class="labelReport">
+									<input type="radio"  name="checked" value="idea">
+									<?php  echo getLanguage("Idée","Idea");  ?>
+								</div>
+							</div>
+
+							<div class="text">
+								<textarea class="textArea" name="reportText"></textarea>
+							</div>
+						</div>
+						
+						<button class="bouton" type="submit" name="Modifier">Submit!</button>
+					</form>
+
+				</div>
+
+</div>
+
 			<?php if(isset($_SESSION["authentifie"]) && $_SESSION["authentifie"] == true){?>
 				<div class="form">
 					<h2><?php  echo getLanguage("Modifie ton compte","Modify your account");  ?></h2>
@@ -65,7 +98,8 @@
 					<form action="edit.php" method="post">
 						<div class="form_div">
 
-							<label>Email</label>
+							<label>
+								Email</label>
 							<input class="field_class" name="email" type="text" placeholder="<?php echo $_SESSION["email"]; ?>" required autofocus>
 
 							<?php if (isset($_COOKIE["email_edit_error"])) {
@@ -115,6 +149,7 @@
 					<div  class="choice"> <p> <?php  echo getLanguage("Vous devez être connecté pour modifier votre profil","Need to be connected to modify your profil"); ?></div>
 					<?php } ?>
 			</div>
+
 		</main>
 
 		<?php include("footer.php"); ?>

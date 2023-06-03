@@ -111,7 +111,7 @@ try {
 					<div class="formSelect">
 						<label>Hat :</label>
 						<select id="hatSelect" name="hatSelect">
-							<option class="0" >None</option>
+							<option value="0">None</option>
 
 							<?php
 							$res = request("SELECT * FROM hat", false, null);
@@ -180,12 +180,20 @@ try {
 	
 	function changeHat() {
 		let id = hatSelector.options[hatSelector.selectedIndex].getAttribute("id");
-		document.querySelector(".hat").style.backgroundImage = `url("../Images/customizations/${id}.svg")`;
+
+		if(id) {
+			document.querySelector(".hat").setAttribute('src', `../Images/customizations/${id}.svg`);
+			document.querySelector(".hat").style.display = 'block';
+		}
+
+		else {
+			document.querySelector(".hat").style.display = 'none';
+		}
 	}
 
 	function changeBody() {
 		let id = bodySelector.options[bodySelector.selectedIndex].getAttribute("id");
-		document.querySelector(".body").style.backgroundImage = `url("../Images/customizations/${id}.svg")`;
+		document.querySelector(".body").setAttribute('src', `../Images/customizations/${id}.svg`);
 	}
 
 	changeBgImg();

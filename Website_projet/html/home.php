@@ -11,7 +11,7 @@ $resHat;
 
 try {
 
-  if(isset($_SESSION) && isset($_SESSION['email'])) {
+  if (isset($_SESSION) && isset($_SESSION['email'])) {
 
     $res = request("SELECT * FROM acc WHERE email = ?", true, array($_SESSION['email']));
 
@@ -19,21 +19,34 @@ try {
     $id_dude = $res['id_dude'];
     $id_hat  = $res['id_hat'];
 
-    $resBack = request("SELECT url FROM background WHERE id = ?", true, array($id_back))[0];
-    $resHat  = request("SELECT url FROM hat WHERE id = ?", true, array($id_hat))[0];
-    $resBody = request("SELECT url FROM body WHERE id = ?", true, array($id_dude))[0];
+    $resBack = request("SELECT url FROM background WHERE id = ?", true, array($id_back));
+    if ($resBack != false)
+      $resBack = $resBack[0];
+    else {
+      $resBack = 'bg_factory';
+    }
 
-  }
 
-  else {
+    $resHat  = request("SELECT url FROM hat WHERE id = ?", true, array($id_hat));
+    if ($resHat != false)
+      $resHat = $resHat[0];
+    else {
+      $resHat = null;
+    }
+
+    $resBody = request("SELECT url FROM body WHERE id = ?", true, array($id_dude));
+    if ($resBody != false)
+      $resBody = $resBody[0];
+    else {
+      $resBody = 'character_default';
+    }
+  } else {
     $resBack = 'bg_factory';
     $resHat = null;
     $resBody = 'character_default';
   }
-} 
-
-catch (Exception $e) {
-	die("Erreur : " . $e->getMessage());
+} catch (Exception $e) {
+  die("Erreur : " . $e->getMessage());
 }
 
 ?>
@@ -78,7 +91,7 @@ catch (Exception $e) {
     echo '<div class="backDis">';
   } ?>
 
-    <nav>
+  <nav>
     <div class="buttonsLogo">
       <a href="conceptor.php">
         <div class="buttonLogo"><?php echo getLanguage("Créateur de niveau", "Level Creator");  ?></div>
@@ -86,18 +99,18 @@ catch (Exception $e) {
       <a href="setting.php">
         <div class="buttonLogo"><?php echo getLanguage("Paramètres", "Settings");  ?></div>
       </a>
-		</div>
-		<div class="buttonsLogo">
-    <a href=""><img src="../Images/complete_logo.png" id="logo"></a>
-		</div>
+    </div>
+    <div class="buttonsLogo">
+      <a href=""><img src="../Images/complete_logo.png" id="logo"></a>
+    </div>
     <div class="buttonsLogo">
       <a href="ranking.php">
         <div class="buttonLogo"><?php echo getLanguage("Classement", "Leaderboards");  ?></div>
       </a>
       <?php if (isset($_SESSION["authentifie"]) &&  $_SESSION["authentifie"] == true) { ?>
-      <a href="logout.php">
-        <div class="buttonLogo"><?php echo getLanguage("Déconnexion", "Logout");  ?></div>
-      </a>
+        <a href="logout.php">
+          <div class="buttonLogo"><?php echo getLanguage("Déconnexion", "Logout");  ?></div>
+        </a>
 
       <?php
       } else {  ?>
@@ -114,6 +127,9 @@ catch (Exception $e) {
 
       <div class="victoryScreen">
         <div class="victoryBox">
+
+          <img src="../Images/crossIcon.svg" class="crossVictory">
+
           <div class="victoryTitle">Victory</div>
           <div class="victoryInfo">
             <div class="victoryInfoContent" id="timerVictory">
@@ -131,21 +147,44 @@ catch (Exception $e) {
               <span>500</span>
             </div>
             <div class="victoryInfoContent" id="coinsVictory">
-              <img src="../Images/coinsIcon.svg">
+              <img src="../Images/coinsIcon.png">
               <span>670</span>
             </div>
           </div>
-          <div class="victoryLevel">Level : 24</div>
+          <button class="victoryRefreshButton" onclick="initMainPlate()">Restart</button>
         </div>
       </div>
 
       <div class="secondPlate">
         <div class="box">
-          <div class="view">
+          <div class="view" id="boxCustom">
             <div id="characterBodyIcon"></div>
             <div id="characterHatIcon"></div>
           </div>
-          <a href="customization.php" id="skinButton"><?php echo getLanguage("PERSONNALISER", "CUSTOM");  ?></a>
+
+          <a href="customization.php" class="skinButton"><?php echo getLanguage("PERSONNALISER", "CUSTOM");  ?></a>
+          <div class="select">
+            <div class="selectBox">
+              <h2 class="titleselect"><?php echo getLanguage("Taille", "Size");  ?></h2>
+              <select name="size">
+                <option value="3">3*3</option>
+                <option value="4">4*4</option>
+              </select>
+            </div>
+            <div class="selectBox">
+              <h2 class="titleselect"><?php echo getLanguage("Level", "Level");  ?></h2>
+              <select name="difficulty">
+                <option value="1"><?php echo getLanguage("Facile", "Easy");  ?></option>
+                <option value="2"><?php echo getLanguage("Moyen", "Medium");  ?></option>
+                <option value="3"><?php echo getLanguage("Difficile", "Hard");  ?></option>
+              </select>
+            </div>
+          </div>
+
+          <button onclick="initMainPlate()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
+
+
+
         </div>
       </div>
 
@@ -162,7 +201,8 @@ catch (Exception $e) {
 
     </div>
 
-    <div style="display: none;" id="musicPlayer">
+    <!--
+    <div id="musicPlayer">
 
       <audio id="bgMusic"></audio>
 
@@ -171,6 +211,7 @@ catch (Exception $e) {
       <button id="nextMus" onclick="nextMusic()">NEXT</button>
 
     </div>
+    -->
 
 
 
@@ -189,7 +230,7 @@ catch (Exception $e) {
 
       <div class="containerContent">
         <p> <?php echo getLanguage("Notez que les gratte-ciel les plus hauts bloquent la vue des gratte-ciel inférieurs derrière eux. Les hommes sur la colline doivent voir le nombre de bâtiments marqués devant eux.", "Note that the tallest skyscrapers block the view of the lower skyscrapers behind them. The men on the hill must see the number of buildings that are marked in front of them."); ?> </p>
-        <img src="../images/skyscraper_stage.png">
+        <img src="../Images/skyscraper_stage.png">
       </div>
 
     </div>

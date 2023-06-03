@@ -91,12 +91,12 @@ nav {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   margin: 10px 0px;
+  padding: 5px;
   position: relative;
-
   justify-content: center;
   align-content: center;
-
   background-size: cover;
+  box-sizing: border-box;
 }
 
 .creamBG {
@@ -307,6 +307,12 @@ nav {
   display: grid;
   justify-content: center;
   align-content: center;
+
+  padding: 15px;
+  margin: 10px;
+
+  border-radius: 15px;
+  background-color: rgba(0,0,0, .5);
 }
 
 #mainPlate.dim3 {
@@ -495,6 +501,10 @@ nav {
   align-items: center;
 }
 
+#boxCustom {
+  box-shadow: 4px 4px 0px 0px black;
+}
+
 #povBox {
   background-image: url("../Images/road_pov.svg");
   background-position: center 110%;
@@ -638,15 +648,21 @@ div[id^="crate"]{
 }
 
 
-.box a {
-  height: 40px;
+.skinButton {
+  height: 90px;
   width: 90%;
   background-color: #ffe6cd;
   border-radius: 5px;
-
+  margin-top:2% ;
+  margin-bottom:2% ;
   display: flex;
 
   box-shadow: 4px 4px 0px 0px black;
+
+  border: 0px;
+  font-family: 'Kanit';
+
+  cursor: pointer;
 
   text-decoration: none;
 
@@ -663,10 +679,47 @@ div[id^="crate"]{
 .box a:hover {
   transform: scale(1.02);
 }
+#generation{
+  position: relative;
+  width: 100%;
+  left:5%;
+}
 
+.select{
+    
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0px;
+}
+select {
+  background-color: #341900;
+  border-radius: 5px;
+  color: white;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  font-size: 15px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+}
+.selectBox{
+  /*! margin: 2%; */
+  /*! height: 70%; */
+  /*! margin-top: -5%; */
+  width: 48%;
+}
+.titleselect{
+  margin: 0;
+  padding: 0%;
+  position: relative;
+
+}
 #characterBodyIcon {
-  width: 90%;
-  max-width: 200px;
+  height: 90%;
+  max-height: 200px;
   aspect-ratio: 1;
   position: absolute;
   background-size: 50%;
@@ -675,8 +728,8 @@ div[id^="crate"]{
 }
 
 #characterHatIcon {
-  width: 90%;
-  max-width: 200px;
+  height: 90%;
+  max-height: 200px;
   aspect-ratio: 1;
   position: absolute;
   background-size: 100%;
@@ -686,10 +739,24 @@ div[id^="crate"]{
 
 .victoryScreen {
   width: 100%;
-  height: 100%;
+  height: 0%;
+  top: 50%;
   z-index: 101;
   position: absolute;
   background-color: rgba(0,0,0, 0.3);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+
+  transition: all 1.5s ease-in-out;
+}
+
+.victoryScreen.opened {
+  height: 100%;
+  top: 0%;
 
   display: flex;
   justify-content: center;
@@ -703,6 +770,8 @@ div[id^="crate"]{
   height: auto;
   max-height: 100%;
 
+  position: relative;
+
   padding: 20px;
 
   background-color: #ffe6cd;
@@ -712,7 +781,7 @@ div[id^="crate"]{
 
   display: flex;
   flex-direction: column;
-  align-items: space-around;
+  align-items: center;
   justify-content: center;
 }
 
@@ -726,6 +795,36 @@ div[id^="crate"]{
   font-weight: 600;
 
   color: #964b00;
+}
+
+.crossVictory {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+
+  cursor: pointer;
+}
+
+.victoryRefreshButton {
+  width: 50%;
+  cursor: pointer;
+  max-width: 225px;
+  display: flex;
+  height: 50px;
+  margin: 10px 0px;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+  border: 0px;
+  color: #ffe6cd;
+  font-size: 30px;
+  font-family: 'kanit';
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px 0px black;
+  background-color: #964b00;
 }
 
 .victoryInfoContent {

@@ -34,7 +34,10 @@ int main(int argc, char **argv) {
   grid->obv[8] = 0;  grid->obv[9] = 2;  grid->obv[10] = 1; grid->obv[11] = 2;
   grid->obv[12] = 0; grid->obv[13] = 0; grid->obv[14] = 0; grid->obv[15] = 2;
 
-  //calcul_obs(grid);
+  grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
+  grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 0;  grid->tab[1][3] = 0;
+  grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 1;
+  grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
 
 
   fill_ghost(*gridf, *grid);

@@ -1,20 +1,20 @@
 <script>
 
+var player;
+
 var gameSet = document.querySelector('#mainPlate');
 var gameTab = [];
 var viewSet = document.querySelector('#povBoxContent');
 
 
+var timeStart = null;
+var newGrid = false;
 
-var tabDim = 4;
 
-var obsTab = [1,4,2,3,3,2,1,3,2,2,1,2,2,3,3,1];
-var crateTab = [];
+var tabDim = document.querySelector('select[name="size"]').value;
 
-for(let i = 0; i < tabDim * 4; i++) {
-  //obsTab.push(Math.floor(Math.random() * (tabDim)) + 1);
-  crateTab.push(0)//Math.floor(Math.random() * (tabDim)));
-}
+var obsTab;
+var crateTab; // = [4, 1, 3, 2, 1, 2, 4, 3, 2, 3, 1, 4, 3, 4, 2, 0];
 
 
 
@@ -89,6 +89,12 @@ class Character {
 
   move(direction) {
 
+    if(newGrid == true) {
+      timeStart = new Date().getTime();
+      newGrid = false;
+    }
+
+
     this.direction = direction;
 
     let x = this.x;
@@ -129,9 +135,132 @@ class Character {
 
 
 function checkVictory() {
+
+  if(timeStart == null)
+    return false;
+
+  if(crateTab.includes(0))
+    return false;
+
+  for(let i = 0; i < tabDim; i++) {
+
+    let lastVal1 = [];
+    let lastVal2 = [];
+
+    for(let j = 0; j < tabDim; j++) {
+      if(!lastVal1.includes(crateTab[i * tabDim + j])) {
+        lastVal1.push(crateTab[i * tabDim + j]);
+      }
+      else {
+        return false;
+      }
+      
+      if(!lastVal2.includes(crateTab[j * tabDim + i])) {
+        lastVal2.push(crateTab[j * tabDim + i]);
+      }
+      else {
+        return false;
+      }
+
+    }  
+
+    let maxVal1 = -1;
+    let nbStack1 = 0;
+
+    let maxVal2 = -1;
+    let nbStack2 = 0;
+
+    for(let k = 0; k < tabDim; k++) {
+      if(lastVal1[k] > maxVal1) {
+        nbStack1++;
+        maxVal1 = lastVal1[k];
+      }
+
+      if(lastVal2[k] > maxVal2) {
+        nbStack2++;
+        maxVal2 = lastVal2[k];
+      }
+    }
+
+    if(obsTab[i] != nbStack2) {
+      return false;
+    }
+
+    if(obsTab[tabDim*4 - 1 - i] != nbStack1) {
+      return false;
+    }
+  }
+
+  for(let i = 0; i < tabDim; i++) {
+
+    let lastVal1 = [];
+    let lastVal2 = [];
+
+    for(let j = 0; j < tabDim; j++) {
+      if(!lastVal1.includes(crateTab[i * tabDim + j])) {
+        lastVal1.push(crateTab[i * tabDim + j]);
+      }
+      else {
+        return false;
+      }
+      
+      if(!lastVal2.includes(crateTab[j * tabDim + i])) {
+        lastVal2.push(crateTab[j * tabDim + i]);
+      }
+      else {
+        return false;
+      }
+    }
+
+    let maxVal1 = -1;
+    let nbStack1 = 0;
+
+    let maxVal2 = -1;
+    let nbStack2 = 0;
+
+    lastVal1.reverse();
+    lastVal2.reverse();
+
+    for(let k = 0; k < tabDim; k++) {
+      if(lastVal1[k] > maxVal1) {
+        nbStack1++;
+        maxVal1 = lastVal1[k];
+      }
+
+      if(lastVal2[k] > maxVal2) {
+        nbStack2++;
+        maxVal2 = lastVal2[k];
+      }
+    }
+
+    if(obsTab[i + tabDim] != nbStack1) {
+      return false;
+    }
+
+    if(obsTab[tabDim*4 - 1 - tabDim - i] != nbStack2) {
+      return false;
+    }
+  }
+
   
+  // All conditions passed
 
 
+  document.querySelector(".victoryScreen").classList.add('opened');
+
+  totalTime = new Date(new Date().getTime() - timeStart);
+
+  let min = Math.floor(totalTime.getTime() / 1000 / 60);
+  min = min < 10 ? '0' + min : min;
+
+  let sec = Math.floor(totalTime.getTime() / 1000 % 60);
+  sec = sec < 10 ? '0' + sec : sec; 
+
+  document.querySelector("#timerVictory span").textContent = min + ':' + sec;
+
+  timeStart = null;
+
+  return true;
 }
 
 
@@ -176,6 +305,29 @@ function getElemByCoord(x, y) {
 
 
 function initMainPlate() {
+
+  newGrid = true;
+  timeStart = null;
+
+  crateTab = [];
+
+  tabDim = Number(document.querySelector('select[name="size"]').value);
+
+  for(let i = 0; i < tabDim ** 2; i++) {
+    crateTab.push(0);
+  }
+
+  document.querySelector(".victoryScreen").classList.remove('opened');
+
+  // A CHANGER
+  if(tabDim == 3) {
+    obsTab = [2, 2, 1, 1, 2, 2, 3, 1, 2, 2, 1, 3];
+    crateTab = [1, 0, 3, 3, 1, 2, 2, 3, 0];
+  }
+
+  if(tabDim == 4) {
+    obsTab = [1, 4, 2, 3, 3, 2, 1, 3, 2, 2, 1, 2, 2, 3, 3, 1];
+  }
 
   gameTab = [];
 
@@ -363,6 +515,13 @@ function initMainPlate() {
       element.innerHTML = crateTab[index];
   })
 
+  if(tabDim == 3) {
+    player = new Character(8, 3);
+  }
+
+  else if(tabDim == 4) {
+    player = new Character(10, 4);
+  }
 
 }
 
@@ -387,7 +546,7 @@ function crateGrab() {
 
 
     // Pick a box
-    if(player.numCrate < tabDim && qty > 0) {
+    if(player.numCrate <= tabDim && qty > 0) {
       player.numCrate++;
       qty--;
 
@@ -404,7 +563,7 @@ function crateGrab() {
   // Facing a pick area
   else if(gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "boxPick") {
 
-    if(player.numCrate == tabDim)
+    if(player.numCrate > tabDim)
       return;
     
     player.numCrate++;  
@@ -418,6 +577,8 @@ function crateGrab() {
     num = "";
     
   document.querySelector("#characterCrate").innerHTML = num;
+
+  checkVictory();
 
 
   setView();
@@ -471,6 +632,8 @@ function crateDrop() {
     
   document.querySelector("#characterCrate").innerHTML = num;
 
+  checkVictory();
+
   setView();
 }
 
@@ -485,6 +648,9 @@ window.addEventListener('keydown', e => {
 })
 
 
+document.querySelector('.crossVictory').addEventListener('click', e => {
+  document.querySelector('.victoryScreen').classList.remove('opened');
+})
 
 document.addEventListener('keydown', e => {
   let key = e.code;
@@ -519,16 +685,6 @@ document.addEventListener('keydown', e => {
 
   
 initMainPlate();
-
-var player;
-
-if(tabDim == 3) {
-  player = new Character(8, 3);
-}
-
-else if(tabDim == 4) {
-  player = new Character(10, 4);
-}
   
 function setView() {
 

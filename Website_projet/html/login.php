@@ -8,7 +8,7 @@ require("connexion.php");
 
 try {
 	if(isset($_POST["con"])) {
-		$resultat = request("SELECT * FROM acc WHERE email = :email AND password = :pass", false, array(':email' => $_POST['login'], ':pass' => $_POST['password']));
+		$resultat = request("SELECT * FROM acc WHERE email = :email AND password = :pass", false, array(':email' => $_POST['login'], ':pass' => hash('ripemd160', $_POST['password'])));
 
 		if(count($resultat) == 1) {
 			$_SESSION["authentifie"] = true;
