@@ -1,5 +1,11 @@
 #include "solver.h"
 
+Grid*Crea_stock_soluce(int size)
+{
+    Grid* stock = malloc(sizeof(Grid) * size);
+    return stock;
+}
+
 
 GhostGrid *initGhostGrid(int dim) {
   GhostGrid *grid = (GhostGrid *)malloc(sizeof(GhostGrid));
@@ -56,22 +62,23 @@ void free_ghostgrid(GhostGrid* gridf)
 }
 
 
-void maj_ghost(GhostGrid gridf, Grid gridj) {
+int maj_ghost(GhostGrid gridf, Grid gridj) {
   int k = 0;
   int size = gridj.size;
   Pos *pos; // Pos storage
-
+  int modif = 0;
   for (int value = 1; value <= gridf.size;value++) { // Remplissage grossier de la grille fant�me � l'aide de la
                   // grille de jeu (sans observateurs)
     pos = find_in_grid(gridj, value, &size);
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < gridf.size; j++) {
-        fill_ghost_box(gridj, gridf, value, pos[i].row, j);
-        fill_ghost_box(gridj, gridf, value, j, pos[i].col);
+        modif+=fill_ghost_box(gridj, gridf, value, pos[i].row, j);
+        modif+=fill_ghost_box(gridj, gridf, value, j, pos[i].col);
       }
     }
     free(pos);
   }
+  return modif;
 }
 
 void fill_ghost(GhostGrid gridf, Grid gridj) {
@@ -90,9 +97,9 @@ void fill_ghost(GhostGrid gridf, Grid gridj) {
 int check_paire_row(GhostGrid gridf, int row, int longueur) {
   int compt=0;
   for (int i = 0; i < gridf.size; ++i) {
-      if (Length(gridf.tab[row][i], gridf.size) <= 2)
+      if ((Length(gridf.tab[row][i], gridf.size) <= 3)&& (Length(gridf.tab[row][i], gridf.size) > 1))
       {
-          compt++;
+          compt+=(gridf.size- Length(gridf.tab[row][i], gridf.size));//moins de possibilté, plus de points
       }
   }
   return compt;
@@ -101,15 +108,16 @@ int check_paire_row(GhostGrid gridf, int row, int longueur) {
 int check_paire_col(GhostGrid gridf, int col, int longueur) {
   int compt=0;
   for (int i = 0; i < gridf.size; ++i) {
-      if (Length(gridf.tab[i][col], gridf.size) <= 2)
+      if ((Length(gridf.tab[i][col], gridf.size) <= 3)&&(Length(gridf.tab[i][col], gridf.size) >1))
       {
-          compt++;
+          compt += (gridf.size - Length(gridf.tab[i][col], gridf.size));//moins de possibilté, plus de points
       }
   }
   return compt;
 }
 
-void find_easiest(GhostGrid grid,int *row,int*col)
+
+int find_easiest(GhostGrid grid,int *row,int*col)
 {
     int size = grid.size;
     int nb_pair = 0;
@@ -133,6 +141,15 @@ void find_easiest(GhostGrid grid,int *row,int*col)
                 *row = i;
             }
         }
+        for (int i = 0;i < grid.size;++i)
+        {
+            if (((*col != NAS) && (Length(grid.tab[i][*col], grid.size) == 2)) || ((*row != NAS) && (Length(grid.tab[*row][i], grid.size) == 2)))
+            {
+                return 2;
+            }
+          
+        }
+        return 3;
 }
 
 GhostGrid* copy_gridf(GhostGrid *grid)
@@ -152,18 +169,18 @@ GhostGrid* copy_gridf(GhostGrid *grid)
     return gridtest;
 }
 
-void assume_in_row(GhostGrid *gridtest, int row,int chosen)
+void assume_in_row(GhostGrid *gridtest, int row,int chosen,int possibilities)
 {
     int size = gridtest->size;
     int compt = 0;
     for (int i = 0;i < size;i++)
     {
-        if(Length(gridtest->tab[row][i],size)==2)
+        if(Length(gridtest->tab[row][i],size)==possibilities)
         { 
             int k = 0;
             for(k;k<size;++k)
             {
-                if(gridtest->tab[row][i]!=NAS)
+                if(gridtest->tab[row][i][k] != NAS)
                 {
                     compt++;
                 }
@@ -177,34 +194,39 @@ void assume_in_row(GhostGrid *gridtest, int row,int chosen)
             
         }
     }
-
+  
 }
 
-void assume_in_col(GhostGrid *gridtest,int col,int chosen)
+void assume_in_col(GhostGrid *gridtest,int col,int chosen,int possibilities)
 {
     int compt = 0;
     int val;
     int size = gridtest->size;
+
+
     for (int i = 0;i < size;i++)
     {
-        if (Length(gridtest->tab[i][col], size) == 2)
+        if (Length(gridtest->tab[i][col], size) == possibilities)
         {
             int k = 0;
             for (k;k < size;++k)
             {
-                if (gridtest->tab[i][col] != NAS)
+                if (gridtest->tab[i][col][k] != NAS)
                 {
                     compt++;
                 }
                 if (compt == chosen)
                 {
+                  
                     put_number(k+1, i, col, *gridtest);
                     return;
                 }
             }
             
         }
+        
     }
+    
 }
 Grid* copy_grid(Grid* grid)
 {
@@ -224,10 +246,6 @@ Grid* copy_grid(Grid* grid)
     return copy;
 }
 
-int Maj(GhostGrid* gridf, Grid* gridj)
-{
-    ;
-}
 
 int compare_with_col(Grid*grid, int side,int pos)
 {
@@ -242,16 +260,24 @@ int compare_with_col(Grid*grid, int side,int pos)
                 max = grid->tab[i][pos];
                 compt++;
             }
+            else if (grid->tab[i][pos] == 0)//si la ligne n'est pas complète, elle est considérée comme valide
+            {
+                return grid->obv[side * 4 + pos];//on retourne l'observateur;
+            }
         }
     }
     else
     {
         for (int i = 0;i < grid->size;++i)
         {
-            if (grid->tab[grid->size-1-i][grid->size-1-pos] > max)
+            if (grid->tab[grid->size - 1 - i][grid->size - 1 - pos] > max)
             {
                 max = grid->tab[grid->size - 1 - i][grid->size - 1 - pos];
                 compt++;
+            }
+            else if (grid->tab[grid->size - 1 - i][grid->size - 1 - pos] == 0)
+            {
+                return grid->obv[side * 4 + pos];//on retourne l'observateur;
             }
         }
     }
@@ -271,6 +297,10 @@ int compare_with_row(Grid*grid, int side,int pos)
                 max = grid->tab[pos][grid->size - 1 - i];
                 compt++;
             }
+            else if (grid->tab[pos][grid->size - 1 - i] == 0)
+            {
+                return grid->obv[side * 4 + pos];//on retourne l'observateur;
+            }
         }
     }
     else
@@ -281,6 +311,10 @@ int compare_with_row(Grid*grid, int side,int pos)
             {
                 max = grid->tab[grid->size - 1 - pos][i];
                 compt++;
+            }
+            else if (grid->tab[grid->size - 1 - pos][i] == 0)
+            {
+                return grid->obv[side * 4 + pos];//on retourne l'observateur;
             }
         }
     }
@@ -327,84 +361,174 @@ bool checkup(Grid* grid)
     return true;
 }
 
-void easy_resolve(GhostGrid *gridf, Grid*gridj)
+bool err_latin_row(int row, Grid*grid)
 {
+    int val;
+    char* repertory = malloc(sizeof(char) * grid->size);
+    if (repertory == NULL) { return NULL; }
+    for (int i = 0;i < grid->size;++i)
+    {
+        repertory[i] = '\0';//faux avertissement
+    }
+    for (int i = 0;i < grid->size;++i)
+    {
+        val = grid->tab[row][i];
+        if (val != 0)
+        {
+            if ((repertory[val - 1] != 0))
+            {
+                free(repertory);
+                return true;
+            }
+            repertory[val - 1] = val;
+        }
+    }
+    free(repertory);
+    return false;
+}
+
+bool err_latin_col(int col, Grid* grid)
+{
+    int val;
+    char* repertory = malloc(sizeof(char) * grid->size);
+    if (repertory == NULL) { return NULL; }
+    for (int i = 0;i < grid->size;++i)
+    {
+        repertory[i] = '\0';//faux avertissement
+    }
+    for (int i = 0;i < grid->size;++i)
+    {
+        val = grid->tab[i][col];
+        if (val != 0) {
+            if (repertory[val - 1] != 0)
+            {
+                free(repertory);
+                return true;
+            }
+            repertory[val - 1] = val;
+        }
+    }
+    free(repertory);
+    return false;
+}
+
+
+bool check_latin(Grid* grid)
+{
+    int err = 0;
+    for (int i = 0;i < grid->size;++i)
+    {
+        err+=err_latin_row(i,grid);
+        err+=err_latin_col(i, grid);
+        if (err != 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
+int easy_resolve(GhostGrid *gridf, Grid*gridj)
+{
+    Rule2(*gridf, *gridj);
     do
     {
 
-        maj_ghost(*gridf, *gridj);
         fill_loners(gridj,*gridf);
-
         printgrid(gridj);
         printgrid_Ghost(gridf);
-        
-    }while ((check_loners(gridf, gridj) || Rule2(*gridf, *gridj)));
 
+        if (check_latin(gridj) == false)
+        {
+            return -1;
+        }
+        
+    }while (maj_ghost(*gridf, *gridj)||check_loners(gridf, gridj) || Rule2(*gridf, *gridj));
+
+    maj_ghost(*gridf, *gridj);
+    fill_loners(gridj, *gridf);
+
+    printgrid(gridj);
+    printgrid_Ghost(gridf);
+    return 0;
 }
 
-bool hypothesis(GhostGrid *gridf,Grid *gridj,int chosen) // Fonction qui fait des hypotheses et teste chaque possibilite
+int stock_soluce(StockSoluce* Stock,Grid *grid)//permet d'ajouter une solution au stock de solutions
 {
-    GhostGrid* gridftest = copy_gridf(gridf);//On copie la grille fantome
-    Grid* gridjtest = copy_grid(gridj);
+    Stock->size++;
+    Grid* tmp;
+    if (Stock->size != 1)
+    {
+        tmp=realloc(Stock->stock, sizeof(Grid) * Stock->size);
+        if (tmp==NULL)
+        {
+            return -1;
+        }
+        Stock->stock = tmp;
+    }
+  
+   Stock->stock[Stock->size - 1] = *grid;
+   free(grid);
+   return 0;
+}
 
 
 
-    easy_resolve(gridftest,gridjtest);//resoud le maximum possible sans théorie
-    printf("Ca marche ?\n\n");
-    printgrid(gridjtest);
-    printgrid_Ghost(gridftest);
-    if (checkup(gridjtest) == false)
+bool hypothesis(GhostGrid *gridf,Grid *gridj,int poss,StockSoluce*Stock) // Fonction qui fait des hypotheses et teste chaque possibilite
+{
+   
+
+
+    int valid= easy_resolve(gridf,gridj);//resoud le maximum possible sans théorie
+     //printf("Ca marche ?\n\n");
+    /*printgrid(gridj);
+    printgrid_Ghost(gridf);*/
+    if ((valid == -1) || (checkup(gridj) == false))
     {
         return false;
     }
     //verif
-    if (is_solved(*gridjtest))
+    if (is_solved(*gridj))
     {
-        free_ghostgrid(gridftest);
-        free_ghostgrid(gridf);
-        free_grid(gridj);
-        gridj = gridjtest;
+        stock_soluce(Stock,gridj);// on stocke la soluce
         return true;
     }
 
+    
     //sinon, on fait une hypothèse
     int row;
     int col;
     int size = gridf->size;
     
+   
+    int possibilities=find_easiest(*gridf, &row,&col);//modifie row et col
 
-    find_easiest(*gridftest, &row,&col);//modifie row et col
-    if (row != NAS)
+    
+    
+    for (int i = 0;i < possibilities;i++)
     {
-        assume_in_row(gridftest,row,chosen);//va permettre de a partir d'un postulat de départ afin d'avancer
-    }
-    else if (col != NAS)
-    {
-        assume_in_col(gridftest,col,chosen);
-    }
+        GhostGrid* gridftest = copy_gridf(gridf);//On copie la grille fantome
+        Grid* gridjtest = copy_grid(gridj);
+        if (row != NAS)
+        {
+            assume_in_row(gridftest, row, i+1, possibilities);//va permettre de a partir d'un postulat de départ afin d'avancer
+        }
+        else if (col != NAS)
+        {
+            assume_in_col(gridftest, col, i+1, possibilities);
+        }
 
-    if (hypothesis(gridftest, gridjtest,1))
-    {
+        if (hypothesis(gridftest, gridjtest, possibilities, Stock) == false)
+        {
+            free_grid(gridjtest);
+        }
         free_ghostgrid(gridftest);
-        free_ghostgrid(gridf);
-        free_grid(gridj);
-        gridj = gridjtest;
-        return true;
+        
+        
     }
-    else if (hypothesis(gridftest, gridjtest, 2))
-    {
-        free_ghostgrid(gridftest);
-        free_ghostgrid(gridf);
-        free_grid(gridj);
-        gridj = gridjtest;
-       return true;
-    }
-    else
-    {
-        free_grid(gridjtest);
-        free_ghostgrid(gridftest);//On libère la place
-        return false;
-    }
+    return false;
 }
 
 Pos *find_in_grid(Grid grid, int val,
@@ -431,22 +555,38 @@ Pos *find_in_grid(Grid grid, int val,
   return positions;
 }
 
-void fill_ghost_box(Grid gridj, GhostGrid grid, int value, int i, int j) {
+int fill_ghost_box(Grid gridj, GhostGrid grid, int value, int i, int j) {
   int tmp = 0;
+  int modif = 0;
   int k = grid.tab[i][j][tmp];
   while (grid.tab[i][j][tmp] != '\0') {
     k = grid.tab[i][j][tmp];
     if (gridj.tab[i][j] != 0) {
+        if (grid.tab[i][j][tmp] != NAS)
+        {
+            modif = 1;
+        }
       grid.tab[i][j][tmp] = NAS;
       tmp++;
     } else if (k != value) {
+
+        if (grid.tab[i][j][tmp] != k)
+        {
+            modif = 1;
+        }
       grid.tab[i][j][tmp] = k;
+
       tmp++;
     } else if (k == value || k != 0) {
+        if (grid.tab[i][j][tmp] != NAS)
+        {
+            modif = 1;
+        }
       grid.tab[i][j][tmp] = NAS;
       tmp++;
     }
   }
+  return modif;
 }
 
 
@@ -756,6 +896,7 @@ int fill_loners(Grid *gridj, GhostGrid gridf) {
       if (sum == size - 1) {
         gridj->tab[i][j] = tmp;
         res = FOUND;
+        gridf.tab[i][j][tmp - 1]=NAS;
       }
       sum = 0;
     }
@@ -956,15 +1097,30 @@ int resolve_with_obv(Grid grid, GhostGrid gridf){
     //res = resolve_obv_1(grid, gridf);
     return res;
 }
-
+void print_Stock(StockSoluce* Stock)
+{
+    for (int i = 0;i < Stock->size;++i)
+    {
+        printf("Solution numero %d:\n\n", i+1);
+        printgrid(Stock->stock+i);
+    }
+}
 
 bool crate_solver(Grid * gridj) {
 
 	GhostGrid * gridf = initGhostGrid(gridj->size);
     fill_ghost(*gridf, *gridj);
+    int chosen2 = 1;
+    int chosen3 = 1;
+    StockSoluce* Stock=malloc(sizeof(StockSoluce));
+    if (Stock == NULL) { return NULL; }
+    Stock->stock = malloc(sizeof(Grid));
+    Stock->size = 0;
+    hypothesis(gridf,gridj,0,Stock);
 
-    return hypothesis(gridf,gridj,1);
-		
+    print_Stock(Stock);
+
+    return Stock->size;
     
 }
 
