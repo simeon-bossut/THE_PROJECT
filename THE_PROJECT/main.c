@@ -10,32 +10,44 @@ int main(int argc, char *argv[]) {
   setlocale(LC_ALL, "fr_FR.UTF-8");
   
 
-  // argv contient l'ensemble des arguments passes separes par des espaces
-  // il affiche en 1 le premier argument
+   //argv contient l'ensemble des arguments passes separes par des espaces
+   //il affiche en 1 le premier argument
 
   int dim = atoi(argv[1]);
 
   int action = atoi(argv[2]);
 
+  Grid* grid;
 
   // Get a grid with missing elements
   if(action == 1) {
-
+    int difficulty = atoi(argv[3]);
+    char * seed_ =  create_seed(difficulty,dim);
+    grid = read_seed(seed_);
+    push_to_php(grid);
   }
 
   // Get a clue
   else if(action == 2) {
-
+      grid = read_grid(argv[4], dim);
+      if (is_grid_correct(grid))
+      {
+          hint(grid);
+      }
+      push_to_php(grid);
   }
 
   // Get a complete grid
   else if(action == 3) {
-
+      grid = read_grid(argv[4], dim);
+      crate_solver(grid);
+      push_to_php(grid);
   }
 
   // Get confirmation that a grid is possible
   else if(action == 4) {
-
+      grid = read_grid(argv[4], dim);
+      is_solved(*grid);
   }
 
   /*
@@ -110,7 +122,7 @@ int main(int argc, char *argv[]) {
   //printf("%d", val);
 
 
-  //Grid* grid;
+  Grid* grid;
 
   //*int difficulty = 1;
   //grid = generate_level(4, &difficulty); 
@@ -121,11 +133,9 @@ int main(int argc, char *argv[]) {
   //grid =read_seed(SEED);
   //printgrid(grid);
   
-  grid = read_grid("221122312213100002000", size);
-  //Grid* copy = read_grid("221122312213100002000", size);
+  grid = read_grid("221122312213100002000", 3);
   Grid* copy = grid;
-  Grid* hint(grid);
-  hint(grid);
+
 
   
 
