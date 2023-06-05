@@ -388,35 +388,94 @@ function addSpecificItems() {
   }
 }
 
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function convertStringIntoGrid(str) {
+
+  let dim = Number(str[0]);
+
+  let obs = [];
+  let crate = [];
+
+  for(let i = 0; i < dim * 4; i++) {
+    obs.push(str[1 + i]);
+  }
+
+  for(let i = 0; i < dim**2; i++) {
+    crate.push(str[i + 1 + dim*4]);
+  }
+
+  return [dim, obs, crate];
+
+}
+
 function initMainPlate() {
 
   newGrid = true;
   timeStart = null;
 
-  tabDim = Number(document.querySelector('select[name="size"]').value);
-
-  // Set and prepare the grid for the new dimension
-  gameSet.classList = ["dim" + tabDim];
-  gameSet.innerHTML = "";
-  
-  crateTab = [];
-  gameTab = [];
-
-
-  for(let i = 0; i < tabDim ** 2; i++) {
-    crateTab.push(0);
-  }
-
   document.querySelector(".victoryScreen").classList.remove('opened');
 
-  // A CHANGER
-  if(tabDim == 3) {
-    obsTab = [2, 2, 1, 1, 2, 2, 3, 1, 2, 2, 1, 3];
-    crateTab = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  gameSet.classList = ["dim" + tabDim];
+  gameSet.innerHTML = "";
+
+  if(getCookie("grid") != "") {
+    let res = convertStringIntoGrid(getCookie("grid"));
+    tabDim = res[0];
+    crateTab = res[2];
+    obsTab = res[1];
   }
 
-  if(tabDim == 4) {
-    obsTab = [1, 4, 2, 3, 3, 2, 1, 3, 2, 2, 1, 2, 2, 3, 3, 1];
+  else {
+
+    tabDim = Number(document.querySelector('select[name="size"]').value);
+
+    // Set and prepare the grid for the new dimension    
+    crateTab = [];
+    gameTab = [];
+
+
+    for(let i = 0; i < tabDim ** 2; i++) {
+      crateTab.push(0);
+    }
+
+    // A CHANGER
+    if(tabDim == 3) {
+      obsTab = [2, 2, 1, 1, 2, 2, 3, 1, 2, 2, 1, 3];
+      crateTab = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    }
+
+    if(tabDim == 4) {
+      obsTab = [1, 4, 2, 3, 3, 2, 1, 3, 2, 2, 1, 2, 2, 3, 3, 1];
+    }
+
+    var string = "" + tabDim;
+
+    obsTab.forEach(obs => string += obs);
+    crateTab.forEach(crate => string += crate);
+
+    setCookie('grid', string, 365);
   }
 
 

@@ -8,35 +8,48 @@ int main(int argc, char *argv[]) {
 
   srand(time(NULL));
   setlocale(LC_ALL, "fr_FR.UTF-8");
-  
 
   // argv contient l'ensemble des arguments passes separes par des espaces
   // il affiche en 1 le premier argument
 
-  //int dim = atoi(argv[1]);
+  // int dim = atoi(argv[1]);
+  int dim = 3;
 
-  //int action = atoi(argv[2]);
+  // int action = atoi(argv[2]);
+  int action = 2;
 
+  Grid *grid;
 
   // Get a grid with missing elements
-  //if(action == 1) {
+  if (action == 1) {
+    // int difficulty = atoi(argv[3]);
+    int difficulty = 1;
+    char *seed_ = create_seed(difficulty, dim);
+    grid = read_seed(seed_);
+    push_to_php(grid);
+  }
 
-  //}
+  // Get a clue
+  else if (action == 2) {
+    grid = read_grid("221122312213100002000", dim);
+    if (is_grid_correct(grid)) {
+      hint(grid);
+    }
+    push_to_php(grid);
+  }
 
-  //// Get a clue
-  //else if(action == 2) {
+  // Get a complete grid
+  else if (action == 3) {
+    grid = read_grid(argv[4], dim);
+    crate_solver(grid);
+    push_to_php(grid);
+  }
 
-  //}
-
-  //// Get a complete grid
-  //else if(action == 3) {
-
-  //}
-
-  //// Get confirmation that a grid is possible
-  //else if(action == 4) {
-
-  //}
+  // Get confirmation that a grid is possible
+  else if (action == 4) {
+    grid = read_grid(argv[4], dim);
+    is_solved(*grid);
+  }
 
   /*
 
@@ -68,7 +81,6 @@ int main(int argc, char *argv[]) {
   grid->obv[4] = 3;  grid->obv[5] = 2;  grid->obv[6] = 1;  grid->obv[7] = 3; 
   grid->obv[8] = 2;  grid->obv[9] = 2;  grid->obv[10] = 1; grid->obv[11] = 2;
   grid->obv[12] = 2; grid->obv[13] = 3; grid->obv[14] = 3; grid->obv[15] = 1;*/
-
 
   /*fill_ghost(*gridf, *grid);
   printgrid(grid);

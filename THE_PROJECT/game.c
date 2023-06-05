@@ -242,6 +242,10 @@ Grid* copying_grid(Grid* grid) {
             copy->tab[i][j] = grid->tab[i][j];
         }
     }
+    for (int i = 0; i < copy->size*4; i++)
+    {
+        copy->obv[i] = grid->obv[i];
+    }
     return copy;
 }
 
@@ -250,26 +254,38 @@ Grid* hint(Grid* grid) {
     printgrid(copy);
     crate_solver(copy);
     int* tab_id = tab_hints(grid);
-    srand(time(NULL));
-    int random = rand() % grid->size;
+    int random = rand() % (grid->size*grid->size);
     int same = true;
     int nb_hints = nb_hint(grid);
     int id = 0;
-    while (same )
+    while (same)
     {
-        same = !same;
+        same = false;
         while (id < nb_hints)
         {
             if (random == tab_id[id])
             {
-                same = !same;
+                same = true;
+                srand(time(NULL));
+                random = rand() % (grid->size*grid->size);
             }
             id++;
         }
     }
+
+    grid->tab[random / grid->size][random % grid->size] = copy->tab[random / grid->size][random % grid->size];
     printf("Grid \n");
     printgrid(grid);
     printf("copy \n");
     printgrid(copy);
-    //grid->tab[random / grid->size][random % grid->size] = copy->tab[random / grid->size][random % grid->size];
+}
+
+bool is_grid_correct(Grid* grid) {
+    Grid * copy = copying_grid(grid);
+    int sol = crate_solver(copy);
+    if (sol == 0)
+    {
+        return false;
+    }
+    return true;
 }
