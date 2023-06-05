@@ -437,8 +437,6 @@ int easy_resolve(GhostGrid *gridf, Grid*gridj)
     {
 
         fill_loners(gridj,*gridf);
-        printgrid(gridj);
-        printgrid_Ghost(gridf);
 
         if (check_latin(gridj) == false)
         {
@@ -449,9 +447,6 @@ int easy_resolve(GhostGrid *gridf, Grid*gridj)
 
     maj_ghost(*gridf, *gridj);
     fill_loners(gridj, *gridf);
-
-    printgrid(gridj);
-    printgrid_Ghost(gridf);
     return 0;
 }
 
@@ -1113,7 +1108,7 @@ int crate_solver(Grid * gridj) {//renvoie le snombre de solutions
     int chosen2 = 1;
     int chosen3 = 1;
     StockSoluce* Stock=malloc(sizeof(StockSoluce));
-    if (Stock == NULL) { return NULL; }
+    if (Stock == NULL) { return 0; }
     Stock->stock = malloc(sizeof(Grid));
     Stock->size = 0;
     hypothesis(gridf,gridj,0,Stock);
