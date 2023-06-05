@@ -13,9 +13,9 @@ int main(int argc, char *argv[]) {
    //argv contient l'ensemble des arguments passes separes par des espaces
    //il affiche en 1 le premier argument
 
-  int dim = atoi(argv[1]);
+  //int dim = atoi(argv[1]);
 
-  int action = atoi(argv[2]);
+  //int action = atoi(argv[2]);
 
   Grid* grid;
 
@@ -56,9 +56,10 @@ int main(int argc, char *argv[]) {
   setlocale(LC_ALL, "fr_FR.UTF-8");
 
   int size = argv[1] ? atoi(argv[1]) : 3;
+  */
 
   Grid* grid;
-  GhostGrid *gridf = initGhostGrid(size);
+  GhostGrid *gridf = initGhostGrid(4);
   char*Seed=create_seed(3, 4);
   grid = read_seed(Seed);
   printgrid(grid);

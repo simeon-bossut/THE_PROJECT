@@ -297,7 +297,7 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
   }
   
   printgrid(tmp);
-  while (crate_solver(tmp) != 1) {// tant que solveur ne marche pas (Pas 1 solution)
+   while (unique_solution(tmp)!=1) {// tant que solveur ne marche pas (Pas 1 solution)
 
       do
       {
@@ -320,6 +320,7 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
   // Si le solveur marche, on a fini !) (presque)
   if (difficulty==3)
   {
+      printgrid(tmp);
       for (int i = 0;i < size - 2;++i)
       {
           do
