@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
   srand(time(NULL));
   setlocale(LC_ALL, "fr_FR.UTF-8");
 
-  int size = argv[1] ? atoi(argv[1]) : 4;
+  int size = argv[1] ? atoi(argv[1]) : 3;
 
   Grid* grid;
   GhostGrid *gridf = initGhostGrid(size);
@@ -85,6 +85,11 @@ int main(int argc, char **argv) {
   //printf("%s", SEED);
   //grid =read_seed(SEED);
   //printgrid(grid);
+  
+  grid = read_grid("221122312213100002000", size);
+  hint(grid);
+
+  
 
   return EXIT_SUCCESS;
 }

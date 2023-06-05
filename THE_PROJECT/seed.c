@@ -393,7 +393,7 @@ char *create_seed(int difficulty, int dim) {
             {
                 --i;
             }
-            cache[i] == true;
+            cache[i] = true;
         }
     }
   }

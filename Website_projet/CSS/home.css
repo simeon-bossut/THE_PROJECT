@@ -330,10 +330,6 @@ nav {
 
   grid-template-columns: repeat(13, 1fr);
   grid-template-rows: repeat(11, 1fr);
-
-  background-color: rgba(0,0,0,0.2);
-  padding: 10px;
-  border-radius: 20px;
 }
 
 #mainPlate .cornerRoad {
@@ -402,6 +398,52 @@ nav {
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+#mainPlate .clueButton {
+  width: 80%;
+  height: 80%;
+
+  border: 2px solid black;
+  border-radius: 10px;
+
+  background-image: url("../Images/light_bulb.png");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  transition: transform .2s;
+
+  filter: invert(1);
+}
+
+#mainPlate .clueButton:hover {
+  cursor: pointer;
+  
+  transform: scale(1.05);
+}
+
+#mainPlate .keysButton {
+  width: 80%;
+  height: 80%;
+
+  border: 2px solid black;
+  border-radius: 10px;
+
+  background-image: url("../Images/keyboard.png");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  transition: transform .2s;
+
+  filter: invert(1);
+}
+
+#mainPlate .keysButton:hover {
+  cursor: pointer;
+  
+  transform: scale(1.05);
 }
 
 #mainPlate .obsText {
@@ -482,15 +524,18 @@ nav {
   justify-content: space-around;
   align-items: center;
   width: 90%;
+  padding: 10px;
   height: 80%;
   background-color: #733900;
   border: #0C0404 3px solid;
   border-radius: 15px;
+  box-sizing: border-box;
 }
 
 .box .view{
   position: relative;
-  width: 90%;
+  width: 100%;
+  margin-bottom: 5px;
   height: 80%;
   padding: 25px 0px 25px 0px;
   background-color: #ffe6cd;
@@ -650,29 +695,21 @@ div[id^="crate"]{
 
 .skinButton {
   height: 90px;
-  width: 90%;
+  width: 100%;
   background-color: #ffe6cd;
   border-radius: 5px;
-  margin-top:2% ;
-  margin-bottom:2% ;
+  margin-top:2%;
+  margin-bottom:2%;
   display: flex;
-
   box-shadow: 4px 4px 0px 0px black;
-
   border: 0px;
   font-family: 'Kanit';
-
   cursor: pointer;
-
   text-decoration: none;
-
   font-size: 15px;
-
   color: #733900;
-
   justify-content: center;
   align-items: center;
-
   transition: transform .2s ease-in-out;
 }
 
@@ -687,10 +724,13 @@ div[id^="crate"]{
 
 .select{
     
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 0px;
+width: 100%;
+    
+display: flex;
+    
+justify-content: space-between;
+    
+margin: 5px 0px;
 }
 select {
   background-color: #341900;
@@ -735,6 +775,10 @@ select {
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.crateLocked {
+  filter: grayscale(1);
 }
 
 .victoryScreen {
@@ -802,10 +846,11 @@ select {
   height: 25px;
   position: absolute;
 
-  top: 20px;
-  right: 20px;
+  top: 13%;
+  right: 10%;
 
   cursor: pointer;
+  z-index: 106;
 }
 
 .victoryRefreshButton {
@@ -860,4 +905,33 @@ select {
 
   width: 100%;
   
+}
+
+
+.popup {
+  /*! background-color: #ffe6cd; */
+  border-radius: 10px;
+  color: #ffe6cd;
+  display: none;
+  position: absolute;
+  
+  padding-bottom: -5px;
+  left: 45%;
+  top: -10%;
+  width: 40%;
+  transform: translate(-45%, 5%);
+  box-shadow: 5px 10px 0px 0px black;
+  z-index: 105;
+  /*! height: inherit; */
+}
+
+.popup.displayed {
+  display: block;
+}
+
+.keyboard-pop-up{
+  position: relative;
+  width: 100%;
+
+  height: auto;
 }

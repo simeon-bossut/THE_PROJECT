@@ -8,6 +8,7 @@
 #include <string.h>
 #include <time.h>
 
+
 typedef struct Pos {
 
   int row;
@@ -42,4 +43,9 @@ void free_tab(int **tab, int size);
 
 bool is_solved(Grid gridj);
 
+Grid* read_grid(char* grid_string, int size);
+
+int* tab_hints(Grid* grid);
+
+Grid* hint(Grid* grid);
 #endif // !game

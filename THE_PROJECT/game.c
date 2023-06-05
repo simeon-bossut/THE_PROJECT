@@ -1,4 +1,5 @@
 #include "game.h"
+#include "solver.h"
 #include <stdio.h>
 
 int **creatab(int size) {
@@ -164,4 +165,101 @@ bool is_solved(Grid gridj) {
         }
     }
     return true;
+}
+
+Grid * read_grid(char* grid_string, int size) {
+    int tmp;
+    int id = 0;
+    int i = 0;
+    Grid* grid = initgrid(size);
+    for (id;  id < size * 4; id ++)
+    {
+        tmp = grid_string[id] - 48;
+        grid->obv[id] = tmp;
+    }
+
+    for (id; id - size*4 < size*size; id++)
+    {
+        if ((id - size * 4) >= (size * (i + 1))) {
+            i++;
+        }
+        tmp = grid_string[id] - 48;
+        grid->tab[i][(id - size * 4) % size] = tmp;
+    }
+    return grid;
+}
+
+int nb_hint(Grid* grid) {
+    int nb_hints = 0;
+    int tmp;
+    int i = 0;
+    for (int id = 0; id < grid->size * grid->size; id++)
+    {
+        if (id >= grid->size * (i + 1))
+        {
+            i++;
+        }
+        tmp = grid->tab[i][id % grid->size];
+        if (tmp != 0)
+        {
+            nb_hints++;
+        }
+    }
+    return nb_hints;
+}
+int * tab_hints(Grid * grid) {
+    int nb_hints = nb_hint(grid);
+    int tmp;
+    int i = 0; int j = 0;
+    int* tab_id;
+    tab_id = (int*)malloc(sizeof(int) * nb_hints);
+    if (tab_id == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+    i = 0;
+    for (int id = 0; id < grid->size * grid->size; id++)
+    {
+        if (id >= grid->size * (i + 1))
+        {
+            i++;
+        }
+        tmp = grid->tab[i][id % grid->size];
+        if (tmp != 0)
+        {
+            tab_id[j] = id;
+            j++;
+        }
+    }
+    return tab_id;
+}
+
+Grid* hint(Grid* grid) {
+    Grid* copy = initgrid(grid->size);
+    *copy = *grid;
+    printgrid(copy);
+    crate_solver(copy);
+    int* tab_id = tab_hints(grid);
+    srand(time(NULL));
+    int random = rand() % grid->size;
+    int same = true;
+    int nb_hints = nb_hint(grid);
+    int id = 0;
+    while (same )
+    {
+        same = !same;
+        while (id < nb_hints)
+        {
+            if (random == tab_id[id])
+            {
+                same = !same;
+            }
+            id++;
+        }
+    }
+    printf("Grid \n");
+    printgrid(grid);
+    printf("copy \n");
+    printgrid(copy);
+    //grid->tab[random / grid->size][random % grid->size] = copy->tab[random / grid->size][random % grid->size];
 }

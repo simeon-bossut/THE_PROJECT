@@ -11,15 +11,10 @@
 #include <stdlib.h>
 
 // Init start
-
-
-
-
-typedef struct StockSoluce
-{
+typedef struct StockSoluce {
 	Grid* stock;
 	int size;
-}StockSoluce;
+} StockSoluce;
 
 typedef struct GhostGrid {
   char ***tab;

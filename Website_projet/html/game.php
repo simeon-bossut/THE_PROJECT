@@ -264,6 +264,12 @@ function checkVictory() {
 }
 
 
+/// Display a clue on grid
+function revealClue() {
+
+}
+
+
 function insertElement(set, x, y, classList) {
 
   let elem = document.querySelector(`#pos_${x}_${y}`);
@@ -303,6 +309,9 @@ function getElemByCoord(x, y) {
   return element;
 }
 
+document.querySelector('#close-popup').onclick = () => {
+  document.querySelector('.popup').classList.remove('displayed');
+}
 
 function initMainPlate() {
 
@@ -420,6 +429,18 @@ function initMainPlate() {
   insertElement(gameSet, 0, -1, "Trash rotate00");
   insertElement(gameSet, 0, tabDim * 2 + 1, "Trash rotate00");
 
+  insertElement(gameSet, tabDim*2 + 1 + 2, -1, "clueButton rotate00");
+  insertElement(gameSet, tabDim*2 + 1 + 1, -1, "keysButton rotate00");
+
+
+  document.querySelector('.clueButton').onclick = () => {
+    revealClue();
+  }
+
+  document.querySelector('.keysButton').onclick = () => {
+    document.querySelector('.popup').classList.toggle('displayed');
+  }
+
   if (tabDim == 3) {
     insertElement(gameSet, 6, 2, "crossRoad rotate00");
     insertElement(gameSet, 6, 4, "crossRoad rotate00");
@@ -441,7 +462,6 @@ function initMainPlate() {
         case 5:
           insertElement(gameSet, 8, i, "cornerRoad rotate270");
           break;
-      
       }
 
       switch (i) {
@@ -511,8 +531,10 @@ function initMainPlate() {
   // CRATES DISPLAYING
 
   document.querySelectorAll(".cratePlace").forEach((element, index) => {
-    if(crateTab[index] != 0)
+    if(crateTab[index] != 0) {
       element.innerHTML = crateTab[index];
+      element.classList.add('crateLocked');
+    }
   })
 
   if(tabDim == 3) {
@@ -541,6 +563,9 @@ function crateGrab() {
 
   if(gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "cratePlace") {
     let crateArea = document.querySelector(`#pos_${player.x + xAdd}_${player.y + yAdd}`);
+
+    if(crateArea.classList.contains('crateLocked'))
+      return;
 
     let qty =  Number(crateArea.textContent);
 
@@ -601,6 +626,9 @@ function crateDrop() {
   if(gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "cratePlace") {
     let crateArea = document.querySelector(`#pos_${player.x + xAdd}_${player.y + yAdd}`);
 
+    if(crateArea.classList.contains('crateLocked'))
+      return;
+
     let qty =  Number(crateArea.textContent);
 
     // Place a box on stack
@@ -645,11 +673,6 @@ const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'Arrow
 window.addEventListener('keydown', e => {
   if (listKeys.includes(e.code))
     e.preventDefault();
-})
-
-
-document.querySelector('.crossVictory').addEventListener('click', e => {
-  document.querySelector('.victoryScreen').classList.remove('opened');
 })
 
 document.addEventListener('keydown', e => {
