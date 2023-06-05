@@ -264,6 +264,12 @@ function checkVictory() {
 }
 
 
+/// Display a clue on grid
+function revealClue() {
+  
+}
+
+
 function insertElement(set, x, y, classList) {
 
   let elem = document.querySelector(`#pos_${x}_${y}`);
@@ -419,6 +425,18 @@ function initMainPlate() {
 
   insertElement(gameSet, 0, -1, "Trash rotate00");
   insertElement(gameSet, 0, tabDim * 2 + 1, "Trash rotate00");
+
+  insertElement(gameSet, tabDim*2 + 1 + 2, -1, "clueButton rotate00");
+  insertElement(gameSet, tabDim*2 + 1 + 1, -1, "keysButton rotate00");
+
+
+  document.querySelector('.clueButton').onclick = () => {
+    revealClue();
+  }
+
+  document.querySelector('.keysButton').onclick = () => {
+    document.querySelector('open-popup').style.display = "block";
+  }
 
   if (tabDim == 3) {
     insertElement(gameSet, 6, 2, "crossRoad rotate00");
@@ -653,11 +671,6 @@ const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'Arrow
 window.addEventListener('keydown', e => {
   if (listKeys.includes(e.code))
     e.preventDefault();
-})
-
-
-document.querySelector('.crossVictory').addEventListener('click', e => {
-  document.querySelector('.victoryScreen').classList.remove('opened');
 })
 
 document.addEventListener('keydown', e => {
