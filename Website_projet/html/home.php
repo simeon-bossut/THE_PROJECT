@@ -132,8 +132,6 @@ catch (Exception $e) {
       <div class="victoryScreen">
         <div class="victoryBox">
 
-          <img src="../Images/crossIcon.svg" class="crossVictory">
-
           <div class="victoryTitle">Victory</div>
           <div class="victoryInfo">
             <div class="victoryInfoContent" id="timerVictory">
