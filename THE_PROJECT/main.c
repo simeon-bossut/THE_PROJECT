@@ -4,7 +4,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
+
+  srand(time(NULL));
+  setlocale(LC_ALL, "fr_FR.UTF-8");
+  
+
+  // argv contient l'ensemble des arguments passes separes par des espaces
+  // il affiche en 1 le premier argument
+
+  int dim = atoi(argv[1]);
+
+  int action = atoi(argv[2]);
+
+
+  // Get a grid with missing elements
+  if(action == 1) {
+
+  }
+
+  // Get a clue
+  else if(action == 2) {
+
+  }
+
+  // Get a complete grid
+  else if(action == 3) {
+
+  }
+
+  // Get confirmation that a grid is possible
+  else if(action == 4) {
+
+  }
+
+  /*
+
   srand(time(NULL));
   setlocale(LC_ALL, "fr_FR.UTF-8");
 
@@ -43,12 +78,12 @@ int main(int argc, char **argv) {
   //maj_ghost(*gridf, *grid);
  
   /*printgrid_Ghost(gridf);
-  printgrid(grid);*/
+  printgrid(grid);
   //printf("%d\n", gridf->size);
   //Guess *guesses = fill_guess(*gridf,*grid);
-  //free(grid);
-  //free(gridf);
-  //grid->tab[2][2] = 0;
+  free(grid);
+  free(gridf);
+  //grid->tab[2][2] = 0;*/
 
   /* printgrid(grid,pov);
    printf("\n");
@@ -86,8 +121,8 @@ int main(int argc, char **argv) {
   //grid =read_seed(SEED);
   //printgrid(grid);
   
-  grid = read_grid("221122312213100002000", size);
-  hint(grid);
+  //grid = read_grid("221122312213100002000", size);
+  //hint(grid);
 
   
 
