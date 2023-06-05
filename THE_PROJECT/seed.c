@@ -284,8 +284,9 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
       do
       {
           random = rand() % (size * (4 + size));
-          cache[random] = 1;
-      } while (cache[random] != 1);
+          
+      } while (cache[random] == 1);
+      cache[random] = 1;
       if (random < size * size) // travail sur le cache de la grille(int**)
       {
           tmp->tab[random / size][random % size] = grid->tab[random / size][random % size];
@@ -296,15 +297,15 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
       }
   }
   
-  printgrid(tmp);
+ 
    while (unique_solution(tmp)!=1) {// tant que solveur ne marche pas (Pas 1 solution)
 
       do
       {
           random = rand() % (size * (4 + size));
-          cache[random] = 1;
-      } while (cache[random] != 1); // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
-                                    // emplacement mais cela ne pose pas vraiment de probleme
+          
+      } while (cache[random] == 1); // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
+        cache[random] = 1;                     // emplacement mais cela ne pose pas vraiment de probleme
 
       if (random < size * size) // travail sur le cache de la grille(int**)
       {
@@ -314,23 +315,32 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
       {
           tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
       }
-      printgrid(tmp);
+      
   }
 
   // Si le solveur marche, on a fini !) (presque)
   if (difficulty==3)
   {
-      printgrid(tmp);
+     
       for (int i = 0;i < size - 2;++i)
       {
           do
           {
               random = rand() % (size * (4 + size));
           } while (cache[random] == 1);
-          cache[i] = 1;
+          cache[random] = 1;
 
+          if (random < size * size) // travail sur le cache de la grille(int**)
+          {
+              tmp->tab[random / size][random % size] = grid->tab[random / size][random % size];
+          }
+          else if (random < size * (size + 4)) // travail( sur les observateurs(int *)
+          {
+              tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
+          }
       }
   }
+
   free(tmp->obv);
   free_tab(tmp->tab, tmp->size);
   free(tmp);
@@ -366,12 +376,13 @@ char *create_seed(int difficulty, int dim) {
 
   Grid *grid = initgrid(dim);
   generateGrid(grid);//génère une solution
-  bool *cache = malloc(sizeof(bool) * dim * (dim + 4));
-  if (cache == NULL) {
-    return NULL;
-  }
-  
+  printgrid(grid);
+  bool* cache;
   if (difficulty<2) {//difficulte 0 ou 1
+    cache = malloc(sizeof(bool) * dim * (dim + 4));
+    if (cache == NULL) {
+        return NULL;
+    }
     for (int i = 0; i < dim * (dim + 4); ++i) {
 
       cache[i] =
@@ -396,7 +407,6 @@ char *create_seed(int difficulty, int dim) {
   else {//difficulte 3 ou 4
       cache = generate_level_cache(grid,difficulty);
   }
-  printgrid(grid);
   int id;
   for (int i = 0; i < dim; ++i) {
     for (int j = 0; j < dim; ++j) {
@@ -486,11 +496,15 @@ int *Dec2Bin(int n, int dim) {
   if (!binaryNum)
     return NULL;
 
-  int i = 0;
+  int i = size-1;
   while (n > 0) {
     binaryNum[i] = n % 2;
     n = n >> 1;
-    i++;
+    i--;
+  }
+  for (i;i >= 0;--i)
+  {
+      binaryNum[i] = 0;
   }
   return binaryNum;
 }
@@ -524,7 +538,7 @@ int *get_cache_tab(int dim, char *Seed, int len) {
 
 int *get_cache_obv(int dim, char *Seed, int len) {
   int size_cache, size_obv;
-  int *cache_tab = malloc(sizeof(int) * dim * dim * 4);
+  int *cache_tab = malloc(sizeof(int) * dim * 4);
   if (cache_tab == NULL) {
     return NULL;
   }
@@ -549,7 +563,7 @@ int *get_cache_obv(int dim, char *Seed, int len) {
   // printf("%s\n", tmp_cache_tab);
 
   int int_cache_tab = atoi(tmp_cache_tab);
-  cache_tab = Dec2Bin(int_cache_tab, dim * 4);
+  cache_tab = Dec2Bin(int_cache_tab, dim);
   return cache_tab;
 }
 
@@ -586,7 +600,7 @@ void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
 
   for (int i = 0; i < dim; i++) {
     for (int j = 0; j < dim; j++) {
-      if (cache_tab[i + j] == 0)
+      if (cache_tab[i*dim+j] == 0)
         grid->tab[i][j] = 0;
     }
   }
@@ -596,6 +610,7 @@ void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
     if (cache_obv[i] == 0)
       grid->obv[i] = 0;
   }
+
 }
 
 Grid *read_seed(char *Seed) {

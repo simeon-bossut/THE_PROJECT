@@ -47,8 +47,8 @@ int main(int argc, char *argv[]) {
   */
 
   Grid* grid;
-  GhostGrid *gridf = initGhostGrid(4);
-  char*Seed=create_seed(3, 4);
+  GhostGrid *gridf = initGhostGrid(3);
+  char*Seed=create_seed(4, 4);
   grid = read_seed(Seed);
   printgrid(grid);
   // fillgrid(grid);
@@ -122,11 +122,11 @@ int main(int argc, char *argv[]) {
   //grid =read_seed(SEED);
   //printgrid(grid);
   
-  grid = read_grid("221122312213100002000", size);
+  //grid = read_grid("221122312213100002000", size);
   //Grid* copy = read_grid("221122312213100002000", size);
-  Grid* copy = grid;
-  Grid* hint(grid);
-  hint(grid);
+  //Grid* copy = grid;
+  //Grid* hint(grid);
+  //hint(grid);
 
   
 
