@@ -500,6 +500,10 @@ nav {
   align-items: center;
 }
 
+#boxCustom {
+  box-shadow: 4px 4px 0px 0px black;
+}
+
 #povBox {
   background-image: url("../Images/road_pov.svg");
   background-position: center 110%;
@@ -747,6 +751,10 @@ select {
 .victoryScreen.opened {
   height: 100%;
   top: 0%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .victoryBox {

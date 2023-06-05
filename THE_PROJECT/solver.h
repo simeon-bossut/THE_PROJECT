@@ -11,6 +11,16 @@
 #include <stdlib.h>
 
 // Init start
+
+
+
+
+typedef struct StockSoluce
+{
+	Grid* stock;
+	int size;
+}StockSoluce;
+
 typedef struct GhostGrid {
   char ***tab;
   int size;
@@ -35,7 +45,7 @@ void printgrid_Ghost(GhostGrid* grid);
 
 
 //SubFunction Start
-void fill_ghost_box(Grid gridj, GhostGrid grid, int value, int i, int j);
+int fill_ghost_box(Grid gridj, GhostGrid grid, int value, int i, int j);
 Pos* find_in_grid(Grid grid, int val, int* size);
 void put_number(int val, int ligne, int colonne, GhostGrid Gf);
 void suite_col(int ligne, int colonne, GhostGrid Gf);
@@ -45,15 +55,16 @@ int complete_ghost(GhostGrid gridf, Grid gridj);
 int modif_box(int i, int j, GhostGrid gridf, Grid gridj);
 int** pov_separation(Grid grid);
 int resolve_obv_1(Grid grid, GhostGrid gridf);
+void print_Stock(StockSoluce*Stock);
 //SubFunction End
 
 
 //Solver start
-bool crate_solver(Grid* adgridj);
+int crate_solver(Grid* adgridj);//renvoie le nombre de solutions
 void fill_ghost(GhostGrid gridf, Grid gridj);
-void maj_ghost(GhostGrid gridf, Grid gridj);
+int maj_ghost(GhostGrid gridf, Grid gridj);
 int fill_loners(Grid* gridj, GhostGrid gridf);
-bool hypothesis(GhostGrid* gridf, Grid* gridj,int chosen);
+bool hypothesis(GhostGrid* gridf, Grid* gridj, int poss,StockSoluce*Stock);
 int resolve_with_obv(Grid grid, GhostGrid gridf);
 int Rule2(GhostGrid gridf, Grid gridj);
 int check_loners(GhostGrid* gridf, Grid* gridj);

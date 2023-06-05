@@ -29,10 +29,10 @@ int main(int argc, char **argv) {
   grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 0;
   grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
 
-  grid->obv[0] = 2;  grid->obv[1] = 4;  grid->obv[2] = 1;  grid->obv[3] = 2;  
-  grid->obv[4] = 2;  grid->obv[5] = 1;  grid->obv[6] = 3;  grid->obv[7] = 3; 
-  grid->obv[8] = 3;  grid->obv[9] = 3;  grid->obv[10] = 1; grid->obv[11] = 2;
-  grid->obv[12] = 2; grid->obv[13] = 1; grid->obv[14] = 4; grid->obv[15] = 2;
+  grid->obv[0] = 0;  grid->obv[1] = 3;  grid->obv[2] = 0;  grid->obv[3] = 0;  
+  grid->obv[4] = 0;  grid->obv[5] = 3;  grid->obv[6] = 0;  grid->obv[7] = 0; 
+  grid->obv[8] = 0;  grid->obv[9] = 2;  grid->obv[10] = 1; grid->obv[11] = 2;
+  grid->obv[12] = 0; grid->obv[13] = 0; grid->obv[14] = 0; grid->obv[15] = 2;
 
   grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
   grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 0;  grid->tab[1][3] = 0;
@@ -49,8 +49,8 @@ int main(int argc, char **argv) {
   //check_loners(gridf,grid);
   //maj_ghost(*gridf, *grid);
  
-  printgrid_Ghost(gridf);
-  printgrid(grid);
+  /*printgrid_Ghost(gridf);
+  printgrid(grid);*/
   //printf("%d\n", gridf->size);
   //Guess *guesses = fill_guess(*gridf,*grid);
   free(grid);
