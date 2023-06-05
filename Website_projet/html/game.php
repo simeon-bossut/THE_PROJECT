@@ -7,6 +7,9 @@ var gameTab = [];
 var viewSet = document.querySelector('#povBoxContent');
 
 
+var moves = 0;
+
+
 var timeStart = null;
 var newGrid = false;
 
@@ -103,12 +106,14 @@ class Character {
     if(direction == "W") {
       if(gameTab[x] && (gameTab[x][y + 1] == "road")) {
         this.x--;
+        moves++;
       }
     }
 
     else if(direction == "E") {
       if(gameTab[x] && (gameTab[x + 2][y + 1] == "road")) {
         this.x++;
+        moves++;
       }
     }
 
@@ -116,12 +121,14 @@ class Character {
 
       if(gameTab[x] && (gameTab[x + 1][y] == "road")) {
         this.y--;
+        moves++;
       }
     }
 
     else if(direction == "S") {
       if(gameTab[x] && (gameTab[x + 1][y + 2] == "road")) {
         this.y++;
+        moves++;
       }
     }
 
@@ -145,6 +152,7 @@ function displayVictoryScreen() {
   sec = sec < 10 ? '0' + sec : sec; 
 
   document.querySelector("#timerVictory span").textContent = min + ':' + sec;
+  document.querySelector("#moveVictory span").textContent = moves;
 
   timeStart = null;
 }
@@ -736,6 +744,9 @@ window.addEventListener('keydown', e => {
 
 document.addEventListener('keydown', e => {
   let key = e.code;
+
+  if(newGrid == false && timeStart == null)
+    return;
 
   // Movements Player
   if (key == "KeyA" || key == "ArrowLeft") {
