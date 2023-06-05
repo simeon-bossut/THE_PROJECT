@@ -266,7 +266,7 @@ function checkVictory() {
 
 /// Display a clue on grid
 function revealClue() {
-  
+
 }
 
 
@@ -459,7 +459,6 @@ function initMainPlate() {
         case 5:
           insertElement(gameSet, 8, i, "cornerRoad rotate270");
           break;
-      
       }
 
       switch (i) {
