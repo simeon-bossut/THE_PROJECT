@@ -21,7 +21,7 @@ void intoa(int value, char *buffer, int size);
 
 void calcul_obs(Grid* grid);
 
-Grid* generate_level(int dim, int *difficulty);
+bool* generate_level_cache(Grid*grid, int difficulty);
 
 void push_to_php(Grid* grid);
 

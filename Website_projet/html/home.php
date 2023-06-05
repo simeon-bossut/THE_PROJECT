@@ -127,10 +127,11 @@ catch (Exception $e) {
 
       <div class="gameTemplate" style="background-image: url('../Images/<?php echo $resBack; ?>.jpg');">
 
-        <div class="popup" id="popup">
-          <h2 class="victoryTitle"> <?php echo getLanguage("Les touches de jeu", "game keys");  ?></h2>
-          <img src="../Images/crossIcon.svg" class="crossVictory" id="close-popup">
-        </div>
+      <div class="popup" id="popup">
+       
+        <img src="../Images/crossIcon.svg" class="crossVictory" id="close-popup">
+        <img src="../Images/keyboard_popup.png" class="keyboard-pop-up" >
+      </div>
 
         <div class="victoryScreen">
           <div class="victoryBox">
