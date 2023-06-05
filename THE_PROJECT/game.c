@@ -234,9 +234,19 @@ int * tab_hints(Grid * grid) {
     return tab_id;
 }
 
-Grid* hint(Grid* grid) {
+Grid* copying_grid(Grid* grid) {
     Grid* copy = initgrid(grid->size);
-    *copy = *grid;
+    for (int i = 0; i < copy->size; i++)
+    {
+        for (int j = 0; j < copy->size; j++) {
+            copy->tab[i][j] = grid->tab[i][j];
+        }
+    }
+    return copy;
+}
+
+Grid* hint(Grid* grid) {
+    Grid * copy = copying_grid(grid);
     printgrid(copy);
     crate_solver(copy);
     int* tab_id = tab_hints(grid);

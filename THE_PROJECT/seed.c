@@ -223,7 +223,7 @@ void add_cach(Grid *grid, bool *cache,int diff) // ne sert plus à rien
   Grid *tmp = initgrid(size);
   int random = 0;
   if (tmp == NULL) {
-    return 0;
+    return ;
   }
   while (crate_solver(grid) != 1) {// tant que solveur ne marche pas (Pas 1 solution)
 
@@ -243,11 +243,6 @@ void add_cach(Grid *grid, bool *cache,int diff) // ne sert plus à rien
 
 
   // Si le solveur marche, on a fini !) (presque)
-
-  if(1)
-  {
-      ;
-  }
   free(tmp->obv);
   free_tab(tmp->tab, tmp->size);
   free(tmp);
@@ -258,9 +253,9 @@ void crea_cache(bool *cache, int difficulty, int dimension) // ne sert plus à r
   int random;
 
 
-      random = rand() % (dimension * (4 + dimension));
-      cache[random] = 1; // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
-      // emplacement mais cela ne pose pas vraiment de probleme
+    random = rand() % (dimension * (4 + dimension));
+    cache[random] = 1; // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
+    // emplacement mais cela ne pose pas vraiment de probleme
   
   
 }

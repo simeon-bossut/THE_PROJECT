@@ -162,7 +162,8 @@ void assume_in_row(GhostGrid *gridtest, int row, int chosen,
   int compt = 0;
   for (int i = 0; i < size; i++) {
     if (Length(gridtest->tab[row][i], size) == possibilities) {
-      for (int k; k < size; ++k) {
+        int k = 0;
+      for (k; k < size; ++k) {
         if (gridtest->tab[row][i][k] != NAS) {
           compt++;
         }
@@ -184,7 +185,8 @@ void assume_in_col(GhostGrid *gridtest, int col, int chosen,
 
   for (int i = 0; i < size; i++) {
     if (Length(gridtest->tab[i][col], size) == possibilities) {
-      for (int k; k < size; ++k) {
+      int k = 0;
+      for (k; k < size; ++k) {
         if (gridtest->tab[i][col][k] != NAS) {
           compt++;
         }
@@ -264,9 +266,7 @@ int compare_with_row(Grid *grid, int side, int pos) {
 }
 
 
-
-bool compare(Grid*grid,int obv)
-{
+bool compare(Grid*grid,int obv){
     int size = grid->size;
     int side = obv/ size;
     int pos = obv % size;
