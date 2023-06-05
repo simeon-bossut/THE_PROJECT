@@ -1,4 +1,4 @@
-#include"solver.h"
+#include "solver.h"
 
 void put_number(int val, int ligne, int colonne, GhostGrid Gf) {
     for (int k = 0; k < Gf.size; ++k) {

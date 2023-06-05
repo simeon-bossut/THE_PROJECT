@@ -846,10 +846,11 @@ select {
   height: 25px;
   position: absolute;
 
-  top: 20px;
-  right: 20px;
+  top: 13%;
+  right: 10%;
 
   cursor: pointer;
+  z-index: 106;
 }
 
 .victoryRefreshButton {
@@ -908,19 +909,29 @@ select {
 
 
 .popup {
-  background-color: #ffe6cd;
+  /*! background-color: #ffe6cd; */
   border-radius: 10px;
   color: #ffe6cd;
   display: none;
   position: absolute;
+  
+  padding-bottom: -5px;
   left: 45%;
-  top: 30%;
-  width: 60%;
+  top: -10%;
+  width: 40%;
   transform: translate(-45%, 5%);
-  box-shadow: 5px 5px 0px 0px black;
+  box-shadow: 5px 10px 0px 0px black;
   z-index: 105;
+  /*! height: inherit; */
 }
 
 .popup.displayed {
   display: block;
+}
+
+.keyboard-pop-up{
+  position: relative;
+  width: 100%;
+
+  height: auto;
 }

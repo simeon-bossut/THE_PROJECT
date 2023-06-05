@@ -1,4 +1,5 @@
 #include "game.h"
+#include "solver.h"
 #include <stdio.h>
 
 int **creatab(int size) {
@@ -59,7 +60,7 @@ int *initpov(int size) {
     return NULL;
   }
   for (int i = 0; i < size * 4; i++) {
-    *(pov + i) = i + 1;
+    *(pov + i) = 0;
   }
   return pov;
 }
@@ -162,6 +163,129 @@ bool is_solved(Grid gridj) {
                 return false;
             }
         }
+    }
+    return true;
+}
+
+Grid * read_grid(char* grid_string, int size) {
+    int tmp;
+    int id = 0;
+    int i = 0;
+    Grid* grid = initgrid(size);
+    for (id;  id < size * 4; id ++)
+    {
+        tmp = grid_string[id] - 48;
+        grid->obv[id] = tmp;
+    }
+
+    for (id; id - size*4 < size*size; id++)
+    {
+        if ((id - size * 4) >= (size * (i + 1))) {
+            i++;
+        }
+        tmp = grid_string[id] - 48;
+        grid->tab[i][(id - size * 4) % size] = tmp;
+    }
+    return grid;
+}
+
+int nb_hint(Grid* grid) {
+    int nb_hints = 0;
+    int tmp;
+    int i = 0;
+    for (int id = 0; id < grid->size * grid->size; id++)
+    {
+        if (id >= grid->size * (i + 1))
+        {
+            i++;
+        }
+        tmp = grid->tab[i][id % grid->size];
+        if (tmp != 0)
+        {
+            nb_hints++;
+        }
+    }
+    return nb_hints;
+}
+int * tab_hints(Grid * grid) {
+    int nb_hints = nb_hint(grid);
+    int tmp;
+    int i = 0; int j = 0;
+    int* tab_id;
+    tab_id = (int*)malloc(sizeof(int) * nb_hints);
+    if (tab_id == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+    i = 0;
+    for (int id = 0; id < grid->size * grid->size; id++)
+    {
+        if (id >= grid->size * (i + 1))
+        {
+            i++;
+        }
+        tmp = grid->tab[i][id % grid->size];
+        if (tmp != 0)
+        {
+            tab_id[j] = id;
+            j++;
+        }
+    }
+    return tab_id;
+}
+
+Grid* copying_grid(Grid* grid) {
+    Grid* copy = initgrid(grid->size);
+    for (int i = 0; i < copy->size; i++)
+    {
+        for (int j = 0; j < copy->size; j++) {
+            copy->tab[i][j] = grid->tab[i][j];
+        }
+    }
+    for (int i = 0; i < copy->size*4; i++)
+    {
+        copy->obv[i] = grid->obv[i];
+    }
+    return copy;
+}
+
+Grid* hint(Grid* grid) {
+    Grid * copy = copying_grid(grid);
+    printgrid(copy);
+    crate_solver(copy);
+    int* tab_id = tab_hints(grid);
+    int random = rand() % (grid->size*grid->size);
+    int same = true;
+    int nb_hints = nb_hint(grid);
+    int id = 0;
+    while (same)
+    {
+        same = false;
+        while (id < nb_hints)
+        {
+            if (random == tab_id[id])
+            {
+                same = true;
+                srand(time(NULL));
+                random = rand() % (grid->size*grid->size);
+            }
+            id++;
+        }
+    }
+
+    grid->tab[random / grid->size][random % grid->size] = copy->tab[random / grid->size][random % grid->size];
+    printf("Grid \n");
+    printgrid(grid);
+    printf("copy \n");
+    printgrid(copy);
+}
+
+bool is_grid_correct(Grid* grid) {
+    Grid * copy = copying_grid(grid);
+    int sol = crate_solver(copy);
+    if (sol == 0)
+    {
+        return false;
     }
     return true;
 }

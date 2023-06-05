@@ -11,15 +11,10 @@
 #include <stdlib.h>
 
 // Init start
-
-
-
-
-typedef struct StockSoluce
-{
+typedef struct StockSoluce {
 	Grid* stock;
 	int size;
-}StockSoluce;
+} StockSoluce;
 
 typedef struct GhostGrid {
   char ***tab;
@@ -64,10 +59,11 @@ int crate_solver(Grid* adgridj);//renvoie le nombre de solutions
 void fill_ghost(GhostGrid gridf, Grid gridj);
 int maj_ghost(GhostGrid gridf, Grid gridj);
 int fill_loners(Grid* gridj, GhostGrid gridf);
-bool hypothesis(GhostGrid* gridf, Grid* gridj, int poss,StockSoluce*Stock);
+bool hypothesis(GhostGrid* gridf, Grid* gridj, int poss,StockSoluce*Stock, bool first_sol,bool validity);
 int resolve_with_obv(Grid grid, GhostGrid gridf);
 int Rule2(GhostGrid gridf, Grid gridj);
 int check_loners(GhostGrid* gridf, Grid* gridj);
+bool unique_solution(Grid* grid);
 //Solver end
 
 

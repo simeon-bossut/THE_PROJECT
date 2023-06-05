@@ -7,6 +7,9 @@ var gameTab = [];
 var viewSet = document.querySelector('#povBoxContent');
 
 
+var moves = 0;
+
+
 var timeStart = null;
 var newGrid = false;
 
@@ -103,12 +106,14 @@ class Character {
     if(direction == "W") {
       if(gameTab[x] && (gameTab[x][y + 1] == "road")) {
         this.x--;
+        moves++;
       }
     }
 
     else if(direction == "E") {
       if(gameTab[x] && (gameTab[x + 2][y + 1] == "road")) {
         this.x++;
+        moves++;
       }
     }
 
@@ -116,12 +121,14 @@ class Character {
 
       if(gameTab[x] && (gameTab[x + 1][y] == "road")) {
         this.y--;
+        moves++;
       }
     }
 
     else if(direction == "S") {
       if(gameTab[x] && (gameTab[x + 1][y + 2] == "road")) {
         this.y++;
+        moves++;
       }
     }
 
@@ -133,15 +140,46 @@ class Character {
   }
 }
 
+function displayVictoryScreen() {
+  document.querySelector(".victoryScreen").classList.add('opened');
+
+  totalTime = new Date(new Date().getTime() - timeStart);
+
+  let min = Math.floor(totalTime.getTime() / 1000 / 60);
+  min = min < 10 ? '0' + min : min;
+
+  let sec = Math.floor(totalTime.getTime() / 1000 % 60);
+  sec = sec < 10 ? '0' + sec : sec; 
+
+  document.querySelector("#timerVictory span").textContent = min + ':' + sec;
+  document.querySelector("#moveVictory span").textContent = moves;
+
+  let listElem = document.querySelectorAll(".cratePlace");
+
+  let tabDim = (Number(listElem[listElem.length - 1].id.split("_")[1]) + 1) / 2;
+
+  let diffCoeff = [50, 80, 140, 220];
+
+  let tabDimArr = (tabDim**2)*100;
+
+  let score = Math.round((tabDimArr * diffCoeff[document.querySelector('select[name="difficulty"]').value]) / ((Math.round(totalTime / 1000) + 20) * moves / 50));
+
+  document.querySelector("#xpVictory span").textContent = score;
+
+  timeStart = null;
+}
 
 function checkVictory() {
 
+  // If game hasn't started (avoid the player to restop the game if not a new one)
   if(timeStart == null)
     return false;
 
+  // The grid is not solved if a 0 is present
   if(crateTab.includes(0))
     return false;
 
+  // Test possibilities from left and top
   for(let i = 0; i < tabDim; i++) {
 
     let lastVal1 = [];
@@ -191,6 +229,7 @@ function checkVictory() {
     }
   }
 
+  // Test possibilities from right and bottom
   for(let i = 0; i < tabDim; i++) {
 
     let lastVal1 = [];
@@ -244,23 +283,7 @@ function checkVictory() {
 
   
   // All conditions passed
-
-
-  document.querySelector(".victoryScreen").classList.add('opened');
-
-  totalTime = new Date(new Date().getTime() - timeStart);
-
-  let min = Math.floor(totalTime.getTime() / 1000 / 60);
-  min = min < 10 ? '0' + min : min;
-
-  let sec = Math.floor(totalTime.getTime() / 1000 % 60);
-  sec = sec < 10 ? '0' + sec : sec; 
-
-  document.querySelector("#timerVictory span").textContent = min + ':' + sec;
-
-  timeStart = null;
-
-  return true;
+  displayVictoryScreen();
 }
 
 
@@ -309,8 +332,60 @@ function getElemByCoord(x, y) {
   return element;
 }
 
-document.querySelector('#close-popup').onclick = () => {
-  document.querySelector('.popup').classList.remove('displayed');
+function addCrateArea(dim) {
+  if (tabDim == 3) {
+    insertElement(gameSet, 6, 2, "crossRoad rotate00");
+    insertElement(gameSet, 6, 4, "crossRoad rotate00");
+    insertElement(gameSet, 7, 2, "straightRoad rotate90");
+    insertElement(gameSet, 7, 4, "straightRoad rotate90");
+
+    insertElement(gameSet, 8, 1, "cornerRoad rotate00");
+    insertElement(gameSet, 8, 2, "crossRoad rotate00");
+    insertElement(gameSet, 8, 3, "TRoad rotate00");
+    insertElement(gameSet, 8, 4, "crossRoad rotate00");
+    insertElement(gameSet, 8, 5, "cornerRoad rotate270");
+
+    insertElement(gameSet, 9, 1, "CCorner rotate00");
+    insertElement(gameSet, 9, 2, "CStraight rotate00");
+    insertElement(gameSet, 9, 3, "CStraight rotate00");
+    insertElement(gameSet, 9, 4, "CStraight rotate00");
+    insertElement(gameSet, 9, 5, "CCorner rotate90");
+  }
+
+  else if(tabDim == 4) {
+    insertElement(gameSet, 8, 4, "crossRoad rotate00");
+    insertElement(gameSet, 9, 4, "straightRoad rotate90");
+
+    insertElement(gameSet, 10, 2, "cornerRoad rotate00");
+    insertElement(gameSet, 10, 3, "TRoad rotate00");
+    insertElement(gameSet, 10, 4, "crossRoad rotate00");
+    insertElement(gameSet, 10, 5, "TRoad rotate00");
+    insertElement(gameSet, 10, 6, "cornerRoad rotate270");
+
+    insertElement(gameSet, 11, 2, "CCorner rotate00");
+    insertElement(gameSet, 11, 3, "CStraight rotate00");
+    insertElement(gameSet, 11, 4, "CStraight rotate00");
+    insertElement(gameSet, 11, 5, "CStraight rotate00");
+    insertElement(gameSet, 11, 6, "CCorner rotate90");
+  }
+}
+
+function addSpecificItems() {
+  // Add trashes to the grid
+  insertElement(gameSet, 0, -1, "Trash rotate00");
+  insertElement(gameSet, 0, tabDim * 2 + 1, "Trash rotate00");
+
+  // Add buttons into the grid
+  insertElement(gameSet, tabDim*2 + 1 + 2, -1, "clueButton rotate00");
+  insertElement(gameSet, tabDim*2 + 1 + 1, -1, "keysButton rotate00");
+
+  // Detect when buttons pressed
+  document.querySelector('.clueButton').onclick = () => {
+    revealClue();
+  }
+  document.querySelector('.keysButton').onclick = () => {
+    document.querySelector('.popup').classList.toggle('displayed');
+  }
 }
 
 function initMainPlate() {
@@ -318,9 +393,15 @@ function initMainPlate() {
   newGrid = true;
   timeStart = null;
 
-  crateTab = [];
-
   tabDim = Number(document.querySelector('select[name="size"]').value);
+
+  // Set and prepare the grid for the new dimension
+  gameSet.classList = ["dim" + tabDim];
+  gameSet.innerHTML = "";
+  
+  crateTab = [];
+  gameTab = [];
+
 
   for(let i = 0; i < tabDim ** 2; i++) {
     crateTab.push(0);
@@ -331,33 +412,26 @@ function initMainPlate() {
   // A CHANGER
   if(tabDim == 3) {
     obsTab = [2, 2, 1, 1, 2, 2, 3, 1, 2, 2, 1, 3];
-    crateTab = [1, 0, 3, 3, 1, 2, 2, 3, 0];
+    crateTab = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 
   if(tabDim == 4) {
     obsTab = [1, 4, 2, 3, 3, 2, 1, 3, 2, 2, 1, 2, 2, 3, 3, 1];
   }
 
-  gameTab = [];
 
-  gameSet.innerHTML = "";
 
-  gameSet.classList.remove("dim3","dim4","dim5");
-
-    gameSet.classList.add("dim" + tabDim);
-
+  // Fill the game table with the function of each crate
   for(let x = 0; x <= tabDim * 2 + 4; x++) {
     gameTab.push([]);
-
     for(let y = 0; y <= tabDim * 2 + 2; y++) {
       gameTab[x].push("empty");
     }
   }
 
+  // Add the divs in the game
   for(let y = 0; y < tabDim * 2 + 3; y++) {
-
     for(let x = 0; x < tabDim * 2 + 2 + 3; x++) {
-
       gameSet.innerHTML += `<div id="pos_${x - 1}_${y - 1}"></div>`
     }
   }
@@ -425,75 +499,11 @@ function initMainPlate() {
     }
 
   }
-
-  insertElement(gameSet, 0, -1, "Trash rotate00");
-  insertElement(gameSet, 0, tabDim * 2 + 1, "Trash rotate00");
-
-  insertElement(gameSet, tabDim*2 + 1 + 2, -1, "clueButton rotate00");
-  insertElement(gameSet, tabDim*2 + 1 + 1, -1, "keysButton rotate00");
-
-
-  document.querySelector('.clueButton').onclick = () => {
-    revealClue();
-  }
-
-  document.querySelector('.keysButton').onclick = () => {
-    document.querySelector('.popup').classList.toggle('displayed');
-  }
-
-  if (tabDim == 3) {
-    insertElement(gameSet, 6, 2, "crossRoad rotate00");
-    insertElement(gameSet, 6, 4, "crossRoad rotate00");
-
-    insertElement(gameSet, 7, 2, "straightRoad rotate90");
-    insertElement(gameSet, 7, 4, "straightRoad rotate90");
   
-    for (let i = 1; i < 6; i++) {
-      switch (i) {
-        case 1:
-          insertElement(gameSet, 8, i, "cornerRoad rotate00");
-          break;
-        case 2: case 4:
-          insertElement(gameSet, 8, i, "crossRoad rotate00");
-          break;
-        case 3:
-          insertElement(gameSet, 8, i, "TRoad rotate00");
-          break;
-        case 5:
-          insertElement(gameSet, 8, i, "cornerRoad rotate270");
-          break;
-      }
+  addCrateArea(tabDim);
 
-      switch (i) {
-        case 1:
-          insertElement(gameSet, 9, i, "CCorner rotate00");
-          break;
-        case 2: case 3: case 4:
-          insertElement(gameSet, 9, i, "CStraight rotate00");
-          break;
-        case 5:
-          insertElement(gameSet, 9, i, "CCorner rotate90");
-          break;
-      }
-    }
-  }
-
-  else if(tabDim == 4) {
-    insertElement(gameSet, 8, 4, "crossRoad rotate00");
-    insertElement(gameSet, 9, 4, "straightRoad rotate90");
-
-    insertElement(gameSet, 10, 2, "cornerRoad rotate00");
-    insertElement(gameSet, 10, 3, "TRoad rotate00");
-    insertElement(gameSet, 10, 4, "crossRoad rotate00");
-    insertElement(gameSet, 10, 5, "TRoad rotate00");
-    insertElement(gameSet, 10, 6, "cornerRoad rotate270");
-
-    insertElement(gameSet, 11, 2, "CCorner rotate00");
-    insertElement(gameSet, 11, 3, "CStraight rotate00");
-    insertElement(gameSet, 11, 4, "CStraight rotate00");
-    insertElement(gameSet, 11, 5, "CStraight rotate00");
-    insertElement(gameSet, 11, 6, "CCorner rotate90");
-  }
+  // add trashes, key and clue button
+  addSpecificItems();
 
 
   // OBSERVATORS DISPLAYING
@@ -576,8 +586,6 @@ function crateGrab() {
       qty--;
 
       crateTab[Math.floor((player.x + xAdd) / 2) + (Math.floor((player.y + yAdd) / 2) * tabDim)] = qty;
-
-      //console.log(Math.floor((player.x + xAdd) / 2) + (Math.floor((player.y + yAdd) / 2) * tabDim), Math.floor((player.x + xAdd) / 2), Math.floor((player.y + yAdd) / 2));
     }
 
     if(qty == 0) qty = "";
@@ -623,6 +631,8 @@ function crateDrop() {
   else if(player.direction == "S")
     yAdd++;
 
+
+  // Place a box on stack
   if(gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "cratePlace") {
     let crateArea = document.querySelector(`#pos_${player.x + xAdd}_${player.y + yAdd}`);
 
@@ -631,7 +641,6 @@ function crateDrop() {
 
     let qty =  Number(crateArea.textContent);
 
-    // Place a box on stack
     if(player.numCrate > 0 && qty < tabDim) {
       player.numCrate--;
       qty++;
@@ -644,7 +653,7 @@ function crateDrop() {
     crateArea.textContent = qty;
   }
 
-  // Facing a trash
+  // Throw in a trash
   else if(gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "trash" || gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "boxPick") {
 
     if(player.numCrate > 0)
@@ -664,50 +673,6 @@ function crateDrop() {
 
   setView();
 }
-
-
-
-
-const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Semicolon', 'KeyL'];
-
-window.addEventListener('keydown', e => {
-  if (listKeys.includes(e.code))
-    e.preventDefault();
-})
-
-document.addEventListener('keydown', e => {
-  let key = e.code;
-
-  // Movements Player
-  if (key == "KeyA" || key == "ArrowLeft") {
-    player.move("W");
-  }
-  else if (key == "KeyD" || key == "ArrowRight") {
-    player.move("E");
-  }
-  else if (key == "KeyS" || key == "ArrowDown") {
-    player.move("S");
-  }
-  else if (key == "KeyW" || key == "ArrowUp") {
-    player.move("N");
-  }
-
-  // POV Player
-  /*else if (key == "KeyP") {
-    setView();
-  }*/
-
-  // Crates actions
-  else if(key == "KeyL") {
-    crateGrab();
-  }
-  else if(key == "Semicolon") {
-    crateDrop();
-  }
-})
-
-  
-initMainPlate();
   
 function setView() {
 
@@ -777,5 +742,53 @@ function setView() {
     viewSet.innerHTML += `<div id = "crate${arr[i]}"></div>`;
   }
 }
+
+
+
+// Keys prevented default
+const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Semicolon', 'KeyL'];
+
+window.addEventListener('keydown', e => {
+  if(listKeys.includes(e.code))
+    e.preventDefault();
+})
+
+document.addEventListener('keydown', e => {
+  let key = e.code;
+
+  if(newGrid == false && timeStart == null)
+    return;
+
+  // Movements Player
+  if (key == "KeyA" || key == "ArrowLeft") {
+    player.move("W");
+  }
+  else if (key == "KeyD" || key == "ArrowRight") {
+    player.move("E");
+  }
+  else if (key == "KeyS" || key == "ArrowDown") {
+    player.move("S");
+  }
+  else if (key == "KeyW" || key == "ArrowUp") {
+    player.move("N");
+  }
+
+  // Crates actions
+  else if(key == "KeyL") {
+    crateGrab();
+  }
+  else if(key == "Semicolon") {
+    crateDrop();
+  }
+})
+
+
+document.querySelector('#close-popup').onclick = () => {
+  document.querySelector('.popup').classList.remove('displayed');
+}
+
+
+// Chargement d'une grille de départ
+initMainPlate();
 
 </script>
