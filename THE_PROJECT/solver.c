@@ -62,8 +62,7 @@ int maj_ghost(GhostGrid gridf, Grid gridj) {
   int size = gridj.size;
   Pos *pos; // Pos storage
   int modif = 0;
-  for (int value = 1; value <= gridf.size;
-       value++) { // Remplissage grossier de la grille fant�me � l'aide de la
+  for (int value = 1; value <= gridf.size; value++) { // Remplissage grossier de la grille fant�me � l'aide de la
                   // grille de jeu (sans observateurs)
     pos = find_in_grid(gridj, value, &size);
     for (int i = 0; i < size; i++) {
@@ -450,8 +449,8 @@ bool hypothesis(GhostGrid *gridf, Grid *gridj, int poss,
   return false;
 }
 
-Pos *find_in_grid(Grid grid, int val,
-                  int *size) // attention grid.size diff de size
+
+Pos *find_in_grid(Grid grid, int val,  int *size) // attention grid.size diff de size
 {
   Pos *positions = malloc(grid.size * sizeof(Pos));
   if (positions == NULL) {
@@ -1011,7 +1010,7 @@ int crate_solver(Grid *gridj) { // renvoie le snombre de solutions
 	GhostGrid * gridf = initGhostGrid(gridj->size);
     fill_ghost(*gridf, *gridj);
     StockSoluce* Stock=malloc(sizeof(StockSoluce));
-    if (Stock == NULL) { return NULL; }
+    if (Stock == NULL) { return 0; }
     Stock->stock = malloc(sizeof(Grid));
     Stock->size = 0;
     hypothesis(gridf,gridj,0,Stock);

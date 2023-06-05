@@ -1,5 +1,6 @@
 #include "seed.h"
 #include "game.h"
+#include"solver.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -216,103 +217,123 @@ int booltab_to_int(bool *tab, int size_cache) {
   return value;
 }
 
-Grid *add_cach(Grid *grid, bool *cache) // cree et ajoute un cache sur la grille
+void add_cach(Grid *grid, bool *cache,int diff) // ne sert plus à rien
 {
   int size = grid->size;
   Grid *tmp = initgrid(size);
   int random = 0;
   if (tmp == NULL) {
-    return 0;
+    return ;
   }
+  while (crate_solver(grid) != 1) {// tant que solveur ne marche pas (Pas 1 solution)
 
-  do {
     random = rand() % (size * (4 + size));
-    cache[random] =
-        1; // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
+    cache[random] = 1; // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
            // emplacement mais cela ne pose pas vraiment de probleme
 
     if (random < size * size) // travail sur le cache de la grille(int**)
     {
-      tmp->tab[random / size][random % size] =
-          grid->tab[random / size][random % size];
-    } else if (random <
-               size * (size + 4)) // travail sur les observateurs(int *)
+      tmp->tab[random / size][random % size] = grid->tab[random / size][random % size];
+    } 
+    else if (random < size * (size + 4)) // travail( sur les observateurs(int *)
     {
-      tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
+        tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
     }
-  } while (1); // tant que solveur ne marche pas : (!solveur(tmp))
+  }  
 
-  // Si le solveur marche, on a fini !
 
-  return tmp;
+  // Si le solveur marche, on a fini !) (presque)
+  free(tmp->obv);
+  free_tab(tmp->tab, tmp->size);
+  free(tmp);
 }
 
-void crea_cache(bool *cache, int difficulty, int dimension) // rempli un cache
+void crea_cache(bool *cache, int difficulty, int dimension) // ne sert plus à rien
 {
   int random;
-  int val = 10;
-  for (int i = 0; i < val; ++i) {
+
+
     random = rand() % (dimension * (4 + dimension));
-    cache[random] =
-        1; // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
-           // emplacement mais cela ne pose pas vraiment de probleme
-  }
+    cache[random] = 1; // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
+    // emplacement mais cela ne pose pas vraiment de probleme
+  
+  
 }
 
-Grid *generate_level(int dim, int *difficulty) // cree un niveau et stocke dans
+bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stocke dans
                                                // *diff la valeur int du cache
 {
-  Grid *grid = initgrid(dim);
-  Grid *tmp = initgrid(dim);
-  if (grid == NULL || tmp == NULL) {
-    return NULL;
-  }
-
-  if (generateGrid(grid) ==
-      -1) // remplissage aleatoire de grid->tab et de grid->obv
-  {
-    return NULL;
-  }
-  int size_cache = dim * (dim + 4);
+  int size = grid->size;
+  int size_cache = size * (size + 4);
   bool *cache = malloc(sizeof(bool) * size_cache);
   if (cache == NULL) {
     return NULL;
   }
-  if (*difficulty == 1) {
-    for (int i = 0; i < size_cache; ++i) {
-      cache[i] = i / (dim * dim); // Tableau facile , tous les observateurs sont
-                                  // visibles et tout le jeu cache
-      if (i < dim * dim) {
-        tmp->tab[i / (dim)][i % (dim)] =
-            grid->tab[i / (dim)][i % (dim)] * cache[i];
-      } else if (i < size_cache) {
-        tmp->obv[i - dim * dim] = grid->obv[i - dim * dim] * cache[i];
-      }
-    }
+  int random = 0;
+  Grid* tmp = initgrid(size);
+  if (tmp == NULL) {
+      return 0;
   }
-  // else {
-  //     int random = 0;
-  //     for (int i = 0; i < size_cache; ++i) {
-  //         cache[i] = 0;// intit du tableau a 0
-  //     }
-  //     tmp=add_cach(grid,cache);
-  //     if (difficulty == 2)//Pour la difficulte 2, on ajoute une info en
-  //     plus(pour l'instant), par la suite peut-etre dim-2 info en plus
-  //     {
-  //         do
-  //         {
-  //             random = rand() % size_cache;
-  //         } while (cache[random]);//tant que la case contient un 1, on
-  //         reessaye cache[random] = 1;
-  //     }
-  // }
-  *difficulty = booltab_to_int(cache, size_cache); // C de la merde
-  free(cache);
-  free(grid->obv);
-  free_tab(grid->tab, grid->size);
-  free(grid);
 
-  return tmp;
+  for (int i = 0; i < size_cache; ++i) {
+     
+      cache[i] = 0;// intit du tableau a 0
+  }
+  for(int i = 0; i < size+1; ++i)
+  {
+      do
+      {
+          random = rand() % (size * (4 + size));
+          cache[random] = 1;
+      } while (cache[random] != 1);
+      if (random < size * size) // travail sur le cache de la grille(int**)
+      {
+          tmp->tab[random / size][random % size] = grid->tab[random / size][random % size];
+      }
+      else if (random < size * (size + 4)) // travail( sur les observateurs(int *)
+      {
+          tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
+      }
+  }
+  
+  printgrid(tmp);
+  while (crate_solver(tmp) != 1) {// tant que solveur ne marche pas (Pas 1 solution)
+
+      do
+      {
+          random = rand() % (size * (4 + size));
+          cache[random] = 1;
+      } while (cache[random] != 1); // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
+                                    // emplacement mais cela ne pose pas vraiment de probleme
+
+      if (random < size * size) // travail sur le cache de la grille(int**)
+      {
+          tmp->tab[random / size][random % size] = grid->tab[random / size][random % size];
+      }
+      else if (random < size * (size + 4)) // travail( sur les observateurs(int *)
+      {
+          tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
+      }
+      printgrid(tmp);
+  }
+
+  // Si le solveur marche, on a fini !) (presque)
+  if (difficulty==3)
+  {
+      for (int i = 0;i < size - 2;++i)
+      {
+          do
+          {
+              random = rand() % (size * (4 + size));
+          } while (cache[random] == 1);
+          cache[i] = 1;
+
+      }
+  }
+  free(tmp->obv);
+  free_tab(tmp->tab, tmp->size);
+  free(tmp);
+  return cache;
 }
 
 char *create_seed(int difficulty, int dim) {
@@ -336,38 +357,45 @@ char *create_seed(int difficulty, int dim) {
   }
   char *SEED = malloc(sizeof(char) * size);
 
-  int *line = malloc(sizeof(int) *
-                     dim); // utile pour la transcription de la grid en seed
+  int *line = malloc(sizeof(int) * dim); // utile pour la transcription de la grid en seed
   if (SEED == NULL || line == NULL) {
     return NULL;
   }
   SEED[0] = dim + 48; // premier char designe la dimension
 
   Grid *grid = initgrid(dim);
-  generateGrid(grid);
+  generateGrid(grid);//génère une solution
   bool *cache = malloc(sizeof(bool) * dim * (dim + 4));
   if (cache == NULL) {
     return NULL;
   }
-
-  if (difficulty == 1) {
+  
+  if (difficulty<2) {//difficulte 0 ou 1
     for (int i = 0; i < dim * (dim + 4); ++i) {
 
       cache[i] =
           i /
-          (dim * dim); // Tableau facile , tous les observateurs sont visibles
-                       // et tout le jeu cache//On ajoute un 1 au cache(il se
-                       // peut qu'il y ait deja un 1 a cet emplacement mais cela
-                       // ne pose pas vraiment de probleme
+          (dim * dim); // Tableau facile ou tres, tous les observateurs sont visibles
+                       // et tout le jeu cache(facile)
     }
-  } else {
-    for (int i = 0; i < dim * (dim + 4); ++i) {
-
-      cache[i] = false;
+    if (difficulty == 0)//si tres facile, onj ajoute aussi n-1 information
+    {
+        int random;
+        for (int i = 0;i < size - 1;++i)
+        {
+            random = rand() % (size*size);
+            if (cache[i] == true)
+            {
+                --i;
+            }
+            cache[i] = true;
+        }
     }
-    crea_cache(cache, difficulty + 1, dim);
   }
-
+  else {//difficulte 3 ou 4
+      cache = generate_level_cache(grid,difficulty);
+  }
+  printgrid(grid);
   int id;
   for (int i = 0; i < dim; ++i) {
     for (int j = 0; j < dim; ++j) {
@@ -515,6 +543,7 @@ int *get_cache_obv(int dim, char *Seed, int len) {
     break;
   }
   char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
+  if (tmp_cache_tab == NULL) { return NULL; }
   memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + size_cache + 1, size_obv);
   // printf("%s\n", tmp_cache_tab);
 
