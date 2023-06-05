@@ -359,17 +359,11 @@ bool check_latin(Grid *grid) {
 
 int easy_resolve(GhostGrid *gridf, Grid*gridj)
 {
-    printgrid(gridj);
-    printgrid_Ghost(gridf);
     Rule2(*gridf, *gridj);
-    printgrid(gridj);
-    printgrid_Ghost(gridf);
     do
     {
 
     fill_loners(gridj, *gridf);
-    printgrid(gridj);
-    printgrid_Ghost(gridf);
 
     if (check_latin(gridj) == false) {
       return -1;
@@ -380,9 +374,6 @@ int easy_resolve(GhostGrid *gridf, Grid*gridj)
 
   maj_ghost(*gridf, *gridj);
   fill_loners(gridj, *gridf);
-
-  printgrid(gridj);
-  printgrid_Ghost(gridf);
   return 0;
 }
 
@@ -405,8 +396,7 @@ int stock_soluce(
   return 0;
 }
 
-bool hypothesis(GhostGrid *gridf, Grid *gridj, int poss,
-                StockSoluce *Stock) // Fonction qui fait des hypotheses et teste
+bool hypothesis(GhostGrid *gridf, Grid *gridj, int poss,StockSoluce *Stock,bool first_sol,bool validity) // Fonction qui fait des hypotheses et teste
                                     // chaque possibilite
 {
 
@@ -440,11 +430,19 @@ bool hypothesis(GhostGrid *gridf, Grid *gridj, int poss,
     } else if (col != NAS) {
       assume_in_col(gridftest, col, i + 1, possibilities);
     }
-
-    if (hypothesis(gridftest, gridjtest, possibilities, Stock) == false) {
+    int valid = (hypothesis(gridftest, gridjtest, possibilities, Stock, first_sol,validity));
+    if ( valid== false) {
       free_grid(gridjtest);
     }
     free_ghostgrid(gridftest);
+    if ((valid)&&(first_sol == true))
+    {
+        return true;
+    }
+    if((valid)&&(validity==true)&&(Stock->size==2))
+    {
+        return true;
+    }
   }
   return false;
 }
@@ -638,8 +636,6 @@ int Rule2(GhostGrid gridf, Grid gridj) // proprietes des obs[]=2
             int pos = i % size;
             modif+=change2(side, pos, gridf, gridj);
         }
-        printgrid_Ghost(&gridf);
-        printgrid(&gridj);
     }
     return modif;
 
@@ -1005,15 +1001,16 @@ void print_Stock(StockSoluce *Stock) {
   }
 }
 
-int crate_solver(Grid *gridj) { // renvoie le snombre de solutions
 
-	GhostGrid * gridf = initGhostGrid(gridj->size);
+int subcrate_solver(Grid* gridj, bool first_sol, bool validity)
+{
+    GhostGrid* gridf = initGhostGrid(gridj->size);
     fill_ghost(*gridf, *gridj);
-    StockSoluce* Stock=malloc(sizeof(StockSoluce));
+    StockSoluce* Stock = malloc(sizeof(StockSoluce));
     if (Stock == NULL) { return 0; }
     Stock->stock = malloc(sizeof(Grid));
     Stock->size = 0;
-    hypothesis(gridf,gridj,0,Stock);
+    hypothesis(gridf, gridj, 0, Stock, first_sol,validity);
 
     int sol = Stock->size;
     print_Stock(Stock);
@@ -1024,12 +1021,32 @@ int crate_solver(Grid *gridj) { // renvoie le snombre de solutions
     for (int i = 1; i < Stock->size; ++i)
     {
         free(Stock->stock[i].obv);
-        free_tab(Stock->stock[i].tab,Stock->size);
+        free_tab(Stock->stock[i].tab, Stock->size);
         free(Stock);
     }
 
     return sol;
+}
+
+int crate_solver(Grid *gridj) { //1 si l'on s'arrete à la premiere solution  renvoie le snombre de solutions
+
+
+    return subcrate_solver(gridj, true, false);
     
+}
+
+bool unique_solution(Grid* grid)//version du solveur qui ne récupère pas la solution
+{
+    Grid* copy = copy_grid(grid);
+    int sol=subcrate_solver(copy,false,true);//On s'arrête à la deuxième solution si elle existe
+    
+    if (sol == 1)
+    {
+        return true;
+    }
+    free_grid(copy);
+    
+    return false;
 }
 
 // int modif;

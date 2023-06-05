@@ -48,4 +48,6 @@ Grid* read_grid(char* grid_string, int size);
 int* tab_hints(Grid* grid);
 
 Grid* hint(Grid* grid);
+
+bool is_grid_correct(Grid* grid);
 #endif // !game
