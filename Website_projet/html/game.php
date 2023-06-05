@@ -156,22 +156,11 @@ function displayVictoryScreen() {
 
   let listElem = document.querySelectorAll(".cratePlace");
 
-  // console.log(listElem)
-
   let tabDim = (Number(listElem[listElem.length - 1].id.split("_")[1]) + 1) / 2;
-
-  // console.log(listElem[listElem.length - 1].id.split(""));
 
   let diffCoeff = [50, 80, 140, 220];
 
   let tabDimArr = (tabDim**2)*100;
-
-  // totalTime = 43 * 1000;
-  // moves = 84;
-
-  // console.log(tabDim, diffCoeff[document.querySelector('select[name="difficulty"]').value], tabDimArr, time, move, document.querySelector('select[name="difficulty"]').value);
-
-  // 9*100*100*50/43/84
 
   let score = Math.round((tabDimArr * diffCoeff[document.querySelector('select[name="difficulty"]').value]) / ((Math.round(totalTime / 1000) + 20) * moves / 50));
 
