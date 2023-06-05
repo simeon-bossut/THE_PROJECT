@@ -12,15 +12,18 @@ int main(int argc, char *argv[]) {
   // argv contient l'ensemble des arguments passes separes par des espaces
   // il affiche en 1 le premier argument
 
-  int dim = atoi(argv[1]);
+  // int dim = atoi(argv[1]);
+  int dim = 3;
 
-  int action = atoi(argv[2]);
+  // int action = atoi(argv[2]);
+  int action = 2;
 
   Grid *grid;
 
   // Get a grid with missing elements
   if (action == 1) {
-    int difficulty = atoi(argv[3]);
+    // int difficulty = atoi(argv[3]);
+    int difficulty = 1;
     char *seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);
     push_to_php(grid);
@@ -28,7 +31,7 @@ int main(int argc, char *argv[]) {
 
   // Get a clue
   else if (action == 2) {
-    grid = read_grid(argv[4], dim);
+    grid = read_grid("221122312213100002000", dim);
     if (is_grid_correct(grid)) {
       hint(grid);
     }
@@ -56,11 +59,11 @@ int main(int argc, char *argv[]) {
   int size = argv[1] ? atoi(argv[1]) : 3;
   */
 
-  Grid *grid;
-  GhostGrid *gridf = initGhostGrid(4);
-  char *Seed = create_seed(3, 4);
-  grid = read_seed(Seed);
-  printgrid(grid);
+  // Grid *grid;
+  // GhostGrid *gridf = initGhostGrid(4);
+  // char *Seed = create_seed(3, 4);
+  // grid = read_seed(Seed);
+  // printgrid(grid);
   // fillgrid(grid);
   // grid_completion(grid);
 
@@ -120,7 +123,7 @@ int main(int argc, char *argv[]) {
   ////char*buffer=malloc()
   // printf("%d", val);
 
-  Grid *grid;
+  // Grid *grid;
 
   //*int difficulty = 1;
   // grid = generate_level(4, &difficulty);
@@ -131,8 +134,8 @@ int main(int argc, char *argv[]) {
   // grid =read_seed(SEED);
   // printgrid(grid);
 
-  grid = read_grid("221122312213100002000", 3);
-  Grid *copy = grid;
+  // grid = read_grid("221122312213100002000", 3);
+  // Grid *copy = grid;
 
   return EXIT_SUCCESS;
 }
