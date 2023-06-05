@@ -511,8 +511,10 @@ function initMainPlate() {
   // CRATES DISPLAYING
 
   document.querySelectorAll(".cratePlace").forEach((element, index) => {
-    if(crateTab[index] != 0)
+    if(crateTab[index] != 0) {
       element.innerHTML = crateTab[index];
+      element.classList.add('crateLocked');
+    }
   })
 
   if(tabDim == 3) {
@@ -541,6 +543,9 @@ function crateGrab() {
 
   if(gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "cratePlace") {
     let crateArea = document.querySelector(`#pos_${player.x + xAdd}_${player.y + yAdd}`);
+
+    if(crateArea.classList.contains('crateLocked'))
+      return;
 
     let qty =  Number(crateArea.textContent);
 
@@ -600,6 +605,9 @@ function crateDrop() {
 
   if(gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "cratePlace") {
     let crateArea = document.querySelector(`#pos_${player.x + xAdd}_${player.y + yAdd}`);
+
+    if(crateArea.classList.contains('crateLocked'))
+      return;
 
     let qty =  Number(crateArea.textContent);
 

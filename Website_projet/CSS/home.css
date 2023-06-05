@@ -731,6 +731,10 @@ select {
   background-repeat: no-repeat;
 }
 
+.crateLocked {
+  filter: grayscale(1);
+}
+
 .victoryScreen {
   width: 100%;
   height: 0%;
