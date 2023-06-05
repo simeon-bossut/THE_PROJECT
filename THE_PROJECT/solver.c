@@ -324,9 +324,9 @@ int compare_with_row(Grid*grid, int side,int pos)
 
 bool compare(Grid*grid,int obv)
 {
-
-    int side = obv/ 4;
-    int pos = obv % 4;
+    int size = grid->size;
+    int side = obv/ size;
+    int pos = obv % size;
     int observ;
     bool valid = false;
     if (side % 2)
@@ -432,7 +432,11 @@ bool check_latin(Grid* grid)
 
 int easy_resolve(GhostGrid *gridf, Grid*gridj)
 {
+    printgrid(gridj);
+    printgrid_Ghost(gridf);
     Rule2(*gridf, *gridj);
+    printgrid(gridj);
+    printgrid_Ghost(gridf);
     do
     {
 
@@ -729,14 +733,17 @@ int change2(int side,int pos,GhostGrid gridf,Grid gridj)
 int Rule2(GhostGrid gridf, Grid gridj)//proprietes des obs[]=2
 {
     int modif = 0;
+    int size = gridj.size;
     for (int i = 0;i < 4 * gridj.size;++i)//parcourt du tableau d'observateurs
     {
         if (gridj.obv[i] == 2)
         {
-            int side = i / 4;
-            int pos = i % 4;
-            modif=change2(side, pos, gridf, gridj);
+            int side = i / size;
+            int pos = i % size;
+            modif+=change2(side, pos, gridf, gridj);
         }
+        printgrid_Ghost(&gridf);
+        printgrid(&gridj);
     }
     return modif;
 
@@ -1110,17 +1117,26 @@ int crate_solver(Grid * gridj) {//renvoie le snombre de solutions
 
 	GhostGrid * gridf = initGhostGrid(gridj->size);
     fill_ghost(*gridf, *gridj);
-    int chosen2 = 1;
-    int chosen3 = 1;
     StockSoluce* Stock=malloc(sizeof(StockSoluce));
     if (Stock == NULL) { return NULL; }
     Stock->stock = malloc(sizeof(Grid));
     Stock->size = 0;
     hypothesis(gridf,gridj,0,Stock);
 
+    int sol = Stock->size;
     print_Stock(Stock);
+    if (Stock->size == 1)
+    {
+        *gridj = Stock->stock[0];
+    }
+    for (int i = 1; i < Stock->size; ++i)
+    {
+        free(Stock->stock[i].obv);
+        free_tab(Stock->stock[i].tab,Stock->size);
+        free(Stock);
+    }
 
-    return Stock->size;
+    return sol;
     
 }
 

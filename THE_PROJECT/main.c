@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
   srand(time(NULL));
   setlocale(LC_ALL, "fr_FR.UTF-8");
 
-  int size = argv[1] ? atoi(argv[1]) : 4;
+  int size = argv[1] ? atoi(argv[1]) : 3;
 
   Grid* grid = initgrid(size);
   GhostGrid *gridf = initGhostGrid(size);
@@ -24,27 +24,27 @@ int main(int argc, char **argv) {
     
  // generateGrid(grid);
 
-  grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
-  grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 0;  grid->tab[1][3] = 0;
-  grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 0;
-  grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
+  //grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
+  //grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 0;  grid->tab[1][3] = 0;
+  //grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 0;
+  //grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
 
-  grid->obv[0] = 0;  grid->obv[1] = 3;  grid->obv[2] = 0;  grid->obv[3] = 0;  
-  grid->obv[4] = 0;  grid->obv[5] = 3;  grid->obv[6] = 0;  grid->obv[7] = 0; 
-  grid->obv[8] = 0;  grid->obv[9] = 2;  grid->obv[10] = 1; grid->obv[11] = 2;
-  grid->obv[12] = 0; grid->obv[13] = 0; grid->obv[14] = 0; grid->obv[15] = 2;
+  //grid->obv[0] = 0;  grid->obv[1] = 3;  grid->obv[2] = 0;  grid->obv[3] = 0;  
+  //grid->obv[4] = 0;  grid->obv[5] = 3;  grid->obv[6] = 0;  grid->obv[7] = 0; 
+  //grid->obv[8] = 0;  grid->obv[9] = 2;  grid->obv[10] = 1; grid->obv[11] = 2;
+  //grid->obv[12] = 0; grid->obv[13] = 0; grid->obv[14] = 0; grid->obv[15] = 2;
 
-  grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
-  grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 0;  grid->tab[1][3] = 0;
-  grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 1;
-  grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
+  //grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
+  //grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 0;  grid->tab[1][3] = 0;
+  //grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 1;
+  //grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
 
 
-  fill_ghost(*gridf, *grid);
-  printgrid(grid);
-  printf("%d", is_solved(*grid));
-  crate_solver(grid);
-  printf("\n");
+  //fill_ghost(*gridf, *grid);
+  //printgrid(grid);
+  //printf("%d", is_solved(*grid));
+  //crate_solver(grid);
+  //printf("\n");
   //hypothesis(gridf, grid);
   //check_loners(gridf,grid);
   //maj_ghost(*gridf, *grid);
@@ -92,6 +92,11 @@ int main(int argc, char **argv) {
   //printf("%s", SEED);
   //grid =read_seed(SEED);
   //printgrid(grid);
+  
+  grid = read_grid("221122312213100002000", size);
+  hint(grid);
+
+  
 
   return EXIT_SUCCESS;
 }
