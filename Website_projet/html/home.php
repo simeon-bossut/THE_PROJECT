@@ -152,10 +152,10 @@ catch (Exception $e) {
                 <img src="../Images/xpIcon.svg">
                 <span>500</span>
               </div>
-              <div class="victoryInfoContent" id="coinsVictory">
+             <!-- <div class="victoryInfoContent" id="coinsVictory">
                 <img src="../Images/coinsIcon.png">
                 <span>670</span>
-              </div>
+              </div> -->
             </div>
             <button class="victoryRefreshButton" onclick="initMainPlate()">Restart</button>
           </div>
@@ -180,6 +180,7 @@ catch (Exception $e) {
               <div class="selectBox">
                 <h2  class="titleselect"><?php echo getLanguage("Level", "Level");  ?></h2>
                 <select name="difficulty" >
+                  <option value="0"><?php echo getLanguage("Très facile", "Very Easy");  ?></option>
                   <option value="1"><?php echo getLanguage("Facile", "Easy");  ?></option>
                   <option value="2"><?php echo getLanguage("Moyen", "Medium");  ?></option>
                   <option value="3"><?php echo getLanguage("Difficile", "Hard");  ?></option>

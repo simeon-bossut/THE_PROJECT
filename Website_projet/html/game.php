@@ -154,6 +154,29 @@ function displayVictoryScreen() {
   document.querySelector("#timerVictory span").textContent = min + ':' + sec;
   document.querySelector("#moveVictory span").textContent = moves;
 
+  let listElem = document.querySelectorAll(".cratePlace");
+
+  // console.log(listElem)
+
+  let tabDim = (Number(listElem[listElem.length - 1].id.split("_")[1]) + 1) / 2;
+
+  // console.log(listElem[listElem.length - 1].id.split(""));
+
+  let diffCoeff = [50, 80, 140, 220];
+
+  let tabDimArr = (tabDim**2)*100;
+
+  // totalTime = 43 * 1000;
+  // moves = 84;
+
+  // console.log(tabDim, diffCoeff[document.querySelector('select[name="difficulty"]').value], tabDimArr, time, move, document.querySelector('select[name="difficulty"]').value);
+
+  // 9*100*100*50/43/84
+
+  let score = Math.round((tabDimArr * diffCoeff[document.querySelector('select[name="difficulty"]').value]) / ((Math.round(totalTime / 1000) + 20) * moves / 50));
+
+  document.querySelector("#xpVictory span").textContent = score;
+
   timeStart = null;
 }
 
@@ -381,6 +404,8 @@ function initMainPlate() {
   newGrid = true;
   timeStart = null;
 
+  tabDim = Number(document.querySelector('select[name="size"]').value);
+
   // Set and prepare the grid for the new dimension
   gameSet.classList = ["dim" + tabDim];
   gameSet.innerHTML = "";
@@ -388,9 +413,6 @@ function initMainPlate() {
   crateTab = [];
   gameTab = [];
 
-
-
-  tabDim = Number(document.querySelector('select[name="size"]').value);
 
   for(let i = 0; i < tabDim ** 2; i++) {
     crateTab.push(0);
@@ -401,7 +423,7 @@ function initMainPlate() {
   // A CHANGER
   if(tabDim == 3) {
     obsTab = [2, 2, 1, 1, 2, 2, 3, 1, 2, 2, 1, 3];
-    crateTab = [1, 0, 3, 3, 1, 2, 2, 3, 0];
+    crateTab = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 
   if(tabDim == 4) {
