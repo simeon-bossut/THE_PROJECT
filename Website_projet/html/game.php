@@ -1,5 +1,26 @@
 <script>
 
+<?php
+$out;
+
+if(isset($_POST["clue"])) {
+
+  //var_dump($_POST);
+
+  /*$grid = str_split($_COOKIE["grid"]);
+
+  var_dump($_POST);
+
+  array_splice($grid, 0, 1);
+
+  $grid = join($grid);
+
+  exec("../../THE_PROJECT/main.exe $_POST[dim] 2 $grid", $out);*/
+
+}
+
+?>
+
 var player;
 
 var gameSet = document.querySelector('#mainPlate');
@@ -18,6 +39,7 @@ var tabDim = document.querySelector('select[name="size"]').value;
 
 var obsTab;
 var crateTab; // = [4, 1, 3, 2, 1, 2, 4, 3, 2, 3, 1, 4, 3, 4, 2, 0];
+var crateTabClue;
 
 
 
@@ -139,6 +161,27 @@ class Character {
     return;
   }
 }
+
+
+function convertStringIntoGrid(str) {
+
+  let dim = Number(str[0]);
+
+  let obs = [];
+  let crate = [];
+
+  for(let i = 0; i < dim * 4; i++) {
+    obs.push(str[1 + i]);
+  }
+
+  for(let i = 0; i < dim**2; i++) {
+    crate.push(str[i + 1 + dim*4]);
+  }
+
+  return [dim, obs, crate];
+
+}
+
 
 function displayVictoryScreen() {
   document.querySelector(".victoryScreen").classList.add('opened');
@@ -287,9 +330,45 @@ function checkVictory() {
 }
 
 
-/// Display a clue on grid
-function revealClue() {
 
+// Display a clue on grid
+function revealClue(dim, clueTab) {
+
+  let clueCookie = getCookie("gridClue");
+
+  if(clueCookie == "")
+    clueCookie = new Array(dim**2);
+  else
+    clueCookie = clueCookie.split('');
+
+  clueTab = clueTab.split("");
+
+  if(clueTab.length == 0)
+    clueTab = new Array(dim**2);
+
+  clueTab.forEach((clue, index) => {
+    if(clue != 0)
+      clueCookie[index] = clue;
+    else if(clueCookie[index] == undefined)
+      clueCookie[index] = 0;
+  })
+
+  clueCookie.forEach((clue, index) => {
+    if(clue != 0) {
+      document.querySelectorAll(".cratePlace")[index].classList.add('crateLocked');
+      document.querySelectorAll(".cratePlace")[index].textContent = clue;
+    }
+  })
+
+  setCookie("gridClue", clueCookie.join(''), 365);
+}
+
+
+
+function displayCrates(dim, crates) {
+  crates.forEach((crate, index) => {
+    document.querySelectorAll(".cratePlace")[index].textContent = crates[index] == 0 ? "" : crates[index];
+  })
 }
 
 
@@ -325,12 +404,16 @@ function insertElement(set, x, y, classList) {
 
 }
 
+
+
 function getElemByCoord(x, y) {
 
   var element = document.querySelector(`#pos_${x}_${y}`);
 
   return element;
 }
+
+
 
 function addCrateArea(dim) {
   if (tabDim == 3) {
@@ -370,23 +453,26 @@ function addCrateArea(dim) {
   }
 }
 
+
+
 function addSpecificItems() {
   // Add trashes to the grid
   insertElement(gameSet, 0, -1, "Trash rotate00");
   insertElement(gameSet, 0, tabDim * 2 + 1, "Trash rotate00");
 
   // Add buttons into the grid
-  insertElement(gameSet, tabDim*2 + 1 + 2, -1, "clueButton rotate00");
+  let elem = document.querySelector(`#pos_${tabDim * 2 + 1 + 2}_-1`);
+  elem.innerHTML = `<form action="" method="post"><input type="hidden" name="dim" value="${tabDim}"><input type="submit" name="clue"></form>`
+  elem.classList.add("clueButton", "rotate00");
   insertElement(gameSet, tabDim*2 + 1 + 1, -1, "keysButton rotate00");
 
   // Detect when buttons pressed
-  document.querySelector('.clueButton').onclick = () => {
-    revealClue();
-  }
   document.querySelector('.keysButton').onclick = () => {
     document.querySelector('.popup').classList.toggle('displayed');
   }
 }
+
+
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
@@ -411,23 +497,14 @@ function getCookie(cname) {
   return "";
 }
 
-function convertStringIntoGrid(str) {
+function createStringGrid(dim, obs, crates) {
 
-  let dim = Number(str[0]);
+  var string = "" + dim;
 
-  let obs = [];
-  let crate = [];
+  obsTab.forEach(obs => string += obs);
+  crateTab.forEach(crate => string += crate); 
 
-  for(let i = 0; i < dim * 4; i++) {
-    obs.push(str[1 + i]);
-  }
-
-  for(let i = 0; i < dim**2; i++) {
-    crate.push(str[i + 1 + dim*4]);
-  }
-
-  return [dim, obs, crate];
-
+  return string;
 }
 
 function initMainPlate() {
@@ -442,6 +519,7 @@ function initMainPlate() {
 
   if(getCookie("grid") != "") {
     let res = convertStringIntoGrid(getCookie("grid"));
+
     tabDim = res[0];
     crateTab = res[2];
     obsTab = res[1];
@@ -470,12 +548,7 @@ function initMainPlate() {
       obsTab = [1, 4, 2, 3, 3, 2, 1, 3, 2, 2, 1, 2, 2, 3, 3, 1];
     }
 
-    var string = "" + tabDim;
-
-    obsTab.forEach(obs => string += obs);
-    crateTab.forEach(crate => string += crate);
-
-    setCookie('grid', string, 365);
+    setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
   }
 
 
@@ -599,12 +672,18 @@ function initMainPlate() {
 
   // CRATES DISPLAYING
 
-  document.querySelectorAll(".cratePlace").forEach((element, index) => {
+  displayCrates(tabDim, crateTab)
+
+  let hasClue = "<?php if(isset($out[0])) { echo $out[0]; } ?>";
+
+  revealClue(tabDim, hasClue);
+
+  /*document.querySelectorAll(".cratePlace").forEach((element, index) => {
     if(crateTab[index] != 0) {
       element.innerHTML = crateTab[index];
       element.classList.add('crateLocked');
     }
-  })
+  })*/
 
   if(tabDim == 3) {
     player = new Character(8, 3);
@@ -670,6 +749,8 @@ function crateGrab() {
     
   document.querySelector("#characterCrate").innerHTML = num;
 
+  setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
+
   checkVictory();
 
 
@@ -727,6 +808,8 @@ function crateDrop() {
     num = "";
     
   document.querySelector("#characterCrate").innerHTML = num;
+
+  setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
 
   checkVictory();
 
