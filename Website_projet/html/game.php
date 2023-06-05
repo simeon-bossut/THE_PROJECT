@@ -309,6 +309,9 @@ function getElemByCoord(x, y) {
   return element;
 }
 
+document.querySelector('#close-popup').onclick = () => {
+  document.querySelector('.popup').classList.remove('displayed');
+}
 
 function initMainPlate() {
 
@@ -435,7 +438,7 @@ function initMainPlate() {
   }
 
   document.querySelector('.keysButton').onclick = () => {
-    document.querySelector('open-popup').style.display = "block";
+    document.querySelector('.popup').classList.toggle('displayed');
   }
 
   if (tabDim == 3) {

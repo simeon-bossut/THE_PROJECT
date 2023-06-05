@@ -129,6 +129,11 @@ catch (Exception $e) {
 
     <div class="gameTemplate" style="background-image: url('../Images/<?php echo $resBack; ?>.jpg');">
 
+      <div class="popup" id="popup">
+        <h2 class="victoryTitle"> <?php echo getLanguage("Les touches de jeu", "game keys");  ?></h2>
+        <img src="../Images/crossIcon.svg" class="crossVictory" id="close-popup">
+      </div>
+
       <div class="victoryScreen">
         <div class="victoryBox">
 
@@ -173,29 +178,17 @@ catch (Exception $e) {
                 <option value="4">4*4</option>
               </select>
             </div>
-          <div class="selectBox">
-            <h2  class="titleselect"><?php echo getLanguage("Level", "Level");  ?></h2>
-            <select name="difficulty" >
-              <option value="1"><?php echo getLanguage("Facile", "Easy");  ?></option>
-              <option value="2"><?php echo getLanguage("Moyen", "Medium");  ?></option>
-              <option value="3"><?php echo getLanguage("Difficile", "Hard");  ?></option>
-            </select>
+            <div class="selectBox">
+              <h2  class="titleselect"><?php echo getLanguage("Level", "Level");  ?></h2>
+              <select name="difficulty" >
+                <option value="1"><?php echo getLanguage("Facile", "Easy");  ?></option>
+                <option value="2"><?php echo getLanguage("Moyen", "Medium");  ?></option>
+                <option value="3"><?php echo getLanguage("Difficile", "Hard");  ?></option>
+              </select>
+            </div>
           </div>
-        </div>
-        
-        <button onclick="initMainGrid()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
-      
-        <div class="open-popup">
-        <button class="open-button" onclick="openForm()">
-        <img src="../Images/keyboard.png" alt="buttonpng" class="imgpopup" />
-        </button>
-       </div>
-       <div class="in-popup" id="in-popup">
-        
-       <h2 class="victoryTitle"> <?php echo getLanguage("Les touches de jeu", "game keys");  ?></h2>
-       <img src="../Images/crossIcon.svg" class="crossVictory" id="close-popup" onclick="closeForm()">
-      </div>
-        
+          
+          <button onclick="initMainGrid()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
         </div>
       </div>
 

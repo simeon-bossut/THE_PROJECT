@@ -906,22 +906,8 @@ select {
   
 }
 
-.open-popup {
 
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  opacity: 0.8;
-
-}
-.imgpopup{
-  position: relative;
-  width: 10%;
-}
-
-.in-popup {
+.popup {
   background-color: #ffe6cd;
   border-radius: 10px;
   color: #ffe6cd;
@@ -933,4 +919,8 @@ select {
   transform: translate(-45%, 5%);
   box-shadow: 5px 5px 0px 0px black;
   z-index: 105;
+}
+
+.popup.displayed {
+  display: block;
 }
