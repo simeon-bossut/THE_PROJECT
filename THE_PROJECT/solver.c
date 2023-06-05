@@ -62,8 +62,7 @@ int maj_ghost(GhostGrid gridf, Grid gridj) {
   int size = gridj.size;
   Pos *pos; // Pos storage
   int modif = 0;
-  for (int value = 1; value <= gridf.size;
-       value++) { // Remplissage grossier de la grille fant�me � l'aide de la
+  for (int value = 1; value <= gridf.size; value++) { // Remplissage grossier de la grille fant�me � l'aide de la
                   // grille de jeu (sans observateurs)
     pos = find_in_grid(gridj, value, &size);
     for (int i = 0; i < size; i++) {
@@ -264,7 +263,7 @@ int compare_with_row(Grid *grid, int side, int pos) {
   return compt;
 }
 
-bool compare(Grid *grid, int obv) {
+
 
 bool compare(Grid*grid,int obv)
 {
@@ -449,6 +448,7 @@ bool hypothesis(GhostGrid *gridf, Grid *gridj, int poss,
   }
   return false;
 }
+
 
 Pos *find_in_grid(Grid grid, int val,  int *size) // attention grid.size diff de size
 {
