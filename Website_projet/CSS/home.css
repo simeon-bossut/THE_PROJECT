@@ -905,3 +905,32 @@ select {
   width: 100%;
   
 }
+
+.open-popup {
+
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.8;
+
+}
+.imgpopup{
+  position: relative;
+  width: 10%;
+}
+
+.in-popup {
+  background-color: #ffe6cd;
+  border-radius: 10px;
+  color: #ffe6cd;
+  display: none;
+  position: absolute;
+  left: 45%;
+  top: 30%;
+  width: 60%;
+  transform: translate(-45%, 5%);
+  box-shadow: 5px 5px 0px 0px black;
+  z-index: 105;
+}
