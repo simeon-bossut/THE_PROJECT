@@ -74,7 +74,7 @@ try {
 
   if(!isset($_COOKIE['grid'])) {
 
-    exec("../../THE_PROJECT/main $_COOKIE[dim] 2 $grid", $out);
+    exec("../../THE_PROJECT/main.out $_COOKIE[dim] 2 $grid", $out);
 
     setcookie("grid", "120013017", time() + 365*24*60*60, '/' );
 

@@ -658,21 +658,21 @@ char* level_to_seed(Grid* grid)
     {
         cache[i] = (bool)grid->tab[i / size][i % size];
     }
-    printf("\ntabool\n");
+   /* printf("\ntabool\n");
     for (int i = 0;i < size * (size + 4);++i)
     {
         printf("%d", cache[i]);
-    }
+    }*/
     for (int i = 0;i < size * 4;++i)
     {
         cache[i+size*size] = (bool)grid->obv[i];
     }
-    printf("\ntabool\n");
+    /*printf("\ntabool\n");
     for (int i = 0;i < size * (size + 4);++i)
     {
         printf("%d", cache[i]);
     }
-    printf("\n\n");
+    printf("\n\n");*/
     if (subcrate_solver(grid, 0, 1)==1)
     {
         printgrid(grid);
