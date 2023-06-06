@@ -28,8 +28,8 @@ header("Location:home.php");
 
 		<?php include("head.php"); ?>
 
-		<title>The Crate Stacker - Conceptor</title>
-		<link rel="stylesheet" href="../CSS/conceptor.css">
+		<title>The Crate Stacker - Levels</title>
+		<link rel="stylesheet" href="../CSS/level.css">
 
   </head>
 
@@ -38,7 +38,7 @@ header("Location:home.php");
   <?php include("nav.php"); ?>
 
   <header>
-    <h1>Game Conceptor</h1>
+    <h1>Levels</h1>
   </header>
   
   <main>
