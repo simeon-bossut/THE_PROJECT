@@ -196,6 +196,7 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
       }
     }
   }
+  free(tab);
   return line;
 }
 
@@ -247,18 +248,6 @@ void add_cach(Grid *grid, bool *cache,int diff) // ne sert plus à rien
   free(tmp);
 }
 
-void crea_cache(bool *cache, int difficulty, int dimension) // ne sert plus à rien
-{
-  int random;
-
-
-    random = rand() % (dimension * (4 + dimension));
-    cache[random] = 1; // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
-    // emplacement mais cela ne pose pas vraiment de probleme
-  
-  
-}
-
 bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stocke dans
                                                // *diff la valeur int du cache
 {
@@ -266,7 +255,7 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
   int size_cache = size * (size + 4);
   bool *cache = malloc(sizeof(bool) * size_cache);
   if (cache == NULL) {
-    return NULL;
+    return 0;
   }
   int random = 0;
   Grid* tmp = initgrid(size);
@@ -276,7 +265,7 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
 
   for (int i = 0; i < size_cache; ++i) {
      
-      cache[i] = 0;// intit du tableau a 0
+      cache[i] = 0;// intit du tableau a 0 ???
   }
   for(int i = 0; i < size+1; ++i)
   {
@@ -354,7 +343,7 @@ char *create_seed(int difficulty, int dim) {
   printgrid(grid);
   bool* cache;
   if (difficulty<2) {//difficulte 0 ou 1
-    cache = malloc(sizeof(bool) * dim * (dim + 4));
+    cache = (bool*)malloc(sizeof(bool) * dim * (dim + 4));
     if (cache == NULL) {
         return NULL;
     }
@@ -370,11 +359,11 @@ char *create_seed(int difficulty, int dim) {
         int random;
         for (int i = 0;i < dim - 1;++i)
         {
-            random = rand() % (dim*dim);
-            if (cache[i] == true)
+            do
             {
-                --i;
+                random = rand() % (dim * dim);
             }
+            while (cache[i] == true); //???
             cache[i] = true;
         }
     }
@@ -466,12 +455,7 @@ int *Dec2Bin(int n, int dim,int size) {
 
 int *get_cache_tab(int dim, char *Seed, int len) {
   int size_cache;
-  int *cache_tab = malloc(sizeof(int) * dim * dim);
 
-  char *tmp_cache_tab = malloc(sizeof(char) * dim);
-  if (cache_tab == NULL || tmp_cache_tab == NULL) {
-    return NULL;
-  }
   switch (dim) {
   case 3:
     size_cache = 3;
@@ -482,6 +466,13 @@ int *get_cache_tab(int dim, char *Seed, int len) {
   case 5:
     size_cache = 8;
     break;
+  default:
+    return NULL;
+  }
+  int* cache_tab = malloc(sizeof(int) * dim * dim);
+  char* tmp_cache_tab = malloc(sizeof(char) * size_cache);
+  if (cache_tab == NULL || tmp_cache_tab == NULL) {
+      return NULL;
   }
   memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + 1, size_cache);
   // printf("%s\n", tmp_cache_tab);
@@ -512,7 +503,10 @@ int *get_cache_obv(int dim, char *Seed, int len) {
     size_cache = 8;
     size_obv = 7;
     break;
+  default:
+      return NULL;
   }
+  
   char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
   if (tmp_cache_tab == NULL) { return NULL; }
   memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + size_cache + 1, size_obv);
