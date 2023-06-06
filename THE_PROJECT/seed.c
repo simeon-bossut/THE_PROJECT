@@ -348,31 +348,7 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
 }
 
 char *create_seed(int difficulty, int dim) {
-  int size;
-  int length_tab = 3;
-  int length_obv = 4;
-  if (dim == 3) {
-    size = 12;
-    length_tab = 3;
-    length_obv = 4;
-  } else if (dim == 4) {
-    size = 20;
-    length_tab = 5;
-    length_obv = 5;
-  } else if (dim == 5) {
-    size = 32;
-    length_tab = 8;
-    length_obv = 7;
-  } else {
-    return NULL;
-  }
-  char *SEED = malloc(sizeof(char) * size);
 
-  int *line = malloc(sizeof(int) * dim); // utile pour la transcription de la grid en seed
-  if (SEED == NULL || line == NULL) {
-    return NULL;
-  }
-  SEED[0] = dim + 48; // premier char designe la dimension
 
   Grid *grid = initgrid(dim);
   generateGrid(grid);//génère une solution
@@ -393,9 +369,9 @@ char *create_seed(int difficulty, int dim) {
     if (difficulty == 0)//si tres facile, onj ajoute aussi n-1 information
     {
         int random;
-        for (int i = 0;i < size - 1;++i)
+        for (int i = 0;i < dim - 1;++i)
         {
-            random = rand() % (size*size);
+            random = rand() % (dim*dim);
             if (cache[i] == true)
             {
                 --i;
@@ -407,24 +383,8 @@ char *create_seed(int difficulty, int dim) {
   else {//difficulte 3 ou 4
       cache = generate_level_cache(grid,difficulty);
   }
-  int id;
-  for (int i = 0; i < dim; ++i) {
-    for (int j = 0; j < dim; ++j) {
-      line[j] = grid->tab[i][j]; // copie d'une ligne
-    }
-    id = line_to_id(line, dim);
-    intoa(id, SEED + 1 + i * (dim - 2), dim - 2);
-  }
-  intoa(booltab_to_int(cache, dim * dim), SEED + dim * (dim - 2) + 1,
-        length_tab); // copie cache_tableau
 
-  intoa(booltab_to_int(cache + dim * dim, dim * 4),
-        SEED + dim * (dim - 2) + 1 + length_tab,
-        length_obv); // copie_cache observateurs
-
-  free(line);
-  free(cache);
-  return SEED;
+  return sub_level_to_seed(grid,cache);
 }
 
 void getLeftCases(char *string, int i, int j, int **tab, int size) {
@@ -642,4 +602,72 @@ void push_to_php(Grid *grid) {
       printf("\n");
     }
   }
+}
+
+char* sub_level_to_seed(Grid* grid,bool*cache)
+{
+    int dim = grid->size;
+    int size;
+
+    int length_tab = 3;
+    int length_obv = 4;
+    if (dim == 3) {
+        size = 12;
+        length_tab = 3;
+        length_obv = 4;
+    }
+    else if (dim == 4) {
+        size = 20;
+        length_tab = 5;
+        length_obv = 5;
+    }
+    else if (dim == 5) {
+        size = 32;
+        length_tab = 8;
+        length_obv = 7;
+    }
+    else {
+        return NULL;
+    }
+    char* SEED = malloc(sizeof(char) * size);
+
+    int* line = malloc(sizeof(int) * dim); // utile pour la transcription de la grid en seed
+    if (SEED == NULL || line == NULL) {
+        return NULL;
+    }
+
+    SEED[0] = dim + 48; // premier char designe la dimension
+    
+
+    int id;
+    for (int i = 0; i < dim; ++i) {
+        for (int j = 0; j < dim; ++j) {
+            line[j] = grid->tab[i][j]; // copie d'une ligne
+        }
+        id = line_to_id(line, dim);
+        intoa(id, SEED + 1 + i * (dim - 2), dim - 2);
+    }
+    intoa(booltab_to_int(cache, dim * dim), SEED + dim * (dim - 2) + 1,
+        length_tab); // copie cache_tableau
+
+    intoa(booltab_to_int(cache + dim * dim, dim * 4),
+        SEED + dim * (dim - 2) + 1 + length_tab,
+        length_obv); // copie_cache observateurs
+
+    free(line);
+    free(cache);
+    return SEED;
+
+}
+
+char* level_to_seed(Grid* grid)
+{
+    int size = grid->size;
+    bool* cache = mallo(sizeof(bool) * size * (size + 4));
+    if (cache == NULL) { return NULL; }
+    if (subcrate_solver(grid, 0, 1)==1)
+    {
+        return sub_level_to_seed(grid, cache);
+    }
+    return NULL;
 }
