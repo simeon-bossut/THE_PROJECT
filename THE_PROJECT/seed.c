@@ -120,8 +120,7 @@ char *id_to_line(int val, int dim) // Uniquement en 4*4 pour l'instant
   if (val == 0) {
     val = factorial(dim);
   }
-  char *line = malloc(
-      sizeof(char) * (dim + 1)); // pour l'intant 4 (+\0)car taille de la ligne,
+  char *line = malloc(sizeof(char) * (dim + 1)); // pour l'intant 4 (+\0)car taille de la ligne,
   // par le futur malloc car taille variable
   if (line == NULL) {
     return NULL;
