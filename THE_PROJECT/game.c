@@ -167,6 +167,29 @@ bool is_solved(Grid gridj) {
     return true;
 }
 
+
+Grid* read_grid(char* grid_string, int size) {
+    int tmp;
+    int id;
+    int i = 0;
+    Grid* grid = initgrid(size);
+    for (id = 0; id < size * 4; id++)
+    {
+        tmp = grid_string[id] - 48;
+        grid->obv[id] = tmp;
+    }
+
+    for (id = 0; id - size * 4 < size * size; id++)
+    {
+        if ((id - size * 4) >= (size * (i + 1))) {
+            i++;
+        }
+        tmp = grid_string[id] - 48;
+        grid->tab[i][(id - size * 4) % size] = tmp;
+    }
+    return grid;
+}
+
 int nb_hint(Grid* grid) {
     int nb_hints = 0;
     int tmp;
