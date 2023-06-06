@@ -3,6 +3,7 @@
 #include "solver.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char *argv[]) {
 
@@ -12,44 +13,56 @@ int main(int argc, char *argv[]) {
   // argv contient l'ensemble des arguments passes separes par des espaces
   // il affiche en 1 le premier argument
 
-  // int dim = atoi(argv[1]);
-  //int dim = 3;
+  if (strcmp(argv[argc - 1], "-help") == 0) {
+    printf(
+        "\nUsage: ./main [dim] [action] [difficulty] [seed]\n dim: dimension "
+        "of the grid\n action: 1 for a grid with missing elements, 2 for a "
+        "clue, 3 for a complete grid, 4 for confirmation that a grid is "
+        "possible\n difficulty: 0 for very easy, 1 for easy, 2 for medium, "
+        "3 for hard\n "
+        "seed: seed of the grid\n\n");
+    return 0;
+  }
 
-  //// int action = atoi(argv[2]);
-  //int action = 1;
+  int dim = atoi(argv[1]);
+  // int dim = 3;
 
-  //Grid *grid;
+  int action = atoi(argv[2]);
+  // int action = 1;
 
-  //// Get a grid with missing elements
-  //if (action == 1) {
-  //  // int difficulty = atoi(argv[3]);
-  //  int difficulty = 2;
-  //  char *seed_ = create_seed(difficulty, dim);
-  //  grid = read_seed(seed_);
-  //  push_to_php(grid);
-  //}
+  Grid *grid;
 
-  //// Get a clue
-  //else if (action == 2) {
-  //  grid = read_grid("221122312213100002000", dim);
-  //  if (is_grid_correct(grid)) {
-  //    hint(grid);
-  //  }
-  //  push_to_php(grid);
-  //}
+  // Get a grid with missing elements
+  if (action == 1) {
+    int difficulty = atoi(argv[3]);
+    // int difficulty = 2;
+    char *seed_;
+    seed_ = create_seed(difficulty, dim);
+    grid = read_seed(seed_);
+    push_to_php(grid);
+  }
 
-  //// Get a complete grid
-  //else if (action == 3) {
-  //  grid = read_grid(argv[4], dim);
-  //  crate_solver(grid);
-  //  push_to_php(grid);
-  //}
+  // Get a clue
+  else if (action == 2) {
+    grid = read_grid(argv[3], dim);
+    if (is_grid_correct(grid)) {
+      hint(grid);
+    }
+    push_to_php(grid);
+  }
 
-  //// Get confirmation that a grid is possible
-  //else if (action == 4) {
-  //  grid = read_grid(argv[4], dim);
-  //  is_solved(*grid);
-  //}
+  // Get a complete grid
+  else if (action == 3) {
+    grid = read_grid(argv[3], dim);
+    crate_solver(grid);
+    push_to_php(grid);
+  }
+
+  // Get confirmation that a grid is possible
+  else if (action == 4) {
+    grid = read_grid(argv[3], dim);
+    is_solved(*grid);
+  }
 
   /*
 
@@ -65,7 +78,7 @@ int main(int argc, char *argv[]) {
   // grid = read_seed(Seed);
   // printgrid(grid);
   // printf("%s", level_to_seed(grid));
- 
+
   // fillgrid(grid);
   // grid_completion(grid);
 

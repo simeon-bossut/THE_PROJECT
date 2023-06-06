@@ -167,18 +167,19 @@ bool is_solved(Grid gridj) {
     return true;
 }
 
-Grid * read_grid(char* grid_string, int size) {
+
+Grid* read_grid(char* grid_string, int size) {
     int tmp;
     int id;
     int i = 0;
     Grid* grid = initgrid(size);
-    for (id = 0;  id < size * 4; id ++)
+    for (id = 0; id < size * 4; id++)
     {
         tmp = grid_string[id] - 48;
         grid->obv[id] = tmp;
     }
 
-    for (id = 0; id - size*4 < size*size; id++)
+    for (id = 0; id - size * 4 < size * size; id++)
     {
         if ((id - size * 4) >= (size * (i + 1))) {
             i++;
@@ -278,6 +279,8 @@ Grid* hint(Grid* grid) {
     printgrid(grid);
     printf("copy \n");
     printgrid(copy);
+
+  return copy;
 }
 
 bool is_grid_correct(Grid* grid) {

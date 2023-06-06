@@ -42,7 +42,7 @@ try {
       $resBody= $resBody[0];
     else{
       $resBody = 'character_default';
-  }
+    }
   }
 
   else {
@@ -74,16 +74,14 @@ try {
 
   if(!isset($_COOKIE['grid'])) {
 
-    exec("../../THE_PROJECT/main.out $_COOKIE[dim] 2 $grid", $out);
+    exec("../../THE_PROJECT/main.exe $_COOKIE[dim] 2 $grid", $out);
 
     setcookie("grid", "120013017", time() + 365*24*60*60, '/' );
 
     header("Location:home.php");
   }
 
-  exec("../../THE_PROJECT/main $_COOKIE[dim] 1 1", $out2);
-  
-  var_dump($out2);
+  exec("cd ../../THE_PROJECT/ && main.exe $_COOKIE[dim] 1 1", $out2);
 
 } 
 
