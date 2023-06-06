@@ -150,11 +150,11 @@ function convertStringIntoGrid(str) {
   let crate = [];
 
   for(let i = 0; i < dim * 4; i++) {
-    obs.push(str[1 + i]);
+    obs.push(Number(str[1 + i]));
   }
 
   for(let i = 0; i < dim**2; i++) {
-    crate.push(str[i + 1 + dim*4]);
+    crate.push(Number(str[i + 1 + dim*4]));
   }
 
   return [dim, obs, crate];
@@ -242,11 +242,11 @@ function checkVictory() {
       }
     }
 
-    if(obsTab[i] != nbStack2) {
+    if(obsTab[i] != 0 && obsTab[i] != nbStack2) {
       return false;
     }
 
-    if(obsTab[tabDim*4 - 1 - i] != nbStack1) {
+    if(obsTab[tabDim*4 - 1 - i] != 0 && obsTab[tabDim*4 - 1 - i] != nbStack1) {
       return false;
     }
   }
@@ -294,11 +294,11 @@ function checkVictory() {
       }
     }
 
-    if(obsTab[i + tabDim] != nbStack1) {
+    if(obsTab[i + tabDim] != 0 && obsTab[i + tabDim] != nbStack1) {
       return false;
     }
 
-    if(obsTab[tabDim*4 - 1 - tabDim - i] != nbStack2) {
+    if(obsTab[tabDim*4 - 1 - tabDim - i] != 0 && obsTab[tabDim*4 - 1 - tabDim - i] != nbStack2) {
       return false;
     }
   }
@@ -635,28 +635,44 @@ function initMainPlate() {
 
   for(let i = 0; i < tabDim; i++) {
     let element = document.querySelector(`#pos_${i * 2 + 1}_-1`);
-    element.innerHTML += `<div class="obsText rotate00">${obsTab[count]}</div>`;
+    let val = obsTab[count];
+    if(val == 0)
+      val = "";
+
+    element.innerHTML += `<div class="obsText rotate00">${val}</div>`;
 
     count++;
   }
 
   for(let i = 0; i < tabDim; i++) {
     let element = document.querySelector(`#pos_${tabDim * 2 + 1}_${i * 2 + 1}`);
-    element.innerHTML += `<div class="obsText rotate270">${obsTab[count]}</div>`;
+    let val =obsTab[count];
+    if(val == 0)
+      val = "";
+
+    element.innerHTML += `<div class="obsText rotate270">${val}</div>`;
 
     count++;
   }
 
   for(let i = tabDim - 1; i >= 0; i--) {
     let element = document.querySelector(`#pos_${i * 2 + 1}_${tabDim * 2 + 1}`);
-    element.innerHTML += `<div class="obsText rotate180">${obsTab[count]}</div>`;
+    let val =obsTab[count];
+    if(val == 0)
+      val = "";
+
+    element.innerHTML += `<div class="obsText rotate180">${val}</div>`;
 
     count++;
   }
 
   for(let i = tabDim - 1; i >= 0; i--) {
     let element = document.querySelector(`#pos_-1_${i * 2 + 1}`);
-    element.innerHTML += `<div class="obsText rotate90">${obsTab[count]}</div>`;
+    let val =obsTab[count];
+    if(val == 0)
+      val = "";
+
+    element.innerHTML += `<div class="obsText rotate90">${val}</div>`;
 
     count++;
   }
