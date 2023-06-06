@@ -9,6 +9,9 @@ $resBack;
 $resBody;
 $resHat;
 
+$out;
+$out2;
+
 try {
 
   if(isset($_SESSION) && isset($_SESSION['email'])) {
@@ -53,9 +56,6 @@ try {
     setcookie("dim", "3", time() + 365*24*60*60, '/' );
   }
 
-
-  $out;
-
   if(isset($_POST["clue"])) {
 
     $grid = str_split($_COOKIE["grid"]);
@@ -72,19 +72,19 @@ try {
 
   }
 
-  $out2;
-
   if(!isset($_COOKIE['grid'])) {
 
-    exec("../../THE_PROJECT/main $_COOKIE[dim] 2 $grid", $out);
+    exec("../../THE_PROJECT/main.out $_COOKIE[dim] 2 $grid", $out);
 
     setcookie("grid", "120013017", time() + 365*24*60*60, '/' );
 
     header("Location:home.php");
   }
 
+  exec("../../THE_PROJECT/main $_COOKIE[dim] 1 1", $out2);
   
-  
+  var_dump($out2);
+
 } 
 
 catch (Exception $e) {
@@ -195,7 +195,7 @@ catch (Exception $e) {
                 <span>670</span>
               </div> -->
             </div>
-            <button class="victoryRefreshButton" onclick="initMainPlate()">Restart</button>
+            <button class="victoryRefreshButton" onclick="onclickGenerate()">Restart</button>
           </div>
         </div>
 
@@ -226,7 +226,7 @@ catch (Exception $e) {
               </div>
             </div>
             
-            <button onclick="initMainPlate()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
+            <button onclick="onclickGenerate()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
           </div>
         </div>
 

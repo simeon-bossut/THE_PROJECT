@@ -59,12 +59,12 @@ int main(int argc, char *argv[]) {
   int size = argv[1] ? atoi(argv[1]) : 3;
   */
 
-  Grid* grid;
-  char*Seed=create_seed(4, 3);
-  printf("%s\n\n", Seed);
-  grid = read_seed(Seed);
-  printgrid(grid);
-  printf("%s", level_to_seed(grid));
+  // Grid* grid;
+  // char*Seed=create_seed(4, 3);
+  // printf("%s\n\n", Seed);
+  // grid = read_seed(Seed);
+  // printgrid(grid);
+  // printf("%s", level_to_seed(grid));
  
   // fillgrid(grid);
   // grid_completion(grid);

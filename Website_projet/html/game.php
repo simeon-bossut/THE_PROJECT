@@ -486,6 +486,12 @@ function createStringGrid(dim, obs, crates) {
   return string;
 }
 
+function onclickGenerate() {
+  setCookie("dim", document.querySelector('select[name="size"]').value, 365);
+
+  document.location.reload(); 
+}
+
 function initMainPlate() {
 
   newGrid = true;
@@ -493,14 +499,17 @@ function initMainPlate() {
 
   document.querySelector(".victoryScreen").classList.remove('opened');
 
+  let res = convertStringIntoGrid("<?php $out2[0] ?>");
+  
+  tabDim = res[0];
+  crateTab = res[2];
+  obsTab = res[1];
+
   gameSet.classList = ["dim" + tabDim];
   gameSet.innerHTML = "";
 
-  setCookie("dim", document.querySelector('select[name="size"]').value, 365);
-
-  document.location.reload(); 
-  /*
-  if(getCookie("grid") != "") {
+  
+  /*if(getCookie("grid") != "") {
     let res = convertStringIntoGrid(getCookie("grid"));
 
     tabDim = res[0];
