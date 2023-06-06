@@ -82,8 +82,6 @@ try {
   }
 
   exec("cd ../../THE_PROJECT/ && main.exe $_COOKIE[dim] 1 1", $out2);
-  
-  var_dump($out2);
 
 } 
 
