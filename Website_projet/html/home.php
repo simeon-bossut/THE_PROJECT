@@ -83,6 +83,7 @@ try {
 
   exec("../../THE_PROJECT/main $_COOKIE[dim] 1 1", $out2);
   
+  var_dump($out2);
 
 } 
 
