@@ -235,28 +235,28 @@ function initMainPlate() {
 
   for(let i = 0; i < tabDim; i++) {
     let element = document.querySelector(`#pos_${i}_-1`);
-    element.innerHTML += `<div class="obsText rotate00">${obsTab[count]}</div>`;
+    element.innerHTML += `<div id="obs_${count}" class="obsText rotate00">${obsTab[count]}</div>`;
 
     count++;
   }
 
   for(let i = 0; i < tabDim; i++) {
     let element = document.querySelector(`#pos_${tabDim}_${i}`);
-    element.innerHTML += `<div class="obsText rotate270">${obsTab[count]}</div>`;
+    element.innerHTML += `<div id="obs_${count}" class="obsText rotate270">${obsTab[count]}</div>`;
 
     count++;
   }
 
   for(let i = tabDim - 1; i >= 0; i--) {
     let element = document.querySelector(`#pos_${i}_${tabDim}`);
-    element.innerHTML += `<div class="obsText rotate180">${obsTab[count]}</div>`;
+    element.innerHTML += `<div id="obs-${count}" class="obsText rotate180">${obsTab[count]}</div>`;
 
     count++;
   }
 
   for(let i = tabDim - 1; i >= 0; i--) {
     let element = document.querySelector(`#pos_-1_${i}`);
-    element.innerHTML += `<div class="obsText rotate90">${obsTab[count]}</div>`;
+    element.innerHTML += `<div id="obs-${count}" class="obsText rotate90">${obsTab[count]}</div>`;
 
     count++;
   }
@@ -279,11 +279,22 @@ window.addEventListener('keydown', e => {
 function changeCrates(number) {
   let num = number.textContent;
 
-  let x = lastCrateClicked.id.split('_')[1];
-  let y = lastCrateClicked.id.split('_')[2];
+  var x, y;
 
-  crateTab[x][y].val = num == "" ? 0 : num;
+  if(lastCrateClicked.classList.contains('obsText')) {
+    x = lastCrateClicked.parentElement.id.split('_')[1];
+    y = lastCrateClicked.parentElement.id.split('_')[2];
+
+    obsTab[Number(lastCrateClicked.id.split('_')[1])] = num == "" ? 0 : num;
+    document.getElementById(lastCrateClicked.parentElement.id).childNodes[0].textContent = num;
+  }
+  else {
+    x = lastCrateClicked.id.split('_')[1];
+    y = lastCrateClicked.id.split('_')[2];
+
+    crateTab[x][y].val = num == "" ? 0 : num;
   document.getElementById(lastCrateClicked.id).textContent = num;
+  }
 
 }
 
@@ -340,8 +351,39 @@ document.querySelectorAll('.cratePlace').forEach(elem => {
   })
 })
 
+document.querySelectorAll('.obsText').forEach((elem, index) => {
+  elem.addEventListener('click', e => {
+    let x = elem.parentElement.id.split('_')[1];
+    let y = elem.parentElement.id.split('_')[2];
+
+    console.log(elem.parentElement)
+
+    if(obsTab[index].hidden == true)
+      document.querySelector('.crateInvChoice').classList.add("inv"); 
+    else
+      document.querySelector('.crateInvChoice').classList.remove("inv");
+
+    document.querySelector('#editTool').style.left = (elem.parentElement.offsetLeft - document.querySelector('#editTool').offsetWidth / 2 + elem.parentElement.offsetWidth / 2) + "px";
+    document.querySelector('#editTool').style.top = (elem.parentElement.offsetTop - document.querySelector('#editTool').offsetHeight / 2 - elem.parentElement.offsetHeight + 19) + "px";
+  
+    if(lastCrateClicked != e.target || document.querySelector('#editTool').style.opacity == 0) {
+      lastCrateClicked = e.target;
+
+      document.querySelector('#editTool').style.opacity = 1;
+
+      document.querySelector('#editTool').style.zIndex = 0;
+    }
+
+    else {
+      document.querySelector('#editTool').style.opacity = document.querySelector('#editTool').style.opacity = 0;
+
+      document.querySelector('#editTool').style.zIndex = -1;
+    }
+  })
+})
+
 document.addEventListener('click', e => {
-  if(!e.target.classList.contains('cratePlace') && e.target.id != 'editTool' && !e.target.classList.contains('number') && !e.target.classList.contains('crateInvChoice')) {
+  if(!e.target.classList.contains('cratePlace') && !e.target.classList.contains('obsText') && e.target.id != 'editTool' && !e.target.classList.contains('number') && !e.target.classList.contains('crateInvChoice')) {
     document.querySelector('#editTool').style.opacity = 0;
 
     document.querySelector('#editTool').style.zIndex = -1;
@@ -349,6 +391,9 @@ document.addEventListener('click', e => {
 })
 
 window.onresize = (e) => {
+  if(!lastCrateClicked) 
+    return;
+  
   document.querySelector('#editTool').style.left = (lastCrateClicked.offsetLeft - document.querySelector('#editTool').offsetWidth / 2 + lastCrateClicked.offsetWidth / 2) + "px";
   document.querySelector('#editTool').style.top = (lastCrateClicked.offsetTop - document.querySelector('#editTool').offsetHeight / 2 - lastCrateClicked.offsetHeight + 19) + "px";
 }

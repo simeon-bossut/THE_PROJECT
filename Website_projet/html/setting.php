@@ -1,8 +1,4 @@
-	<?php session_start(); ?>
-
-
-
-	<?php
+	<?php session_start(); 
 
 	require('request.php');
 
@@ -34,7 +30,6 @@
 		echo $reportText;
 		echo $currentDate;
 */
-
 		$res = request("INSERT INTO report (date,type,text) VALUES(:date,:type,:text)", true, array(
 			':date' => $currentDate,
 			':type' => $reportValue,

@@ -12,44 +12,44 @@ int main(int argc, char *argv[]) {
   // argv contient l'ensemble des arguments passes separes par des espaces
   // il affiche en 1 le premier argument
 
-  //// int dim = atoi(argv[1]);
-  //int dim = 3;
+  // int dim = atoi(argv[1]);
+  int dim = 3;
 
-  //// int action = atoi(argv[2]);
-  //int action = 2;
+  // int action = atoi(argv[2]);
+  int action = 1;
 
-  //Grid *grid;
+  Grid *grid;
 
-  //// Get a grid with missing elements
-  //if (action == 1) {
-  //  // int difficulty = atoi(argv[3]);
-  //  int difficulty = 1;
-  //  char *seed_ = create_seed(difficulty, dim);
-  //  grid = read_seed(seed_);
-  //  push_to_php(grid);
-  //}
+  // Get a grid with missing elements
+  if (action == 1) {
+    // int difficulty = atoi(argv[3]);
+    int difficulty = 2;
+    char *seed_ = create_seed(difficulty, dim);
+    grid = read_seed(seed_);
+    push_to_php(grid);
+  }
 
-  //// Get a clue
-  //else if (action == 2) {
-  //  grid = read_grid("221122312213100002000", dim);
-  //  if (is_grid_correct(grid)) {
-  //    hint(grid);
-  //  }
-  //  push_to_php(grid);
-  //}
+  // Get a clue
+  else if (action == 2) {
+    grid = read_grid("221122312213100002000", dim);
+    if (is_grid_correct(grid)) {
+      hint(grid);
+    }
+    push_to_php(grid);
+  }
 
-  //// Get a complete grid
-  //else if (action == 3) {
-  //  grid = read_grid(argv[4], dim);
-  //  crate_solver(grid);
-  //  push_to_php(grid);
-  //}
+  // Get a complete grid
+  else if (action == 3) {
+    grid = read_grid(argv[4], dim);
+    crate_solver(grid);
+    push_to_php(grid);
+  }
 
-  //// Get confirmation that a grid is possible
-  //else if (action == 4) {
-  //  grid = read_grid(argv[4], dim);
-  //  is_solved(*grid);
-  //}
+  // Get confirmation that a grid is possible
+  else if (action == 4) {
+    grid = read_grid(argv[4], dim);
+    is_solved(*grid);
+  }
 
   /*
 
@@ -67,20 +67,21 @@ int main(int argc, char *argv[]) {
   printf("%s", level_to_seed(grid));
  
   // fillgrid(grid);
-  //grid_completion(grid);
+  // grid_completion(grid);
 
-  //fillgrid(grid);
-  
-    
- // generateGrid(grid);
+  // fillgrid(grid);
 
-  /*grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;  grid->tab[0][3] = 0;
-  grid->tab[1][0] = 0;  grid->tab[1][1] = 0;  grid->tab[1][2] = 0;  grid->tab[1][3] = 0;
-  grid->tab[2][0] = 0;  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 0;
-  grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;  grid->tab[3][3] = 0;
+  // generateGrid(grid);
 
-  grid->obv[0] = 1;  grid->obv[1] = 4;  grid->obv[2] = 2;  grid->obv[3] = 3;  
-  grid->obv[4] = 3;  grid->obv[5] = 2;  grid->obv[6] = 1;  grid->obv[7] = 3; 
+  /*grid->tab[0][0] = 0;  grid->tab[0][1] = 0;  grid->tab[0][2] = 0;
+  grid->tab[0][3] = 0; grid->tab[1][0] = 0;  grid->tab[1][1] = 0;
+  grid->tab[1][2] = 0;  grid->tab[1][3] = 0; grid->tab[2][0] = 0;
+  grid->tab[2][1] = 0;  grid->tab[2][2] = 0;  grid->tab[2][3] = 0;
+  grid->tab[3][0] = 0;  grid->tab[3][1] = 0;  grid->tab[3][2] = 0;
+  grid->tab[3][3] = 0;
+
+  grid->obv[0] = 1;  grid->obv[1] = 4;  grid->obv[2] = 2;  grid->obv[3] = 3;
+  grid->obv[4] = 3;  grid->obv[5] = 2;  grid->obv[6] = 1;  grid->obv[7] = 3;
   grid->obv[8] = 2;  grid->obv[9] = 2;  grid->obv[10] = 1; grid->obv[11] = 2;
   grid->obv[12] = 2; grid->obv[13] = 3; grid->obv[14] = 3; grid->obv[15] = 1;*/
 
@@ -88,10 +89,10 @@ int main(int argc, char *argv[]) {
   printgrid(grid);
   crate_solver(grid);
   printf("\n");*/
-  //hypothesis(gridf, grid);
-  //check_loners(gridf,grid);
-  //maj_ghost(*gridf, *grid);
- 
+  // hypothesis(gridf, grid);
+  // check_loners(gridf,grid);
+  // maj_ghost(*gridf, *grid);
+
   /*printgrid_Ghost(gridf);
   printgrid(grid);
   //printf("%d\n", gridf->size);
@@ -109,40 +110,37 @@ int main(int argc, char *argv[]) {
 
   //
 
-  //char *Seed3dim = "32635114095";
-  //char *Seed4dim = "4012418066553565535";
-  //char *Seed5dim = "5001120060112099335544311048575";
-  //grid = read_seed(Seed3dim);
-  //printgrid(grid);
+  // char *Seed3dim = "32635114095";
+  // char *Seed4dim = "4012418066553565535";
+  // char *Seed5dim = "5001120060112099335544311048575";
+  // grid = read_seed(Seed3dim);
+  // printgrid(grid);
 
-  //grid = read_seed(Seed4dim);
-  //printgrid(grid);
+  // grid = read_seed(Seed4dim);
+  // printgrid(grid);
 
-  //grid = read_seed(Seed5dim);
-  //int tab[5] = { 5,2,3,4,1 };
-  //int val=line_to_id(tab,5);
+  // grid = read_seed(Seed5dim);
+  // int tab[5] = { 5,2,3,4,1 };
+  // int val=line_to_id(tab,5);
   ////char*buffer=malloc()
-  //printf("%d", val);
+  // printf("%d", val);
 
-
-  //Grid* grid;
+  // Grid* grid;
 
   //*int difficulty = 1;
-  //grid = generate_level(4, &difficulty); 
-  //push_to_php(grid);*/
+  // grid = generate_level(4, &difficulty);
+  // push_to_php(grid);*/
 
-  //char*SEED=create_seed(1,4);
-  //printf("%s", SEED);
-  //grid =read_seed(SEED);
-  //printgrid(grid);
-  
-  //grid = read_grid("221122312213100002000", size);
-  //Grid* copy = read_grid("221122312213100002000", size);
-  //Grid* copy = grid;
-  //Grid* hint(grid);
-  //hint(grid);
+  // char*SEED=create_seed(1,4);
+  // printf("%s", SEED);
+  // grid =read_seed(SEED);
+  // printgrid(grid);
 
-  
+  // grid = read_grid("221122312213100002000", size);
+  // Grid* copy = read_grid("221122312213100002000", size);
+  // Grid* copy = grid;
+  // Grid* hint(grid);
+  // hint(grid);
 
   return EXIT_SUCCESS;
 }

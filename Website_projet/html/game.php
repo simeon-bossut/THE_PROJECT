@@ -496,6 +496,10 @@ function initMainPlate() {
   gameSet.classList = ["dim" + tabDim];
   gameSet.innerHTML = "";
 
+  setCookie("dim", document.querySelector('select[name="size"]').value, 365);
+
+  document.location.reload(); 
+  /*
   if(getCookie("grid") != "") {
     let res = convertStringIntoGrid(getCookie("grid"));
 
@@ -528,7 +532,7 @@ function initMainPlate() {
     }
 
     setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
-  }
+  }*/
 
 
 

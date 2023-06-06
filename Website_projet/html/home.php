@@ -48,8 +48,13 @@ try {
     $resBody = 'character_default';
   }
 
-  $out;
 
+  if(!isset($_COOKIE['dim'])) {
+    setcookie("dim", "3", time() + 365*24*60*60, '/' );
+  }
+
+
+  $out;
 
   if(isset($_POST["clue"])) {
 
@@ -59,13 +64,27 @@ try {
 
     $grid = join($grid);
 
-    exec("../../THE_PROJECT/main.exe $_POST[dim] 2 $grid", $out);
+    exec("../../THE_PROJECT/main $_POST[dim] 2 $grid", $out);
 
     setcookie("gridClue", "120013017", time() + 365*24*60*60, '/' );
 
     header("Location:home.php");
 
   }
+
+  $out2;
+
+  if(!isset($_COOKIE['grid'])) {
+
+    exec("../../THE_PROJECT/main $_COOKIE[dim] 2 $grid", $out);
+
+    setcookie("grid", "120013017", time() + 365*24*60*60, '/' );
+
+    header("Location:home.php");
+  }
+
+  
+  
 } 
 
 catch (Exception $e) {
@@ -192,8 +211,8 @@ catch (Exception $e) {
               <div class="selectBox">
                 <h2  class="titleselect"><?php echo getLanguage("Taille", "Size");  ?></h2>
                 <select name="size" >
-                  <option value="3">3*3</option>
-                  <option value="4">4*4</option>
+                  <option value="3" <?php if(isset($_COOKIE['dim']) && $_COOKIE['dim'] == 3) { echo "selected"; }?> >3*3</option>
+                  <option value="4" <?php if(isset($_COOKIE['dim']) && $_COOKIE['dim'] == 4) { echo "selected"; }?> >4*4</option>
                 </select>
               </div>
               <div class="selectBox">
