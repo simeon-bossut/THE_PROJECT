@@ -24,7 +24,8 @@ int main(int argc, char *argv[]) {
   if (action == 1) {
     // int difficulty = atoi(argv[3]);
     int difficulty = 2;
-    char *seed_ = create_seed(difficulty, dim);
+    char *seed_;
+    seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);
     push_to_php(grid);
   }
