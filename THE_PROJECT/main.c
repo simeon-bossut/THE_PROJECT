@@ -14,13 +14,12 @@ int main(int argc, char *argv[]) {
   // il affiche en 1 le premier argument
 
   if (strcmp(argv[argc - 1], "-help") == 0) {
-    printf(
-        "\nUsage: ./main [dim] [action] [difficulty] [seed]\n dim: dimension "
-        "of the grid\n action: 1 for a grid with missing elements, 2 for a "
-        "clue, 3 for a complete grid, 4 for confirmation that a grid is "
-        "possible\n difficulty: 0 for very easy, 1 for easy, 2 for medium, "
-        "3 for hard\n "
-        "seed: seed of the grid\n\n");
+    printf("\nUsage: ./main [dim] [action] [difficulty] [seed]\n dim: dimension"
+           "of the grid\n action: 1 for a grid with missing elements, 2 for a"
+           "clue, 3 for a complete grid, 4 for confirmation that a grid is "
+           "possible\n difficulty: 0 for very easy, 1 for easy, 2 for medium, "
+           "3 for hard\n "
+           "seed: seed of the grid\n\n");
     return 0;
   }
 
@@ -35,7 +34,7 @@ int main(int argc, char *argv[]) {
   // Get a grid with missing elements
   if (action == 1) {
     int difficulty = atoi(argv[3]);
-    // int difficulty = 2;
+    // int difficulty = 1;
     char *seed_;
     seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);
