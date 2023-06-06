@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
   // grid = read_seed(Seed);
   // printgrid(grid);
   // printf("%s", level_to_seed(grid));
- 
+
   // fillgrid(grid);
   // grid_completion(grid);
 
