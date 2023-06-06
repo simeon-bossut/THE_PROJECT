@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
   // Get a clue
   else if (action == 2) {
-    grid = read_grid("221122312213100002000", dim);
+    grid = read_grid(argv[3], dim);
     if (is_grid_correct(grid)) {
       hint(grid);
     }
@@ -41,14 +41,14 @@ int main(int argc, char *argv[]) {
 
   // Get a complete grid
   else if (action == 3) {
-    grid = read_grid(argv[4], dim);
+    grid = read_grid(argv[3], dim);
     crate_solver(grid);
     push_to_php(grid);
   }
 
   // Get confirmation that a grid is possible
   else if (action == 4) {
-    grid = read_grid(argv[4], dim);
+    grid = read_grid(argv[3], dim);
     is_solved(*grid);
   } //
 
