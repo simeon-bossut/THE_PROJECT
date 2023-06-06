@@ -169,16 +169,16 @@ bool is_solved(Grid gridj) {
 
 Grid * read_grid(char* grid_string, int size) {
     int tmp;
-    int id = 0;
+    int id;
     int i = 0;
     Grid* grid = initgrid(size);
-    for (id;  id < size * 4; id ++)
+    for (id = 0;  id < size * 4; id ++)
     {
         tmp = grid_string[id] - 48;
         grid->obv[id] = tmp;
     }
 
-    for (id; id - size*4 < size*size; id++)
+    for (id = 0; id - size*4 < size*size; id++)
     {
         if ((id - size * 4) >= (size * (i + 1))) {
             i++;

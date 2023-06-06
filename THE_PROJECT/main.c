@@ -12,15 +12,18 @@ int main(int argc, char *argv[]) {
   // argv contient l'ensemble des arguments passes separes par des espaces
   // il affiche en 1 le premier argument
 
-  int dim = atoi(argv[1]);
+  // int dim = atoi(argv[1]);
+  int dim = 3;
 
-  int action = atoi(argv[2]);
+  // int action =atoi(argv[2]);
+  int action =  1;
 
   Grid *grid;
 
   // Get a grid with missing elements
   if (action == 1) {
-    int difficulty = atoi(argv[3]);
+    //int difficulty = atoi(argv[3]);
+    int difficulty = 0;
     char *seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);
     push_to_php(grid);
