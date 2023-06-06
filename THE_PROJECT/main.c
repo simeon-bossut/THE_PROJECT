@@ -30,10 +30,11 @@ int main(int argc, char *argv[]) {
   int action = atoi(argv[2]);
   // int action = 1;
 
+
   Grid *grid;
 
   // Get a grid with missing elements
-  if (action == 1) {
+  if (action == 1) { 
     int difficulty = atoi(argv[3]);
     // int difficulty = 2;
     char *seed_;

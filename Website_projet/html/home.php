@@ -81,7 +81,15 @@ try {
     header("Location:home.php");
   }
 
-  exec("cd ../../THE_PROJECT/ && main.exe $_COOKIE[dim] 1 1", $out2);
+  if(!isset($_COOKIE["dim"])) {
+    setcookie("dim", "3", time() + 365*24*60*60, '/' );
+  }
+
+  if(!isset($_COOKIE["diff"])) {
+    setcookie("diff", "0", time() + 365*24*60*60, '/' );
+  }
+
+  exec("cd ../../THE_PROJECT/ && main.exe $_COOKIE[dim] 1 $_COOKIE[diff]", $out2);
 
 } 
 
