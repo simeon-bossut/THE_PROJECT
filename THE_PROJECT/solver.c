@@ -301,7 +301,7 @@ bool err_latin_row(int row, Grid *grid) {
   int val;
   char *repertory = malloc(sizeof(char) * grid->size);
   if (repertory == NULL) {
-    return NULL;
+    return true;
   }
   for (int i = 0; i < grid->size; ++i) {
     repertory[i] = '\0'; // faux avertissement
@@ -324,7 +324,7 @@ bool err_latin_col(int col, Grid *grid) {
   int val;
   char *repertory = malloc(sizeof(char) * grid->size);
   if (repertory == NULL) {
-    return NULL;
+    return true;
   }
   for (int i = 0; i < grid->size; ++i) {
     repertory[i] = '\0'; // faux avertissement
