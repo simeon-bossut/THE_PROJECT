@@ -64,6 +64,7 @@ int resolve_with_obv(Grid grid, GhostGrid gridf);
 int Rule2(GhostGrid gridf, Grid gridj);
 int check_loners(GhostGrid* gridf, Grid* gridj);
 bool unique_solution(Grid* grid);
+int subcrate_solver(Grid* gridj, bool first_sol, bool validity);
 //Solver end
 
 

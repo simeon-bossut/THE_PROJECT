@@ -908,6 +908,19 @@ select {
 }
 
 
+form, input[name="clue"] {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  font-size: 1px;
+}
+
 .popup {
   /*! background-color: #ffe6cd; */
   border-radius: 10px;

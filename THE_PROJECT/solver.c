@@ -1002,7 +1002,7 @@ void print_Stock(StockSoluce *Stock) {
 }
 
 
-int subcrate_solver(Grid* gridj, bool first_sol, bool validity)
+int subcrate_solver(Grid* gridj, bool first_sol, bool validity)//
 {
     GhostGrid* gridf = initGhostGrid(gridj->size);
     fill_ghost(*gridf, *gridj);
@@ -1013,7 +1013,6 @@ int subcrate_solver(Grid* gridj, bool first_sol, bool validity)
     hypothesis(gridf, gridj, 0, Stock, first_sol,validity);
 
     int sol = Stock->size;
-    print_Stock(Stock);
     if (Stock->size == 1)
     {
         *gridj = Stock->stock[0];
