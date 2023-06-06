@@ -210,7 +210,7 @@ void intoa(int value, char *buffer, int size) {
 }
 
 int booltab_to_int(bool *tab, int size_cache) {
-  int value = 0b0;
+  int value = 0;
   for (int i = 0; i < size_cache; ++i) {
     value = value << 1;
     value += tab[i];
@@ -523,9 +523,7 @@ void stringcopy(char *destination, char *source, int length) {
 void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
 
   int *cache_tab, *cache_obv, id;
-  char *buffer, *line;
-
-  buffer = (char *)malloc(sizeof(char) * (dim - 1));
+  char *buffer = (char *)malloc(sizeof(char) * (dim - 1));
   if (buffer == NULL) {
     return;
   }
@@ -533,10 +531,10 @@ void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
   for (int i = 0; i < dim; i++) {
     // strncpy(buffer, Seed + i * (dim - 2) + 1, dim - 2);
     stringcopy(buffer, Seed + i * (dim - 2) + 1, dim - 2);
-    buffer[dim - 2] = '\0';
+    *(buffer + (dim - 2)) = '\0';
     id = atoi(buffer);
-    // printf("%d\n", id);
-    line = id_to_line(id, dim);
+    // printf("%s\n", buffer);
+    char *line = id_to_line(id, dim);
     for (int j = 0; j < dim; j++) {
       grid->tab[i][j] = line[j] - 48;
     }
