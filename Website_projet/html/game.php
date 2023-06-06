@@ -499,7 +499,7 @@ function initMainPlate() {
 
   document.querySelector(".victoryScreen").classList.remove('opened');
 
-  let res = convertStringIntoGrid("<?php $out2[0] ?>");
+  let res = convertStringIntoGrid("<?php echo $out2[0] ?>");
   
   tabDim = res[0];
   crateTab = res[2];
