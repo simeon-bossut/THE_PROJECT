@@ -1,26 +1,5 @@
 <script>
 
-<?php
-$out;
-
-if(isset($_POST["clue"])) {
-
-  //var_dump($_POST);
-
-  /*$grid = str_split($_COOKIE["grid"]);
-
-  var_dump($_POST);
-
-  array_splice($grid, 0, 1);
-
-  $grid = join($grid);
-
-  exec("../../THE_PROJECT/main.exe $_POST[dim] 2 $grid", $out);*/
-
-}
-
-?>
-
 var player;
 
 var gameSet = document.querySelector('#mainPlate');
@@ -462,7 +441,7 @@ function addSpecificItems() {
 
   // Add buttons into the grid
   let elem = document.querySelector(`#pos_${tabDim * 2 + 1 + 2}_-1`);
-  elem.innerHTML = `<form action="" method="post"><input type="hidden" name="dim" value="${tabDim}"><input type="submit" name="clue"></form>`
+  elem.innerHTML = `<form action="" method="post"><input type="hidden" name="dim" value="${tabDim}"><input type="submit" name="clue" value="yo"></form>`
   elem.classList.add("clueButton", "rotate00");
   insertElement(gameSet, tabDim*2 + 1 + 1, -1, "keysButton rotate00");
 

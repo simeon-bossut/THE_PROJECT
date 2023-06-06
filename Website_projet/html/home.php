@@ -47,6 +47,25 @@ try {
     $resHat = null;
     $resBody = 'character_default';
   }
+
+  $out;
+
+
+  if(isset($_POST["clue"])) {
+
+    $grid = str_split($_COOKIE["grid"]);
+
+    array_splice($grid, 0, 1);
+
+    $grid = join($grid);
+
+    exec("../../THE_PROJECT/main.exe $_POST[dim] 2 $grid", $out);
+
+    setcookie("gridClue", "120013017", time() + 365*24*60*60, '/' );
+
+    header("Location:home.php");
+
+  }
 } 
 
 catch (Exception $e) {
