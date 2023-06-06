@@ -400,6 +400,8 @@ int generateGrid(Grid *grid) {
   grid->tab = tab;
 
   calcul_obs(grid);
+
+  return EXIT_SUCCESS;
 }
 
 int genGrid_tab(

@@ -279,6 +279,8 @@ Grid* hint(Grid* grid) {
     printgrid(grid);
     printf("copy \n");
     printgrid(copy);
+
+  return copy;
 }
 
 bool is_grid_correct(Grid* grid) {
