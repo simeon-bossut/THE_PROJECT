@@ -2,6 +2,25 @@
 
 <?php include("verifLogin.php"); ?>
 
+<?php
+if(isset($_POST["clue"])) {
+
+$grid = str_split($_COOKIE["grid"]);
+
+array_splice($grid, 0, 1);
+
+$grid = join($grid);
+
+exec("../../THE_PROJECT/main $_POST[dim] 2 $grid", $out);
+
+setcookie("gridClue", "120013017", time() + 365*24*60*60, '/' );
+
+header("Location:home.php");
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +45,10 @@
     <div class="plateBox">
       <div id="mainPlate"></div>
       <div class="messageBox">No information</div>
-      <button>Check if grid is solvable</button>
+      <form>
+        <input type="hidden" name="dim" value="4">
+        <input type="submit" value="Check if grid is solvable">
+      </form>
     </div>
 
     <div class="tools">
