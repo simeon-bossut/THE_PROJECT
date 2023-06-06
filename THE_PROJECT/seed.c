@@ -339,7 +339,7 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
           }
       }
   }
-
+  printgrid(tmp);
   free(tmp->obv);
   free_tab(tmp->tab, tmp->size);
   free(tmp);
@@ -382,7 +382,6 @@ char *create_seed(int difficulty, int dim) {
   else {//difficulte 3 ou 4
       cache = generate_level_cache(grid,difficulty);
   }
-
   return sub_level_to_seed(grid,cache);
 }
 
@@ -446,11 +445,8 @@ int genGrid_tab(
   return 0;
 }
 
-int *Dec2Bin(int n, int dim) {
-  int size = dim * dim;
-  if (4 > dim) {
-    size = dim * 4;
-  }
+int *Dec2Bin(int n, int dim,int size) {
+
   int *binaryNum = malloc(sizeof(int) * size);
   if (!binaryNum)
     return NULL;
@@ -491,7 +487,8 @@ int *get_cache_tab(int dim, char *Seed, int len) {
   // printf("%s\n", tmp_cache_tab);
 
   int int_cache_tab = atoi(tmp_cache_tab);
-  cache_tab = Dec2Bin(int_cache_tab, dim);
+  cache_tab = Dec2Bin(int_cache_tab, dim,dim*dim);
+  
   return cache_tab;
 }
 
@@ -522,7 +519,7 @@ int *get_cache_obv(int dim, char *Seed, int len) {
   // printf("%s\n", tmp_cache_tab);
 
   int int_cache_tab = atoi(tmp_cache_tab);
-  cache_tab = Dec2Bin(int_cache_tab, dim);
+  cache_tab = Dec2Bin(int_cache_tab, dim,dim*4);
   return cache_tab;
 }
 
@@ -555,6 +552,7 @@ void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
   }
 
   calcul_obs(grid);
+  printgrid(grid);
   cache_tab = get_cache_tab(dim, Seed, len);
 
   for (int i = 0; i < dim; i++) {
@@ -572,7 +570,7 @@ void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
 
 }
 
-Grid *read_seed(char *Seed) {
+Grid * read_seed(char* Seed) {
   int lenSeed = strlen(Seed);
   int dim = Seed[0] - 48;
   Grid *grid = initgrid(dim);
@@ -584,23 +582,15 @@ Grid *read_seed(char *Seed) {
 
 void push_to_php(Grid *grid) {
   int size = grid->size;
-  printf("%d\n", size);
+  printf("%d", size);
+  for (int i = 0; i < size * 4; ++i) {
+      printf("%d", grid->obv[i]);
+  }
+
   for (int i = 0; i < size * size; ++i) {
     printf("%d", grid->tab[i / size][i % size]);
-    if (i != size * size - 1) {
-      printf(",");
-    } else {
-      printf("\n");
-    }
   }
-  for (int i = 0; i < size * 4; ++i) {
-    printf("%d", grid->obv[i]);
-    if (i != size * 4 - 1) {
-      printf(",");
-    } else {
-      printf("\n");
-    }
-  }
+  
 }
 
 char* sub_level_to_seed(Grid* grid,bool*cache)
@@ -664,8 +654,28 @@ char* level_to_seed(Grid* grid)
     int size = grid->size;
     bool* cache = malloc(sizeof(bool) * size * (size + 4));
     if (cache == NULL) { return NULL; }
+    for (int i = 0;i < size * size;++i)
+    {
+        cache[i] = (bool)grid->tab[i / size][i % size];
+    }
+    printf("\ntabool\n");
+    for (int i = 0;i < size * (size + 4);++i)
+    {
+        printf("%d", cache[i]);
+    }
+    for (int i = 0;i < size * 4;++i)
+    {
+        cache[i+size*size] = (bool)grid->obv[i];
+    }
+    printf("\ntabool\n");
+    for (int i = 0;i < size * (size + 4);++i)
+    {
+        printf("%d", cache[i]);
+    }
+    printf("\n\n");
     if (subcrate_solver(grid, 0, 1)==1)
     {
+        printgrid(grid);
         return sub_level_to_seed(grid, cache);
     }
     return NULL;

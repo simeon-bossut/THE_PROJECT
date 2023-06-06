@@ -27,7 +27,7 @@
     <ClCompile Include="seed.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="sous_fonctions.c">
+    <ClCompile Include="sub_function.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

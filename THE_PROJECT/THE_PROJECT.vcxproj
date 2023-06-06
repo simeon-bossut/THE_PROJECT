@@ -131,7 +131,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="seed.c" />
     <ClCompile Include="solver.c" />
-    <ClCompile Include="sous_fonctions.c" />
+    <ClCompile Include="sub_function.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
