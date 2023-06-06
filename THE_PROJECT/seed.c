@@ -582,23 +582,15 @@ Grid * read_seed(char* Seed) {
 
 void push_to_php(Grid *grid) {
   int size = grid->size;
-  printf("%d\n", size);
+  printf("%d", size);
+  for (int i = 0; i < size * 4; ++i) {
+      printf("%d", grid->obv[i]);
+  }
+
   for (int i = 0; i < size * size; ++i) {
     printf("%d", grid->tab[i / size][i % size]);
-    if (i != size * size - 1) {
-      printf(",");
-    } else {
-      printf("\n");
-    }
   }
-  for (int i = 0; i < size * 4; ++i) {
-    printf("%d", grid->obv[i]);
-    if (i != size * 4 - 1) {
-      printf(",");
-    } else {
-      printf("\n");
-    }
-  }
+  
 }
 
 char* sub_level_to_seed(Grid* grid,bool*cache)
