@@ -663,7 +663,7 @@ char* sub_level_to_seed(Grid* grid,bool*cache)
 char* level_to_seed(Grid* grid)
 {
     int size = grid->size;
-    bool* cache = mallo(sizeof(bool) * size * (size + 4));
+    bool* cache = malloc(sizeof(bool) * size * (size + 4));
     if (cache == NULL) { return NULL; }
     if (subcrate_solver(grid, 0, 1)==1)
     {
