@@ -12,18 +12,18 @@ int main(int argc, char *argv[]) {
   // argv contient l'ensemble des arguments passes separes par des espaces
   // il affiche en 1 le premier argument
 
-  // int dim = atoi(argv[1]);
-  int dim = 3;
+  int dim = atoi(argv[1]);
+  // int dim = 3;
 
-  // int action = atoi(argv[2]);
-  int action = 1;
+  int action = atoi(argv[2]);
+  // int action = 1;
 
   Grid *grid;
 
   // Get a grid with missing elements
   if (action == 1) {
-    // int difficulty = atoi(argv[3]);
-    int difficulty = 2;
+    int difficulty = atoi(argv[3]);
+    // int difficulty = 2;
     char *seed_;
     seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
   else if (action == 4) {
     grid = read_grid(argv[4], dim);
     is_solved(*grid);
-  }
+  } //
 
   /*
 
