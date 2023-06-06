@@ -488,6 +488,9 @@ function createStringGrid(dim, obs, crates) {
 
 function onclickGenerate() {
   setCookie("dim", document.querySelector('select[name="size"]').value, 365);
+  setCookie("diff", document.querySelector('select[name="difficulty"]').value, 365);
+  setCookie("gridClue", "yo", 0);
+
 
   document.location.reload(); 
 }
@@ -727,7 +730,7 @@ function crateGrab() {
 
 
     // Pick a box
-    if(player.numCrate <= tabDim && qty > 0) {
+    if(player.numCrate <= tabDim + 1 && qty > 0) {
       player.numCrate++;
       qty--;
 
@@ -742,7 +745,7 @@ function crateGrab() {
   // Facing a pick area
   else if(gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "boxPick") {
 
-    if(player.numCrate > tabDim)
+    if(player.numCrate > tabDim + 1)
       return;
     
     player.numCrate++;  
