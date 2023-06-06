@@ -1,18 +1,17 @@
-<?php session_start();
+<?php session_start(); 
+require("connexion.php");?>
+<?php include("verifLogin.php"); ?>
 
-include 'language.php';
+<?php require("request.php"); ?>
 
-require("connexion.php");
-
-require("request.php");
-
-$req1;
-$req2;
+<?php
 
 try{
-    if(isset($_SESSION) && isset($_SESSION['admin']==1)) {
-        $req1 = request("SELECT * FROM bug_list");
-        $req2 = request("SELECT * FROM idea_list");
+    if(isset($_SESSION['authentifie'])) {
+        $admin = request("SELECT * FROM acc WHERE email = ?", true, array($_SESSION['email']));
+
+        if($admin['admin'] != 1)
+            header('Location:home.php');
     }
 }
 
@@ -20,7 +19,6 @@ catch (Exception $e) {
 	die("Erreur : " . $e->getMessage());
 }
 ?>
-
 
 
 
@@ -33,7 +31,7 @@ catch (Exception $e) {
 
   <title>The Crate Stacker - Report Page</title>
 
-  <link rel="stylesheet" href="../CSS/home.css">
+  <link rel="stylesheet" href="../CSS/report.css">
 
 </head>
 
@@ -45,12 +43,72 @@ catch (Exception $e) {
     </header>
 
     <main>
-        <div class="bugBox">
-        
-        </div>
+        <div class="container">
+            <div class="bugBox">
+                <?php
 
-        <div class="ideaBox">
+                    if(isset($_POST["delete"])) {
+                        request("DELETE FROM report WHERE id = ?",true,array($_POST['id']));
+                    }
 
+
+                    if($admin['admin'] == 1) {
+                        $res = request("SELECT * FROM report WHERE type='bug'", false);
+                        /*var_dump($res);*/
+
+                        echo "<table>
+                                <tr>
+                                    <th>id</th>
+                                    <th>date</th>
+                                    <th>text</th>
+                                    <th>delete</th>
+                                </tr>";
+
+                        foreach($res as $row) {
+                            echo "<tr>";
+                            echo "<td>$row[id]</td>";
+                            echo "<td>$row[date]</td>";
+                            echo "<td>$row[text]</td>";
+                            echo '<td><form action="" method="post"><input type="hidden" name="id" value="' . $row["id"] . '"><input type="submit" name="delete" value="Delete"></form> </td>';
+                            echo "</tr>";	
+                        }	
+                        echo "</table>";
+                    }            
+                ?>
+            </div>
+
+            <div class="bugBox">
+                <?php
+
+                    if(isset($_POST["delete"])) {
+                        request("DELETE FROM report WHERE id = ?",true,array($_POST['id']));
+                    }
+
+
+                    if($admin['admin'] == 1) {
+                        $res = request("SELECT * FROM report WHERE type='idea'", false);
+                        /*var_dump($res);*/
+
+                        echo "<table>
+                                <tr>
+                                    <th>id</th>
+                                    <th>date</th>
+                                    <th>text</th>
+                                    <th>delete</th>
+                                </tr>";
+
+                        foreach($res as $row) {
+                            echo "<tr>";
+                            echo "<td>$row[id]</td>";
+                            echo "<td>$row[date]</td>";
+                            echo "<td>$row[text]</td>";
+                            echo '<td><form action="" method="post"><input type="hidden" name="id" value="' . $row["id"] . '"><input type="submit" name="delete" value="Delete"></form> </td>';
+                            echo "</tr>";	
+                        }	
+                        echo "</table>";
+                    }            
+                ?>
+            </div>
         </div>
     </main>
 
