@@ -442,8 +442,8 @@ int *Dec2Bin(int n, int dim, int size) {
     n = n >> 1;
     i--;
   }
-  for (i; i >= 0; --i) {
-    binaryNum[i] = 0;
+  for (int j = i; j >= 0; --i) {
+    binaryNum[j] = 0;
   }
   return binaryNum;
 }
