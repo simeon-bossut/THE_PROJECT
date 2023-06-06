@@ -489,6 +489,8 @@ function createStringGrid(dim, obs, crates) {
 function onclickGenerate() {
   setCookie("dim", document.querySelector('select[name="size"]').value, 365);
   setCookie("diff", document.querySelector('select[name="difficulty"]').value, 365);
+  setCookie("gridClue", "yo", 0);
+
 
   document.location.reload(); 
 }
