@@ -362,8 +362,8 @@ char *create_seed(int difficulty, int dim) {
       for (int i = 0; i < dim - 1; ++i) {
         do {
           random = rand() % (dim * dim);
-        } while (cache[i] == true); //???
-        cache[i] = true;
+        } while (cache[random] == true); //???
+        cache[random] = true;
       }
     }
   }

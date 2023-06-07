@@ -43,10 +43,7 @@ int main(int argc, char *argv[]) {
   GhostGrid* gridf = initGhostGrid(grid->size);
   fill_ghost(*gridf, *grid);
  
-  for(int i=0;i<10000;++i)
-  {
-      maj_ghost(*gridf, *grid);
-  }
+  unique_solution(grid);
   free(seed_);
    
     

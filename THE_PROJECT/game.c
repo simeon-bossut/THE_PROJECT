@@ -20,7 +20,7 @@ int **creatab(int size) {
   {
       for (int j = 0; j< size;++j)
       {
-          tab[i][j];
+          tab[i][j] = 0;
       }
   }
   return tab;
