@@ -758,7 +758,7 @@ void indice(Grid* grid,int nb_hints)
     { 
         do {
             random = rand() % (size * size);
-        } while (grid->tab[random / size][random % size] != 0);
+        } while (grid->tab[random / size][random % size] == sol->tab[random / size][random % size]);
         grid->tab[random] = sol->tab[random];
     }
     free_grid(sol);
