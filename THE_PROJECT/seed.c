@@ -307,7 +307,7 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
   }
 
   // Si le solveur marche, on a fini !) (presque)
-  if (difficulty==3)
+  if (difficulty==2)
   {
      
       for (int i = 0;i < size - 2;++i)
@@ -328,7 +328,7 @@ bool *generate_level_cache(Grid*grid, int difficulty) // cree un niveau et stock
           }
       }
   }
-  printgrid(tmp);
+  //printgrid(tmp);
   free(tmp->obv);
   free_tab(tmp->tab, tmp->size);
   free(tmp);
@@ -340,7 +340,6 @@ char *create_seed(int difficulty, int dim) {
 
   Grid *grid = initgrid(dim);
   generateGrid(grid);//génère une solution
-  printgrid(grid);
   bool* cache;
   if (difficulty<2) {//difficulte 0 ou 1
     cache = (bool*)malloc(sizeof(bool) * dim * (dim + 4));
@@ -368,7 +367,7 @@ char *create_seed(int difficulty, int dim) {
         }
     }
   }
-  else {//difficulte 3 ou 4
+  else {//difficulte 2 ou 3
       cache = generate_level_cache(grid,difficulty);
   }
   return sub_level_to_seed(grid,cache);
@@ -546,7 +545,7 @@ void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
   }
 
   calcul_obs(grid);
-  printgrid(grid);
+
   cache_tab = get_cache_tab(dim, Seed, len);
 
   for (int i = 0; i < dim; i++) {

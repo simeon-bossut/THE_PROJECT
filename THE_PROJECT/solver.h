@@ -68,5 +68,7 @@ int subcrate_solver(Grid* gridj, bool first_sol, bool validity);
 
 //Free start
 void free_tab_3(char*** tab, int size);
+void free_grid(Grid* grid);
+void free_ghostgrid(GhostGrid* gridf);
 //Free end
 #endif // !solver

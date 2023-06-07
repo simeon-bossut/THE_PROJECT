@@ -46,17 +46,6 @@ GhostGrid *initGhostGrid(int dim) {
   return grid;
 }
 
-void free_grid(Grid *grid) {
-  free(grid->obv);
-  free_tab(grid->tab, grid->size);
-  free(grid);
-}
-
-void free_ghostgrid(GhostGrid *gridf) {
-  free_tab_3(gridf->tab, gridf->size);
-  free(gridf);
-}
-
 int maj_ghost(GhostGrid gridf, Grid gridj) {
   int k = 0;
   int size = gridj.size;
@@ -369,8 +358,7 @@ int easy_resolve(GhostGrid *gridf, Grid*gridj)
       return -1;
     }
 
-  } while (maj_ghost(*gridf, *gridj) || check_loners(gridf, gridj) ||
-           Rule2(*gridf, *gridj));
+  } while (maj_ghost(*gridf, *gridj) || check_loners(gridf, gridj) || Rule2(*gridf, *gridj));
 
   maj_ghost(*gridf, *gridj);
   fill_loners(gridj, *gridf);
@@ -461,7 +449,7 @@ Pos *find_in_grid(Grid grid, int val,  int *size) // attention grid.size diff de
         if (compt >= grid.size) {
           return NULL;
         }
-        positions[compt].row = i; // Wtf l'avertissement ?!?!
+        positions[compt].row = i; // ??? l'avertissement ?!?!
         positions[compt].col = j;
         compt++;
       }
@@ -736,10 +724,9 @@ int subcrate_solver(Grid* gridj, bool first_sol, bool validity)//
     }
     for (int i = 1; i < Stock->size; ++i)
     {
-        free(Stock->stock[i].obv);
-        free_tab(Stock->stock[i].tab, Stock->size);
-        free(Stock);
+        free_grid(Stock->stock+i);
     }
+    free(Stock);
 
     return sol;
 }
@@ -756,11 +743,15 @@ bool unique_solution(Grid* grid)//version du solveur qui ne récupère pas la so
     Grid* copy = copy_grid(grid);
     int sol=subcrate_solver(copy,false,true);//On s'arrête à la deuxième solution si elle existe
     
+    if (sol != 0)
+    {
+        free_grid(copy);
+    }
     if (sol == 1)
     {
         return true;
     }
-    free_grid(copy);
+    
     
     return false;
 }
