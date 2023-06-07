@@ -316,8 +316,6 @@ function revealClue(dim) {
 
   let clues = getCookie('gridClue');
 
-  console.log(getCookie('gridClue'));
-
   if(clues == "") {
     for(let i = 0; i < dim**2; i++) {
       clues += 0;
@@ -329,12 +327,11 @@ function revealClue(dim) {
     clues.splice(0, 1 + dim*4);
   }
 
-  console.log(clues)
-  
   document.querySelectorAll(".cratePlace").forEach((crate, index) => {
     if(clues[index] != 0) {
       crate.classList.add('crateLocked');
       crate.textContent = clues[index];
+      crateTab[index] = clues[index];
     }
   })
 /*
