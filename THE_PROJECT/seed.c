@@ -210,7 +210,7 @@ void intoa(int value, char *buffer, int size) {
 }
 
 int booltab_to_int(bool *tab, int size_cache) {
-  int value = 0b0;
+  int value = 0;
   for (int i = 0; i < size_cache; ++i) {
     value = value << 1;
     value += tab[i];
@@ -311,7 +311,7 @@ bool *generate_level_cache(Grid *grid,
   }
 
   // Si le solveur marche, on a fini !) (presque)
-  if (difficulty == 3) {
+  if (difficulty == 2) {
 
     for (int i = 0; i < size - 2; ++i) {
       do {
@@ -358,11 +358,11 @@ char *create_seed(int difficulty, int dim) {
       for (int i = 0; i < dim - 1; ++i) {
         do {
           random = rand() % (dim * dim);
-        } while (cache[i] == true); //???
-        cache[i] = true;
+        } while (cache[random] == true); //???
+        cache[random] = true;
       }
     }
-  } else { // difficulte 3 ou 4
+  } else { // difficulte 2 ou 3
     cache = generate_level_cache(grid, difficulty);
   }
   return sub_level_to_seed(grid, cache);
@@ -465,12 +465,12 @@ int *get_cache_tab(int dim, char *Seed, int len) {
     return NULL;
   }
   int *cache_tab = malloc(sizeof(int) * dim * dim);
-  char *tmp_cache_tab = malloc(sizeof(char) * size_cache);
+  char *tmp_cache_tab = malloc(sizeof(char) * (size_cache + 1));
   if (cache_tab == NULL || tmp_cache_tab == NULL) {
     return NULL;
   }
   memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + 1, size_cache);
-  // printf("%s\n", tmp_cache_tab);
+  tmp_cache_tab[size_cache] = '\0';
 
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim, dim * dim);
@@ -502,12 +502,12 @@ int *get_cache_obv(int dim, char *Seed, int len) {
     return NULL;
   }
 
-  char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
+  char *tmp_cache_tab = malloc(sizeof(char) * (size_obv + 1));
   if (tmp_cache_tab == NULL) {
     return NULL;
   }
   memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + size_cache + 1, size_obv);
-  // printf("%s\n", tmp_cache_tab);
+  tmp_cache_tab[size_obv] = '\0';
 
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim, dim * 4);
@@ -523,9 +523,7 @@ void stringcopy(char *destination, char *source, int length) {
 void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
 
   int *cache_tab, *cache_obv, id;
-  char *buffer, *line;
-
-  buffer = (char *)malloc(sizeof(char) * (dim - 1));
+  char *buffer = (char *)malloc(sizeof(char) * (dim - 1));
   if (buffer == NULL) {
     return;
   }
@@ -533,16 +531,16 @@ void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
   for (int i = 0; i < dim; i++) {
     // strncpy(buffer, Seed + i * (dim - 2) + 1, dim - 2);
     stringcopy(buffer, Seed + i * (dim - 2) + 1, dim - 2);
-    buffer[dim - 2] = '\0';
+    *(buffer + (dim - 2)) = '\0';
     id = atoi(buffer);
-    // printf("%d\n", id);
-    line = id_to_line(id, dim);
+    // printf("%s\n", buffer);
+    char *line = id_to_line(id, dim);
     for (int j = 0; j < dim; j++) {
       grid->tab[i][j] = line[j] - 48;
     }
   }
-
   calcul_obs(grid);
+
   cache_tab = get_cache_tab(dim, Seed, len);
 
   for (int i = 0; i < dim; i++) {

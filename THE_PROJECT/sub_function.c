@@ -236,7 +236,6 @@ int check_col(int val, GhostGrid* gridf,Grid*gridj, int col, int* pos) {
 
 int check_loners(GhostGrid* gridf, Grid* gridj) {
 
-    maj_ghost(*gridf, *gridj);
     int modif = 0;
     int size = gridf->size;
     int pos = NAS;
@@ -256,3 +255,13 @@ int check_loners(GhostGrid* gridf, Grid* gridj) {
 }
 
 
+void free_grid(Grid* grid) {
+    free(grid->obv);
+    free_tab(grid->tab, grid->size);
+    free(grid);
+}
+
+void free_ghostgrid(GhostGrid* gridf) {
+    free_tab_3(gridf->tab, gridf->size);
+    free(gridf);
+}

@@ -77,7 +77,7 @@ catch (Exception $e) {
                 ?>
             </div>
 
-            <div class="bugBox">
+            <div class="ideaBox">
                 <?php
 
                     if(isset($_POST["delete"])) {

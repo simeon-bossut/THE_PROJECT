@@ -46,17 +46,6 @@ GhostGrid *initGhostGrid(int dim) {
   return grid;
 }
 
-void free_grid(Grid *grid) {
-  free(grid->obv);
-  free_tab(grid->tab, grid->size);
-  free(grid);
-}
-
-void free_ghostgrid(GhostGrid *gridf) {
-  free_tab_3(gridf->tab, gridf->size);
-  free(gridf);
-}
-
 int maj_ghost(GhostGrid gridf, Grid gridj) {
   int k = 0;
   int size = gridj.size;
@@ -355,15 +344,14 @@ bool check_latin(Grid *grid) {
 int easy_resolve(GhostGrid *gridf, Grid *gridj) {
   Rule2(*gridf, *gridj);
   do {
-
+   printgrid(gridj);
     fill_loners(gridj, *gridf);
 
     if (check_latin(gridj) == false) {
       return -1;
     }
 
-  } while (maj_ghost(*gridf, *gridj) || check_loners(gridf, gridj) ||
-           Rule2(*gridf, *gridj));
+  } while (maj_ghost(*gridf, *gridj) || check_loners(gridf, gridj) || Rule2(*gridf, *gridj));
 
   maj_ghost(*gridf, *gridj);
   fill_loners(gridj, *gridf);
@@ -455,7 +443,7 @@ Pos *find_in_grid(Grid grid, int val,
         if (compt >= grid.size) {
           return NULL;
         }
-        positions[compt].row = i; // Wtf l'avertissement ?!?!
+        positions[compt].row = i; // ??? l'avertissement ?!?!
         positions[compt].col = j;
         compt++;
       }
@@ -721,15 +709,17 @@ int subcrate_solver(Grid *gridj, bool first_sol, bool validity) //
   Stock->size = 0;
   hypothesis(gridf, gridj, 0, Stock, first_sol, validity);
 
-  int sol = Stock->size;
-  if (Stock->size == 1) {
-    *gridj = Stock->stock[0];
-  }
-  for (int i = 1; i < Stock->size; ++i) {
-    free(Stock->stock[i].obv);
-    free_tab(Stock->stock[i].tab, Stock->size);
+    int sol = Stock->size;
+    if (Stock->size == 1)
+    {
+        *gridj = Stock->stock[0];
+    }
+    for (int i = 1; i < Stock->size; ++i)
+    {
+        free_grid(Stock->stock+i);
+    }
+    free(Stock->stock);
     free(Stock);
-  }
 
   return sol;
 }
@@ -743,14 +733,17 @@ int crate_solver(Grid *gridj) { // 1 si l'on s'arrete à la premiere solution
 bool unique_solution(
     Grid *grid) // version du solveur qui ne récupère pas la solution
 {
-  Grid *copy = copy_grid(grid);
-  int sol = subcrate_solver(
-      copy, false, true); // On s'arrête à la deuxième solution si elle existe
+    Grid* copy = copy_grid(grid);
+    int sol=subcrate_solver(copy,false,true);//On s'arrête à la deuxième solution si elle existe
+    
+    free(copy->obv);
+    free_tab(copy->tab,copy->size);
 
-  if (sol == 1) {
-    return true;
-  }
-  free_grid(copy);
-
-  return false;
+    if (sol == 1)
+    {
+        return true;
+    }
+     
+    
+    return false;
 }
