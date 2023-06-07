@@ -105,42 +105,34 @@ header("Location:home.php");
     </div>
 
     <div class="myLevel">
-    <?php 
-
-
-try{
-   
     
-    $resultat = request("SELECT * FROM level WHERE email = :email", false, array(':email' => $_SESSION['email']));
-    echo "<table>";
-    echo"
-    <tr>
-    <th>name</th>
-    <th>size</th>
-    <th>difficulty</th>
-    <th>seed</th>
-    <th>dimension</th>
-  </tr>";
-  foreach ($resultat as $row) {
-    echo "
-    <tr>    
-        <td>$row[nom]</td>
-        <td>$row[dim]</td>
-        <td>$row[difficulty]</td>
-        <td>$row[seed]</td>
-        <td><a href='home.php?ida=$row[seed]'>Jouer</a></td>
-    </tr>";
+    <?php 
+    try{
+      $resultat = request("SELECT * FROM level WHERE email = :email", false, array(':email' => $_SESSION['email']));
+      echo "<table>
+              <tr>
+              <th>name</th>
+              <th>size</th>
+              <th>difficulty</th>
+              <th>seed</th>
+              <th>dimension</th>
+            </tr>";
+      foreach ($resultat as $row) {
+        echo "
+        <tr>    
+            <td>$row[nom]</td>
+            <td>$row[dim]</td>
+            <td>$row[difficulty]</td>
+            <td>$row[seed]</td>
+            <td><a href='home.php?ida=$row[seed]'>Jouer</a></td>
+        </tr>";
+        }
+      echo "</table>";
     }
 
-  
-
-
-
-    echo "</table>";
-
-}catch (Exception $e) {
-    die("Erreur : " . $e->getMessage());
-}
+    catch (Exception $e) {
+        die("Erreur : " . $e->getMessage());
+    }
 
 ?>
       

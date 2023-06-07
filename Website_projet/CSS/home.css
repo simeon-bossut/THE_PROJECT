@@ -854,7 +854,7 @@ select {
 }
 
 .victoryRefreshButton {
-  width: 50%;
+  width: 40%;
   cursor: pointer;
   max-width: 225px;
   display: flex;
@@ -870,6 +870,12 @@ select {
   border-radius: 10px;
   box-shadow: 5px 5px 0px 0px black;
   background-color: #964b00;
+
+  transition: box-shadow .2s ease-in-out;
+}
+
+.victoryRefreshButton:hover {
+  box-shadow: none;
 }
 
 .victoryInfoContent {

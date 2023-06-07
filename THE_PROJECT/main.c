@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
   else if (action == 2) {
     grid = read_grid(argv[3], dim);
     if (is_grid_correct(grid)) {
-      hint(grid);
+      indice(grid,1);
     }
     push_to_php(grid);
   }
