@@ -311,16 +311,13 @@ bool *generate_level_cache(Grid *grid,
   }
 
   // Si le solveur marche, on a fini !) (presque)
-  if (difficulty==2)
-  {
-     
-      for (int i = 0;i < size - 2;++i)
-      {
-          do
-          {
-              random = rand() % (size * (4 + size));
-          } while (cache[random] == 1);
-          cache[random] = 1;
+  if (difficulty == 2) {
+
+    for (int i = 0; i < size - 2; ++i) {
+      do {
+        random = rand() % (size * (4 + size));
+      } while (cache[random] == 1);
+      cache[random] = 1;
 
       if (random < size * size) // travail sur le cache de la grille(int**)
       {
@@ -333,7 +330,7 @@ bool *generate_level_cache(Grid *grid,
       }
     }
   }
-  //printgrid(tmp);
+  // printgrid(tmp);
   free(tmp->obv);
   free_tab(tmp->tab, tmp->size);
   free(tmp);
@@ -343,10 +340,10 @@ bool *generate_level_cache(Grid *grid,
 char *create_seed(int difficulty, int dim) {
 
   Grid *grid = initgrid(dim);
-  generateGrid(grid);//génère une solution
-  bool* cache;
-  if (difficulty<2) {//difficulte 0 ou 1
-    cache = (bool*)malloc(sizeof(bool) * dim * (dim + 4));
+  generateGrid(grid); // génère une solution
+  bool *cache;
+  if (difficulty < 2) { // difficulte 0 ou 1
+    cache = (bool *)malloc(sizeof(bool) * dim * (dim + 4));
     if (cache == NULL) {
       return NULL;
     }
@@ -366,9 +363,8 @@ char *create_seed(int difficulty, int dim) {
         cache[i] = true;
       }
     }
-  }
-  else {//difficulte 2 ou 3
-      cache = generate_level_cache(grid,difficulty);
+  } else { // difficulte 2 ou 3
+    cache = generate_level_cache(grid, difficulty);
   }
   return sub_level_to_seed(grid, cache);
 }
@@ -470,12 +466,12 @@ int *get_cache_tab(int dim, char *Seed, int len) {
     return NULL;
   }
   int *cache_tab = malloc(sizeof(int) * dim * dim);
-  char *tmp_cache_tab = malloc(sizeof(char) * size_cache);
+  char *tmp_cache_tab = malloc(sizeof(char) * (size_cache + 1));
   if (cache_tab == NULL || tmp_cache_tab == NULL) {
     return NULL;
   }
   memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + 1, size_cache);
-  // printf("%s\n", tmp_cache_tab);
+  tmp_cache_tab[size_cache] = '\0';
 
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim, dim * dim);
@@ -507,12 +503,12 @@ int *get_cache_obv(int dim, char *Seed, int len) {
     return NULL;
   }
 
-  char *tmp_cache_tab = malloc(sizeof(char) * dim * dim * 4);
+  char *tmp_cache_tab = malloc(sizeof(char) * (size_obv + 1));
   if (tmp_cache_tab == NULL) {
     return NULL;
   }
   memcpy(tmp_cache_tab, Seed + (dim * (dim - 2)) + size_cache + 1, size_obv);
-  // printf("%s\n", tmp_cache_tab);
+  tmp_cache_tab[size_obv] = '\0';
 
   int int_cache_tab = atoi(tmp_cache_tab);
   cache_tab = Dec2Bin(int_cache_tab, dim, dim * 4);
