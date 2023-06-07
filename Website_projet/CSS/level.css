@@ -586,7 +586,7 @@ div[id^="crate"]{
   box-shadow: none;
 }
 
-.conceptor{
+.conceptor , .myLevel{
   display: flex;
   align-items: center;
   justify-content: center;

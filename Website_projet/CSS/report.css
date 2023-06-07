@@ -41,7 +41,7 @@ main {
 	background-image: url("../Images/barrel3.jpg");
 }
 
-.bugBox {
+.bugBox , .ideaBox {
     position: relative;
     display: grid;
     width: 80%;
@@ -65,6 +65,7 @@ main {
     display:flex;
     flex-direction: column;
     width: 80%;
+    height:fit-content;
 
     justify-content: center;
     align-items: center;
