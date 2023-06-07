@@ -330,7 +330,6 @@ bool *generate_level_cache(Grid *grid,
       }
     }
   }
-  // printgrid(tmp);
   free(tmp->obv);
   free_tab(tmp->tab, tmp->size);
   free(tmp);
