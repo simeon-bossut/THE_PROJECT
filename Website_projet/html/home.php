@@ -249,8 +249,8 @@ catch (Exception $e) {
             </div>
             <div class="victoryInfo">
             <form class="form" action="" method="post">
-              <button class="victoryRefreshButton" onclick="onclickGenerate()">New Grid</button>
-              <button class="victoryRefreshButton" onclick="restartGrid()">Restart</button>
+              <button class="victoryRefreshButton" name="restart"onclick="onclickGenerate()">New Grid</button>
+              <button class="victoryRefreshButton" name="restart" onclick="restartGrid()">Restart</button>
         </form>
             </div>
           </div>
