@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 06, 2023 at 12:02 PM
+-- Generation Time: Jun 07, 2023 at 09:29 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -144,6 +144,21 @@ INSERT INTO `hat` (`id`, `url`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `level`
+--
+
+CREATE TABLE `level` (
+  `email` varchar(36) NOT NULL,
+  `id` int(11) NOT NULL,
+  `nom` varchar(20) NOT NULL,
+  `seed` varchar(32) NOT NULL,
+  `difficulty` varchar(10) NOT NULL,
+  `dim` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `report`
 --
 
@@ -160,7 +175,8 @@ CREATE TABLE `report` (
 
 INSERT INTO `report` (`id`, `type`, `text`, `date`) VALUES
 (7, 'idea', 'idée avec un id', '2023-06-06'),
-(8, 'bug', 'tetttes', '2023-06-06');
+(8, 'bug', 'tetttes', '2023-06-06'),
+(10, 'idea', 'idee', '2023-06-06');
 
 --
 -- Indexes for dumped tables
@@ -191,6 +207,12 @@ ALTER TABLE `hat`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `level`
+--
+ALTER TABLE `level`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `report`
 --
 ALTER TABLE `report`
@@ -213,10 +235,16 @@ ALTER TABLE `hat`
   MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `level`
+--
+ALTER TABLE `level`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
