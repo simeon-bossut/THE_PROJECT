@@ -26,7 +26,7 @@
 	    
       <?php } ?>
 
-      <a href="conceptor.php"><li><?php  echo getLanguage("Créateur de niveau","Level Conceptor");  ?></li></a>
+      <a href="level.php"><li><?php  echo getLanguage("Niveaux","Levels");  ?></li></a>
       <a href="ranking.php"><li><?php  echo getLanguage("Classement","Ranking");  ?></li></a>
       <a href="setting.php"><li><?php  echo getLanguage("Paramètres","Settings");  ?></li></a>
     </ul>
