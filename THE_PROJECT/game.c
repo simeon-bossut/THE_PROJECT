@@ -248,11 +248,6 @@ Grid *hint(Grid *grid) {
 
   grid->tab[random / grid->size][random % grid->size] =
       copy->tab[random / grid->size][random % grid->size];
-  printf("Grid \n");
-  printgrid(grid);
-  printf("copy \n");
-  printgrid(copy);
-
   return copy;
 }
 
