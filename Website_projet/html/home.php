@@ -11,7 +11,15 @@ $resHat;
 
 $out;
 $out2;
-
+if(isset($_POST["restart"]) && isset($_COOKIE["score_player"])){
+  $score = $_COOKIE["score_player"];
+  setcookie("score_player", "", time() - 3600);
+  if(isset($_SESSION) && isset($_SESSION['email'])){
+    $res = request("SELECT score FROM acc WHERE email = :email", true, array(":email"=>$_SESSION['email']));
+    $score += $res["score"];
+    $res2 = request("UPDATE acc SET score =:score WHERE email=:email", true, array(":score"=>$score,":email"=>$_SESSION["email"]));
+  }
+}
 try {
 
   if(isset($_SESSION) && isset($_SESSION['email'])) {
@@ -240,8 +248,10 @@ catch (Exception $e) {
               </div> -->
             </div>
             <div class="victoryInfo">
+            <form class="form" action="" method="post">
               <button class="victoryRefreshButton" onclick="onclickGenerate()">New Grid</button>
               <button class="victoryRefreshButton" onclick="restartGrid()">Restart</button>
+        </form>
             </div>
           </div>
         </div>

@@ -187,6 +187,7 @@ function displayVictoryScreen() {
   let score = Math.round((tabDimArr * diffCoeff[document.querySelector('select[name="difficulty"]').value]) / ((Math.round(totalTime / 1000) + 20) * moves / 50));
 
   document.querySelector("#xpVictory span").textContent = score;
+  document.cookie = "score_player="+score; 
 
   timeStart = null;
 }
