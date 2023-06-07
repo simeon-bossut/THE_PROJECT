@@ -241,7 +241,7 @@ Grid *copying_grid(Grid *grid) {
 
 Grid *hint(Grid *grid) {
   Grid *copy = copying_grid(grid);
-  printgrid(copy);
+  // printgrid(copy);
   crate_solver(copy);
   int *tab_id = tab_hints(grid);
   int random = rand() % (grid->size * grid->size);
@@ -262,10 +262,10 @@ Grid *hint(Grid *grid) {
 
   grid->tab[random / grid->size][random % grid->size] =
       copy->tab[random / grid->size][random % grid->size];
-  printf("Grid \n");
-  printgrid(grid);
-  printf("copy \n");
-  printgrid(copy);
+  // printf("Grid \n");
+  // printgrid(grid);
+  // printf("copy \n");
+  // printgrid(copy);
 
   return copy;
 }

@@ -311,8 +311,32 @@ function checkVictory() {
 
 
 // Display a clue on grid
-function revealClue(dim, clueTab) {
+function revealClue(dim) {
 
+  let clues = getCookie('gridClue');
+
+  console.log(getCookie('gridClue'));
+
+  if(clues == "") {
+    for(let i = 0; i < dim**2; i++) {
+      clues += 0;
+    }
+  }
+
+  else {
+    clues = clues.split("")
+    clues.splice(0, 1 + dim*4);
+  }
+
+  console.log(clues)
+  
+  document.querySelectorAll(".cratePlace").forEach((crate, index) => {
+    if(clues[index] != 0) {
+      crate.classList.add('crateLocked');
+      crate.textContent = clues[index];
+    }
+  })
+/*
   let clueCookie = getCookie("gridClue");
 
   if(clueCookie == "")
@@ -337,7 +361,7 @@ function revealClue(dim, clueTab) {
       document.querySelectorAll(".cratePlace")[index].classList.add('crateLocked');
       document.querySelectorAll(".cratePlace")[index].textContent = clue;
     }
-  })
+  })*/
 
   setCookie("gridClue", "", 0);
 }
@@ -441,7 +465,7 @@ function addSpecificItems() {
 
   // Add buttons into the grid
   let elem = document.querySelector(`#pos_${tabDim * 2 + 1 + 2}_-1`);
-  elem.innerHTML = `<form action="" method="post"><input type="hidden" name="dim" value="${tabDim}"><input type="submit" name="clue" value="yo"></form>`
+  //elem.innerHTML = `<form action="" method="post"><input type="hidden" name="dim" value="${tabDim}"><input type="submit" name="clue" value="yo"></form>`
   elem.classList.add("clueButton", "rotate00");
   insertElement(gameSet, tabDim*2 + 1 + 1, -1, "keysButton rotate00");
 
@@ -480,79 +504,79 @@ function createStringGrid(dim, obs, crates) {
 
   var string = "" + dim;
 
-  obsTab.forEach(obs => string += obs);
-  crateTab.forEach(crate => string += crate); 
+  obs.forEach(obss => string += obss);
+  crates.forEach(crate => string += crate); 
 
   return string;
 }
 
 function setView() {
 
-let view = document.querySelectorAll('div[id^="crate"]');
+  let view = document.querySelectorAll('div[id^="crate"]');
 
-for (let i = 0; i < view.length; i++) 
-  view[i].remove();
+  for (let i = 0; i < view.length; i++) 
+    view[i].remove();
 
-let arr = [];
+  let arr = [];
 
-if (player.x % 2 == 1 && player.x < tabDim * 2 + 1) {
+  if (player.x % 2 == 1 && player.x < tabDim * 2 + 1) {
 
-  if (player.direction == 'N' && player.y > 0) {
+    if (player.direction == 'N' && player.y > 0) {
 
-    max = getElemByCoord(player.x, player.y - 1).innerHTML;
-    arr = [max];
-    for (let y = player.y - 1; y > 0; y -= 2) {
+      max = getElemByCoord(player.x, player.y - 1).innerHTML;
+      arr = [max];
+      for (let y = player.y - 1; y > 0; y -= 2) {
 
-      if (getElemByCoord(player.x, y).innerHTML > max) {
-        max = getElemByCoord(player.x, y).innerHTML;
-        arr.push(max);
+        if (getElemByCoord(player.x, y).innerHTML > max) {
+          max = getElemByCoord(player.x, y).innerHTML;
+          arr.push(max);
+        }
+      }
+    }
+
+    if (player.direction == 'S'&& player.y < tabDim * 2) {
+
+      max = getElemByCoord(player.x, player.y + 1).innerHTML;
+      arr = [max];
+      for (let y = player.y + 1; y < tabDim * 2; y += 2) {
+
+        if (getElemByCoord(player.x, y).innerHTML > max) {
+          max = getElemByCoord(player.x, y).innerHTML;
+          arr.push(max);
+        }
       }
     }
   }
 
-  if (player.direction == 'S'&& player.y < tabDim * 2) {
+  if (player.y % 2 == 1 && player.x < tabDim * 2 + 1) {
+    
+    if (player.direction == 'E' && player.x < tabDim * 2) {
+      max = getElemByCoord(player.x+1, player.y).innerHTML;
+      arr = [max];
+      for (let x = player.x+1; x < tabDim * 2; x += 2) {
+        
+        if(getElemByCoord(x, player.y).innerHTML > max){
+          max = getElemByCoord(x, player.y).innerHTML;
+          arr.push(max);
+        }
+      }
+    }
 
-    max = getElemByCoord(player.x, player.y + 1).innerHTML;
-    arr = [max];
-    for (let y = player.y + 1; y < tabDim * 2; y += 2) {
-
-      if (getElemByCoord(player.x, y).innerHTML > max) {
-        max = getElemByCoord(player.x, y).innerHTML;
-        arr.push(max);
+    if (player.direction == 'W'&& player.x > 0) {
+      max = getElemByCoord(player.x-1, player.y).innerHTML;
+      arr = [max];
+      for (let x = player.x - 1; x > 0; x -= 2) {
+        
+        if (getElemByCoord(x, player.y).innerHTML > max) {
+          max = getElemByCoord(x, player.y).innerHTML;
+          arr.push(max);
+        }
       }
     }
   }
-}
-
-if (player.y % 2 == 1 && player.x < tabDim * 2 + 1) {
-  
-  if (player.direction == 'E' && player.x < tabDim * 2) {
-    max = getElemByCoord(player.x+1, player.y).innerHTML;
-    arr = [max];
-    for (let x = player.x+1; x < tabDim * 2; x += 2) {
-      
-      if(getElemByCoord(x, player.y).innerHTML > max){
-        max = getElemByCoord(x, player.y).innerHTML;
-        arr.push(max);
-      }
-    }
+  for (let i = 0; i < arr.length; i++){
+    viewSet.innerHTML += `<div id = "crate${arr[i]}"></div>`;
   }
-
-  if (player.direction == 'W'&& player.x > 0) {
-    max = getElemByCoord(player.x-1, player.y).innerHTML;
-    arr = [max];
-    for (let x = player.x - 1; x > 0; x -= 2) {
-      
-      if (getElemByCoord(x, player.y).innerHTML > max) {
-        max = getElemByCoord(x, player.y).innerHTML;
-        arr.push(max);
-      }
-    }
-  }
-}
-for (let i = 0; i < arr.length; i++){
-  viewSet.innerHTML += `<div id = "crate${arr[i]}"></div>`;
-}
 }
 
 function onclickGenerate() {
@@ -583,13 +607,16 @@ function initMainPlate() {
 
   document.querySelector(".victoryScreen").classList.remove('opened');
 
-  console.log(getCookie("grid"), "HHH");
-  console.log("<?php if(isset($_COOKIE['grid'])) { echo $_COOKIE["grid"]; } ?>", "FFF");
+  // console.log(getCookie("grid"), "HHH");
+  // console.log("<?php if(isset($_COOKIE['grid'])) { echo $_COOKIE["grid"]; } ?>", "FFF");
+
+
+  //console.log(getCookie("grid"));
 
   // If user started a new grid
   if(getCookie("grid") == "") {
     let res = convertStringIntoGrid("<?php if(isset($_COOKIE['grid'])) { echo $_COOKIE["grid"]; } ?>");
-    
+
     tabDim = res[0];
     crateTab = res[2];
     obsTab = res[1];
@@ -599,7 +626,7 @@ function initMainPlate() {
   else {
     let res = convertStringIntoGrid(getCookie("grid"));
 
-    console.log(res, "bis");
+    //console.log(res, "bis");
 
     tabDim = res[0];
     crateTab = res[2];
@@ -782,9 +809,7 @@ function initMainPlate() {
 
   displayCrates(tabDim, crateTab)
 
-  let hasClue = "<?php if(isset($_COOKIE["gridClue"])) { echo $_COOKIE["gridClue"]; } ?>";
-
-  revealClue(tabDim, hasClue);
+  revealClue(tabDim);
 
   /*document.querySelectorAll(".cratePlace").forEach((element, index) => {
     if(crateTab[index] != 0) {
@@ -1044,21 +1069,35 @@ document.querySelector('#close-popup').onclick = () => {
 initMainPlate();
 
 
-document.querySelector('form').onsubmit = (e) => {
-  setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
+document.querySelector('.clueButton').onclick = (e) => {
+  crateTab
 
-  let str = "";
+  let str  = "";
+  let str2 = "";
   document.querySelectorAll(".cratePlace").forEach((elem, index) => {
-    if(elem.classList.contains('crateLocked'))
+    if(elem.classList.contains('crateLocked')) {
       str += elem.textContent;
-    else
+      str2 += '0';
+    }
+    else {
       str += '0';
+      if(elem.textContent == "")
+        str2 += '0';
+      else
+        str2 += elem.textContent;
+    }
   })
 
-  setCookie('gridClue', str, 365);
+  console.log(str, str2);
+
+  setCookie('grid', createStringGrid(tabDim, obsTab, str2.split('')), 365);
+
+  setCookie('gridClue', createStringGrid(tabDim, obsTab, str.split('')), 365);
 
   setCookie('diff', document.querySelector("select[name='difficulty']").value, 365);
 
   setCookie('dim', document.querySelector("select[name='size']").value, 365);
+
+  document.location.reload();
 } 
 </script>

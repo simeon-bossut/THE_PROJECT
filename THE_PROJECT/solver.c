@@ -344,7 +344,7 @@ bool check_latin(Grid *grid) {
 int easy_resolve(GhostGrid *gridf, Grid *gridj) {
   Rule2(*gridf, *gridj);
   do {
-   printgrid(gridj);
+   // printgrid(gridj);
     fill_loners(gridj, *gridf);
 
     if (check_latin(gridj) == false) {
