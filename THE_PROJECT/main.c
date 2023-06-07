@@ -37,7 +37,6 @@ int main(int argc, char *argv[]) {
     // int difficulty = 2;
     char *seed_;
     seed_ = create_seed(difficulty, dim);
-    printf("%s\n", seed_);
     grid = read_seed(seed_);
     push_to_php(grid);
   }

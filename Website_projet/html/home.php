@@ -51,36 +51,6 @@ try {
     $resBody = 'character_default';
   }
 
-
-  if(!isset($_COOKIE['dim'])) {
-    setcookie("dim", "3", time() + 365*24*60*60, '/' );
-  }
-
-  if(isset($_POST["clue"])) {
-
-    $grid = str_split($_COOKIE["grid"]);
-
-    array_splice($grid, 0, 1);
-
-    $grid = join($grid);
-
-    exec("../../THE_PROJECT/main $_POST[dim] 2 $grid", $out);
-
-    setcookie("gridClue", "120013017", time() + 365*24*60*60, '/' );
-
-    header("Location:home.php");
-
-  }
-
-  if(!isset($_COOKIE['grid'])) {
-
-    exec("../../THE_PROJECT/main.exe $_COOKIE[dim] 2 $grid", $out);
-
-    setcookie("grid", "120013017", time() + 365*24*60*60, '/' );
-
-    header("Location:home.php");
-  }
-
   if(!isset($_COOKIE["dim"])) {
     setcookie("dim", "3", time() + 365*24*60*60, '/' );
   }
@@ -89,7 +59,75 @@ try {
     setcookie("diff", "0", time() + 365*24*60*60, '/' );
   }
 
-  exec("cd ../../THE_PROJECT/ && main.exe $_COOKIE[dim] 1 $_COOKIE[diff]", $out2);
+  // If user started a new grid (action 1)
+  if(!isset($_COOKIE["grid"])) {
+    setcookie("diff", "0", time() + 365*24*60*60, '/' );
+    setcookie("dim",  "3", time() + 365*24*60*60, '/' );
+
+    $size;
+    if(!isset($_COOKIE['dim']))
+      $size = 3;
+    else
+      $size = $_COOKIE['dim'];
+
+    $diff;
+    if(!isset($_COOKIE['diff']))
+      $diff = 0;
+    else
+      $diff = $_COOKIE['diff'];
+
+    exec("cd ../../THE_PROJECT/ && main.exe $size 1 $diff", $newGrid);
+
+    if(!isset($newGrid) || empty($newGrid) || !$newGrid) {
+      //var_dump("ddz");
+      setcookie("grid", $_COOKIE["grid"], time() + 365*24*60*60, '/');
+      //setcookie("originGrid", $_COOKIE["grid"], time() + 365*24*60*60, '/');
+    }
+
+    else {
+      //var_dump("dz");
+      setcookie("grid", $newGrid[0], time() + 365*24*60*60, '/');
+      //setcookie("originGrid", $newGrid[0], time() + 365*24*60*60, '/');
+    }
+  }
+
+  // If user asked for a clue (action 2)
+  else {
+    $size;
+    if(!isset($_COOKIE['dim']))
+      $size = 3;
+    else
+      $size = $_COOKIE['dim'];
+
+    $diff;
+    if(!isset($_COOKIE['diff']))
+      $diff = 0;
+    else
+      $diff = $_COOKIE['diff'];
+
+    $gridClue;
+
+    exec("cd ../../THE_PROJECT/ && main.exe $size 2 $diff", $gridClue);
+
+    $gridClue = array("3321123221123003000000");
+
+    if(!isset($gridClue) || empty($gridClue) || !$gridClue) {
+      $str = "";
+      for($i = 0; $i < $size**2; $i++) {
+        $str = $str."0";
+      }
+
+      $gridClue = $str;
+    }
+
+    else {
+      $gridClue = str_split($gridClue[0]);
+      array_splice($gridClue, 0, $size*4 + 1);
+      $gridClue = join($gridClue);
+    }
+
+    setcookie("gridClue", $gridClue, time() + 356*24*60*60, '/');
+  }
 
 } 
 
@@ -201,7 +239,10 @@ catch (Exception $e) {
                 <span>670</span>
               </div> -->
             </div>
-            <button class="victoryRefreshButton" onclick="onclickGenerate()">Restart</button>
+            <div class="victoryInfo">
+              <button class="victoryRefreshButton" onclick="onclickGenerate()">New Grid</button>
+              <button class="victoryRefreshButton" onclick="restartGrid()">Restart</button>
+            </div>
           </div>
         </div>
 
@@ -233,6 +274,8 @@ catch (Exception $e) {
             </div>
             
             <button onclick="onclickGenerate()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
+
+            <button onclick="restartGrid()" class="skinButton"><?php echo getLanguage("RECOMMENCER", "RESTART");  ?></button>
           </div>
         </div>
 
