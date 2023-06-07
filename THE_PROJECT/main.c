@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
            "possible\n difficulty: 0 for very easy, 1 for easy, 2 for medium, "
            "3 for hard\n "
            "seed: seed of the grid\n\n");
-    return 0;
+    return EXIT_SUCCESS;
   }
 
   int dim = atoi(argv[1]);
@@ -29,13 +29,12 @@ int main(int argc, char *argv[]) {
   int action = atoi(argv[2]);
   // int action = 1;
 
-
-  //Grid *grid;
+  Grid *grid;
 
   // Get a grid with missing elements
-  if (action == 1) { 
+  if (action == 1) {
     int difficulty = atoi(argv[3]);
-    // int difficulty = 1;
+    // int difficulty = 2;
     char *seed_;
     seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);
