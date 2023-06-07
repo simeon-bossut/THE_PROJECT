@@ -469,6 +469,7 @@ function addSpecificItems() {
   //elem.innerHTML = `<form action="" method="post"><input type="hidden" name="dim" value="${tabDim}"><input type="submit" name="clue" value="yo"></form>`
   elem.classList.add("clueButton", "rotate00");
   insertElement(gameSet, tabDim*2 + 1 + 1, -1, "keysButton rotate00");
+  insertElement(gameSet, tabDim*2 + 1 + 2, 0, "solutionButton rotate00");
 
   // Detect when buttons pressed
   document.querySelector('.keysButton').onclick = () => {
@@ -1071,7 +1072,6 @@ initMainPlate();
 
 
 document.querySelector('.clueButton').onclick = (e) => {
-  crateTab
 
   let str  = "";
   let str2 = "";
@@ -1089,8 +1089,6 @@ document.querySelector('.clueButton').onclick = (e) => {
     }
   })
 
-  console.log(str, str2);
-
   setCookie('grid', createStringGrid(tabDim, obsTab, str2.split('')), 365);
 
   setCookie('gridClue', createStringGrid(tabDim, obsTab, str.split('')), 365);
@@ -1101,4 +1099,32 @@ document.querySelector('.clueButton').onclick = (e) => {
 
   document.location.reload();
 } 
+
+
+document.querySelector('.solutionButton').onclick = (e) => {
+
+  let str  = "";
+  let str2 = "";
+
+  document.querySelectorAll(".cratePlace").forEach((elem, index) => {
+    if(elem.classList.contains('crateLocked')) {
+      str += elem.textContent;
+    }
+    else {
+      str += '0';
+    }
+    str2 += "-";
+  })
+
+  setCookie('grid', createStringGrid(tabDim, obsTab, str2.split('')), 365);
+
+  setCookie('gridClue', createStringGrid(tabDim, obsTab, str.split('')), 365);
+
+  setCookie('diff', document.querySelector("select[name='difficulty']").value, 365);
+
+  setCookie('dim', document.querySelector("select[name='size']").value, 365);
+
+  document.location.reload();
+
+}
 </script>

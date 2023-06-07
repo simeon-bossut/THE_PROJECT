@@ -126,18 +126,12 @@ try {
   
 
   // If user asked for a clue (action 2)
-  else {
+  else if(!str_contains($_COOKIE['grid'], "-")) {
     $size;
     if (!isset($_COOKIE['dim']))
       $size = 3;
     else
       $size = $_COOKIE['dim'];
-
-    $diff;
-    if (!isset($_COOKIE['diff']))
-      $diff = 0;
-    else
-      $diff = $_COOKIE['diff'];
 
     $Grid;
 
@@ -181,6 +175,42 @@ try {
 
     setcookie("gridClue", $gridClue, time() + 356 * 24 * 60 * 60, '/');
   }
+
+  // IF USER WANTS THE SOLUTION (action 3)
+  else {
+    $solution;
+
+    $size;
+    if (!isset($_COOKIE['dim']))
+      $size = 3;
+    else
+      $size = $_COOKIE['dim'];
+
+    if(!isset($_COOKIE['gridClue']))
+      $Grid = "3321123221123000000000";
+    else
+      $Grid = $_COOKIE['gridClue'];
+
+    $Grid = str_split($Grid);
+    $Grid = join(array_splice($Grid, 1));
+
+    exec("cd ../../THE_PROJECT/ && main.exe $size 3 $Grid", $solution);
+
+    if(!isset($solution) || empty($solution) || !$solution) {
+      $str = "";
+      for($i = 0; $i < $size**2; $i++) {
+        $str = $str."0";
+      }
+
+      $solution = array($str);
+    }
+
+    $solution = $solution[0];
+
+    setcookie("gridClue", $solution, time() + 356 * 24 * 60 * 60, '/');
+  }
+
+
 } catch (Exception $e) {
   die("Erreur : " . $e->getMessage());
 }

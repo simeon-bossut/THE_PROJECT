@@ -446,6 +446,29 @@ nav {
   transform: scale(1.05);
 }
 
+#mainPlate .solutionButton {
+  width: 80%;
+  height: 80%;
+
+  border: 2px solid black;
+  border-radius: 10px;
+
+  background-image: url("../Images/keyboard.png");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  transition: transform .2s;
+
+  filter: invert(1);
+}
+
+#mainPlate .solutionButton:hover {
+  cursor: pointer;
+  
+  transform: scale(1.05);
+}
+
 #mainPlate .obsText {
   width: 100%;
   height: 83%;
