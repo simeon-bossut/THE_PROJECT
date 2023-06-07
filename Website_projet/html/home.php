@@ -139,8 +139,8 @@ catch (Exception $e) {
 
     <nav>
       <div class="buttonsLogo">
-        <a href="conceptor.php">
-          <div class="buttonLogo"><?php echo getLanguage("Créateur de niveau", "Level Creator");  ?></div>
+        <a href="level.php">
+          <div class="buttonLogo"><?php echo getLanguage("Niveaux", "Levels");  ?></div>
         </a>
         <a href="setting.php">
           <div class="buttonLogo"><?php echo getLanguage("Paramètres", "Settings");  ?></div>

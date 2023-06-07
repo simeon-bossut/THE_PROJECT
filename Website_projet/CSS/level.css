@@ -40,12 +40,11 @@ main {
   align-items: center;
   justify-content: center;
 	background-image: url("../Images/barrel3.jpg");
+  flex-direction: column;
 
   font-family: 'Kanit';
 
   height: fit-content;
-
-  padding: 30px;
 
   position: relative;
 }
@@ -585,4 +584,31 @@ div[id^="crate"]{
 
 .toolsBox button:hover {
   box-shadow: none;
+}
+
+.conceptor{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	
+  font-family: 'Kanit';
+
+  width:100%;
+  height: fit-content;
+
+  padding: 30px 0px;
+
+  position: relative;
+}
+
+.bigTitle{
+  position: relative;
+  background-color:  #341900;
+
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15vh;
+  width: 100%;
 }
