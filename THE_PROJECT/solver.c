@@ -344,7 +344,7 @@ bool check_latin(Grid *grid) {
 int easy_resolve(GhostGrid *gridf, Grid *gridj) {
   Rule2(*gridf, *gridj);
   do {
-
+   printgrid(gridj);
     fill_loners(gridj, *gridf);
 
     if (check_latin(gridj) == false) {
@@ -735,15 +735,12 @@ bool unique_solution(
     Grid* copy = copy_grid(grid);
     int sol=subcrate_solver(copy,false,true);//On s'arrête à la deuxième solution si elle existe
     
-    if (sol != 0)
-    {
-        free_grid(copy);
-    }
+    
     if (sol == 1)
     {
         return true;
     }
-    
+     free_grid(copy);
     
     return false;
 }
