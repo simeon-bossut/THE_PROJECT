@@ -254,6 +254,8 @@ Grid *hint(Grid *grid) {
 bool is_grid_correct(Grid *grid) {
   Grid *copy = copy_grid(grid);
   int sol = crate_solver(copy);
+  free(copy->obv);
+  free_tab(copy->tab, copy->size);
   if (sol == 0) {
     return false;
   }
