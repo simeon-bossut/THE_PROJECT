@@ -5,6 +5,7 @@ var viewSet = document.querySelector('#viewBox');
 
 
 var tabDim = 4;
+document.cookie = "tabDim="+tabDim; 
 
 var obsTab = [];
 var crateTab = [];
@@ -390,6 +391,7 @@ document.addEventListener('click', e => {
   }
 })
 
+
 window.onresize = (e) => {
   if(!lastCrateClicked) 
     return;
@@ -397,3 +399,6 @@ window.onresize = (e) => {
   document.querySelector('#editTool').style.left = (lastCrateClicked.offsetLeft - document.querySelector('#editTool').offsetWidth / 2 + lastCrateClicked.offsetWidth / 2) + "px";
   document.querySelector('#editTool').style.top = (lastCrateClicked.offsetTop - document.querySelector('#editTool').offsetHeight / 2 - lastCrateClicked.offsetHeight + 19) + "px";
 }
+
+let seed =convertStringIntoGrid(tabDim, obsTab, crateTab)
+document.cookie = "seed="+seed; 

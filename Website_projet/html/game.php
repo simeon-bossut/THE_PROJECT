@@ -187,6 +187,7 @@ function displayVictoryScreen() {
   let score = Math.round((tabDimArr * diffCoeff[document.querySelector('select[name="difficulty"]').value]) / ((Math.round(totalTime / 1000) + 20) * moves / 50));
 
   document.querySelector("#xpVictory span").textContent = score;
+  document.cookie = "score_player="+score; 
 
   timeStart = null;
 }
@@ -339,7 +340,7 @@ function revealClue(dim, clueTab) {
     }
   })
 
-  setCookie("gridClue", clueCookie.join(''), 365);
+  setCookie("gridClue", "", 0);
 }
 
 
@@ -486,14 +487,95 @@ function createStringGrid(dim, obs, crates) {
   return string;
 }
 
+function setView() {
+
+let view = document.querySelectorAll('div[id^="crate"]');
+
+for (let i = 0; i < view.length; i++) 
+  view[i].remove();
+
+let arr = [];
+
+if (player.x % 2 == 1 && player.x < tabDim * 2 + 1) {
+
+  if (player.direction == 'N' && player.y > 0) {
+
+    max = getElemByCoord(player.x, player.y - 1).innerHTML;
+    arr = [max];
+    for (let y = player.y - 1; y > 0; y -= 2) {
+
+      if (getElemByCoord(player.x, y).innerHTML > max) {
+        max = getElemByCoord(player.x, y).innerHTML;
+        arr.push(max);
+      }
+    }
+  }
+
+  if (player.direction == 'S'&& player.y < tabDim * 2) {
+
+    max = getElemByCoord(player.x, player.y + 1).innerHTML;
+    arr = [max];
+    for (let y = player.y + 1; y < tabDim * 2; y += 2) {
+
+      if (getElemByCoord(player.x, y).innerHTML > max) {
+        max = getElemByCoord(player.x, y).innerHTML;
+        arr.push(max);
+      }
+    }
+  }
+}
+
+if (player.y % 2 == 1 && player.x < tabDim * 2 + 1) {
+  
+  if (player.direction == 'E' && player.x < tabDim * 2) {
+    max = getElemByCoord(player.x+1, player.y).innerHTML;
+    arr = [max];
+    for (let x = player.x+1; x < tabDim * 2; x += 2) {
+      
+      if(getElemByCoord(x, player.y).innerHTML > max){
+        max = getElemByCoord(x, player.y).innerHTML;
+        arr.push(max);
+      }
+    }
+  }
+
+  if (player.direction == 'W'&& player.x > 0) {
+    max = getElemByCoord(player.x-1, player.y).innerHTML;
+    arr = [max];
+    for (let x = player.x - 1; x > 0; x -= 2) {
+      
+      if (getElemByCoord(x, player.y).innerHTML > max) {
+        max = getElemByCoord(x, player.y).innerHTML;
+        arr.push(max);
+      }
+    }
+  }
+}
+for (let i = 0; i < arr.length; i++){
+  viewSet.innerHTML += `<div id = "crate${arr[i]}"></div>`;
+}
+}
+
 function onclickGenerate() {
-  setCookie("dim", document.querySelector('select[name="size"]').value, 365);
   setCookie("diff", document.querySelector('select[name="difficulty"]').value, 365);
-  setCookie("gridClue", "yo", 0);
+  setCookie("gridClue", "", 0);
+  setCookie("dim", document.querySelector('select[name="size"]').value, 365);
+  setCookie("grid", "", 0);
 
 
   document.location.reload(); 
 }
+/*
+function restartGrid() {
+  if(<?php // echo isset($_COOKIE["originGrid"]); ?>) {
+    setCookie('grid', "<?php // if(isset($_COOKIE["originGrid"])) { echo $_COOKIE["originGrid"]; }?>", 365);
+
+    console.log("<?php // if(isset($_COOKIE["originGrid"])) { echo $_COOKIE["originGrid"]; }?>")
+
+    initMainPlate();
+  }
+}
+*/
 
 function initMainPlate() {
 
@@ -502,16 +584,32 @@ function initMainPlate() {
 
   document.querySelector(".victoryScreen").classList.remove('opened');
 
-  let res = convertStringIntoGrid("<?php echo $out2[0] ?>");
+  console.log(getCookie("grid"), "HHH");
+  console.log("<?php if(isset($_COOKIE['grid'])) { echo $_COOKIE["grid"]; } ?>", "FFF");
+
+  // If user started a new grid
+  if(getCookie("grid") == "") {
+    let res = convertStringIntoGrid("<?php if(isset($_COOKIE['grid'])) { echo $_COOKIE["grid"]; } ?>");
+    
+    tabDim = res[0];
+    crateTab = res[2];
+    obsTab = res[1];
+  }
+
+  // If user asked for a clue
+  else {
+    let res = convertStringIntoGrid(getCookie("grid"));
+
+    console.log(res, "bis");
+
+    tabDim = res[0];
+    crateTab = res[2];
+    obsTab = res[1];
+  }
   
-  tabDim = res[0];
-  crateTab = res[2];
-  obsTab = res[1];
 
   gameSet.classList = ["dim" + tabDim];
   gameSet.innerHTML = "";
-
-  
   /*if(getCookie("grid") != "") {
     let res = convertStringIntoGrid(getCookie("grid"));
 
@@ -685,7 +783,7 @@ function initMainPlate() {
 
   displayCrates(tabDim, crateTab)
 
-  let hasClue = "<?php if(isset($out[0])) { echo $out[0]; } ?>";
+  let hasClue = "<?php if(isset($_COOKIE["gridClue"])) { echo $_COOKIE["gridClue"]; } ?>";
 
   revealClue(tabDim, hasClue);
 
@@ -704,6 +802,12 @@ function initMainPlate() {
     player = new Character(10, 4);
   }
 
+  setCookie("dim", "", 0);
+  setCookie("diff", "", 0);
+  setCookie("gridClue", "", 0);
+  setCookie("grid", "", 0);
+
+  setView();
 }
 
 
@@ -760,10 +864,7 @@ function crateGrab() {
     
   document.querySelector("#characterCrate").innerHTML = num;
 
-  setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
-
   checkVictory();
-
 
   setView();
 }
@@ -820,7 +921,7 @@ function crateDrop() {
     
   document.querySelector("#characterCrate").innerHTML = num;
 
-  setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
+  //setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
 
   checkVictory();
 
@@ -940,8 +1041,25 @@ document.querySelector('#close-popup').onclick = () => {
   document.querySelector('.popup').classList.remove('displayed');
 }
 
-
 // Chargement d'une grille de départ
 initMainPlate();
 
+
+document.querySelector('form').onsubmit = (e) => {
+  setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
+
+  let str = "";
+  document.querySelectorAll(".cratePlace").forEach((elem, index) => {
+    if(elem.classList.contains('crateLocked'))
+      str += elem.textContent;
+    else
+      str += '0';
+  })
+
+  setCookie('gridClue', str, 365);
+
+  setCookie('diff', document.querySelector("select[name='difficulty']").value, 365);
+
+  setCookie('dim', document.querySelector("select[name='size']").value, 365);
+} 
 </script>
