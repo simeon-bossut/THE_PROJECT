@@ -539,7 +539,6 @@ void read_seed_sub(Grid *grid, int dim, char *Seed, int len) {
       grid->tab[i][j] = line[j] - 48;
     }
   }
-
   calcul_obs(grid);
 
   cache_tab = get_cache_tab(dim, Seed, len);
