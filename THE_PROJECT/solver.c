@@ -718,6 +718,7 @@ int subcrate_solver(Grid *gridj, bool first_sol, bool validity) //
     {
         free_grid(Stock->stock+i);
     }
+    free(Stock->stock);
     free(Stock);
 
   return sol;
@@ -735,12 +736,15 @@ bool unique_solution(
     Grid* copy = copy_grid(grid);
     int sol=subcrate_solver(copy,false,true);//On s'arrête à la deuxième solution si elle existe
     
-    
+    free(copy->obv);
+    free_tab(copy->tab,copy->size);
+
     if (sol == 1)
     {
         return true;
     }
-     free_grid(copy);
+     
     
     return false;
 }
+
