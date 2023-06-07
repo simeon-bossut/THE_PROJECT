@@ -65,6 +65,7 @@ int subcrate_solver(Grid* gridj, bool first_sol, bool validity);
 //Solver end
 
 void indice(Grid* grid, int nb_hints);
+Grid* copy_grid(Grid* grid);
 
 //Free start
 void free_tab_3(char*** tab, int size);

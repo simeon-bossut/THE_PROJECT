@@ -226,22 +226,9 @@ int *tab_hints(Grid *grid) {
   return tab_id;
 }
 
-Grid *copying_grid(Grid *grid) {
-  Grid *copy = initgrid(grid->size);
-  for (int i = 0; i < copy->size; i++) {
-    for (int j = 0; j < copy->size; j++) {
-      copy->tab[i][j] = grid->tab[i][j];
-    }
-  }
-  for (int i = 0; i < copy->size * 4; i++) {
-    copy->obv[i] = grid->obv[i];
-  }
-  return copy;
-}
 
 Grid *hint(Grid *grid) {
-  Grid *copy = copying_grid(grid);
-  printgrid(copy);
+  Grid *copy = copy_grid(grid);
   crate_solver(copy);
   int *tab_id = tab_hints(grid);
   int random = rand() % (grid->size * grid->size);
@@ -253,7 +240,6 @@ Grid *hint(Grid *grid) {
     while (id < nb_hints) {
       if (random == tab_id[id]) {
         same = true;
-        srand(time(NULL));
         random = rand() % (grid->size * grid->size);
       }
       id++;
