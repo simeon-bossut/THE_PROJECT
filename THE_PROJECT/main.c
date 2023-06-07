@@ -14,12 +14,13 @@ int main(int argc, char *argv[]) {
   // il affiche en 1 le premier argument
 
   if (strcmp(argv[argc - 1], "-help") == 0) {
-    printf("\nUsage: ./main [dim] [action] [difficulty] [seed]\n dim: dimension"
-           "of the grid\n action: 1 for a grid with missing elements, 2 for a"
-           "clue, 3 for a complete grid, 4 for confirmation that a grid is "
-           "possible\n difficulty: 0 for very easy, 1 for easy, 2 for medium, "
-           "3 for hard\n "
-           "seed: seed of the grid\n\n");
+    printf(
+        "\nUsage: ./main [dim] [action] [difficulty / seed]\n dim: dimension "
+        "of the grid\n action: 1 for a grid with missing elements, 2 for a "
+        "clue, 3 for a complete grid, 4 for confirmation that a grid is "
+        "possible\n difficulty: 0 for very easy, 1 for easy, 2 for medium, "
+        "3 for hard\n "
+        "seed: seed of the grid\n\n");
     return EXIT_SUCCESS;
   }
 
@@ -45,7 +46,7 @@ int main(int argc, char *argv[]) {
   else if (action == 2) {
     grid = read_grid(argv[3], dim);
     if (is_grid_correct(grid)) {
-      hint(grid);
+      indice(grid,1);
     }
     push_to_php(grid);
   }

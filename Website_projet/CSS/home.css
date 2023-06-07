@@ -781,6 +781,10 @@ select {
   filter: grayscale(1);
 }
 
+.crateHint{
+  filter: hue-rotate(75deg);
+}
+
 .victoryScreen {
   width: 100%;
   height: 0%;

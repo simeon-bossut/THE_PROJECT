@@ -187,6 +187,7 @@ function displayVictoryScreen() {
   let score = Math.round((tabDimArr * diffCoeff[document.querySelector('select[name="difficulty"]').value]) / ((Math.round(totalTime / 1000) + 20) * moves / 50));
 
   document.querySelector("#xpVictory span").textContent = score;
+  document.cookie = "score_player="+score; 
 
   timeStart = null;
 }
@@ -588,17 +589,17 @@ function onclickGenerate() {
 
   document.location.reload(); 
 }
-/*
+
 function restartGrid() {
-  if(<?php // echo isset($_COOKIE["originGrid"]); ?>) {
-    setCookie('grid', "<?php // if(isset($_COOKIE["originGrid"])) { echo $_COOKIE["originGrid"]; }?>", 365);
-
-    console.log("<?php // if(isset($_COOKIE["originGrid"])) { echo $_COOKIE["originGrid"]; }?>")
-
-    initMainPlate();
+  for(let x = 0; x < tabDim * 2 + 3; x++) {
+    for(let y = 0; y < tabDim * 2 + 3; y++) {
+      if(!getElemByCoord(x,y).classList.contains('crateLocked')){
+        getElemByCoord(x,y).innerHTML = "";
+        getElemByCoord(x,y).classList.remove('crateHint');
+      }
+    }
   }
 }
-*/
 
 function initMainPlate() {
 

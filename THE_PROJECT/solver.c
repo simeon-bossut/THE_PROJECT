@@ -699,6 +699,7 @@ void print_Stock(StockSoluce *Stock) {
 
 int subcrate_solver(Grid *gridj, bool first_sol, bool validity) //
 {
+  int dim = gridj->size;
   GhostGrid *gridf = initGhostGrid(gridj->size);
   fill_ghost(*gridf, *gridj);
   StockSoluce *Stock = malloc(sizeof(StockSoluce));
@@ -710,13 +711,17 @@ int subcrate_solver(Grid *gridj, bool first_sol, bool validity) //
   hypothesis(gridf, gridj, 0, Stock, first_sol, validity);
 
     int sol = Stock->size;
+    print_Stock(Stock);
+    int i = 0;
     if (Stock->size == 1)
     {
         *gridj = Stock->stock[0];
+        i = 1;
     }
-    for (int i = 1; i < Stock->size; ++i)
+    for (i; i < Stock->size; ++i)
     {
-        free_grid(Stock->stock+i);
+        free((Stock->stock+i)->obv);
+        free_tab((Stock->stock + i)->tab, dim);
     }
     free(Stock->stock);
     free(Stock);
@@ -748,3 +753,18 @@ bool unique_solution(
     return false;
 }
 
+void indice(Grid* grid,int nb_hints)
+{
+    int size = grid->size;
+    Grid* sol = initgrid(size);
+    subcrate_solver(sol, true, false);
+    int random;
+    for(int i=0;i<nb_hints;++i)
+    { 
+        do {
+            random = rand() % (size * size);
+        } while (grid->tab[random / size][random % size] == sol->tab[random / size][random % size]);
+        grid->tab[random] = sol->tab[random];
+    }
+    free_grid(sol);
+}
