@@ -81,9 +81,15 @@ try {
     header("Location:home.php");
   }
 
-  exec("cd ../../THE_PROJECT/ && main.exe $_COOKIE[dim] 1 1", $out2);
-  
-  var_dump($out2);
+  if(!isset($_COOKIE["dim"])) {
+    setcookie("dim", "3", time() + 365*24*60*60, '/' );
+  }
+
+  if(!isset($_COOKIE["diff"])) {
+    setcookie("diff", "0", time() + 365*24*60*60, '/' );
+  }
+
+  exec("cd ../../THE_PROJECT/ && main.exe $_COOKIE[dim] 1 $_COOKIE[diff]", $out2);
 
 } 
 
@@ -218,10 +224,10 @@ catch (Exception $e) {
               <div class="selectBox">
                 <h2  class="titleselect"><?php echo getLanguage("Level", "Level");  ?></h2>
                 <select name="difficulty" >
-                  <option value="0"><?php echo getLanguage("Très facile", "Very Easy");  ?></option>
-                  <option value="1"><?php echo getLanguage("Facile", "Easy");  ?></option>
-                  <option value="2"><?php echo getLanguage("Moyen", "Medium");  ?></option>
-                  <option value="3"><?php echo getLanguage("Difficile", "Hard");  ?></option>
+                  <option value="0" <?php if(isset($_COOKIE['diff']) && $_COOKIE['diff'] == 0) { echo "selected"; }?>><?php echo getLanguage("Très facile", "Very Easy");  ?></option>
+                  <option value="1" <?php if(isset($_COOKIE['diff']) && $_COOKIE['diff'] == 1) { echo "selected"; }?>><?php echo getLanguage("Facile", "Easy");  ?></option>
+                  <option value="2" <?php if(isset($_COOKIE['diff']) && $_COOKIE['diff'] == 2) { echo "selected"; }?>><?php echo getLanguage("Moyen", "Medium");  ?></option>
+                  <option value="3" <?php if(isset($_COOKIE['diff']) && $_COOKIE['diff'] == 3) { echo "selected"; }?>><?php echo getLanguage("Difficile", "Hard");  ?></option>
                 </select>
               </div>
             </div>
