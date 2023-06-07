@@ -748,3 +748,18 @@ bool unique_solution(
     return false;
 }
 
+void indice(Grid* grid,int nb_hints)
+{
+    int size = grid->size;
+    Grid* sol = initgrid(size);
+    subcrate_solver(sol, true, false);
+    int random;
+    for(int i=0;i<nb_hints;++i)
+    { 
+        do {
+            random = rand() % (size * size);
+        } while (grid->tab[random / size][random % size] == sol->tab[random / size][random % size]);
+        grid->tab[random] = sol->tab[random];
+    }
+    free_grid(sol);
+}
