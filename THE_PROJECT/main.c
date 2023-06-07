@@ -40,7 +40,6 @@ int main(int argc, char *argv[]) {
     grid = read_seed(seed_);
     push_to_php(grid);
   }
-  free(seed_);
    
     
    
