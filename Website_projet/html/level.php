@@ -46,7 +46,7 @@ else {
 
   $name;
   if (!isset($_COOKIE['CON_gridName']))
-    $name = 0;
+    $name = "Random Name";
   else
     $name = $_COOKIE['CON_gridName'];
 
@@ -64,9 +64,11 @@ else {
     $seed;
     exec("cd ../../THE_PROJECT/ && main.exe $size 5 $grid", $seed);
 
+    var_dump($seed);
+
     setcookie("CON_grid", $size.$grid, time() + 365*24*60*60, '/');
 
-    request("INSERT INTO `level`(`email`, `id`, `nom`, `seed`, `dim`) VALUES ('?', NULL,'?','?','?')", true, array($_SESSION['email'], $name, $seed, $size));
+    //request("INSERT INTO `level`(`email`, `id`, `nom`, `seed`, `dim`) VALUES ('?', NULL,'?','?','?')", true, array($_SESSION['email'], $name, $seed[0], $size));
 
     setcookie("CON_message", "Grid saved !", time() + 365*24*60*60, '/');
   }
@@ -150,9 +152,9 @@ else {
         <div class="separator"></div>
 
         <div class="toolsBox">
-          <div class="title">Generate from a seed</div>
-          <input type="number" id="seedInput" placeholder=""></input>
-          <button>Generate</button>
+          Click on a box or an observator to edit it.<br> 
+          Click on the trash to delete a number.<br>
+          Click on the eye to hide the information while playing the grid.
         </div>
       </div>
 
@@ -181,18 +183,21 @@ else {
               <tr>
               <th>Name</th>
               <th>Size</th>
-              <th>Difficulty</th>
               <th>Seed</th>
-              <th>Dimension</th>
+              <th></th>
             </tr>";
+
+      if(!isset($resultat) || !$resultat || count($resultat) == 0) {
+        echo `<tr><td rowspan="4">No grid saved yet</td></tr>`;
+        var_dump($resultat);
+      }
       foreach ($resultat as $row) {
         echo "
         <tr>    
             <td>$row[nom]</td>
             <td>$row[dim]</td>
-            <td>$row[difficulty]</td>
             <td>$row[seed]</td>
-            <td><a href='home.php?ida=$row[seed]'>Jouer</a></td>
+            <td><a href='home.php?seed=$row[seed]'>Jouer</a></td>
         </tr>";
         }
       echo "</table>";
