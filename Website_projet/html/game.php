@@ -566,16 +566,6 @@ function onclickGenerate() {
   document.location.reload(); 
 }
 
-function restartGrid() {
-  for(let x = 0; x < tabDim * 2 + 3; x++) {
-    for(let y = 0; y < tabDim * 2 + 3; y++) {
-      if(!getElemByCoord(x,y).classList.contains('crateLocked')){
-        getElemByCoord(x,y).innerHTML = "";
-        getElemByCoord(x,y).classList.remove('crateHint');
-      }
-    }
-  }
-}
 
 function initMainPlate() {
 
