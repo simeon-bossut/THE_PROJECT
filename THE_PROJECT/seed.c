@@ -371,6 +371,7 @@ char *create_seed(int difficulty, int dim) {
     cache = generate_level_cache(grid, difficulty,5);
   }
   char* seed_ = sub_level_to_seed(grid, cache);
+  free(grid);
   return seed_;
 }
 
@@ -633,8 +634,6 @@ char *sub_level_to_seed(Grid *grid, bool *cache) {
 
   free(line);
   free(cache);
-  free(grid->obv);
-  free_tab(grid->tab, grid->size);
   return SEED;
 }
 
@@ -662,6 +661,7 @@ char *level_to_seed(Grid *grid) {
   }
   printf("\n\n");*/
   if (subcrate_solver(grid, 0, 1) == 1) {
+      printgrid(grid);
     return sub_level_to_seed(grid, cache);
   }
   return NULL;
