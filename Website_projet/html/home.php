@@ -369,6 +369,8 @@ try {
           </div>
 
           <button onclick="onclickGenerate()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
+
+          <button onclick="restartGrid()" class="skinButton"><?php echo getLanguage("RECOMMENCER", "RESTART");  ?></button>
         </div>
       </div>
 
