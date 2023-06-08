@@ -944,7 +944,7 @@ select {
 form, input[name="clue"] {
   width: 100%;
   height: 100%;
-  opacity: 0;
+  opacity: 1;
   margin: 0;
   border: 0;
   padding: 0;
