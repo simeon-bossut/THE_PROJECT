@@ -300,7 +300,7 @@ try {
       <div class="victoryScreen">
         <div class="victoryBox">
 
-          <div class="victoryTitle">Victory</div>
+          <div class="victoryTitle"><?php echo getLanguage("Victoire","Victory");?></div>
           <div class="victoryInfo">
             <div class="victoryInfoContent" id="timerVictory">
               <img src="../Images/timerIcon.svg">
@@ -386,7 +386,7 @@ try {
                 -->
             </div>
           </div>
-          <p>Point Of View</p>
+          <p><?php echo getLanguage("Point De Vue","Point Of View");?></p>
         </div>
       </div>
 
