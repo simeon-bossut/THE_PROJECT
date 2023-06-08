@@ -223,6 +223,10 @@ bool *generate_level_cache(Grid *grid,
                                            // *diff la valeur int du cache
 {
   int size = grid->size;
+  if (difficulty == 3)
+  {
+      sub_difficulty += 3;
+  }
   int size_cache = size * (size + 4);
   bool *cache = malloc(sizeof(bool) * size_cache);
   if (cache == NULL) {
@@ -296,25 +300,25 @@ bool *generate_level_cache(Grid *grid,
   }
 
   // Si le solveur marche, on a fini !) (presque)
-  if (difficulty == 2) {
+  //if (difficulty == 2) {
 
-    for (int i = 0; i < size - 2; ++i) {
-      do {
-        random = rand() % (size * (4 + size));
-      } while (cache[random] == 1);
-      cache[random] = 1;
+    //for (int i = 0; i < size - 2; ++i) {
+    //  do {
+    //    random = rand() % (size * (4 + size));
+    //  } while (cache[random] == 1);
+    //  cache[random] = 1;
 
-      if (random < size * size) // travail sur le cache de la grille(int**)
-      {
-        tmp->tab[random / size][random % size] =
-            grid->tab[random / size][random % size];
-      } else if (random <
-                 size * (size + 4)) // travail( sur les observateurs(int *)
-      {
-        tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
-      }
-    }
-  }
+    //  if (random < size * size) // travail sur le cache de la grille(int**)
+    //  {
+    //    tmp->tab[random / size][random % size] =
+    //        grid->tab[random / size][random % size];
+    //  } else if (random <
+    //             size * (size + 4)) // travail( sur les observateurs(int *)
+    //  {
+    //    tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
+    //  }
+    //}
+ // }
   free_grid(tmp);
   return cache;
 }
@@ -368,7 +372,7 @@ char *create_seed(int difficulty, int dim) {
             grid->tab[random / dim][random % dim];
     }
   } else { // difficulte 2 ou 3
-    cache = generate_level_cache(grid, difficulty,5);
+    cache = generate_level_cache(grid, difficulty,4);
   }
   char* seed_ = sub_level_to_seed(grid, cache);
   free(grid);
