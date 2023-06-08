@@ -28,13 +28,15 @@ int main(int argc, char *argv[]) {
    int dim = 4;
 
   //int action = atoi(argv[2]);
-   int action = 1;
+   int action = 2;
 
-  Grid *grid=NULL;
-
+  
+  char tab[22] = "231132212212000020100";
+  tab[21] = '\0';
+  Grid* grid=read_grid(tab,3);
   // Get a grid with missing elements
   if (action == 1) {
-    int difficulty = 4;//atoi(argv[3]);
+    int difficulty = atoi(argv[3]);
     char *seed_;
     seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);
@@ -43,11 +45,15 @@ int main(int argc, char *argv[]) {
 
   // Get a clue
   else if (action == 2) {
-     grid = read_grid(argv[3], dim);
+     //grid = read_grid(argv[3], dim);
      
+     printgrid(grid);
      int ind= indice(grid,1);
-    
+     printgrid(grid);
+     
      push_to_php(grid);
+
+     
   }
 
   // Get a complete grid

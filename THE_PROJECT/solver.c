@@ -342,7 +342,9 @@ bool check_latin(Grid *grid) {
 }
 
 int easy_resolve(GhostGrid *gridf, Grid *gridj) {
+
   Rule2(*gridf, *gridj);
+;
   do {
    
     fill_loners(gridj, *gridf);
@@ -384,8 +386,7 @@ int hypothesis(GhostGrid *gridf, Grid *gridj, int poss, StockSoluce *Stock,
 {
   int valid = easy_resolve(gridf, gridj); // resoud le maximum possible sans
                                           // théorie 
-  /*printgrid(gridj);
-  printgrid_Ghost(gridf);*/
+
   if ((valid == -1) || (checkup(gridj) == false)) {
     return 0;
   }
@@ -522,7 +523,7 @@ int analyse2_col(int side, int pos, GhostGrid gridf, Grid gridj) {
       }
     }
 
-    int val1 = gridj.tab[size - 1][pos]; // valeur en première positionc
+    int val1 = gridj.tab[size - 1][size-1-pos]; // valeur en première positionc
     if (val1 == 0) {
       return 0;
     }
@@ -760,12 +761,13 @@ bool indice(Grid* grid,int nb_hints)
     if(subcrate_solver(sol, true, false)==1)
     {
         int random;
+        printgrid(sol);
             for (int i = 0;i < nb_hints;++i)
             {
                 do {
                     random = rand() % (size * size);
                 } while (grid->tab[random / size][random % size] != 0);
-                        grid->tab[random] = sol->tab[random];
+                grid->tab[random / size][random % size] = sol->tab[random / size][random % size];
             }
 
     }
