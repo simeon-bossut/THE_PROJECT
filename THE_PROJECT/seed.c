@@ -219,7 +219,7 @@ int booltab_to_int(bool *tab, int size_cache) {
 }
 
 bool *generate_level_cache(Grid *grid,
-                           int difficulty) // cree un niveau et stocke dans
+                           int difficulty,int sub_difficulty) // cree un niveau et stocke dans
                                            // *diff la valeur int du cache
 {
   int size = grid->size;
@@ -242,42 +242,57 @@ bool *generate_level_cache(Grid *grid,
 
 
   for (int i = 0; i < size + 1; ++i) {
-    do {
-      rand_tab = rand() % 3;
-      random = rand() % (size * (4 + size));
+      do {
+          rand_tab = rand() % sub_difficulty;
+          if (rand_tab != 0)
+          {
+              random = rand() % (size * 4);
+          }
+          else
+          {
+              random = rand() % (size * size);
+          }
 
-    } while (cache[random] == 1);//(rand_tab==0)&&cache[]
-    cache[random] = 1;
-    if (random < size * size) // travail sur le cache de la grille(int**)
-    {
-      tmp->tab[random / size][random % size] =
-          grid->tab[random / size][random % size];
-    } else if (random <
-               size * (size + 4)) // travail( sur les observateurs(int *)
-    {
-      tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
-    }
+      } while (((rand_tab != 0) && ((grid->obv[random] == size) || (cache[random + size * size] == 1))) || (((rand_tab == 0) && (cache[random] == 1))));//cache[random] == 1
+
+      if (rand_tab != 0)
+      {
+          cache[size * size + random] = 1; // emplacement mais cela ne pose pas vraiment de probleme
+          tmp->obv[random] = grid->obv[random];
+      }
+      else
+      {
+          cache[random] = 1;
+          tmp->tab[random / size][random % size] =
+              grid->tab[random / size][random % size];
+      }
   }
-
   while (unique_solution(tmp) !=
          1) { // tant que solveur ne marche pas (Pas 1 solution)
+      do {
+          rand_tab = rand() % 3;
+          if (rand_tab == 0)
+          {
+              random = rand() % (size * 4);
+          }
+          else
+          {
+              random = rand() % (size * size);
+          }
 
-    do {
-      random = rand() % (size * (4 + size));
+      } while (((rand_tab == 0) && ((grid->obv[random] == size)||(cache[random + size * size] == 1))) || (((rand_tab == 1) && (cache[random] == 1))));
 
-    } while ((
-        cache[random] ==  1)); // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
-    cache[random] = 1; // emplacement mais cela ne pose pas vraiment de probleme
-
-    if (random < size * size) // travail sur le cache de la grille(int**)
-    {
-      tmp->tab[random / size][random % size] =
-          grid->tab[random / size][random % size];
-    } else if (random <
-               size * (size + 4)) // travail( sur les observateurs(int *)
-    {
-      tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
-    }
+      if (rand_tab == 0)
+      {
+          cache[size*size+random] = 1; // emplacement mais cela ne pose pas vraiment de probleme
+          tmp->obv[random] = grid->obv[random];
+      }
+      else
+      {
+          cache[random] = 1;
+          tmp->tab[random / size][random % size] =
+              grid->tab[random / size][random % size];
+      }
   }
 
   // Si le solveur marche, on a fini !) (presque)
@@ -309,8 +324,10 @@ char *create_seed(int difficulty, int dim) {
   Grid *grid = initgrid(dim);
   generateGrid(grid); // génère une solution
   bool *cache;
+  int random;
   if (difficulty < 2) { // difficulte 0 ou 1
     cache = (bool *)malloc(sizeof(bool) * dim * (dim + 4));
+    Grid* tmp=initgrid(dim);
     if (cache == NULL) {
       return NULL;
     }
@@ -322,16 +339,36 @@ char *create_seed(int difficulty, int dim) {
     }
     if (difficulty == 0) // si tres facile, onj ajoute aussi n-1 information
     {
-      int random;
+      
       for (int i = 0; i < dim - 1; ++i) {
         do {
           random = rand() % (dim * dim);
         } while (cache[random] == true); //???
         cache[random] = true;
+        tmp->tab[random / dim][random % dim] =
+            grid->tab[random / dim][random % dim];
+
       }
     }
+    for (int i = 0;i < 4 * dim;++i)
+    {
+        tmp->obv[i] = grid->obv[i];
+    }
+    while (unique_solution(tmp) !=
+        1) { // tant que solveur ne marche pas (Pas 1 solution)
+        do {
+           
+          
+                random = rand() % (dim * dim);
+           
+        } while (cache[random] == true);
+
+        cache[random] = true;
+        tmp->tab[random / dim][random % dim] =
+            grid->tab[random / dim][random % dim];
+    }
   } else { // difficulte 2 ou 3
-    cache = generate_level_cache(grid, difficulty);
+    cache = generate_level_cache(grid, difficulty,5);
   }
   char* seed_ = sub_level_to_seed(grid, cache);
   return seed_;
