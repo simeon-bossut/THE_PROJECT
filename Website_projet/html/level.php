@@ -51,24 +51,19 @@ else {
     $name = $_COOKIE['CON_gridName'];
 
   $grid = $_COOKIE['CON_grid'];
-  
-  var_dump($grid);
 
   $result;
   exec("cd ../../THE_PROJECT/ && main.exe $size 4 $grid", $result);
-
-  var_dump($result);
 
   if(isset($result) && isset($grid) && !empty($result)&& isset($_SESSION['email']) && $result[0] == "possible") {
 
     $seed;
     exec("cd ../../THE_PROJECT/ && main.exe $size 5 $grid", $seed);
 
-    var_dump($seed);
 
     setcookie("CON_grid", $size.$grid, time() + 365*24*60*60, '/');
 
-    //request("INSERT INTO `level`(`email`, `id`, `nom`, `seed`, `dim`) VALUES ('?', NULL,'?','?','?')", true, array($_SESSION['email'], $name, $seed[0], $size));
+    request("INSERT INTO `level`(`email`, `id`, `nom`, `seed`, `dim`) VALUES (?, NULL,?,?,?)", true, array($_SESSION['email'], $name, $seed[0], $size));
 
     setcookie("CON_message", "Grid saved !", time() + 365*24*60*60, '/');
   }
@@ -112,11 +107,14 @@ else {
       <div class="completePopup">
         <div class="name-popup"> 
         
-          <label class="savetext"> <?php echo getLanguage("Veuillez nommé votre sauvegade","Please name your save");  ?> </label>
+          <label class="savetext"> <?php echo getLanguage("Veuillez nommer votre niveau","Please name your level");  ?> </label>
         
-          <input class="field_class" name="login" type="text" placeholder="<?php  echo getLanguage("nom","name");  ?>" autofocus>
+          <input class="field_class" type="text" placeholder="<?php  echo getLanguage("Nom du niveau","Name of the level");  ?>" autofocus value="">
 
-          <button class="popupBtn">Save</button>
+          <div class="buttonsPopup">
+            <button class="popupBtn" onclick="saveGrid()">Save</button>
+            <button class="popupBtn" onclick="openSaveScreen()">Cancel</button>
+          </div>
         </div>
       </div>
 
@@ -124,7 +122,7 @@ else {
         <div id="mainPlate"></div>
         <div class="messageBox">No information</div>
         <div class="">
-        <button onclick="saveGrid()" onclick="openForm()" name="save_button">Save your grid</button>
+        <button onclick="openSaveScreen()" name="save_button">Save your grid</button>
         </div> 
         
       </div>
@@ -187,9 +185,8 @@ else {
               <th></th>
             </tr>";
 
-      if(!isset($resultat) || !$resultat || count($resultat) == 0) {
+      if(!isset($resultat[0]) || !$resultat || count($resultat) == 0) {
         echo `<tr><td rowspan="4">No grid saved yet</td></tr>`;
-        var_dump($resultat);
       }
       foreach ($resultat as $row) {
         echo "
@@ -197,7 +194,7 @@ else {
             <td>$row[nom]</td>
             <td>$row[dim]</td>
             <td>$row[seed]</td>
-            <td><a href='home.php?seed=$row[seed]'>Jouer</a></td>
+            <td><a href='home.php?seed=$row[seed]'>Play</a></td>
         </tr>";
         }
       echo "</table>";
@@ -216,15 +213,6 @@ else {
 	<?php include("footer.php"); ?>
 	
 </body>
-
-<script>  
-
-function openForm() {
-  document.querySelector(".completePopup").classList.toggle("opened");
-} 
-    
-</script>
-
 
 
 <script src="conceptor.js">
