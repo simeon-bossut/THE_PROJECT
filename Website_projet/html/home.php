@@ -65,6 +65,9 @@ try {
     setcookie("diff", "0", time() + 365 * 24 * 60 * 60, '/');
   }
 
+
+
+
   // If user started a new grid (action 1)
   if (!isset($_COOKIE["grid"])) {
     setcookie("diff", "0", time() + 365 * 24 * 60 * 60, '/');
@@ -84,52 +87,130 @@ try {
 
     exec("cd ../../THE_PROJECT/ && main.exe $size 1 $diff", $newGrid);
 
-    if (!isset($newGrid) || empty($newGrid) || !$newGrid) {
-      //var_dump("ddz");
-      setcookie("grid", $_COOKIE["grid"], time() + 365 * 24 * 60 * 60, '/');
+    if(!isset($newGrid) || empty($newGrid) || !$newGrid) {
+      $playerGrid = $_COOKIE["grid"];
+      $playerGrid = str_split($playerGrid);
+      array_splice($playerGrid, 1 + $size*4);
+      $str = "";
+      
+      for($i = 0; $i < $size**2; $i++) {
+        $str = $str."0";
+      }
+      
+      $playerGrid = join($playerGrid).$str;
+
+      setcookie("grid", $playerGrid, time() + 365*24*60*60, '/');
+      setcookie("gridClue", $_COOKIE["grid"], time() + 365*24*60*60, '/');
       //setcookie("originGrid", $_COOKIE["grid"], time() + 365*24*60*60, '/');
-    } else {
-      //var_dump("dz");
-      setcookie("grid", $newGrid[0], time() + 365 * 24 * 60 * 60, '/');
+    }
+
+    else {
+      $playerGrid = $newGrid[0];
+      $playerGrid = str_split($playerGrid);
+      array_splice($playerGrid, 1 + $size*4);
+      $str = "";
+      
+      for($i = 0; $i < $size**2; $i++) {
+        $str = $str."0";
+      }
+      
+      $playerGrid = join($playerGrid).$str;
+      setcookie("grid", $playerGrid, time() + 365*24*60*60, '/');
+      setcookie("gridClue", $newGrid[0], time() + 365*24*60*60, '/');
       //setcookie("originGrid", $newGrid[0], time() + 365*24*60*60, '/');
     }
   }
 
+
+
+  
+
   // If user asked for a clue (action 2)
-  else {
+  else if(!str_contains($_COOKIE['grid'], "-")) {
     $size;
     if (!isset($_COOKIE['dim']))
       $size = 3;
     else
       $size = $_COOKIE['dim'];
 
-    $diff;
-    if (!isset($_COOKIE['diff']))
-      $diff = 0;
+    $Grid;
+
+    // var_dump($_COOKIE["gridClue"]);
+
+    if(!isset($_COOKIE['gridClue']))
+      $Grid = "3321123221123000000000";
     else
-      $diff = $_COOKIE['diff'];
+      $Grid = $_COOKIE['gridClue'];
+
+    $Grid = str_split($Grid);
+    $Grid = join(array_splice($Grid, 1));
 
     $gridClue;
 
-    exec("cd ../../THE_PROJECT/ && main.exe $size 2 $diff", $gridClue);
+    // do {
 
-    $gridClue = array("3321123221123003000000");
+      $gridClue = null;
 
-    if (!isset($gridClue) || empty($gridClue) || !$gridClue) {
-      $str = "";
-      for ($i = 0; $i < $size ** 2; $i++) {
-        $str = $str . "0";
+      exec("cd ../../THE_PROJECT/ && main.exe $size 2 $Grid", $gridClue);
+
+      if(!isset($gridClue) || empty($gridClue) || !$gridClue) {
+        $str = "";
+        for($i = 0; $i < $size**2; $i++) {
+          $str = $str."0";
+        }
+
+        $gridClue = array($str);
       }
 
-      $gridClue = $str;
-    } else {
-      $gridClue = str_split($gridClue[0]);
-      array_splice($gridClue, 0, $size * 4 + 1);
-      $gridClue = join($gridClue);
-    }
+      $gridClue[0] = str_split($gridClue[0]);
+
+      foreach($gridClue[0] as $key=>$val) {
+        if(str_split($_COOKIE['gridClue'])[$key] != $val && str_split($_COOKIE['gridClue'])[$key] != 0) {
+          $gridClue[0][$key] = str_split($_COOKIE['gridClue'])[$key];
+        }
+      }
+    // } while(join($gridClue[0]) == $_COOKIE['gridClue']);
+
+    $gridClue = join($gridClue[0]);
 
     setcookie("gridClue", $gridClue, time() + 356 * 24 * 60 * 60, '/');
   }
+
+  // IF USER WANTS THE SOLUTION (action 3)
+  else {
+    $solution;
+
+    $size;
+    if (!isset($_COOKIE['dim']))
+      $size = 3;
+    else
+      $size = $_COOKIE['dim'];
+
+    if(!isset($_COOKIE['gridClue']))
+      $Grid = "3321123221123000000000";
+    else
+      $Grid = $_COOKIE['gridClue'];
+
+    $Grid = str_split($Grid);
+    $Grid = join(array_splice($Grid, 1));
+
+    exec("cd ../../THE_PROJECT/ && main.exe $size 3 $Grid", $solution);
+
+    if(!isset($solution) || empty($solution) || !$solution) {
+      $str = "";
+      for($i = 0; $i < $size**2; $i++) {
+        $str = $str."0";
+      }
+
+      $solution = array($str);
+    }
+
+    $solution = $solution[0];
+
+    setcookie("gridClue", $solution, time() + 356 * 24 * 60 * 60, '/');
+  }
+
+
 } catch (Exception $e) {
   die("Erreur : " . $e->getMessage());
 }
@@ -219,7 +300,7 @@ try {
       <div class="victoryScreen">
         <div class="victoryBox">
 
-          <div class="victoryTitle">Victory</div>
+          <div class="victoryTitle"><?php echo getLanguage("Victoire","Victory");?></div>
           <div class="victoryInfo">
             <div class="victoryInfoContent" id="timerVictory">
               <img src="../Images/timerIcon.svg">
@@ -243,7 +324,6 @@ try {
           <div class="victoryInfo">
             <form class="form" action="" method="post">
               <button class="victoryRefreshButton" name="restart" onclick="onclickGenerate()">New Grid</button>
-              <button class="victoryRefreshButton" name="restart" onclick="restartGrid()">Restart</button>
             </form>
           </div>
         </div>
@@ -289,8 +369,6 @@ try {
           </div>
 
           <button onclick="onclickGenerate()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
-
-          <button onclick="restartGrid()" class="skinButton"><?php echo getLanguage("RECOMMENCER", "RESTART");  ?></button>
         </div>
       </div>
 
@@ -308,7 +386,7 @@ try {
                 -->
             </div>
           </div>
-          <p>Point Of View</p>
+          <p><?php echo getLanguage("Point De Vue","Point Of View");?></p>
         </div>
       </div>
 

@@ -57,14 +57,14 @@ int crate_solver(Grid* adgridj);//renvoie le nombre de solutions
 void fill_ghost(GhostGrid gridf, Grid gridj);
 int maj_ghost(GhostGrid gridf, Grid gridj);
 int fill_loners(Grid* gridj, GhostGrid gridf);
-bool hypothesis(GhostGrid* gridf, Grid* gridj, int poss,StockSoluce*Stock, bool first_sol,bool validity);
+int hypothesis(GhostGrid* gridf, Grid* gridj, int poss,StockSoluce*Stock, bool first_sol,bool validity);
 int Rule2(GhostGrid gridf, Grid gridj);
 int check_loners(GhostGrid* gridf, Grid* gridj);
 bool unique_solution(Grid* grid);
 int subcrate_solver(Grid* gridj, bool first_sol, bool validity);
 //Solver end
 
-void indice(Grid* grid, int nb_hints);
+bool indice(Grid* grid, int nb_hints);
 Grid* copy_grid(Grid* grid);
 
 //Free start
