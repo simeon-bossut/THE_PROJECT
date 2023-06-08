@@ -270,7 +270,7 @@ bool *generate_level_cache(Grid *grid,
   while (unique_solution(tmp) !=
          1) { // tant que solveur ne marche pas (Pas 1 solution)
       do {
-          rand_tab = rand() % 3;
+          rand_tab = rand() % sub_difficulty;
           if (rand_tab == 0)
           {
               random = rand() % (size * 4);
@@ -280,9 +280,9 @@ bool *generate_level_cache(Grid *grid,
               random = rand() % (size * size);
           }
 
-      } while (((rand_tab == 0) && ((grid->obv[random] == size)||(cache[random + size * size] == 1))) || (((rand_tab == 1) && (cache[random] == 1))));
+      } while (((rand_tab != 0) && ((grid->obv[random] == size)||(cache[random + size * size] == 1))) || (((rand_tab == 0) && (cache[random] == 1))));
 
-      if (rand_tab == 0)
+      if (rand_tab != 0)
       {
           cache[size*size+random] = 1; // emplacement mais cela ne pose pas vraiment de probleme
           tmp->obv[random] = grid->obv[random];
