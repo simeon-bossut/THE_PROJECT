@@ -18,25 +18,25 @@ function getElemByCoord(x, y) {
   return element;
 }
 
+function createStringGrid(dim, obs, crates) {
 
-function exportGrid() {
-  var exportTab = []; 
+  var string = "" + dim;
 
-  for(let i = 0; i < tabDim; i++) {
+  obs.forEach(obss => {
+    let value = obss.childNodes[0].textContent;
+    if(value == "" || obss.classList.contains("invCrate"))
+      value = "0";
+    string += value == "" ? "0" : value;
+  });
+  crates.forEach(crate => {
+    let value = crate.textContent;
+    if(value == "" || crate.classList.contains("invCrate"))
+      value = "0";
+    string += value;
+  }); 
 
-  }
+  return string;
 }
-
-
-
-const listKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space', 'Enter'];
-
-window.addEventListener('keydown', e => {
-  if (listKeys.includes(e.code))
-    e.preventDefault();
-})
-
-
 
 function changeCrates(number) {
   let num = number.textContent;
@@ -369,6 +369,7 @@ function generateAutoGrid() {
 
     addEventListeners();
 
+    setCookie("CON_grid", "", 0);
   }
 
   else {
@@ -405,5 +406,23 @@ function generateAutoGrid() {
 
 }
 
+function saveGrid() {
+  let crates = document.querySelectorAll(".cratePlace");
+  let obss = document.querySelectorAll(".obs");
+
+  let difficulty = document.querySelector('[name="difficulty"]:checked').value;
+  let size = document.querySelector('[name="sizeGrid"]:checked').value;
+
+  setCookie("CON_dim",  size,       365);
+  setCookie("CON_diff", difficulty, 365);
+
+  let stringTab = createStringGrid("", obss, crates);
+
+  setCookie("CON_grid", difficulty, 365);
+
+  console.log(stringTab)
+
+  // document.location.reload();
+}
 
 generateAutoGrid();

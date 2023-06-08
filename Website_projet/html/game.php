@@ -9,6 +9,8 @@ var viewSet = document.querySelector('#povBoxContent');
 
 var moves = 0;
 
+var cluesCount = 0;
+
 
 var timeStart = null;
 var newGrid = false;
@@ -182,7 +184,7 @@ function displayVictoryScreen() {
 
   let diffCoeff = [50, 80, 140, 220];
 
-  let tabDimArr = (tabDim**2)*100;
+  let tabDimArr = ((tabDim**2) - cluesCount)*100;
 
   let score = Math.round((tabDimArr * diffCoeff[document.querySelector('select[name="difficulty"]').value]) / ((Math.round(totalTime / 1000) + 20) * moves / 50));
 
@@ -314,6 +316,8 @@ function checkVictory() {
 // Display a clue on grid
 function revealClue(dim) {
 
+  cluesCount = 0;
+
   let clues = getCookie('gridClue');
 
   if(clues == "") {
@@ -328,12 +332,18 @@ function revealClue(dim) {
   }
 
   document.querySelectorAll(".cratePlace").forEach((crate, index) => {
-    if(clues[index] != 0) {
+    if(clues[index] != '0') {
       crate.classList.add('crateLocked');
-      crate.textContent = clues[index];
-      crateTab[index] = clues[index];
+      crate.textContent = Number(clues[index]);
+      crateTab[index] = Number(clues[index]);
+      cluesCount++;
     }
   })
+
+  if(cluesCount == tabDim**2) {
+    timeStart = null;
+    newGrid = false;
+  }
 /*
   let clueCookie = getCookie("gridClue");
 
@@ -1070,6 +1080,9 @@ initMainPlate();
 
 document.querySelector('.clueButton').onclick = (e) => {
 
+  if(!timeStart && !newGrid)
+    return;
+
   let str  = "";
   let str2 = "";
   document.querySelectorAll(".cratePlace").forEach((elem, index) => {
@@ -1099,6 +1112,9 @@ document.querySelector('.clueButton').onclick = (e) => {
 
 
 document.querySelector('.solutionButton').onclick = (e) => {
+
+  if(!timeStart && !newGrid)
+    return;
 
   let str  = "";
   let str2 = "";

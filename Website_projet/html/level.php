@@ -7,6 +7,8 @@ include("request.php");
 
 <?php
 
+
+// User generates a grid
 if(!isset($_COOKIE['CON_grid'])) {
   $newGrid;
 
@@ -24,15 +26,57 @@ if(!isset($_COOKIE['CON_grid'])) {
 
   exec("cd ../../THE_PROJECT/ && main.exe $size 1 $diff", $newGrid);
 
-  // $newGrid = $newGrid[0];
-  // $newGrid = str_split($newGrid);
-  // array_splice($newGrid, 0, 1);
+  // $newGrid = array_splice(str_split($newGrid[0]), 0, 1);
   // $newGrid = join($newGrid);
 
   // exec("cd ../../THE_PROJECT/ && main.exe $size 3 $newGrid", $newGrid);
 
   setcookie("CON_grid", $newGrid[0], time() + 365*24*60*60, '/');
 
+}
+
+// If user saves his grid
+else {
+
+  $size;
+  if (!isset($_COOKIE['CON_dim']))
+    $size = 3;
+  else
+    $size = $_COOKIE['CON_dim'];
+
+  $name;
+  if (!isset($_COOKIE['CON_gridName']))
+    $name = 0;
+  else
+    $name = $_COOKIE['CON_gridName'];
+
+  $grid = $_COOKIE['CON_grid'];
+  
+  $result;
+  exec("cd ../../THE_PROJECT/ && main.exe $size 4 $grid", $result);
+
+  var_dump($result);
+
+  if(isset($result) && isset($grid) && !empty($result)&& isset($_SESSION['email']) && $result[0] == "possible") {
+
+    $seed;
+    exec("cd ../../THE_PROJECT/ && main.exe $size 5 $grid", $seed);
+
+    setcookie("CON_grid", $size.$grid, time() + 365*24*60*60, '/');
+
+    request("INSERT INTO `level`(`email`, `id`, `nom`, `seed`, `dim`) VALUES ('?', NULL,'?','?','?')", true, array($_SESSION['email'], $name, $seed, $size));
+
+    setcookie("CON_message", "Grid saved !", time() + 365*24*60*60, '/');
+  }
+
+  else {
+
+    setcookie("CON_grid", $size.$grid, time() + 365*24*60*60, '/');
+
+    setcookie("CON_message", "An error occured", time() + 365*24*60*60, '/');
+
+  }
+  
 }
 
 ?>
@@ -64,7 +108,7 @@ if(!isset($_COOKIE['CON_grid'])) {
       <div class="plateBox">
         <div id="mainPlate"></div>
         <div class="messageBox">No information</div>
-        <button>Save your grid</button>
+        <button onclick="saveGrid()">Save your grid</button>
       </div>
 
       <div class="tools">
