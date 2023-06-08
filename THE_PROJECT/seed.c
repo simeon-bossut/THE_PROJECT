@@ -229,6 +229,7 @@ bool *generate_level_cache(Grid *grid,
     return 0;
   }
   int random = 0;
+  int rand_tab = 1;
   Grid *tmp = initgrid(size);
   if (tmp == NULL) {
     return 0;
@@ -238,11 +239,14 @@ bool *generate_level_cache(Grid *grid,
 
     cache[i] = 0; // intit du tableau a 0 ???
   }
+
+
   for (int i = 0; i < size + 1; ++i) {
     do {
+      rand_tab = rand() % 3;
       random = rand() % (size * (4 + size));
 
-    } while (cache[random] == 1);
+    } while (cache[random] == 1);//(rand_tab==0)&&cache[]
     cache[random] = 1;
     if (random < size * size) // travail sur le cache de la grille(int**)
     {
@@ -261,9 +265,8 @@ bool *generate_level_cache(Grid *grid,
     do {
       random = rand() % (size * (4 + size));
 
-    } while (
-        cache[random] ==
-        1); // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
+    } while ((
+        cache[random] ==  1)); // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
     cache[random] = 1; // emplacement mais cela ne pose pas vraiment de probleme
 
     if (random < size * size) // travail sur le cache de la grille(int**)
@@ -593,7 +596,8 @@ char *sub_level_to_seed(Grid *grid, bool *cache) {
 
   free(line);
   free(cache);
-  free(grid);
+  free(grid->obv);
+  free_tab(grid->tab, grid->size);
   return SEED;
 }
 
