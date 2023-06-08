@@ -414,6 +414,10 @@ function generateAutoGrid() {
   }
 }
 
+function openSaveScreen() {
+  document.querySelector(".completePopup").classList.toggle("opened");
+}
+
 function saveGrid() {
   let crates = document.querySelectorAll(".cratePlace");
   let obss = document.querySelectorAll(".obs");
@@ -427,10 +431,9 @@ function saveGrid() {
   let stringTab = createStringGrid(size, obss, crates);
 
   setCookie("CON_grid", stringTab, 365);
+  setCookie("CON_gridName", document.querySelector("input.field_class").value, 365);
 
-  console.log(stringTab)
-
-  // document.location.reload();
+  document.location.reload();
 }
 
 generateAutoGrid();

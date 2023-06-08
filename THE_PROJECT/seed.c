@@ -665,7 +665,7 @@ char *level_to_seed(Grid *grid) {
   }
   printf("\n\n");*/
   if (subcrate_solver(grid, 0, 1) == 1) {
-      printgrid(grid);
+    // printgrid(grid);
     return sub_level_to_seed(grid, cache);
   }
   return NULL;

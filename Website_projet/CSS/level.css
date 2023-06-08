@@ -80,10 +80,15 @@ header {
   font-family: 'Kanit', sans-serif;
   font-size: 25px;
   margin: 10px;
+  cursor: pointer;
   color: #ffe6cd;
 }
 
-
+.buttonsPopup {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
 
 h1 {
   font-family: 'Londrina Sketch', cursive;
@@ -694,13 +699,37 @@ div[id^="crate"]{
   height: 50%;
   margin: 40px;
   border-radius: 8px;
-  background-color: white;
-  box-shadow: 10px 10px #232323;
+  background-color: #ffe6cd;
+  border: 3px solid #964b00;
+  padding: 20px;
+  box-shadow: 10px 10px #341900;
   font-family: "Kanit", sans-serif;
+
+  color: black;
+}
+
+.myLevel a {
+  width: 100%;
+  /* height: 69%; */
+  line-height: 40px;
+  background-color: #964b00;
+  box-shadow: 5px 5px #341900;
+  display: block;
+  border-radius: 10px;
+  color: #ffe6cd;
+  text-decoration: none;
+}
+
+.myLevel table tbody th {
+  font-size: 20px;
+  text-align: center;
+  line-height: 50px;
 }
 
 .myLevel table tbody tr td {
-text-align: center;
+  font-size: 18px;
+  text-align: center;
+  line-height: 50px;
 }
 
 .obs.invCrate {

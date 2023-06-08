@@ -68,12 +68,16 @@ try {
 
 
   if(isset($_GET['seed'])) {
+    $newGrid;
 
-    $playerGrid = $_GET["grid"];
+    exec("cd ../../THE_PROJECT/ && main.exe 0 6 $_GET[seed]", $seedGrid);
 
-    
+    $seedGrid = $seedGrid[0];
 
-    $playerGrid = str_split($playerGrid);
+    $size = str_split($seedGrid[0])[0];
+
+    $playerGrid = str_split($seedGrid);
+
     array_splice($playerGrid, 1 + $size*4);
     $str = "";
     
@@ -84,7 +88,7 @@ try {
     $playerGrid = join($playerGrid).$str;
 
     setcookie("grid", $playerGrid, time() + 365*24*60*60, '/');
-    setcookie("gridClue", $_COOKIE["grid"], time() + 365*24*60*60, '/');
+    setcookie("gridClue", $seedGrid, time() + 365*24*60*60, '/');
 
   }
 
@@ -389,8 +393,6 @@ try {
           </div>
 
           <button onclick="onclickGenerate()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
-
-          <button onclick="restartGrid()" class="skinButton"><?php echo getLanguage("RECOMMENCER", "RESTART");  ?></button>
         </div>
       </div>
 

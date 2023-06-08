@@ -65,6 +65,13 @@ int main(int argc, char *argv[]) {
     seed_ = level_to_seed(grid);
     printf("%s\n", seed_);
   }
+
+  else if(action == 6) {
+    char *seed_ = argv[3];
+    grid = read_seed(seed_);
+    push_to_php(grid);
+  }
+  
   /*
 
   srand(time(NULL));
