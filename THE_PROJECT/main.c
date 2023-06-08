@@ -24,17 +24,15 @@ int main(int argc, char *argv[]) {
   //  return EXIT_SUCCESS;
   //}
 
-  //int dim = atoi(argv[1]);
-   int dim = 4;
+  int dim = atoi(argv[1]);
 
-  //int action = atoi(argv[2]);
-   int action = 1;
+  int action = atoi(argv[2]);
 
   Grid *grid=NULL;
 
   // Get a grid with missing elements
   if (action == 1) {
-    int difficulty = 4;//atoi(argv[3]);
+    int difficulty = atoi(argv[3]);
     char *seed_;
     seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);

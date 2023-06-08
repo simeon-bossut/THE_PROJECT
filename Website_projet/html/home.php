@@ -324,7 +324,6 @@ try {
           <div class="victoryInfo">
             <form class="form" action="" method="post">
               <button class="victoryRefreshButton" name="restart" onclick="onclickGenerate()">New Grid</button>
-              <button class="victoryRefreshButton" name="restart" onclick="restartGrid()">Restart</button>
             </form>
           </div>
         </div>
@@ -370,8 +369,6 @@ try {
           </div>
 
           <button onclick="onclickGenerate()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
-
-          <button onclick="restartGrid()" class="skinButton"><?php echo getLanguage("RECOMMENCER", "RESTART");  ?></button>
         </div>
       </div>
 
