@@ -446,6 +446,29 @@ nav {
   transform: scale(1.05);
 }
 
+#mainPlate .solutionButton {
+  width: 80%;
+  height: 80%;
+
+  border: 2px solid black;
+  border-radius: 10px;
+
+  background-image: url("../Images/revealGrid.png");
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  transition: transform .2s;
+
+  filter: invert(1);
+}
+
+#mainPlate .solutionButton:hover {
+  cursor: pointer;
+  
+  transform: scale(1.05);
+}
+
 #mainPlate .obsText {
   width: 100%;
   height: 83%;
@@ -781,6 +804,10 @@ select {
   filter: grayscale(1);
 }
 
+.crateHint{
+  filter: hue-rotate(75deg);
+}
+
 .victoryScreen {
   width: 100%;
   height: 0%;
@@ -854,7 +881,7 @@ select {
 }
 
 .victoryRefreshButton {
-  width: 50%;
+  width: 40%;
   cursor: pointer;
   max-width: 225px;
   display: flex;
@@ -870,6 +897,12 @@ select {
   border-radius: 10px;
   box-shadow: 5px 5px 0px 0px black;
   background-color: #964b00;
+
+  transition: box-shadow .2s ease-in-out;
+}
+
+.victoryRefreshButton:hover {
+  box-shadow: none;
 }
 
 .victoryInfoContent {
@@ -907,6 +940,19 @@ select {
   
 }
 
+
+form, input[name="clue"] {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  font-size: 1px;
+}
 
 .popup {
   /*! background-color: #ffe6cd; */

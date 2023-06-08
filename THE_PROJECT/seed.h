@@ -25,6 +25,10 @@ bool* generate_level_cache(Grid*grid, int difficulty);
 
 void push_to_php(Grid* grid);
 
+char* level_to_seed(Grid* grid);
+
+char* sub_level_to_seed(Grid* grid, bool* cache);
+
 
 
 

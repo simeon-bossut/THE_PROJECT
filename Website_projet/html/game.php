@@ -9,6 +9,8 @@ var viewSet = document.querySelector('#povBoxContent');
 
 var moves = 0;
 
+var cluesCount = 0;
+
 
 var timeStart = null;
 var newGrid = false;
@@ -18,6 +20,7 @@ var tabDim = document.querySelector('select[name="size"]').value;
 
 var obsTab;
 var crateTab; // = [4, 1, 3, 2, 1, 2, 4, 3, 2, 3, 1, 4, 3, 4, 2, 0];
+var crateTabClue;
 
 
 
@@ -140,6 +143,27 @@ class Character {
   }
 }
 
+
+function convertStringIntoGrid(str) {
+
+  let dim = Number(str[0]);
+
+  let obs = [];
+  let crate = [];
+
+  for(let i = 0; i < dim * 4; i++) {
+    obs.push(Number(str[1 + i]));
+  }
+
+  for(let i = 0; i < dim**2; i++) {
+    crate.push(Number(str[i + 1 + dim*4]));
+  }
+
+  return [dim, obs, crate];
+
+}
+
+
 function displayVictoryScreen() {
   document.querySelector(".victoryScreen").classList.add('opened');
 
@@ -160,11 +184,12 @@ function displayVictoryScreen() {
 
   let diffCoeff = [50, 80, 140, 220];
 
-  let tabDimArr = (tabDim**2)*100;
+  let tabDimArr = ((tabDim**2) - cluesCount)*100;
 
   let score = Math.round((tabDimArr * diffCoeff[document.querySelector('select[name="difficulty"]').value]) / ((Math.round(totalTime / 1000) + 20) * moves / 50));
 
   document.querySelector("#xpVictory span").textContent = score;
+  document.cookie = "score_player="+score; 
 
   timeStart = null;
 }
@@ -220,11 +245,11 @@ function checkVictory() {
       }
     }
 
-    if(obsTab[i] != nbStack2) {
+    if(obsTab[i] != 0 && obsTab[i] != nbStack2) {
       return false;
     }
 
-    if(obsTab[tabDim*4 - 1 - i] != nbStack1) {
+    if(obsTab[tabDim*4 - 1 - i] != 0 && obsTab[tabDim*4 - 1 - i] != nbStack1) {
       return false;
     }
   }
@@ -272,11 +297,11 @@ function checkVictory() {
       }
     }
 
-    if(obsTab[i + tabDim] != nbStack1) {
+    if(obsTab[i + tabDim] != 0 && obsTab[i + tabDim] != nbStack1) {
       return false;
     }
 
-    if(obsTab[tabDim*4 - 1 - tabDim - i] != nbStack2) {
+    if(obsTab[tabDim*4 - 1 - tabDim - i] != 0 && obsTab[tabDim*4 - 1 - tabDim - i] != nbStack2) {
       return false;
     }
   }
@@ -287,9 +312,74 @@ function checkVictory() {
 }
 
 
-/// Display a clue on grid
-function revealClue() {
 
+// Display a clue on grid
+function revealClue(dim) {
+
+  cluesCount = 0;
+
+  let clues = getCookie('gridClue');
+
+  if(clues == "") {
+    for(let i = 0; i < dim**2; i++) {
+      clues += 0;
+    }
+  }
+
+  else {
+    clues = clues.split("")
+    clues.splice(0, 1 + dim*4);
+  }
+
+  document.querySelectorAll(".cratePlace").forEach((crate, index) => {
+    if(clues[index] != '0') {
+      crate.classList.add('crateLocked');
+      crate.textContent = Number(clues[index]);
+      crateTab[index] = Number(clues[index]);
+      cluesCount++;
+    }
+  })
+
+  if(cluesCount == tabDim**2) {
+    timeStart = null;
+    newGrid = false;
+  }
+/*
+  let clueCookie = getCookie("gridClue");
+
+  if(clueCookie == "")
+    clueCookie = new Array(dim**2);
+  else
+    clueCookie = clueCookie.split('');
+
+  clueTab = clueTab.split("");
+
+  if(clueTab.length == 0)
+    clueTab = new Array(dim**2);
+
+  clueTab.forEach((clue, index) => {
+    if(clue != 0)
+      clueCookie[index] = clue;
+    else if(clueCookie[index] == undefined)
+      clueCookie[index] = 0;
+  })
+
+  clueCookie.forEach((clue, index) => {
+    if(clue != 0) {
+      document.querySelectorAll(".cratePlace")[index].classList.add('crateLocked');
+      document.querySelectorAll(".cratePlace")[index].textContent = clue;
+    }
+  })*/
+
+  setCookie("gridClue", "", 0);
+}
+
+
+
+function displayCrates(dim, crates) {
+  crates.forEach((crate, index) => {
+    document.querySelectorAll(".cratePlace")[index].textContent = crates[index] == 0 ? "" : crates[index];
+  })
 }
 
 
@@ -325,12 +415,16 @@ function insertElement(set, x, y, classList) {
 
 }
 
+
+
 function getElemByCoord(x, y) {
 
   var element = document.querySelector(`#pos_${x}_${y}`);
 
   return element;
 }
+
+
 
 function addCrateArea(dim) {
   if (tabDim == 3) {
@@ -370,21 +464,148 @@ function addCrateArea(dim) {
   }
 }
 
+
+
 function addSpecificItems() {
   // Add trashes to the grid
   insertElement(gameSet, 0, -1, "Trash rotate00");
   insertElement(gameSet, 0, tabDim * 2 + 1, "Trash rotate00");
 
   // Add buttons into the grid
-  insertElement(gameSet, tabDim*2 + 1 + 2, -1, "clueButton rotate00");
+  let elem = document.querySelector(`#pos_${tabDim * 2 + 1 + 2}_-1`);
+  //elem.innerHTML = `<form action="" method="post"><input type="hidden" name="dim" value="${tabDim}"><input type="submit" name="clue" value="yo"></form>`
+  elem.classList.add("clueButton", "rotate00");
   insertElement(gameSet, tabDim*2 + 1 + 1, -1, "keysButton rotate00");
+  insertElement(gameSet, tabDim*2 + 1 + 2, 0, "solutionButton rotate00");
 
   // Detect when buttons pressed
-  document.querySelector('.clueButton').onclick = () => {
-    revealClue();
-  }
   document.querySelector('.keysButton').onclick = () => {
     document.querySelector('.popup').classList.toggle('displayed');
+  }
+}
+
+
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function createStringGrid(dim, obs, crates) {
+
+  var string = "" + dim;
+
+  obs.forEach(obss => string += obss);
+  crates.forEach(crate => string += crate); 
+
+  return string;
+}
+
+function setView() {
+
+  let view = document.querySelectorAll('div[id^="crate"]');
+
+  for (let i = 0; i < view.length; i++) 
+    view[i].remove();
+
+  let arr = [];
+
+  if (player.x % 2 == 1 && player.x < tabDim * 2 + 1) {
+
+    if (player.direction == 'N' && player.y > 0) {
+
+      max = getElemByCoord(player.x, player.y - 1).innerHTML;
+      arr = [max];
+      for (let y = player.y - 1; y > 0; y -= 2) {
+
+        if (getElemByCoord(player.x, y).innerHTML > max) {
+          max = getElemByCoord(player.x, y).innerHTML;
+          arr.push(max);
+        }
+      }
+    }
+
+    if (player.direction == 'S'&& player.y < tabDim * 2) {
+
+      max = getElemByCoord(player.x, player.y + 1).innerHTML;
+      arr = [max];
+      for (let y = player.y + 1; y < tabDim * 2; y += 2) {
+
+        if (getElemByCoord(player.x, y).innerHTML > max) {
+          max = getElemByCoord(player.x, y).innerHTML;
+          arr.push(max);
+        }
+      }
+    }
+  }
+
+  if (player.y % 2 == 1 && player.x < tabDim * 2 + 1) {
+    
+    if (player.direction == 'E' && player.x < tabDim * 2) {
+      max = getElemByCoord(player.x+1, player.y).innerHTML;
+      arr = [max];
+      for (let x = player.x+1; x < tabDim * 2; x += 2) {
+        
+        if(getElemByCoord(x, player.y).innerHTML > max){
+          max = getElemByCoord(x, player.y).innerHTML;
+          arr.push(max);
+        }
+      }
+    }
+
+    if (player.direction == 'W'&& player.x > 0) {
+      max = getElemByCoord(player.x-1, player.y).innerHTML;
+      arr = [max];
+      for (let x = player.x - 1; x > 0; x -= 2) {
+        
+        if (getElemByCoord(x, player.y).innerHTML > max) {
+          max = getElemByCoord(x, player.y).innerHTML;
+          arr.push(max);
+        }
+      }
+    }
+  }
+  for (let i = 0; i < arr.length; i++){
+    viewSet.innerHTML += `<div id = "crate${arr[i]}"></div>`;
+  }
+}
+
+function onclickGenerate() {
+  setCookie("diff", document.querySelector('select[name="difficulty"]').value, 365);
+  setCookie("gridClue", "", 0);
+  setCookie("dim", document.querySelector('select[name="size"]').value, 365);
+  setCookie("grid", "", 0);
+
+
+  document.location.reload(); 
+}
+
+function restartGrid() {
+  for(let x = 0; x < tabDim * 2 + 3; x++) {
+    for(let y = 0; y < tabDim * 2 + 3; y++) {
+      if(!getElemByCoord(x,y).classList.contains('crateLocked')){
+        getElemByCoord(x,y).innerHTML = "";
+        getElemByCoord(x,y).classList.remove('crateHint');
+      }
+    }
   }
 }
 
@@ -393,31 +614,70 @@ function initMainPlate() {
   newGrid = true;
   timeStart = null;
 
-  tabDim = Number(document.querySelector('select[name="size"]').value);
-
-  // Set and prepare the grid for the new dimension
-  gameSet.classList = ["dim" + tabDim];
-  gameSet.innerHTML = "";
-  
-  crateTab = [];
-  gameTab = [];
-
-
-  for(let i = 0; i < tabDim ** 2; i++) {
-    crateTab.push(0);
-  }
-
   document.querySelector(".victoryScreen").classList.remove('opened');
 
-  // A CHANGER
-  if(tabDim == 3) {
-    obsTab = [2, 2, 1, 1, 2, 2, 3, 1, 2, 2, 1, 3];
-    crateTab = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  // console.log(getCookie("grid"), "HHH");
+  // console.log("<?php if(isset($_COOKIE['grid'])) { echo $_COOKIE["grid"]; } ?>", "FFF");
+
+
+  //console.log(getCookie("grid"));
+
+  // If user started a new grid
+  if(getCookie("grid") == "") {
+    let res = convertStringIntoGrid("<?php if(isset($_COOKIE['grid'])) { echo $_COOKIE["grid"]; } ?>");
+
+    tabDim = res[0];
+    crateTab = res[2];
+    obsTab = res[1];
   }
 
-  if(tabDim == 4) {
-    obsTab = [1, 4, 2, 3, 3, 2, 1, 3, 2, 2, 1, 2, 2, 3, 3, 1];
+  // If user asked for a clue
+  else {
+    let res = convertStringIntoGrid(getCookie("grid"));
+
+    //console.log(res, "bis");
+
+    tabDim = res[0];
+    crateTab = res[2];
+    obsTab = res[1];
   }
+  
+
+  gameSet.classList = ["dim" + tabDim];
+  gameSet.innerHTML = "";
+  /*if(getCookie("grid") != "") {
+    let res = convertStringIntoGrid(getCookie("grid"));
+
+    tabDim = res[0];
+    crateTab = res[2];
+    obsTab = res[1];
+  }
+
+  else {
+
+    tabDim = Number(document.querySelector('select[name="size"]').value);
+
+    // Set and prepare the grid for the new dimension    
+    crateTab = [];
+    gameTab = [];
+
+
+    for(let i = 0; i < tabDim ** 2; i++) {
+      crateTab.push(0);
+    }
+
+    // A CHANGER
+    if(tabDim == 3) {
+      obsTab = [2, 2, 1, 1, 2, 2, 3, 1, 2, 2, 1, 3];
+      crateTab = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    }
+
+    if(tabDim == 4) {
+      obsTab = [1, 4, 2, 3, 3, 2, 1, 3, 2, 2, 1, 2, 2, 3, 3, 1];
+    }
+
+    setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
+  }*/
 
 
 
@@ -511,28 +771,44 @@ function initMainPlate() {
 
   for(let i = 0; i < tabDim; i++) {
     let element = document.querySelector(`#pos_${i * 2 + 1}_-1`);
-    element.innerHTML += `<div class="obsText rotate00">${obsTab[count]}</div>`;
+    let val = obsTab[count];
+    if(val == 0)
+      val = "";
+
+    element.innerHTML += `<div class="obsText rotate00">${val}</div>`;
 
     count++;
   }
 
   for(let i = 0; i < tabDim; i++) {
     let element = document.querySelector(`#pos_${tabDim * 2 + 1}_${i * 2 + 1}`);
-    element.innerHTML += `<div class="obsText rotate270">${obsTab[count]}</div>`;
+    let val =obsTab[count];
+    if(val == 0)
+      val = "";
+
+    element.innerHTML += `<div class="obsText rotate270">${val}</div>`;
 
     count++;
   }
 
   for(let i = tabDim - 1; i >= 0; i--) {
     let element = document.querySelector(`#pos_${i * 2 + 1}_${tabDim * 2 + 1}`);
-    element.innerHTML += `<div class="obsText rotate180">${obsTab[count]}</div>`;
+    let val =obsTab[count];
+    if(val == 0)
+      val = "";
+
+    element.innerHTML += `<div class="obsText rotate180">${val}</div>`;
 
     count++;
   }
 
   for(let i = tabDim - 1; i >= 0; i--) {
     let element = document.querySelector(`#pos_-1_${i * 2 + 1}`);
-    element.innerHTML += `<div class="obsText rotate90">${obsTab[count]}</div>`;
+    let val =obsTab[count];
+    if(val == 0)
+      val = "";
+
+    element.innerHTML += `<div class="obsText rotate90">${val}</div>`;
 
     count++;
   }
@@ -540,12 +816,16 @@ function initMainPlate() {
 
   // CRATES DISPLAYING
 
-  document.querySelectorAll(".cratePlace").forEach((element, index) => {
+  displayCrates(tabDim, crateTab)
+
+  revealClue(tabDim);
+
+  /*document.querySelectorAll(".cratePlace").forEach((element, index) => {
     if(crateTab[index] != 0) {
       element.innerHTML = crateTab[index];
       element.classList.add('crateLocked');
     }
-  })
+  })*/
 
   if(tabDim == 3) {
     player = new Character(8, 3);
@@ -555,6 +835,12 @@ function initMainPlate() {
     player = new Character(10, 4);
   }
 
+  setCookie("dim", "", 0);
+  setCookie("diff", "", 0);
+  setCookie("gridClue", "", 0);
+  setCookie("grid", "", 0);
+
+  setView();
 }
 
 
@@ -581,7 +867,7 @@ function crateGrab() {
 
 
     // Pick a box
-    if(player.numCrate <= tabDim && qty > 0) {
+    if(player.numCrate <= tabDim + 1 && qty > 0) {
       player.numCrate++;
       qty--;
 
@@ -596,7 +882,7 @@ function crateGrab() {
   // Facing a pick area
   else if(gameTab[player.x + 1 + xAdd][player.y + 1 + yAdd] == "boxPick") {
 
-    if(player.numCrate > tabDim)
+    if(player.numCrate > tabDim + 1)
       return;
     
     player.numCrate++;  
@@ -612,7 +898,6 @@ function crateGrab() {
   document.querySelector("#characterCrate").innerHTML = num;
 
   checkVictory();
-
 
   setView();
 }
@@ -668,6 +953,8 @@ function crateDrop() {
     num = "";
     
   document.querySelector("#characterCrate").innerHTML = num;
+
+  //setCookie('grid', createStringGrid(tabDim, obsTab, crateTab), 365);
 
   checkVictory();
 
@@ -787,8 +1074,70 @@ document.querySelector('#close-popup').onclick = () => {
   document.querySelector('.popup').classList.remove('displayed');
 }
 
-
 // Chargement d'une grille de départ
 initMainPlate();
 
+
+document.querySelector('.clueButton').onclick = (e) => {
+
+  if(!timeStart && !newGrid)
+    return;
+
+  let str  = "";
+  let str2 = "";
+  document.querySelectorAll(".cratePlace").forEach((elem, index) => {
+    if(elem.classList.contains('crateLocked')) {
+      str += elem.textContent;
+      str2 += '0';
+    }
+    else {
+      str += '0';
+      if(elem.textContent == "")
+        str2 += '0';
+      else
+        str2 += elem.textContent;
+    }
+  })
+
+  setCookie('grid', createStringGrid(tabDim, obsTab, str2.split('')), 365);
+
+  setCookie('gridClue', createStringGrid(tabDim, obsTab, str.split('')), 365);
+
+  setCookie('diff', document.querySelector("select[name='difficulty']").value, 365);
+
+  setCookie('dim', document.querySelector("select[name='size']").value, 365);
+
+  document.location.reload();
+} 
+
+
+document.querySelector('.solutionButton').onclick = (e) => {
+
+  if(!timeStart && !newGrid)
+    return;
+
+  let str  = "";
+  let str2 = "";
+
+  document.querySelectorAll(".cratePlace").forEach((elem, index) => {
+    if(elem.classList.contains('crateLocked')) {
+      str += elem.textContent;
+    }
+    else {
+      str += '0';
+    }
+    str2 += "-";
+  })
+
+  setCookie('grid', createStringGrid(tabDim, obsTab, str2.split('')), 365);
+
+  setCookie('gridClue', createStringGrid(tabDim, obsTab, str.split('')), 365);
+
+  setCookie('diff', document.querySelector("select[name='difficulty']").value, 365);
+
+  setCookie('dim', document.querySelector("select[name='size']").value, 365);
+
+  document.location.reload();
+
+}
 </script>

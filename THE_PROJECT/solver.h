@@ -48,8 +48,6 @@ void suite_row(int ligne, int colonne, GhostGrid Gf);
 int Length(char* string, int size);
 int complete_ghost(GhostGrid gridf, Grid gridj);
 int modif_box(int i, int j, GhostGrid gridf, Grid gridj);
-int** pov_separation(Grid grid);
-int resolve_obv_1(Grid grid, GhostGrid gridf);
 void print_Stock(StockSoluce*Stock);
 //SubFunction End
 
@@ -60,24 +58,18 @@ void fill_ghost(GhostGrid gridf, Grid gridj);
 int maj_ghost(GhostGrid gridf, Grid gridj);
 int fill_loners(Grid* gridj, GhostGrid gridf);
 bool hypothesis(GhostGrid* gridf, Grid* gridj, int poss,StockSoluce*Stock, bool first_sol,bool validity);
-int resolve_with_obv(Grid grid, GhostGrid gridf);
 int Rule2(GhostGrid gridf, Grid gridj);
 int check_loners(GhostGrid* gridf, Grid* gridj);
 bool unique_solution(Grid* grid);
+int subcrate_solver(Grid* gridj, bool first_sol, bool validity);
 //Solver end
 
-
-//Unused start
-Guess* find_guess(GhostGrid grid, int* found, int* guess_size);
-int fill_guess(GhostGrid grid, Grid gridj);
-char*** create_guess_tab(Guess* guess_list, Grid grid);
-int find_number_to_guess(char*** tab, int id);
-void fill_guess_boxes(char*** tab, int size, int id_number, Grid grid, int i, int j);
-void fill_sub_guess(int*** tab, int guess_size, Grid grid, int id);
-//Unused end
-
+void indice(Grid* grid, int nb_hints);
+Grid* copy_grid(Grid* grid);
 
 //Free start
 void free_tab_3(char*** tab, int size);
+void free_grid(Grid* grid);
+void free_ghostgrid(GhostGrid* gridf);
 //Free end
 #endif // !solver

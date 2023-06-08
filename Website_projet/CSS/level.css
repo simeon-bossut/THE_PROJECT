@@ -40,8 +40,11 @@ main {
   align-items: center;
   justify-content: center;
 	background-image: url("../Images/barrel3.jpg");
+  flex-direction: column;
 
   font-family: 'Kanit';
+
+  height: fit-content;
 
   position: relative;
 }
@@ -65,11 +68,11 @@ main {
 }
 
 #mainPlate.dim3 {
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
 
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
 }
 
 #mainPlate.dim4 {
@@ -437,4 +440,199 @@ div[id^="crate"]{
 
 #mainPlate .cratePlace:hover {
   transform: scale(1.02);
+}
+
+.tools {
+  width: 30%;
+  max-width: 300px;
+  background-color: #ffe6cd;
+  border-radius: 10px;
+  border: 3px solid #964b00;
+  box-shadow: 10px 10px #341900;
+  margin-left: 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 15px;
+  box-sizing: border-box;
+
+  color: #964b00;
+}
+
+.plateBox {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.messageBox {
+  background-color: #ffe6cd;
+  border-radius: 10px;
+  border: 3px solid #964b00;
+  box-shadow: 10px 10px #341900;
+
+  margin-top: 10px;
+
+  padding: 10px;
+
+  font-size: 18px;
+
+  font-family: 'Kanit', sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  color: #964b00;
+}
+
+.toolsBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.separator {
+  height: 5px;
+  width: 80%;
+  background-color: #964b00;
+  border-radius: 10px;
+  margin: 20px 0px;
+  box-sizing: content-box;
+}
+
+.title {
+  font-size: 22px;
+  width: 90%;
+  font-family: 'Kanit', sans-serif;
+  text-align: center;
+  font-weight: 700;
+  line-height: 34px;
+  margin-bottom: 10px;
+}
+
+.difficultyInput, .radiosInput {
+  display: grid;
+  width: 90%;
+  column-gap: 15px;
+  grid-template-columns: 1fr 1fr;
+  margin-left: 15%;
+}
+
+.difficultyInput div, .radiosInput div {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.difficultyInput div label, .radiosInput div label {
+  margin-left: 10px;
+  width: 100%;
+}
+
+.toolsBox button {
+  font-family: 'Kanit', sans-serif;
+  margin-top: 15px;
+  border-radius: 20px;
+  border: 0px;
+  height: 40px; 
+  font-size: 20px;
+  background-color: #964b00;
+  color: #ffe6cd;
+  box-shadow: 5px 5px #341900;
+  cursor: pointer;
+  padding: 5px 15px;
+
+  transition: box-shadow .1s ease-in-out;
+}
+
+.plateBox button {
+  font-family: 'Kanit', sans-serif;
+  margin-top: 15px;
+  border-radius: 20px;
+  border: 0px;
+  height: 40px;
+  width: 100%;
+  font-size: 20px;
+  background-color: #964b00;
+  color: #ffe6cd;
+  box-shadow: 5px 5px #341900;
+  cursor: pointer;
+  padding: 5px 15px;
+
+  transition: box-shadow .2s ease-in-out;
+}
+
+.plateBox button:hover {
+  box-shadow: none;
+}
+
+#seedInput {
+  height: 30px;
+  font-size: 22px;
+  font-family: 'Kanit', sans-serif;
+  border-radius: 5px;
+  border: 1px solid #733900;
+  width: 70%;
+  padding: 0px 5px;
+  text-align: center;
+}
+
+.toolsBox button:hover {
+  box-shadow: none;
+}
+
+.conceptor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	
+  font-family: 'Kanit';
+
+  width:100%;
+  height: fit-content;
+
+  padding: 30px 0px;
+
+  position: relative;
+}
+
+.bigTitle{
+  position: relative;
+  background-color:  #341900;
+
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15vh;
+  width: 100%;
+}
+
+.myLevel {
+  position: relative;
+  display: grid;
+  width: 80%;
+  height: 50%;
+  margin: 40px;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 10px 10px #232323;
+  font-family: "Kanit", sans-serif;
+}
+
+.myLevel table tbody tr td {
+text-align: center;
+}
+
+.obs.invCrate {
+  opacity: 0.3;
 }

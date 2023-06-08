@@ -215,7 +215,6 @@ int check_col(int val, GhostGrid *gridf, Grid *gridj, int col, int *pos) {
 
 int check_loners(GhostGrid *gridf, Grid *gridj) {
 
-  maj_ghost(*gridf, *gridj);
   int modif = 0;
   int size = gridf->size;
   int pos = NAS;
@@ -234,63 +233,13 @@ int check_loners(GhostGrid *gridf, Grid *gridj) {
   return modif;
 }
 
-int **pov_separation(Grid grid) {
-  int size = grid.size;
-  int *pov = grid.obv;
-  int *north = (int *)malloc(sizeof(int) * size);
-  int *east = (int *)malloc(sizeof(int) * size);
-  int *south = (int *)malloc(sizeof(int) * size);
-  int *west = (int *)malloc(sizeof(int) * size);
-  int **tab = (int **)malloc(sizeof(int *) * 4);
-  if (north == NULL || east == NULL || south == NULL || west == NULL ||
-      tab == NULL) {
-    exit(EXIT_FAILURE);
-  }
-
-  for (int i = 0; i < size * 4; i++) {
-    if (i < 1 * size) {
-      *(north + i) = pov[i];
-    } else if (i < 2 * size) {
-      *(east + i - size) = pov[i];
-    } else if (i < 3 * size) {
-      *(south + i - 2 * size) = pov[i];
-    } else if (i < 4 * size) {
-      *(west + i - 3 * size) = pov[i];
-    }
-  }
-  tab[0] = north;
-  tab[1] = east;
-  tab[2] = south;
-  tab[3] = west;
-  return tab;
+void free_grid(Grid *grid) {
+  free(grid->obv);
+  free_tab(grid->tab, grid->size);
+  free(grid);
 }
 
-int resolve_obv_1(Grid grid, GhostGrid gridf) {
-  int **directions = pov_separation(grid);
-  int *north = directions[0];
-  int *east = directions[1];
-  int *south = directions[2];
-  int *west = directions[3];
-  free(directions);
-  int res = NOT_FOUND;
-  int size = grid.size;
-  for (int i = 0; i < size; i++) {
-    if (north[i] == size) {
-      fill_ghost_box(grid, gridf, size, i, 0);
-      res = FOUND;
-    }
-    if (east[i] == size) {
-      fill_ghost_box(grid, gridf, size, size - 1, i);
-      res = FOUND;
-    }
-    if (south[i] == size) {
-      fill_ghost_box(grid, gridf, size, i, size - 1);
-      res = FOUND;
-    }
-    if (west[i] == size) {
-      fill_ghost_box(grid, gridf, size, 0, i);
-      res = FOUND;
-    }
-  }
-  return res;
+void free_ghostgrid(GhostGrid *gridf) {
+  free_tab_3(gridf->tab, gridf->size);
+  free(gridf);
 }

@@ -1,8 +1,14 @@
-	<?php session_start(); ?>
+	<?php session_start(); 
 
+	require('request.php');
 
+	function valider_donnees($donnee) {
+		$donnee = trim($donnee);
+		$donnee = stripslashes($donnee);
+		$donnee = htmlspecialchars($donnee);
+	return $donnee;
+	}
 
-	<?php
 	if (isset($_POST['checked'])) {
 		
 		if($_POST['checked'] == "fr"){
@@ -12,9 +18,26 @@
 		else{
 			setcookie("lang", 'en', time() +(60*60*24*30*365),'/');
 			header("Location:setting.php");
-
 		}
 	}
+
+	if (isset($_POST['report'])) {
+		$reportValue = $_POST['checkedReport'];
+		$reportText = valider_donnees($_POST['reportText']);
+		$currentDate = date('Y-m-d'); 
+/*
+		echo $reportValue;
+		echo $reportText;
+		echo $currentDate;
+*/
+		$res = request("INSERT INTO report (date,type,text) VALUES(:date,:type,:text)", true, array(
+			':date' => $currentDate,
+			':type' => $reportValue,
+			':text' => $reportText
+		));
+
+	}
+
 	?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -47,7 +70,7 @@
 					<form action="" method="post">
 						<div class="formInputs">
 							<div class="lablelg">
-								<input type="radio" checked="checked" name="checked"  value="en">
+								<input type="radio" checked name="checked"  value="en">
 								<img src="../Images/ukflag.png" class="flag" alt="French flag" >
 								English
 							</div>
@@ -64,27 +87,25 @@
 
 				<div class="report">
 					<h2> <?php  echo getLanguage("Signaler un problème ou proposer une idée","Report bug or propose an idea");  ?></h2>
+
 					<form action="" method="post">
 
 						<div class="reportBox">
-						
 							<div class="label">
 								<div class="labelReport">
-									<input type="radio" name="checked"  value="bug">
+									<input type="radio" name="checkedReport"  value="bug" checked>
 									<?php  echo getLanguage("Problème","Bug");  ?>
 								</div>
 								<div class="labelReport">
-									<input type="radio"  name="checked" value="idea">
+									<input type="radio"  name="checkedReport" value="idea">
 									<?php  echo getLanguage("Idée","Idea");  ?>
 								</div>
 							</div>
-
 							<div class="text">
 								<textarea class="textArea" name="reportText"></textarea>
 							</div>
 						</div>
-						
-						<button class="bouton" type="submit" name="Modifier">Submit!</button>
+						<button class="bouton" type="submit" name="report">Report</button>
 					</form>
 
 				</div>
