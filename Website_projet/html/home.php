@@ -68,6 +68,7 @@ try {
 
 
   if(isset($_GET['seed'])) {
+
     $newGrid;
 
     exec("cd ../../THE_PROJECT/ && main.exe 0 6 $_GET[seed]", $seedGrid);
@@ -90,10 +91,13 @@ try {
     setcookie("grid", $playerGrid, time() + 365*24*60*60, '/');
     setcookie("gridClue", $seedGrid, time() + 365*24*60*60, '/');
 
+    setcookie("dim", $size, time() + 365*24*60*60, '/');
+
   }
 
   // If user started a new grid (action 1)
   else if (!isset($_COOKIE["grid"])) {
+
     setcookie("diff", "0", time() + 365 * 24 * 60 * 60, '/');
     setcookie("dim",  "3", time() + 365 * 24 * 60 * 60, '/');
 
@@ -158,8 +162,6 @@ try {
       $size = $_COOKIE['dim'];
 
     $Grid;
-
-    // var_dump($_COOKIE["gridClue"]);
 
     if(!isset($_COOKIE['gridClue']))
       $Grid = "3321123221123000000000";

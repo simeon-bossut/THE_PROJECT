@@ -16,7 +16,7 @@ var timeStart = null;
 var newGrid = false;
 
 
-var tabDim = document.querySelector('select[name="size"]').value;
+var tabDim;
 
 var obsTab;
 var crateTab; // = [4, 1, 3, 2, 1, 2, 4, 3, 2, 3, 1, 4, 3, 4, 2, 0];
@@ -324,16 +324,21 @@ function revealClue(dim) {
     for(let i = 0; i < dim**2; i++) {
       clues += 0;
     }
+
+    clues = clues.split("");
+    console.log(clues, "ho");
   }
 
   else {
     clues = clues.split("")
     clues.splice(0, 1 + dim*4);
+    console.log(clues, "hu");
   }
 
   document.querySelectorAll(".cratePlace").forEach((crate, index) => {
     if(clues[index] != '0') {
       crate.classList.add('crateLocked');
+
       crate.textContent = Number(clues[index]);
       crateTab[index] = Number(clues[index]);
       cluesCount++;
@@ -595,7 +600,7 @@ function onclickGenerate() {
   setCookie("grid", "", 0);
 
 
-  document.location.reload(); 
+  document.location.search = ""; 
 }
 
 
@@ -605,12 +610,6 @@ function initMainPlate() {
   timeStart = null;
 
   document.querySelector(".victoryScreen").classList.remove('opened');
-
-  // console.log(getCookie("grid"), "HHH");
-  // console.log("<?php if(isset($_COOKIE['grid'])) { echo $_COOKIE["grid"]; } ?>", "FFF");
-
-
-  //console.log(getCookie("grid"));
 
   // If user started a new grid
   if(getCookie("grid") == "") {
@@ -625,12 +624,12 @@ function initMainPlate() {
   else {
     let res = convertStringIntoGrid(getCookie("grid"));
 
-    //console.log(res, "bis");
-
     tabDim = res[0];
     crateTab = res[2];
     obsTab = res[1];
   }
+
+  document.querySelector("select[name='size']").selectedIndex = Number(tabDim - 3);
   
 
   gameSet.classList = ["dim" + tabDim];
@@ -1097,7 +1096,7 @@ document.querySelector('.clueButton').onclick = (e) => {
 
   setCookie('dim', document.querySelector("select[name='size']").value, 365);
 
-  document.location.reload();
+  document.location.search = '';
 } 
 
 
@@ -1127,7 +1126,7 @@ document.querySelector('.solutionButton').onclick = (e) => {
 
   setCookie('dim', document.querySelector("select[name='size']").value, 365);
 
-  document.location.reload();
+  document.location.search = '';
 
 }
 </script>
