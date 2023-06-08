@@ -344,7 +344,7 @@ bool check_latin(Grid *grid) {
 int easy_resolve(GhostGrid *gridf, Grid *gridj) {
   Rule2(*gridf, *gridj);
   do {
-   // printgrid(gridj);
+   
     fill_loners(gridj, *gridf);
 
     if (check_latin(gridj) == false) {
@@ -377,23 +377,24 @@ int stock_soluce(
   return 0;
 }
 
-bool hypothesis(GhostGrid *gridf, Grid *gridj, int poss, StockSoluce *Stock,
+int hypothesis(GhostGrid *gridf, Grid *gridj, int poss, StockSoluce *Stock,
                 bool first_sol,
                 bool validity) // Fonction qui fait des hypotheses et teste
                                // chaque possibilite
 {
-
+    printgrid(gridj);
+    printgrid_Ghost(gridf);
   int valid = easy_resolve(gridf, gridj); // resoud le maximum possible sans
-                                          // théorie printf("Ca marche ?\n\n");
+                                          // théorie 
   /*printgrid(gridj);
   printgrid_Ghost(gridf);*/
   if ((valid == -1) || (checkup(gridj) == false)) {
-    return false;
+    return 0;
   }
   // verif
   if (is_solved(*gridj)) {
     stock_soluce(Stock, gridj); // on stocke la soluce
-    return true;
+    return 1;
   }
 
   // sinon, on fait une hypothèse
@@ -415,24 +416,24 @@ bool hypothesis(GhostGrid *gridf, Grid *gridj, int poss, StockSoluce *Stock,
     }
     int valid = (hypothesis(gridftest, gridjtest, possibilities, Stock,
                             first_sol, validity));
-    if (valid == false) {
+    if (valid != 1) {
       free_grid(gridjtest);
     }
     free_ghostgrid(gridftest);
-    if ((valid) && (first_sol == true)) {
-      return true;
+    if (((valid==1)||(valid==-1)) && (first_sol == true)) {
+      return -1;                             
     }
-    if ((valid) && (validity == true) && (Stock->size == 2)) {
-      return true;
+    if ((validity == true) &&(((valid == 1) && (Stock->size == 2))||(valid==-1))) {
+      return -1;
     }
   }
-  return false;
+  return 0;
 }
 
 Pos *find_in_grid(Grid grid, int val,
                   int *size) // attention grid.size diff de size
 {
-  Pos *positions = malloc(grid.size * sizeof(Pos));
+  Pos *positions = (Pos*)malloc(grid.size * sizeof(Pos));
   if (positions == NULL) {
     exit(EXIT_SUCCESS);
   }
@@ -711,7 +712,6 @@ int subcrate_solver(Grid *gridj, bool first_sol, bool validity) //
   hypothesis(gridf, gridj, 0, Stock, first_sol, validity);
 
     int sol = Stock->size;
-    // print_Stock(Stock);
     int i = 0;
     if (Stock->size == 1)
     {
@@ -723,6 +723,7 @@ int subcrate_solver(Grid *gridj, bool first_sol, bool validity) //
         free((Stock->stock+i)->obv);
         free_tab((Stock->stock + i)->tab, dim);
     }
+    free_ghostgrid(gridf);
     free(Stock->stock);
     free(Stock);
 
@@ -753,18 +754,27 @@ bool unique_solution(
     return false;
 }
 
-void indice(Grid* grid,int nb_hints)
+bool indice(Grid* grid,int nb_hints)
 {
     int size = grid->size;
-    Grid* sol = initgrid(size);
-    subcrate_solver(sol, true, false);
-    int random;
-    for(int i=0;i<nb_hints;++i)
-    { 
-        do {
-            random = rand() % (size * size);
-        } while (grid->tab[random / size][random % size] == sol->tab[random / size][random % size]);
-        grid->tab[random] = sol->tab[random];
+    Grid* sol = copy_grid(grid);
+    bool flag = false;
+    if(subcrate_solver(sol, true, false)==1)
+    {
+        int random;
+            for (int i = 0;i < nb_hints;++i)
+            {
+                do {
+                    random = rand() % (size * size);
+                } while (grid->tab[random / size][random % size] != 0);
+                        grid->tab[random] = sol->tab[random];
+            }
+
     }
-    free_grid(sol);
+
+    free(sol->obv);
+    free_tab(sol->tab, sol->size);
+
+    return flag;
+
 }

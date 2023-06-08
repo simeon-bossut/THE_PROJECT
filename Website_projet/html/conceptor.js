@@ -369,6 +369,7 @@ function generateAutoGrid() {
 
     addEventListeners();
 
+    setCookie("CON_grid", "", 0);
   }
 
   else {
@@ -419,7 +420,9 @@ function saveGrid() {
 
   setCookie("CON_grid", difficulty, 365);
 
-  document.location.reload();
+  console.log(stringTab)
+
+  // document.location.reload();
 }
 
 generateAutoGrid();

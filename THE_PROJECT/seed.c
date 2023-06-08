@@ -218,39 +218,6 @@ int booltab_to_int(bool *tab, int size_cache) {
   return value;
 }
 
-void add_cach(Grid *grid, bool *cache, int diff) // ne sert plus à rien
-{
-  int size = grid->size;
-  Grid *tmp = initgrid(size);
-  int random = 0;
-  if (tmp == NULL) {
-    return;
-  }
-  while (crate_solver(grid) !=
-         1) { // tant que solveur ne marche pas (Pas 1 solution)
-
-    random = rand() % (size * (4 + size));
-    cache[random] =
-        1; // On ajoute un 1 au cache(il se peut qu'il y ait deja un 1 a cet
-           // emplacement mais cela ne pose pas vraiment de probleme
-
-    if (random < size * size) // travail sur le cache de la grille(int**)
-    {
-      tmp->tab[random / size][random % size] =
-          grid->tab[random / size][random % size];
-    } else if (random <
-               size * (size + 4)) // travail( sur les observateurs(int *)
-    {
-      tmp->obv[random - (size * size)] = grid->obv[random - (size * size)];
-    }
-  }
-
-  // Si le solveur marche, on a fini !) (presque)
-  free(tmp->obv);
-  free_tab(tmp->tab, tmp->size);
-  free(tmp);
-}
-
 bool *generate_level_cache(Grid *grid,
                            int difficulty) // cree un niveau et stocke dans
                                            // *diff la valeur int du cache
@@ -330,9 +297,7 @@ bool *generate_level_cache(Grid *grid,
       }
     }
   }
-  free(tmp->obv);
-  free_tab(tmp->tab, tmp->size);
-  free(tmp);
+  free_grid(tmp);
   return cache;
 }
 
@@ -365,7 +330,8 @@ char *create_seed(int difficulty, int dim) {
   } else { // difficulte 2 ou 3
     cache = generate_level_cache(grid, difficulty);
   }
-  return sub_level_to_seed(grid, cache);
+  char* seed_ = sub_level_to_seed(grid, cache);
+  return seed_;
 }
 
 void getLeftCases(char *string, int i, int j, int **tab, int size) {
@@ -627,6 +593,7 @@ char *sub_level_to_seed(Grid *grid, bool *cache) {
 
   free(line);
   free(cache);
+  free(grid);
   return SEED;
 }
 
