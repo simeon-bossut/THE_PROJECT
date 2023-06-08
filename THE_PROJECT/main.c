@@ -35,7 +35,6 @@ int main(int argc, char *argv[]) {
   // Get a grid with missing elements
   if (action == 1) {
     int difficulty = atoi(argv[3]);
-    // int difficulty = 2;
     char *seed_;
     seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);
@@ -69,6 +68,14 @@ int main(int argc, char *argv[]) {
   else if (action == 4) {
     grid = read_grid(argv[3], dim);
     unique_solution(grid) ? printf("possible\n") : printf("impossible\n");
+  }
+
+  else if(action == 5) {
+    int difficulty = atoi(argv[3]);
+    char *seed_;
+    seed_ = create_seed(difficulty, dim);
+    printf_s(seed_);
+    printf("\n");
   }
   /*
 
