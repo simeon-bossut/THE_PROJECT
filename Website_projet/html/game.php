@@ -182,11 +182,11 @@ function displayVictoryScreen() {
 
   let tabDim = (Number(listElem[listElem.length - 1].id.split("_")[1]) + 1) / 2;
 
-  let diffCoeff = [50, 80, 140, 220];
+  let diffCoeff = [10, 35, 65, 100];
 
-  let tabDimArr = ((tabDim**2) - cluesCount)*100;
+  let tabDimArr = ((tabDim**3) - cluesCount)*75;
 
-  let score = Math.round((tabDimArr * diffCoeff[document.querySelector('select[name="difficulty"]').value]) / ((Math.round(totalTime / 1000) + 20) * moves / 50));
+  let score = Math.round((tabDimArr * diffCoeff[document.querySelector('select[name="difficulty"]').value]) / ((Math.round(totalTime / 1000) + 20)));
 
   document.querySelector("#xpVictory span").textContent = score;
   document.cookie = "score_player="+score; 
