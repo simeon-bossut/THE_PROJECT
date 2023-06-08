@@ -14,14 +14,16 @@ int main(int argc, char *argv[]) {
    //il affiche en 1 le premier argument
 
   //int dim = atoi(argv[1]);
+  int dim = 3;
 
   //int action = atoi(argv[2]);
-
+  int action = 2;
   Grid* grid;
 
   // Get a grid with missing elements
   if(action == 1) {
-    int difficulty = atoi(argv[3]);
+    //int difficulty = atoi(argv[3]);
+    int difficulty = 0;
     char * seed_ =  create_seed(difficulty,dim);
     grid = read_seed(seed_);
     push_to_php(grid);
@@ -58,11 +60,11 @@ int main(int argc, char *argv[]) {
   int size = argv[1] ? atoi(argv[1]) : 3;
   */
 
-  Grid* grid;
-  GhostGrid *gridf = initGhostGrid(4);
-  char*Seed=create_seed(3, 4);
-  grid = read_seed(Seed);
-  printgrid(grid);
+  //Grid* grid;
+  //GhostGrid *gridf = initGhostGrid(4);
+  //char*Seed=create_seed(3, 4);
+  //grid = read_seed(Seed);
+  //printgrid(grid);
   // fillgrid(grid);
   //grid_completion(grid);
 
@@ -123,7 +125,7 @@ int main(int argc, char *argv[]) {
   //printf("%d", val);
 
 
-  Grid* grid;
+  //Grid* grid;
 
   //*int difficulty = 1;
   //grid = generate_level(4, &difficulty); 
