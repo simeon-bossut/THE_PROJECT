@@ -948,6 +948,9 @@ form, input[name="clue"] {
   margin: 0;
   border: 0;
   padding: 0;
+  display:flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   position: relative;
   box-sizing: border-box;
