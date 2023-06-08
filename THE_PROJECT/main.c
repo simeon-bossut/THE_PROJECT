@@ -24,11 +24,9 @@ int main(int argc, char *argv[]) {
   //  return EXIT_SUCCESS;
   //}
 
-  //int dim = atoi(argv[1]);
-   int dim = 4;
+  int dim = atoi(argv[1]);
 
-  //int action = atoi(argv[2]);
-   int action = 2;
+  int action = atoi(argv[2]);
 
 
    Grid* grid;
