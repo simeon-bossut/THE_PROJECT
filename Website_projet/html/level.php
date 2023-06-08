@@ -52,6 +52,8 @@ else {
 
   $grid = $_COOKIE['CON_grid'];
   
+  var_dump($grid);
+
   $result;
   exec("cd ../../THE_PROJECT/ && main.exe $size 4 $grid", $result);
 
