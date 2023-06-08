@@ -64,11 +64,10 @@ int main(int argc, char *argv[]) {
   }
 
   else if(action == 5) {
-    int difficulty = atoi(argv[3]);
+    grid = read_grid(argv[3], dim);
     char *seed_;
-    seed_ = create_seed(difficulty, dim);
-    printf_s(seed_);
-    printf("\n");
+    seed_ = level_to_seed(grid);
+    printf("%s\n", seed_);
   }
   /*
 
