@@ -761,7 +761,7 @@ bool indice(Grid* grid,int nb_hints)
     if(subcrate_solver(sol, true, false)==1)
     {
         int random;
-        printgrid(sol);
+        //printgrid(sol);
             for (int i = 0;i < nb_hints;++i)
             {
                 do {
