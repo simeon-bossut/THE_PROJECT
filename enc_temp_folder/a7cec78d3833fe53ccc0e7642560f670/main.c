@@ -38,6 +38,7 @@ int main(int argc, char *argv[]) {
     char *seed_;
     seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);
+    printgrid(grid);
     push_to_php(grid);
   }
 
@@ -56,11 +57,17 @@ int main(int argc, char *argv[]) {
     crate_solver(grid);
     push_to_php(grid);
   }
-  else if (action == 4) {// Get confirmation that a grid is possible
-    grid = read_grid(argv[3], dim);  
-    unique_solution(grid) ? printf("possible\n") : printf("impossible\n");
-      
+
+  // Get confirmation that a grid is possible
+  action = 4;
+  if (action == 4) {
+    //grid = read_grid(argv[3], dim);
+      if (grid != NULL)
+      {
+          unique_solution(grid) ? printf("possible\n") : printf("impossible\n");
+      }
   }
+
   else if(action == 5) {
     grid = read_grid(argv[3], dim);
     char *seed_;
