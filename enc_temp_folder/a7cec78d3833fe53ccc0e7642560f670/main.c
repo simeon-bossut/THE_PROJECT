@@ -24,18 +24,21 @@ int main(int argc, char *argv[]) {
   //  return EXIT_SUCCESS;
   //}
 
-  int dim = atoi(argv[1]);
+  //int dim = atoi(argv[1]);
+   int dim = 4;
 
-  int action = atoi(argv[2]);
+  //int action = atoi(argv[2]);
+   int action = 1;
 
   Grid *grid=NULL;
 
   // Get a grid with missing elements
   if (action == 1) {
-    int difficulty = atoi(argv[3]);
+    int difficulty = 4;//atoi(argv[3]);
     char *seed_;
     seed_ = create_seed(difficulty, dim);
     grid = read_seed(seed_);
+    printgrid(grid);
     push_to_php(grid);
   }
 
@@ -54,11 +57,17 @@ int main(int argc, char *argv[]) {
     crate_solver(grid);
     push_to_php(grid);
   }
-  else if (action == 4) {// Get confirmation that a grid is possible
-    grid = read_grid(argv[3], dim);  
-    unique_solution(grid) ? printf("possible\n") : printf("impossible\n");
-      
+
+  // Get confirmation that a grid is possible
+  action = 4;
+  if (action == 4) {
+    //grid = read_grid(argv[3], dim);
+      if (grid != NULL)
+      {
+          unique_solution(grid) ? printf("possible\n") : printf("impossible\n");
+      }
   }
+
   else if(action == 5) {
     grid = read_grid(argv[3], dim);
     char *seed_;

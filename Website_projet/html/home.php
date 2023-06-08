@@ -300,7 +300,7 @@ try {
       <div class="victoryScreen">
         <div class="victoryBox">
 
-          <div class="victoryTitle">Victory</div>
+          <div class="victoryTitle"><?php echo getLanguage("Victoire","Victory");?></div>
           <div class="victoryInfo">
             <div class="victoryInfoContent" id="timerVictory">
               <img src="../Images/timerIcon.svg">
@@ -324,7 +324,6 @@ try {
           <div class="victoryInfo">
             <form class="form" action="" method="post">
               <button class="victoryRefreshButton" name="restart" onclick="onclickGenerate()">New Grid</button>
-              <button class="victoryRefreshButton" name="restart" onclick="restartGrid()">Restart</button>
             </form>
           </div>
         </div>
@@ -370,8 +369,6 @@ try {
           </div>
 
           <button onclick="onclickGenerate()" class="skinButton"><?php echo getLanguage("GENERER", "GENERATE");  ?></button>
-
-          <button onclick="restartGrid()" class="skinButton"><?php echo getLanguage("RECOMMENCER", "RESTART");  ?></button>
         </div>
       </div>
 
@@ -389,7 +386,7 @@ try {
                 -->
             </div>
           </div>
-          <p>Point Of View</p>
+          <p><?php echo getLanguage("Point De Vue","Point Of View");?></p>
         </div>
       </div>
 
