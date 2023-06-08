@@ -152,7 +152,6 @@ CREATE TABLE `level` (
   `id` int(11) NOT NULL,
   `nom` varchar(20) NOT NULL,
   `seed` varchar(32) NOT NULL,
-  `difficulty` varchar(10) NOT NULL,
   `dim` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
