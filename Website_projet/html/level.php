@@ -94,10 +94,24 @@ else {
 
     <div class="conceptor">
 
+      <div class="completePopup">
+        <div class="name-popup"> 
+        
+          <label class="savetext"> <?php echo getLanguage("Veuillez nommé votre sauvegade","Please name your save");  ?> </label>
+        
+          <input class="field_class" name="login" type="text" placeholder="<?php  echo getLanguage("nom","name");  ?>" autofocus>
+
+          <button class="popupBtn">Save</button>
+        </div>
+      </div>
+
       <div class="plateBox">
         <div id="mainPlate"></div>
         <div class="messageBox">No information</div>
-        <button onclick="saveGrid()">Save your grid</button>
+        <div class="">
+        <button onclick="saveGrid()" onclick="openForm()" name="save_button">Save your grid</button>
+        </div> 
+        
       </div>
 
       <div class="tools">
@@ -185,6 +199,19 @@ else {
 	
 </body>
 
-<script src="conceptor.js"></script>
+<script>  
+
+function openForm() {
+  document.querySelector(".completePopup").classList.toggle("opened");
+} 
+    
+</script>
+
+
+
+<script src="conceptor.js">
+
+
+</script>
 
 </html>
