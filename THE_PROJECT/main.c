@@ -30,10 +30,8 @@ int main(int argc, char *argv[]) {
   //int action = atoi(argv[2]);
    int action = 2;
 
-  
-  char tab[22] = "231132212212000020100";
-  tab[21] = '\0';
-  Grid* grid=read_grid(tab,3);
+
+   Grid* grid;
   // Get a grid with missing elements
   if (action == 1) {
     int difficulty = atoi(argv[3]);
@@ -47,12 +45,9 @@ int main(int argc, char *argv[]) {
   else if (action == 2) {
      //grid = read_grid(argv[3], dim);
      
-     printgrid(grid);
-     int ind= indice(grid,1);
-     printgrid(grid);
+    int ind = indice(grid, 1);
      
      push_to_php(grid);
-
      
   }
 
