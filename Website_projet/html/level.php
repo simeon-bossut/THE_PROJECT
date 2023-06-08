@@ -44,25 +44,36 @@ else {
   else
     $size = $_COOKIE['CON_dim'];
 
-  $diff;
-  if (!isset($_COOKIE['CON_diff']))
-    $diff = 0;
+  $name;
+  if (!isset($_COOKIE['CON_gridName']))
+    $name = 0;
   else
-    $diff = $_COOKIE['CON_diff'];
+    $name = $_COOKIE['CON_gridName'];
 
   $grid = $_COOKIE['CON_grid'];
   
   $result;
   exec("cd ../../THE_PROJECT/ && main.exe $size 4 $grid", $result);
 
-  if(isset($result) && isset($grid) && $result[0] == "possible") {
+  var_dump($result);
 
-    exec("cd ../../THE_PROJECT/ && main.exe $size 1 $grid", $result);
+  if(isset($result) && isset($grid) && !empty($result)&& isset($_SESSION['email']) && $result[0] == "possible") {
 
+    $seed;
+    exec("cd ../../THE_PROJECT/ && main.exe $size 5 $grid", $seed);
+
+    setcookie("CON_grid", $size.$grid, time() + 365*24*60*60, '/');
+
+    request("INSERT INTO `level`(`email`, `id`, `nom`, `seed`, `dim`) VALUES ('?', NULL,'?','?','?')", true, array($_SESSION['email'], $name, $seed, $size));
+
+    setcookie("CON_message", "Grid saved !", time() + 365*24*60*60, '/');
   }
 
   else {
 
+    setcookie("CON_grid", $size.$grid, time() + 365*24*60*60, '/');
+
+    setcookie("CON_message", "An error occured", time() + 365*24*60*60, '/');
 
   }
   

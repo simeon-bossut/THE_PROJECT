@@ -13,25 +13,23 @@ int main(int argc, char *argv[]) {
   // argv contient l'ensemble des arguments passes separes par des espaces
   // il affiche en 1 le premier argument
 
-  if (strcmp(argv[argc - 1], "-help") == 0) {
-    printf(
-        "\nUsage: ./main [dim] [action] [difficulty / seed]\n dim: dimension "
-        "of the grid\n action: 1 for a grid with missing elements, 2 for a "
-        "clue, 3 for a complete grid, 4 for confirmation that a grid is "
-        "possible\n difficulty: 0 for very easy, 1 for easy, 2 for medium, "
-        "3 for hard\n "
-        "seed: seed of the grid\n\n");
-    return EXIT_SUCCESS;
-  }
+  //if (strcmp(argv[argc - 1], "-help") == 0) {
+  //  printf(
+  //      "\nUsage: ./main [dim] [action] [difficulty / seed]\n dim: dimension "
+  //      "of the grid\n action: 1 for a grid with missing elements, 2 for a "
+  //      "clue, 3 for a complete grid, 4 for confirmation that a grid is "
+  //      "possible\n difficulty: 0 for very easy, 1 for easy, 2 for medium, "
+  //      "3 for hard\n "
+  //      "seed: seed of the grid\n\n");
+  //  return EXIT_SUCCESS;
+  //}
 
   int dim = atoi(argv[1]);
-  // int dim = 3;
 
   int action = atoi(argv[2]);
-  // int action = 1;
 
-  Grid *grid;
 
+   Grid* grid;
   // Get a grid with missing elements
   if (action == 1) {
     int difficulty = atoi(argv[3]);
@@ -43,11 +41,12 @@ int main(int argc, char *argv[]) {
 
   // Get a clue
   else if (action == 2) {
-    grid = read_grid(argv[3], dim);
-    if (is_grid_correct(grid)) {
-      indice(grid,1);
-    }
-    push_to_php(grid);
+     //grid = read_grid(argv[3], dim);
+     
+    int ind = indice(grid, 1);
+     
+     push_to_php(grid);
+     
   }
 
   // Get a complete grid
@@ -56,19 +55,16 @@ int main(int argc, char *argv[]) {
     crate_solver(grid);
     push_to_php(grid);
   }
-
-  // Get confirmation that a grid is possible
-  else if (action == 4) {
-    grid = read_grid(argv[3], dim);
+  else if (action == 4) {// Get confirmation that a grid is possible
+    grid = read_grid(argv[3], dim);  
     unique_solution(grid) ? printf("possible\n") : printf("impossible\n");
+      
   }
-
   else if(action == 5) {
-    int difficulty = atoi(argv[3]);
+    grid = read_grid(argv[3], dim);
     char *seed_;
-    seed_ = create_seed(difficulty, dim);
-    printf_s(seed_);
-    printf("\n");
+    seed_ = level_to_seed(grid);
+    printf("%s\n", seed_);
   }
   /*
 

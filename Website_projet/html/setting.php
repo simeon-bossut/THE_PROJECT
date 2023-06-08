@@ -81,7 +81,7 @@
 							</div>
 						</div>
 						
-						<button class="bouton" type="submit" name="Modifier">Choose!</button>
+						<button class="bouton" type="submit" name="Modifier"><?php  echo getLanguage("Choisir","Choose");?></button>
 					</form>
 				</div>
 
@@ -105,7 +105,7 @@
 								<textarea class="textArea" name="reportText"></textarea>
 							</div>
 						</div>
-						<button class="bouton" type="submit" name="report">Report</button>
+						<button class="bouton" type="submit" name="report"><?php echo getLanguage("Signaler","Report");?></button>
 					</form>
 
 				</div>
@@ -119,8 +119,7 @@
 					<form action="edit.php" method="post">
 						<div class="form_div">
 
-							<label>
-								Email</label>
+							<label>Email</label>
 							<input class="field_class" name="email" type="text" placeholder="<?php echo $_SESSION["email"]; ?>" required autofocus>
 
 							<?php if (isset($_COOKIE["email_edit_error"])) {
@@ -128,7 +127,7 @@
 								setcookie("email_edit_error", "", time() - 3600);
 							} ?>
 
-							<button class="bouton" type="submit" name="edit_mail">Change</button>
+							<button class="bouton" type="submit" name="edit_mail"><?php echo getLanguage("Modifer","Change");?></button>
 						</div>
 					</form>
 
@@ -137,7 +136,7 @@
 							<label>Pseudo</label>
 							<input class="field_class" name="pseudo" type="text" placeholder=<?php echo $_SESSION["pseudo"]; ?> required>
 
-							<button class="bouton" type="submit" name="edit_pseudo">Change</button>
+							<button class="bouton" type="submit" name="edit_pseudo"><?php echo getLanguage("Modifer","Change");?></button>
 						</div>
 					</form>
 
