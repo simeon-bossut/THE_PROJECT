@@ -344,6 +344,17 @@ function generateGridBody() {
   */
 }
 
+function displayMessage() {
+  let value = getCookie('CON_message');
+
+  if(value == "")
+    value = "No information"
+
+  document.querySelector(".messageBox").textContent = value;
+
+  setCookie('CON_message', '', 0);
+}
+
 function generateAutoGrid() {
 
   let difficulty = document.querySelector('[name="difficulty"]:checked').value;
@@ -351,6 +362,8 @@ function generateAutoGrid() {
 
   setCookie("CON_dim",  size,       365);
   setCookie("CON_diff", difficulty, 365);
+
+  displayMessage();
 
   // Wish an empty grid
   if(difficulty == 4) {
@@ -406,6 +419,7 @@ function generateAutoGrid() {
 
 }
 
+
 function saveGrid() {
   let crates = document.querySelectorAll(".cratePlace");
   let obss = document.querySelectorAll(".obs");
@@ -418,7 +432,7 @@ function saveGrid() {
 
   let stringTab = createStringGrid("", obss, crates);
 
-  setCookie("CON_grid", difficulty, 365);
+  setCookie("CON_grid", stringTab, 365);
 
   console.log(stringTab)
 
