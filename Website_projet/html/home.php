@@ -21,7 +21,6 @@ if (isset($_POST["restart"]) && isset($_COOKIE["score_player"])) {
   }
 }
 try {
-
   if (isset($_SESSION) && isset($_SESSION['email'])) {
 
     $res = request("SELECT * FROM acc WHERE email = ?", true, array($_SESSION['email']));
@@ -68,8 +67,29 @@ try {
 
 
 
+  if(isset($_GET['seed'])) {
+
+    $playerGrid = $_GET["grid"];
+
+    
+
+    $playerGrid = str_split($playerGrid);
+    array_splice($playerGrid, 1 + $size*4);
+    $str = "";
+    
+    for($i = 0; $i < $size**2; $i++) {
+      $str = $str."0";
+    }
+    
+    $playerGrid = join($playerGrid).$str;
+
+    setcookie("grid", $playerGrid, time() + 365*24*60*60, '/');
+    setcookie("gridClue", $_COOKIE["grid"], time() + 365*24*60*60, '/');
+
+  }
+
   // If user started a new grid (action 1)
-  if (!isset($_COOKIE["grid"])) {
+  else if (!isset($_COOKIE["grid"])) {
     setcookie("diff", "0", time() + 365 * 24 * 60 * 60, '/');
     setcookie("dim",  "3", time() + 365 * 24 * 60 * 60, '/');
 

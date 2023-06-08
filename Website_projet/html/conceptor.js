@@ -20,14 +20,17 @@ function getElemByCoord(x, y) {
 
 function createStringGrid(dim, obs, crates) {
 
-  var string = "" + dim;
+  var string = "";
 
-  obs.forEach(obss => {
-    let value = obss.childNodes[0].textContent;
-    if(value == "" || obss.classList.contains("invCrate"))
+  for(let i = 0; i < dim*4; i++) {
+    let obss = document.querySelector("#obs_" + i);
+    let value = obss.textContent;
+    if(value == "" || obss.parentElement.classList.contains("invCrate"))
       value = "0";
     string += value == "" ? "0" : value;
-  });
+  }
+
+
   crates.forEach(crate => {
     let value = crate.textContent;
     if(value == "" || crate.classList.contains("invCrate"))
@@ -73,8 +76,6 @@ function hideCrate(hideButton) {
   }
   
 }
-
-
 
 document.querySelector('.crateInvChoice').addEventListener('click', e => {
   document.querySelector('.crateInvChoice').classList.toggle('inv');
@@ -169,14 +170,14 @@ function displayObservators() {
 
   for(let i = size - 1; i >= 0; i--) {
     let element = document.querySelector(`#pos_${i + 1}_${size + 1}`);
-    element.innerHTML += `<div id="obs-${count}" class="obsText rotate180">${ obsTab[count] == 0 ? '' : obsTab[count] }</div>`;
+    element.innerHTML += `<div id="obs_${count}" class="obsText rotate180">${ obsTab[count] == 0 ? '' : obsTab[count] }</div>`;
 
     count++;
   }
 
   for(let i = size - 1; i >= 0; i--) {
     let element = document.querySelector(`#pos_0_${i + 1}`);
-    element.innerHTML += `<div id="obs-${count}" class="obsText rotate90">${ obsTab[count] == 0 ? '' : obsTab[count] }</div>`;
+    element.innerHTML += `<div id="obs_${count}" class="obsText rotate90">${ obsTab[count] == 0 ? '' : obsTab[count] }</div>`;
 
     count++;
   }
@@ -409,16 +410,9 @@ function generateAutoGrid() {
       setCookie("CON_grid", "", 0);
 
       document.location.reload();
-    }
-
-
-    
+    } 
   }
-
-
-
 }
-
 
 function saveGrid() {
   let crates = document.querySelectorAll(".cratePlace");
@@ -430,7 +424,7 @@ function saveGrid() {
   setCookie("CON_dim",  size,       365);
   setCookie("CON_diff", difficulty, 365);
 
-  let stringTab = createStringGrid("", obss, crates);
+  let stringTab = createStringGrid(size, obss, crates);
 
   setCookie("CON_grid", stringTab, 365);
 
