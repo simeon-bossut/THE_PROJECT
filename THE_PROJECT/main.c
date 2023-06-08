@@ -24,16 +24,11 @@ int main(int argc, char *argv[]) {
   //  return EXIT_SUCCESS;
   //}
 
- /* int dim = atoi(argv[1]);
+  int dim = atoi(argv[1]);
 
-  int action = atoi(argv[2]);*/
+  int action = atoi(argv[2]);
 
-
-   Grid* grid=read_grid("231132212212000020100",3);
-
-   int action = 5;
-
-   int dim = 3;
+  Grid *grid=NULL;
 
   // Get a grid with missing elements
   if (action == 1) {
@@ -46,12 +41,11 @@ int main(int argc, char *argv[]) {
 
   // Get a clue
   else if (action == 2) {
-     //grid = read_grid(argv[3], dim);
+     grid = read_grid(argv[3], dim);
      
-    int ind = indice(grid, 1);
-     
+     int ind= indice(grid,1);
+    
      push_to_php(grid);
-     
   }
 
   // Get a complete grid
@@ -66,11 +60,10 @@ int main(int argc, char *argv[]) {
       
   }
   else if(action == 5) {
-    //grid = read_grid(argv[3], dim);
+    grid = read_grid(argv[3], dim);
     char *seed_;
     seed_ = level_to_seed(grid);
     printf("%s\n", seed_);
-    free(seed_);
   }
   /*
 
