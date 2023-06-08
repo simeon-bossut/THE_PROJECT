@@ -43,12 +43,12 @@ int main(int argc, char *argv[]) {
 
   // Get a clue
   else if (action == 2) {
-   /// grid = read_grid(argv[3], dim);
+    grid = read_grid(argv[3], dim);
       
-    char* seed_ = create_seed(3, 4);
+    //char* seed_ = create_seed(3, 4);
 
-      grid = read_seed(seed_);
-      printgrid(grid);
+    //  grid = read_seed(seed_);
+    //  printgrid(grid);
 
      
      int ind= indice(grid,1);
