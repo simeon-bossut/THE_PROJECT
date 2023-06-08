@@ -382,8 +382,6 @@ int hypothesis(GhostGrid *gridf, Grid *gridj, int poss, StockSoluce *Stock,
                 bool validity) // Fonction qui fait des hypotheses et teste
                                // chaque possibilite
 {
-    printgrid(gridj);
-    printgrid_Ghost(gridf);
   int valid = easy_resolve(gridf, gridj); // resoud le maximum possible sans
                                           // théorie 
   /*printgrid(gridj);
