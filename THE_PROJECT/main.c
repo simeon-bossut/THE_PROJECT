@@ -24,52 +24,58 @@ int main(int argc, char *argv[]) {
   //  return EXIT_SUCCESS;
   //}
 
-  int dim = atoi(argv[1]);
+  int dim = 3;//atoi(argv[1]);
 
-  int action = atoi(argv[2]);
+  int action = 1;//atoi(argv[2]);
 
   Grid *grid=NULL;
+  for (int i = 0;i < 5;++i)
+  {
 
-  // Get a grid with missing elements
-  if (action == 1) {
-    int difficulty = atoi(argv[3]);
-    char *seed_;
-    seed_ = create_seed(difficulty, dim);
-    grid = read_seed(seed_);
-    push_to_php(grid);
-  }
+      action = 1;
+      // Get a grid with missing elements
+      if (action == 1) {
+          int difficulty = 3;// atoi(argv[3]);
+          char* seed_;
+          seed_ = create_seed(difficulty, dim);
+          grid = read_seed(seed_);
+          printgrid(grid);
+          //push_to_php(grid);
+      }
 
-  // Get a clue
-  else if (action == 2) {
-     grid = read_grid(argv[3], dim);
-     
-     int ind= indice(grid,1);
-    
-     push_to_php(grid);
-  }
+      // Get a clue
+      else if (action == 2) {
+          grid = read_grid(argv[3], dim);
 
-  // Get a complete grid
-  else if (action == 3) {
-    grid = read_grid(argv[3], dim);
-    crate_solver(grid);
-    push_to_php(grid);
-  }
-  else if (action == 4) {// Get confirmation that a grid is possible
-    grid = read_grid(argv[3], dim);  
-    unique_solution(grid) ? printf("possible\n") : printf("impossible\n");
-      
-  }
-  else if(action == 5) {
-    grid = read_grid(argv[3], dim);
-    char *seed_;
-    seed_ = level_to_seed(grid);
-    printf("%s\n", seed_);
-  }
+          int ind = indice(grid, 1);
 
-  else if(action == 6) {
-    char *seed_ = argv[3];
-    grid = read_seed(seed_);
-    push_to_php(grid);
+          push_to_php(grid);
+      }
+
+      // Get a complete grid
+      else if (action == 3) {
+          grid = read_grid(argv[3], dim);
+          crate_solver(grid);
+          push_to_php(grid);
+      }
+      else if (action == 4) {// Get confirmation that a grid is possible
+          grid = read_grid(argv[3], dim);
+          unique_solution(grid) ? printf("possible\n") : printf("impossible\n");
+
+      }
+      action = 5;
+      if (action == 5) {
+          //grid = read_grid(argv[3], dim);
+          char* seed_;
+          seed_ = level_to_seed(grid);
+          printf("%s\n", seed_);
+      }
+
+      else if (action == 6) {
+          char* seed_ = argv[3];
+          grid = read_seed(seed_);
+          push_to_php(grid);
+      }
   }
   
   /*

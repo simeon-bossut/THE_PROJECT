@@ -375,7 +375,7 @@ int stock_soluce(
   }
 
   Stock->stock[Stock->size - 1] = *grid;
-  free(grid);
+  //free(grid);
   return 0;
 }
 
