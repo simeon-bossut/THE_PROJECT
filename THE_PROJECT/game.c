@@ -105,39 +105,6 @@ void initElt(int *elt, int size) {
   }
 }
 
-Grid *fillgrid(Grid *grid) {
-  int size = grid->size;
-  int *elt = (int *)malloc(sizeof(int) * size);
-  if (elt == NULL) {
-    return NULL;
-  }
-  for (int i = 0; i < size; i++) {
-    initElt(elt, size);
-    for (int j = 0; j < size; j++) {
-      if (i == 0) {
-        int r = rand() % (size - j);
-        grid->tab[i][j] = elt[r];
-        elt[r] = elt[size - j - 1];
-      }
-      if (i > 0) {
-        int r = rand() % (size - j);
-        int k = 0;
-        while (k < i) {
-          if (grid->tab[k][j] == elt[r]) {
-            r = rand() % (size - j);
-            k = 0;
-          } else {
-            k++;
-          }
-        }
-        grid->tab[i][j] = elt[r];
-        elt[r] = elt[size - j - 1];
-      }
-    }
-  }
-
-  return grid;
-}
 bool found_in_row(int **tab, int size, int row, int val) {
   for (int j = 0; j < size; ++j) {
     if (tab[row][j] == val) {
@@ -201,54 +168,6 @@ int nb_hint(Grid *grid) {
     }
   }
   return nb_hints;
-}
-int *tab_hints(Grid *grid) {
-  int nb_hints = nb_hint(grid);
-  int tmp;
-  int i = 0;
-  int j = 0;
-  int *tab_id;
-  tab_id = (int *)malloc(sizeof(int) * nb_hints);
-  if (tab_id == NULL) {
-    exit(EXIT_FAILURE);
-  }
-  i = 0;
-  for (int id = 0; id < grid->size * grid->size; id++) {
-    if (id >= grid->size * (i + 1)) {
-      i++;
-    }
-    tmp = grid->tab[i][id % grid->size];
-    if (tmp != 0) {
-      tab_id[j] = id;
-      j++;
-    }
-  }
-  return tab_id;
-}
-
-
-Grid *hint(Grid *grid) {
-  Grid *copy = copy_grid(grid);
-  crate_solver(copy);
-  int *tab_id = tab_hints(grid);
-  int random = rand() % (grid->size * grid->size);
-  int same = true;
-  int nb_hints = nb_hint(grid);
-  int id = 0;
-  while (same) {
-    same = false;
-    while (id < nb_hints) {
-      if (random == tab_id[id]) {
-        same = true;
-        random = rand() % (grid->size * grid->size);
-      }
-      id++;
-    }
-  }
-
-  grid->tab[random / grid->size][random % grid->size] =
-      copy->tab[random / grid->size][random % grid->size];
-  return copy;
 }
 
 bool is_grid_correct(Grid *grid) {

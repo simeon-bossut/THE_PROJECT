@@ -665,21 +665,6 @@ int fill_loners(Grid *gridj, GhostGrid gridf) {
   return res;
 }
 
-void print_tab_3(char ***tab, int size, Grid grid) {
-  printf("print\n");
-  for (int j = 0; j < grid.size; j++) {
-    for (int i = 0; i < size; i++) {
-
-      printf("[");
-      for (int k = 0; k < grid.size; k++) {
-        printf(" %2d ", tab[i][j][k]);
-      }
-      printf("]");
-    }
-    printf("\n");
-  }
-}
-
 void free_tab_3(char ***tab, int size) {
   for (int i = 0; i < size; ++i) {
     for (int j = 0; j < size; j++) {

@@ -21,33 +21,27 @@ typedef struct Grid {
   int *obv;
 } Grid;
 
-int **creatab(int size);
+int **creatab(int size);//cree un tableau a deux dimensions(et tous les mallocsq qui vont avec).Initialise egalement le tableau 
 
-void printgrid(Grid *grid);
+void printgrid(Grid *grid);//affiche une grille (tableau + observateurs)
 
-int *initpov(int size);
+int *initpov(int size);//permet d'initialiser les observateurs à 0)
 
-Grid *initgrid(int dim);
+Grid *initgrid(int dim);//cree une grille de dimension variable en appellant "creatab" et "initpov". Tous les mallocs sont donc faits et la grille initialisée
 
-void initElt(int *elt, int size);
+void initElt(int *elt, int size);//permet d'initaialiser une case de grille fantome (qui est en realite un tableau de int)
 
-Grid *fillgrid(Grid *grid);
+bool found_in_row(int **tab, int size, int row, int val);//informe si une valeur a été trouvée dans une ligne
 
-bool found_in_row(int **tab, int size, int row, int val);
+bool found_in_col(int** tab, int size, int col, int val);//informe si une valeur a été trouvée dans une collonne
 
-bool found_in_col(int **tab, int size, int col, int val);
+void initab(int **tab, int size);//initialise un tableau
 
-void initab(int **tab, int size);
+void free_tab(int **tab, int size);//free un tableau à deux dimensions
 
-void free_tab(int **tab, int size);
+bool is_solved(Grid gridj);//explicite
 
-bool is_solved(Grid gridj);
+bool is_grid_correct(Grid* grid);//verifie la coherence de la grille
 
-int* tab_hints(Grid* grid);
-
-Grid* hint(Grid* grid);
-
-bool is_grid_correct(Grid* grid);
-
-Grid* read_grid(char* grid_string, int size);
+Grid* read_grid(char* grid_string, int size);//lit une grille envoyee par le php et la trnasforme en, vrai grille
 #endif // !game
