@@ -2,10 +2,10 @@
 -- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jun 07, 2023 at 09:29 AM
--- Server version: 5.7.24
--- PHP Version: 8.0.1
+-- Hôte : localhost:3306
+-- Généré le : ven. 09 juin 2023 à 12:32
+-- Version du serveur : 5.7.24
+-- Version de PHP : 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `crate_stackers`
+-- Base de données : `crate_stackers`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `acc`
+-- Structure de la table `acc`
 --
 
 CREATE TABLE `acc` (
@@ -41,29 +41,23 @@ CREATE TABLE `acc` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `acc`
+-- Déchargement des données de la table `acc`
 --
 
 INSERT INTO `acc` (`email`, `admin`, `pseudo`, `civility`, `password`, `score`, `level`, `id_back`, `id_dude`, `id_hat`) VALUES
-('admin', 0, 'coucou', 'M', 'azer', NULL, NULL, 1, 10, 13),
-('anne.cauche@yahoo.fr', 0, 'Annouchka', 'Mme', 'coucou', NULL, NULL, 0, 1, 0),
-('azef@ezf', 0, 'azer', 'M', 'azer', NULL, NULL, 0, 1, 0),
-('lucas.verportern@gmail.com', 0, 'Yiroes', 'M', 'Zoeomg', 5000, NULL, 0, 1, 0),
-('monkoye@gmail.com', 0, 'monkoyeee', 'M', 'oui', NULL, NULL, 0, 1, 0),
-('nouveau_compte@gmail.compte', 0, 'XxdestructorxX', 'M', 'f5c984202b3b0eb868a39a0287e9e2aee6920018', NULL, NULL, 1, 1, 0),
-('Paul.antoine@gmail.com', 0, 'PA', 'M', 'oui', NULL, NULL, 0, 1, 0),
-('simeon.bossut@gmail.com', 0, 'sim', 'M', 'azer', NULL, NULL, 0, 1, 0),
-('simon@gmail.com', 1, 'Simowo', 'M', '1892d91129a24f0948ecf369dd28034f703ce907', NULL, NULL, 2, 4, 3),
-('test123@gmail.com', 0, 'ceciestuntest', 'M', 'non', 0, 0, 0, 1, 0),
-('test2222@gmail.co!', 0, 'TEST', 'M', 'azer', NULL, NULL, 0, 1, 0),
-('test@gmail.com', 0, 'test', 'M', 'test', NULL, NULL, 0, 1, 0),
-('test@test.test', NULL, 'test', 'M', '5e52fee47e6b070565f74372468cdc699de89107', NULL, NULL, 1, 1, 0),
-('yanis.ouchene@gmail.com', 0, 'Youyou', 'M', 'mdp', NULL, NULL, 0, 1, 0);
+('arsial@gmail.com', 1, 'Arsial', 'M', '1892d91129a24f0948ecf369dd28034f703ce907', 17089, NULL, 4, 9, 10),
+('destructor@gmail.com', NULL, 'XxdestructorxX', 'M', '1892d91129a24f0948ecf369dd28034f703ce907', 266, NULL, 3, 4, 9),
+('paulantoine@gmail.com', 1, 'PA', 'M', '1892d91129a24f0948ecf369dd28034f703ce907', 65020, NULL, 2, 10, 7),
+('paulmaurice.cauche@gmail.com', 1, 'Monkoye', 'M', '1892d91129a24f0948ecf369dd28034f703ce907', 1350, NULL, 1, 8, 4),
+('simeon.bossut@gmail.com', 1, 'simeme', 'M', '1892d91129a24f0948ecf369dd28034f703ce907', 1287, NULL, 1, 6, 6),
+('simon@gmail.com', 1, 'Simowo', 'M', '1892d91129a24f0948ecf369dd28034f703ce907', 29806, NULL, 2, 2, 5),
+('yanis.ouchn@gmail.com', 1, 'Yanou', 'M', '1892d91129a24f0948ecf369dd28034f703ce907', 1320, NULL, 3, 3, 13),
+('youremail@gmail.com', NULL, 'Pseudo', 'M', '1892d91129a24f0948ecf369dd28034f703ce907', 7883, NULL, 2, 7, 11);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `background`
+-- Structure de la table `background`
 --
 
 CREATE TABLE `background` (
@@ -73,7 +67,7 @@ CREATE TABLE `background` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `background`
+-- Déchargement des données de la table `background`
 --
 
 INSERT INTO `background` (`id`, `url`, `name`) VALUES
@@ -85,7 +79,7 @@ INSERT INTO `background` (`id`, `url`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `body`
+-- Structure de la table `body`
 --
 
 CREATE TABLE `body` (
@@ -95,7 +89,7 @@ CREATE TABLE `body` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `body`
+-- Déchargement des données de la table `body`
 --
 
 INSERT INTO `body` (`id`, `url`, `name`) VALUES
@@ -113,7 +107,7 @@ INSERT INTO `body` (`id`, `url`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hat`
+-- Structure de la table `hat`
 --
 
 CREATE TABLE `hat` (
@@ -123,7 +117,7 @@ CREATE TABLE `hat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `hat`
+-- Déchargement des données de la table `hat`
 --
 
 INSERT INTO `hat` (`id`, `url`, `name`) VALUES
@@ -144,7 +138,7 @@ INSERT INTO `hat` (`id`, `url`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `level`
+-- Structure de la table `level`
 --
 
 CREATE TABLE `level` (
@@ -155,10 +149,22 @@ CREATE TABLE `level` (
   `dim` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `level`
+--
+
+INSERT INTO `level` (`email`, `id`, `nom`, `seed`, `dim`) VALUES
+('simon@gmail.com', 1, 'mon niveau test', '0000000000', '3x3'),
+('arsial@gmail.com', 2, 'Official PFD', '4230108180000028420', '4'),
+('arsial@gmail.com', 3, 'SwitchCrate', '34510081058', '3'),
+('arsial@gmail.com', 4, 'PokeBall', '4031120160000065535', '4'),
+('arsial@gmail.com', 5, 'Cauchemar Trkl', '4111603200819629356', '4'),
+('arsial@gmail.com', 6, 'Cauchemar', '4170110190001655601', '4');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `report`
+-- Structure de la table `report`
 --
 
 CREATE TABLE `report` (
@@ -169,7 +175,7 @@ CREATE TABLE `report` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `report`
+-- Déchargement des données de la table `report`
 --
 
 INSERT INTO `report` (`id`, `type`, `text`, `date`) VALUES
@@ -178,69 +184,69 @@ INSERT INTO `report` (`id`, `type`, `text`, `date`) VALUES
 (10, 'idea', 'idee', '2023-06-06');
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `acc`
+-- Index pour la table `acc`
 --
 ALTER TABLE `acc`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `background`
+-- Index pour la table `background`
 --
 ALTER TABLE `background`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `body`
+-- Index pour la table `body`
 --
 ALTER TABLE `body`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `hat`
+-- Index pour la table `hat`
 --
 ALTER TABLE `hat`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `level`
+-- Index pour la table `level`
 --
 ALTER TABLE `level`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `report`
+-- Index pour la table `report`
 --
 ALTER TABLE `report`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `body`
+-- AUTO_INCREMENT pour la table `body`
 --
 ALTER TABLE `body`
   MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `hat`
+-- AUTO_INCREMENT pour la table `hat`
 --
 ALTER TABLE `hat`
   MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `level`
+-- AUTO_INCREMENT pour la table `level`
 --
 ALTER TABLE `level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `report`
+-- AUTO_INCREMENT pour la table `report`
 --
 ALTER TABLE `report`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
