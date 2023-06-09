@@ -263,6 +263,7 @@ try {
         echo 'style="overflow: hidden"';
       } ?>>
 
+<div class="hidePhone">This game can not be played on mobile devices</div>
 
   <?php if (!isset($_SESSION['isOnWebsite']) || !$_SESSION['isOnWebsite']) { ?>
 

@@ -995,3 +995,35 @@ form, input[name="clue"] {
   from{transform:rotate(0);}
   to{transform: rotate(360deg);}  
 }
+
+
+
+
+.hidePhone {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: #341900;
+  color: #ffe6cd;
+  font-size: 35px;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  display: none;
+  padding: 20%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+@media screen and (max-width: 950px) {
+  .hidePhone {
+    display: flex;
+  }
+
+  .backDis {
+    display: none;
+  }
+}
+
